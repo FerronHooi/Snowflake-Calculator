@@ -64,7 +64,7 @@ axios(url)
                 const dataBusinessCritical = { tier: $('#business-critical').attr('id'), priceUSD: $('#business-critical').find('div.pricing-price').attr('data-price-usd'), priceEUR: $('#business-critical').find('div.pricing-price').attr('data-price-eur'), priceGBP: $('#business-critical').find('div.pricing-price').attr('data-price-gbp') }
                 
                 // onderstaande zouden ook toegevoegd moeten worden eigenlijk alleen deze vallen niet binnen een div.. 
-                // const onDemandStorageCosts = { priceEuro: $('div.on-demand-price').find('div.addl-pricing-price').text(), description: $('div.on-demand-price').find('div.pricing-price-desc').text() }
+                const onDemandStorageCosts = { priceEuro: $('div.on-demand-price').find('div.addl-pricing-price').toString(), description: $('div.on-demand-price').find('div.pricing-price-desc').text() }
                 // const dataCapacityStorage = {}
                 // const virtualPrivateSnowflakeVPS = {}
                         
@@ -73,8 +73,8 @@ axios(url)
                     cloudregion,
                     dataStandard,
                     dataEnterprise,
-                    dataBusinessCritical
-                    // onDemandStorageCosts,
+                    dataBusinessCritical,
+                    onDemandStorageCosts
                     // dataCapacityStorage
                     // virtualPrivateSnowflakeVPS
                         
