@@ -13,7 +13,7 @@ axios(url)
         const html = response.data
         const $ = cheerio.load(html)
         const price = []
-        //PRIJZEN KOMEN NOG NIET OVEREEN MET DE JUISTE REGIO BLIJKBAAR...
+        //PRIJZEN KOMEN NOG NIET OVEREEN MET DE JUISTE REGIO BLIJKBAAR....
 
                 //Microsoft Azure (gebruikt wildcard, hij pakt dus alles met microsoftazure....)
                 $('[id^=microsoftazure]', html).each(function(){
