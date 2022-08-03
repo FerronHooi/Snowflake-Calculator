@@ -1,21 +1,8 @@
-const PORT = 8000
 const axios = require('axios')
 const cheerio = require('cheerio')
-const express = require('express')
-const app = express()
-const cors = require('cors')
-app.use(cors())
 
 //definieeren van op te halen URL 
 const url = 'https://www.snowflake.com/pricing/'
-
-//app.METHOD(PATH, HANDLER)
-
-app.get('/', function (req, res) {
-    res.json('test')
-})
-
-app.get('/results', (req, res) => {
 
     axios(url)
     .then(response =>{
@@ -45,20 +32,13 @@ app.get('/results', (req, res) => {
                     subStringData
                         
                 })
-                
-                JSON.stringify(script)
-                
+                                
             })
                                 
-        //console.log(script)
-        res.json(script)
+        console.log(script)
 
-    }).catch(err => console.log(err))
+    }).catch(err => console.log(err))  
 
-})
-
-
-
-app.listen(PORT, () => console.log('server running on port' + PORT));   
+//TODO: IF SCRAPER RETURNS ERROR, DO NOT OVERWRITE snowflakeCloudDataScript.js
 
 
