@@ -4,9 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a402f9cf-2656-4ecd-91f2-0bad9d7e1a71" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/flowchart incl. formulas.png" beforeDir="false" />
-    </list>
+    <list default="true" id="a402f9cf-2656-4ecd-91f2-0bad9d7e1a71" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -36,7 +34,11 @@
       <option name="presentableId" value="Default" />
       <updated>1659973926394</updated>
       <workItem from="1659973927527" duration="6000" />
+      <workItem from="1660029359038" duration="39000" />
     </task>
     <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
   </component>
 </project>
