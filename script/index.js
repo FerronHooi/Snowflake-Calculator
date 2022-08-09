@@ -36,45 +36,47 @@ const scrapeDataFromSnowflakePricing = async () => {
 
             //Microsoft Azure (gebruikt wildcard, hij pakt dus alles met microsoftazure....)
             $('[id^=microsoftazure]', html).each(function () {
-            const cloudregion = $(this).attr('id');
+            const platform = $(this).attr('id').toString().split('-')[0];
+            const cloudregion = $(this).attr('id').toString().split('-')[1];
             const dataStandard = {
                 tier: $('#standard').attr('id'),
-                priceUSD: $('#standard')
+                price_usd: $('#standard')
                 .find('div.pricing-price')
                 .attr('data-price-usd'),
-                priceEUR: $('#standard')
+                price_eur: $('#standard')
                 .find('div.pricing-price')
                 .attr('data-price-eur'),
-                priceGBP: $('#standard')
+                price_gbp: $('#standard')
                 .find('div.pricing-price')
                 .attr('data-price-gbp'),
             };
             const dataEnterprise = {
                 tier: $('#enterprise').attr('id'),
-                priceUSD: $('#enterprise')
+                price_usd: $('#enterprise')
                 .find('div.pricing-price')
                 .attr('data-price-usd'),
-                priceEUR: $('#enterprise')
+                price_eur: $('#enterprise')
                 .find('div.pricing-price')
                 .attr('data-price-eur'),
-                priceGBP: $('#enterprise')
+                price_gbp: $('#enterprise')
                 .find('div.pricing-price')
                 .attr('data-price-gbp'),
             };
             const dataBusinessCritical = {
                 tier: $('#business-critical').attr('id'),
-                priceUSD: $('#business-critical')
+                price_usd: $('#business-critical')
                 .find('div.pricing-price')
                 .attr('data-price-usd'),
-                priceEUR: $('#business-critical')
+                price_eur: $('#business-critical')
                 .find('div.pricing-price')
                 .attr('data-price-eur'),
-                priceGBP: $('#business-critical')
+                price_gbp: $('#business-critical')
                 .find('div.pricing-price')
                 .attr('data-price-gbp'),
             };
 
-            price.push({
+                price.push({
+                platform,
                 cloudregion,
                 dataStandard,
                 dataEnterprise,
@@ -84,45 +86,47 @@ const scrapeDataFromSnowflakePricing = async () => {
 
             //Amazon Web Service AWS
             $('[id^=amazonwebservicesaws]', html).each(function () {
-            const cloudregion = $(this).attr('id');
+            const platform = $(this).attr('id').toString().split('-')[0];
+            const cloudregion = $(this).attr('id').toString().split('-')[1];
             const dataStandard = {
                 tier: $('#standard').attr('id'),
-                priceUSD: $('#standard')
+                price_usd: $('#standard')
                 .find('div.pricing-price')
                 .attr('data-price-usd'),
-                priceEUR: $('#standard')
+                price_eur: $('#standard')
                 .find('div.pricing-price')
                 .attr('data-price-eur'),
-                priceGBP: $('#standard')
+                price_gbp: $('#standard')
                 .find('div.pricing-price')
                 .attr('data-price-gbp'),
             };
             const dataEnterprise = {
                 tier: $('#enterprise').attr('id'),
-                priceUSD: $('#enterprise')
+                price_usd: $('#enterprise')
                 .find('div.pricing-price')
                 .attr('data-price-usd'),
-                priceEUR: $('#enterprise')
+                price_eur: $('#enterprise')
                 .find('div.pricing-price')
                 .attr('data-price-eur'),
-                priceGBP: $('#enterprise')
+                price_gbp: $('#enterprise')
                 .find('div.pricing-price')
                 .attr('data-price-gbp'),
             };
             const dataBusinessCritical = {
                 tier: $('#business-critical').attr('id'),
-                priceUSD: $('#business-critical')
+                price_usd: $('#business-critical')
                 .find('div.pricing-price')
                 .attr('data-price-usd'),
-                priceEUR: $('#business-critical')
+                price_eur: $('#business-critical')
                 .find('div.pricing-price')
                 .attr('data-price-eur'),
-                priceGBP: $('#business-critical')
+                price_gbp: $('#business-critical')
                 .find('div.pricing-price')
                 .attr('data-price-gbp'),
             };
 
-            price.push({
+                price.push({
+                platform,
                 cloudregion,
                 dataStandard,
                 dataEnterprise,
@@ -132,45 +136,47 @@ const scrapeDataFromSnowflakePricing = async () => {
 
             //Google Cloud Platform
             $('[id^=googlecloudplatform]', html).each(function () {
-            const cloudregion = $(this).attr('id');
+            const platform = $(this).attr('id').toString().split('-')[0];
+            const cloudregion = $(this).attr('id').toString().split('-')[1];
             const dataStandard = {
                 tier: $('#standard').attr('id'),
-                priceUSD: $('#standard')
+                price_usd: $('#standard')
                 .find('div.pricing-price')
                 .attr('data-price-usd'),
-                priceEUR: $('#standard')
+                price_eur: $('#standard')
                 .find('div.pricing-price')
                 .attr('data-price-eur'),
-                priceGBP: $('#standard')
+                price_gbp: $('#standard')
                 .find('div.pricing-price')
                 .attr('data-price-gbp'),
             };
             const dataEnterprise = {
                 tier: $('#enterprise').attr('id'),
-                priceUSD: $('#enterprise')
+                price_usd: $('#enterprise')
                 .find('div.pricing-price')
                 .attr('data-price-usd'),
-                priceEUR: $('#enterprise')
+                price_eur: $('#enterprise')
                 .find('div.pricing-price')
                 .attr('data-price-eur'),
-                priceGBP: $('#enterprise')
+                price_gbp: $('#enterprise')
                 .find('div.pricing-price')
                 .attr('data-price-gbp'),
             };
             const dataBusinessCritical = {
                 tier: $('#business-critical').attr('id'),
-                priceUSD: $('#business-critical')
+                price_usd: $('#business-critical')
                 .find('div.pricing-price')
                 .attr('data-price-usd'),
-                priceEUR: $('#business-critical')
+                price_eur: $('#business-critical')
                 .find('div.pricing-price')
                 .attr('data-price-eur'),
-                priceGBP: $('#business-critical')
+                price_gbp: $('#business-critical')
                 .find('div.pricing-price')
                 .attr('data-price-gbp'),
             };
 
-            price.push({
+                price.push({
+                platform,
                 cloudregion,
                 dataStandard,
                 dataEnterprise,
