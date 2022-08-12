@@ -122,15 +122,20 @@ class snowflakeCalculatorScraper:
     @staticmethod
     #function to write file to JSON
     def writeToJson():
-        dataStorageCosts = snowflakeCalculatorScraper.scrapeStorageCosts()
-        dataScrapePrices = snowflakeCalculatorScraper.scrapePrices()
+        try:
+            dataStorageCosts = snowflakeCalculatorScraper.scrapeStorageCosts()
+            dataScrapePrices = snowflakeCalculatorScraper.scrapePrices()
 
-        allData = dataStorageCosts + dataScrapePrices
+            allData = dataStorageCosts + dataScrapePrices
 
-        allData = json.dumps(allData)
-        print(json)
-        with open('SnowflakeCloudData.json', 'w') as outfile:
-            outfile.write(allData)
+            allData = json.dumps(allData)
+            print(json)
+            with open('SnowflakeCloudData.json', 'w') as outfile:
+                outfile.write(allData)
+        except:
+            print('An error occured while writing the file to JSON')
+            pass
+
 
 snowflakeCalculatorScraper.writeToJson()
 
