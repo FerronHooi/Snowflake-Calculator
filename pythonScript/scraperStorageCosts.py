@@ -99,7 +99,8 @@ class snowflakeCalculatorScraper:
             for platReg in platformRegions:
                 results = soup.find_all('div', {'id': platReg})
                 for result in results:
-                    price = result.find(attrs={"data-price-eur": True})
+                    standardTierCosts = result.find('div', {'id': 'standard'})
+                    price = standardTierCosts.find(attrs={"data-price-eur": True})
                     if price != None:
                         priceUsd = price['data-price-usd']
                         priceEur = price['data-price-eur']
