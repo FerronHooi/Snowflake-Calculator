@@ -33,6 +33,9 @@ class snowflakeCalculatorScraper:
             #split the lines by enters
             splittedResult = result.splitlines()
 
+            #empty array
+            dataScrapeStorageCosts = []
+
             #loop to over splittedResult to get every line individually. Than remove the whitespaces before/after
 
             for line in splittedResult:
@@ -56,8 +59,12 @@ class snowflakeCalculatorScraper:
 
                         #remove apostrophe and ; from the value
                         value = re.sub("[' ;]", '', column[1])
-                        dataScrapeStorageCosts = {'platform': splittedSentence[0], 'cloudregion': splittedSentence[1], column[0]:value.replace(',', '.')}
-                        return dataScrapeStorageCosts
+                        dataScrapeStorageCosts.append({'platform': splittedSentence[0], 'cloudregion': splittedSentence[1], column[0]:value.replace(',', '.')})
+                        # dataScrapeStorageCosts = {'platform': splittedSentence[0], 'cloudregion': splittedSentence[1], column[0]:value.replace(',', '.')}
+                        # print (dataScrapeStorageCosts)
+
+            return dataScrapeStorageCosts
+
         except:
             print('An error occured while scraping the storage costs')
             pass
@@ -70,8 +77,8 @@ class snowflakeCalculatorScraper:
             url = requests.get('https://www.snowflake.com/pricing/', headers={'User-Agent': 'Mozilla/5.0'})
             soup = BeautifulSoup(url.text, 'html.parser')
 
-            #empty dictionary
-            data = {'platform': [], 'cloudregion': [], 'price': []}
+            #empty array
+            dataScrapePrices = []
 
             #platforms
             platforms = ['microsoftazure', 'amazonwebservicesaws', 'googlecloudplatform']
@@ -104,15 +111,26 @@ class snowflakeCalculatorScraper:
                             priceUsd = re.sub('[$, €, £]', '', price['data-price-usd'])
                             priceEur = re.sub('[$, €, £]', '', price['data-price-eur'])
                             priceGbp = re.sub('[$, €, £]', '', price['data-price-gbp'])
-                            dataScrapePrices = {'Platform':platform, 'cloudregion':region, tier+'_tier_cost_per_credit': {'price_eur': priceEur, 'price_usd': priceUsd, 'price_gbp': priceGbp}}
-                            return dataScrapePrices
+                            dataScrapePrices.append({'Platform':platform, 'cloudregion':region, tier+'_tier_cost_per_credit': {'price_eur': priceEur, 'price_usd': priceUsd, 'price_gbp': priceGbp}})
+
+            return dataScrapePrices
 
         except:
             print('An error occured while scraping the prices')
             pass
 
+    @staticmethod
+    #function to write file to JSON
+    def writeToJson():
+        dataStorageCosts = snowflakeCalculatorScraper.scrapeStorageCosts()
+        dataScrapePrices = snowflakeCalculatorScraper.scrapePrices()
 
-print(snowflakeCalculatorScraper.scrapeStorageCosts())
-print(snowflakeCalculatorScraper.scrapePrices())
+        allData = dataStorageCosts + dataScrapePrices
 
+        allData = json.dumps(allData)
+        print(json)
+        with open('SnowflakeCloudData.json', 'w') as outfile:
+            outfile.write(allData)
+
+snowflakeCalculatorScraper.writeToJson()
 
