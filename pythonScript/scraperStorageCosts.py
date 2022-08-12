@@ -74,36 +74,62 @@ class snowflakeCalculatorScraper:
             #empty dictionary
             data = {'platform': [], 'cloudregion': [], 'price': []}
 
-            #get the tier
-            platforms = ['microsoftazure', 'amazonewebserviceaws', 'googlecloudplatform']
+            #platforms
+            platforms = ['microsoftazure', 'amazonwebservicesaws', 'googlecloudplatform']
+            platformRegions = []
 
+            #first get all the platforms with corresponding region name to scrape the data per platform + region
             for platform in platforms:
-                results = soup.find_all('div', {'id': lambda L: L and L.startswith(platform)})
+                resultsPlatformRegions = soup.find_all('div', {'id': lambda L: L and L.startswith(platform)})
+                # print(results)
 
-                for result in results:
+                for result in resultsPlatformRegions:
                     if result != None:
-                        platformAndRegion = result.attrs['id']
-                        platformAndRegion = platformAndRegion.split('-')
-                        platform = platformAndRegion[0]
-                        region = platformAndRegion[1]
-                        # print({'platform': platform, 'cloudregion': region})
+                        resultList = []
 
-                        tiers = ['standard', 'enterprise', 'business-critical']
+                        platformAndRegions = result.attrs['id']
+                        platformRegions.append(platformAndRegions)
 
-                        for tier in tiers:
-                            resultsTiers = soup.find_all('div', {'id': lambda L: L and L.startswith(tier)})
-                            for result in resultsTiers:
-                                price = result.find(attrs={"data-price-eur" : True})
-                                if price != None:
-                                    priceUsd = price['data-price-usd']
-                                    priceEur = price['data-price-eur']
-                                    priceGbp = price['data-price-gbp']
+                        platformAndRegions = platformAndRegions.split('-')
+                        platformAndRegionsUnsplit = result.attrs['id']
 
-                                    # print(priceUsd)
-                                    # print(priceEur)
-                                    # print(priceGbp)
+                        platform = platformAndRegions[0]
+                        region = platformAndRegions[1]
 
-                                    print({'platform': platform, 'cloudregion': region, 'tier': tier, 'price': {'price_eur': priceEur, 'price_usd': priceUsd, 'price_gbp': priceGbp}})
+            for platReg in platformRegions:
+                results = soup.find_all('div', {'id': platReg})
+                for result in results:
+                    price = result.find(attrs={"data-price-eur": True})
+                    if price != None:
+                        priceUsd = price['data-price-usd']
+                        priceEur = price['data-price-eur']
+                        priceGbp = price['data-price-gbp']
+                        print({'Region':platReg, 'price': {'price_eur': priceEur, 'price_usd': priceUsd, 'price_gbp': priceGbp}})
+
+                # print(results)
+
+
+                        # price = result.find(attrs={"data-price-eur" : True})
+                        # if price != None:
+                        #     priceEur = price['data-price-eur']
+                        #     print(priceEur)
+                        #
+                        # tiers = ['standard', 'enterprise', 'business-critical']
+                        #
+                        # for tier in tiers:
+                        #     resultsTiers = soup.find_all('div', {'id': lambda L: L and L.startswith(tier)})
+                        #     for result in resultsTiers:
+                        #         price = result.find(attrs={"data-price-eur" : True})
+                        #         if price != None:
+                        #             priceUsd = price['data-price-usd']
+                        #             priceEur = price['data-price-eur']
+                        #             priceGbp = price['data-price-gbp']
+                        #
+                        #             # print(priceUsd)
+                        #             # print(priceEur)
+                        #             # print(priceGbp)
+                        #
+                        #             # print({'platform': platform, 'cloudregion': region, 'tier': tier, 'price': {'price_eur': priceEur, 'price_usd': priceUsd, 'price_gbp': priceGbp}})
         except:
             print('An error occured while scraping the prices')
             pass
