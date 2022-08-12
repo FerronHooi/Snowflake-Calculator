@@ -33,6 +33,7 @@ const scrapeDataFromSnowflakePricing = async () => {
             //PRIJZEN PER REGIO IN EUR, GBP OF USD    
             const price = [];
             //TODO: PRIJZEN KOMEN NOG NIET OVEREEN MET DE JUISTE REGIO BLIJKBAAR....
+            //TODO: Scrape moet ook in een loopje kunnen.. die standard door enterprise of 
 
             //Microsoft Azure (gebruikt wildcard, hij pakt dus alles met microsoftazure....)
             $('[id^=microsoftazure]', html).each(function () {
@@ -184,7 +185,9 @@ const scrapeDataFromSnowflakePricing = async () => {
             });
             });
             
-            console.log(price)    
+            console.log(price) 
+            const jsonPricesTiers = JSON.stringify(price)
+            console.log(jsonPricesTiers)
                                 
             })
 
