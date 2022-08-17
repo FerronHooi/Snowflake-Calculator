@@ -1,8 +1,0 @@
-https://www.youtube.com/watch?v=-3lqUHeZs_0&t=219s > de video waar de inspiratie vandaan komt voor het scrapen
-
-https://www.youtube.com/watch?v=1wXYg8Eslnc > de tweede deel van de video voor als we de data van backend naar frontend willen halen voor de calculator
- 
-"npm run start" > voor het runnen van het script in index.js
-
-Waar we tegenaan lopen:
-- de data kan opgehaald worden. alleen wil je de data kunnen indelen op basis van de input van de viewer (type service, regio, koers)
