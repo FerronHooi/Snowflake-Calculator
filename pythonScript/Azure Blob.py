@@ -1,3 +1,5 @@
+#link to blob: https://snowflakecalculatordata.blob.core.windows.net/snowflakedata/SnowflakeCloudData.json
+
 import os, uuid
 from azure.storage.blob import BlobServiceClient, BlobClient, ContainerClient, __version__
 
