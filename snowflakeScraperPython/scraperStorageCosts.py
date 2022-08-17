@@ -3,6 +3,7 @@ import requests
 from bs4 import BeautifulSoup
 import json
 import re
+from AzureBlob import write_to_blob
 
 class snowflakeCalculatorScraper:
     @staticmethod
@@ -171,3 +172,4 @@ df1.to_json('SnowflakeCloudDataStorage.json', orient='records')
 # #write dateframe to json
 # df.to_json('SnowflakeCloudData.json', orient='records')
 
+write_to_blob()
