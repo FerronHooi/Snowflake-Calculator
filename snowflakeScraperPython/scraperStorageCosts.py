@@ -3,7 +3,7 @@ import requests
 from bs4 import BeautifulSoup
 import json
 import re
-# from AzureBlob import write_to_blob
+from AzureBlob import write_to_blob
 
 class snowflakeCalculatorScraper:
     @staticmethod
@@ -72,7 +72,10 @@ class snowflakeCalculatorScraper:
                                 if name in column[0]:
                                     dataScrapeStorageCosts.append(
                                         {'platform': splittedSentence[0], 'cloudregion': splittedSentence[1],
-                                         name[:-10]: {name.split('_')[2] + '_' + name.split('_')[3]: value.replace(',', '.')}})
+                                         name[:-10] + '_' + name.split('_')[2] + '_' + name.split('_')[3]: value.replace(',', '.')})
+                                    # dataScrapeStorageCosts.append(
+                                    #     {'platform': splittedSentence[0], 'cloudregion': splittedSentence[1],
+                                    #      name[:-10]: {name.split('_')[2] + '_' + name.split('_')[3]: value.replace(',', '.')}})
 
             print (dataScrapeStorageCosts)
             return dataScrapeStorageCosts
@@ -123,7 +126,8 @@ class snowflakeCalculatorScraper:
                             priceUsd = re.sub('[$, €, £]', '', price['data-price-usd'])
                             priceEur = re.sub('[$, €, £]', '', price['data-price-eur'])
                             priceGbp = re.sub('[$, €, £]', '', price['data-price-gbp'])
-                            dataScrapePrices.append({'platform':platform, 'cloudregion':region, 'tier': { tier: {'price_eur': priceEur, 'price_usd': priceUsd, 'price_gbp': priceGbp}}})
+                            dataScrapePrices.append({'platform':platform, 'cloudregion':region, tier + '_tier_price_eur': priceEur, tier + '_tier_price_usd': priceUsd, tier + '_tier_price_gbp': priceGbp})
+                            # dataScrapePrices.append({'platform':platform, 'cloudregion':region, 'tier': { tier: {'price_eur': priceEur, 'price_usd': priceUsd, 'price_gbp': priceGbp}}})
 
             return dataScrapePrices
 
@@ -152,20 +156,19 @@ class snowflakeCalculatorScraper:
 
 snowflakeCalculatorScraper.writeToJson()
 
-# df1 = pd.DataFrame(snowflakeCalculatorScraper.scrapeStorageCosts())
-# df2 = pd.DataFrame(snowflakeCalculatorScraper.scrapePrices())
-# df1 = pd.merge(df1, df1, on=['cloudregion'], how='left')
-# df1.to_json('SnowflakeCloudDataStorage.json', orient='records')
-#
-# print(df1.values)
+df_storage_costs = pd.DataFrame(snowflakeCalculatorScraper.scrapeStorageCosts())
 
-df = pd.DataFrame({'a': [1, 2, 3, 4],
-                   'b': [6, 7, 8, 9]})
+df_prices = pd.DataFrame(snowflakeCalculatorScraper.scrapePrices())
 
-print(df)
+#combine the two dataframes
+df_all = pd.concat([df_storage_costs, df_prices], axis=0)
+df_all['platform_region_combined'] = df_all['platform'] + '_' + df_all['cloudregion']
+df_all.sort_values(by=['platform_region_combined'], inplace=True)
+df_all.reset_index(drop=True, inplace=True)
+grouped_df = df_all.groupby(['platform_region_combined'],as_index=False).first()
 
-#write dateframe to json
-# df.to_json('SnowflakeCloudData.json', orient='records')
+#write grouped_df to csv
+grouped_df.to_csv('SnowflakeCloudData.csv', index=False)
 
-# ENABLE BELOW TO WRITE FILE TO BLOB
-# write_to_blob()
+#write to blob
+write_to_blob()
