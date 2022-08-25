@@ -3,7 +3,7 @@ import requests
 from bs4 import BeautifulSoup
 import json
 import re
-from AzureBlob import write_to_blob
+# from AzureBlob import write_to_blob
 
 class snowflakeCalculatorScraper:
     @staticmethod
@@ -152,24 +152,20 @@ class snowflakeCalculatorScraper:
 
 snowflakeCalculatorScraper.writeToJson()
 
-df1 = pd.DataFrame(snowflakeCalculatorScraper.scrapeStorageCosts())
-df2 = pd.DataFrame(snowflakeCalculatorScraper.scrapePrices())
-df1 = pd.merge(df1, df1, on=['cloudregion'], how='left')
-df1.to_json('SnowflakeCloudDataStorage.json', orient='records')
+# df1 = pd.DataFrame(snowflakeCalculatorScraper.scrapeStorageCosts())
+# df2 = pd.DataFrame(snowflakeCalculatorScraper.scrapePrices())
+# df1 = pd.merge(df1, df1, on=['cloudregion'], how='left')
+# df1.to_json('SnowflakeCloudDataStorage.json', orient='records')
+#
+# print(df1.values)
 
+df = pd.DataFrame({'a': [1, 2, 3, 4],
+                   'b': [6, 7, 8, 9]})
 
-# #combine the two dataframes
-# # df = pd.concat([df1, df2], axis=0)
-# # print(df)
-#
-# #join dataframes on platform and cloudregion
-# df = pd.merge(df1, df2, on=['platform', 'cloudregion'], how='right', suffixes=('', '_test'))
-# # df = pd.merge(df, df, on=['cloudregion'], how='left')
-# # df = df.drop_duplicates()
-# print(df.head(5))
-#
-#
-# #write dateframe to json
+print(df)
+
+#write dateframe to json
 # df.to_json('SnowflakeCloudData.json', orient='records')
 
-write_to_blob()
+# ENABLE BELOW TO WRITE FILE TO BLOB
+# write_to_blob()

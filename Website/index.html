@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html>
+<head>
+<div>
+  <link href="./snowflake-calculator.css" rel="stylesheet" />
+  <div class="snowflake-calculator-container">
+    <div class="snowflake-calculator-main-container">
+      <div
+        class="snowflake-calculator-preference-platform-region-valuta-container"
+      >
+        <h1 class="snowflake-calculator-text">
+          Kies je voorkeurs cloudplatform en regio
+        </h1>
+        <div class="snowflake-calculator-container01">
+          <div class="snowflake-calculator-container02">
+            <select id="select-cloudplatform" class="select-cloudplatform">
+              <option value="Cloud platform" selected>Cloud platform</option>
+              <option value="Option 3">Option 3</option>
+            </select>
+          </div>
+          <div class="snowflake-calculator-container03">
+            <select id="select-region" class="select-region">
+              <option value="Regio">Regio</option>
+              <option value="Option 2">Option 2</option>
+              <option value="Option 3">Option 3</option>
+            </select>
+          </div>
+          <div class="snowflake-calculator-container04">
+            <select id="select-currency" class="select-currency">
+              <option value="Valuta">Valuta</option>
+              <option value="Option 2">Option 2</option>
+              <option value="Option 3">Option 3</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="snowflake-calculator-usage-cost-estimation-container">
+        <h1 class="snowflake-calculator-text01">Schatting verbruikskosten</h1>
+        <div class="snowflake-calculator-container05">
+          <div class="snowflake-calculator-name-container">
+            <h2 class="heading-name">ETL</h2>
+            <img
+              alt="image"
+              src="https://play.teleporthq.io/static/svg/default-img.svg"
+              class="snowflake-calculator-image"
+            />
+          </div>
+          <div class="snowflake-calculator-warehouse-container">
+            <h3 class="snowflake-calculator-warehouse-size">Warehouse Size</h3>
+            <span class="warehouse-type"><span>X-Small</span></span>
+            <div
+              id="warehouze-size-area"
+              class="snowflake-calculator-container06"
+            >
+              <button
+                id="warehouse-size-button-left"
+                class="snowflake-calculator-button button"
+              >
+                <span class="snowflake-calculator-text04">&lt;</span>
+              </button>
+              <span
+                id="warehouse-size-number"
+                class="snowflake-calculator-text05"
+              >
+                1
+              </span>
+              <button
+                id="warehouse-size-button-right"
+                class="snowflake-calculator-button1 button"
+              >
+                &gt;
+              </button>
+            </div>
+          </div>
+          <div class="snowflake-calculator-container-days-and-hours">
+            <input
+              type="ETL Warehouse"
+              id="etlnameinputfield"
+              value="ETL Warehouse"
+              placeholder="placeholder"
+              class="warehouse-name-input input"
+            />
+            <div class="snowflake-calculator-container-etl-days">
+              <span class="snowflake-calculator-text06">Aantal dagen</span>
+              <select class="number-of-days-select">
+                <option value="Option 1">1</option>
+                <option value="Option 2">2</option>
+                <option value="Option 3">3</option>
+              </select>
+            </div>
+            <div class="snowflake-calculator-container-etl-days1">
+              <span class="snowflake-calculator-text07">
+                Geschat verbruik p/dag (uren)
+              </span>
+              <select class="usage-hours-select">
+                <option value="Option 1">1</option>
+                <option value="Option 2">2</option>
+                <option value="Option 3">3</option>
+              </select>
+            </div>
+          </div>
+          <div class="snowflake-calculator-container07">
+            <h1 class="snowflake-calculator-text08">Totaal</h1>
+            <div class="snowflake-calculator-container08">
+              <span class="total-credits-per-hour">4 Credits/uur</span>
+              <span class="snowflake-calculator-text13">
+                <span>Totale hours:</span>
+                <span class="snowflake-calculator-text12">122</span>
+              </span>
+              <span class="snowflake-calculator-text13">
+                <span>Totale credits:</span>
+                <span class="snowflake-calculator-text15">122</span>
+              </span>
+            </div>
+            <button
+              id="deleteall"
+              type="reset"
+              class="snowflake-calculator-button2 button"
+            >
+              Delete
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="snowflake-calculator-estimates-by-edition-container">
+        <h1 class="snowflake-calculator-text16">Schatting per editie</h1>
+        <h2 id="currentregionselection" class="snowflake-calculator-text17">
+          (AWS - US-EAST)
+        </h2>
+        <div class="snowflake-calculator-container-edition-calculation">
+          <div class="snowflake-calculator-container-standaard">
+            <h1 class="snowflake-calculator-edition">Standard</h1>
+            <input
+              type="number"
+              id="inputfieldstandard"
+              value="2,00"
+              placeholder="2,00"
+              class="snowflake-calculator-textinput1 input"
+            />
+            <img
+              alt="image"
+              src="https://play.teleporthq.io/static/svg/default-img.svg"
+              class="snowflake-calculator-image1"
+            />
+            <h3 id="standardeditionamount" class="snowflake-calculator-text18">
+              $ 1100
+            </h3>
+            <span class="snowflake-calculator-usage-costs-per-month">
+              Verbruikskosten per maand
+            </span>
+          </div>
+          <div class="snowflake-calculator-container-enterprise">
+            <h1 class="snowflake-calculator-edition1">Enterprise</h1>
+            <input
+              type="number"
+              id="inputfieldenterprise"
+              value="3,00"
+              placeholder="3,00"
+              class="snowflake-calculator-textinput1 input"
+            />
+            <img
+              alt="image"
+              src="https://play.teleporthq.io/static/svg/default-img.svg"
+              class="snowflake-calculator-image2"
+            />
+            <h3
+              id="enterpriseeditionamount"
+              class="snowflake-calculator-heading1"
+            >
+              $ 1100
+            </h3>
+            <span class="snowflake-calculator-usage-costs-per-month1">
+              Verbruikskosten per maand
+            </span>
+          </div>
+          <div class="snowflake-calculator-container-business-critical">
+            <h1 class="snowflake-calculator-edition2">Business critical</h1>
+            <input
+              type="number"
+              id="inputfieldbusinesscritical"
+              value="2,00"
+              placeholder="2,00"
+              class="snowflake-calculator-textinput2 input"
+            />
+            <img
+              alt="image"
+              src="https://play.teleporthq.io/static/svg/default-img.svg"
+              class="snowflake-calculator-image3"
+            />
+            <h3
+              id="businesscriticaleditionamount"
+              class="snowflake-calculator-text19"
+            >
+              $ 1100
+            </h3>
+            <span class="snowflake-calculator-usage-costs-per-month2">
+              Verbruikskosten per maand
+            </span>
+          </div>
+        </div>
+      </div>
+      <div
+        class="snowflake-calculator-calculate-monthy-storage-costs-container"
+      >
+        <h1 class="snowflake-calculator-text20">
+          Bereken je geschatte maandelijkse opslagkosten
+        </h1>
+        <div class="snowflake-calculator-container09">
+          <div class="snowflake-calculator-container10">
+            <h1 class="snowflake-calculator-text21">
+              Geschatte benodigde opslag
+            </h1>
+            <input
+              type="number"
+              placeholder="1"
+              id="input-storage-tb-per-month"
+              class="input snowflake-calculator-textinput3"
+            />
+            <h1 class="snowflake-calculator-text22">tb / maand</h1>
+          </div>
+          <div class="snowflake-calculator-container11">
+            <div class="snowflake-calculator-container12">
+              <h1 class="snowflake-calculator-on-demand-storage">
+                <span>On-Demand Storage</span>
+                <br />
+              </h1>
+              <img
+                alt="image"
+                src="https://play.teleporthq.io/static/svg/default-img.svg"
+                class="snowflake-calculator-image4"
+              />
+              <h3
+                id="on-demand-storage-amount"
+                class="on-demand-storage-amount"
+              >
+                $ 1100
+              </h3>
+              <span class="snowflake-calculator-opslagkosten-per-maand">
+                Opslagkosten per maand
+              </span>
+            </div>
+            <div class="snowflake-calculator-container13">
+              <h1 class="snowflake-calculator-on-demand-storage1">
+                Capacity Storage
+              </h1>
+              <img
+                alt="image"
+                src="https://play.teleporthq.io/static/svg/default-img.svg"
+                class="snowflake-calculator-image5"
+              />
+              <h3
+                id="on-demand-storage-amount"
+                class="snowflake-calculator-heading3 on-demand-storage-amount"
+              >
+                $ 1100
+              </h3>
+              <span class="snowflake-calculator-opslagkosten-per-maand1">
+                Opslagkosten per maand
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
