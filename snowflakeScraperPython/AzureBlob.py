@@ -14,7 +14,7 @@ def write_to_blob():
 
         # Create a unique name for the container
         container_name = "snowflakedata"
-        blob_name = "SnowflakeCloudData.json"
+        blob_name = "SnowflakeCloudData.csv"
 
         # Create a blob client using the local file name as the name for the blob
         blob_client = blob_service_client.get_blob_client(container=container_name, blob=blob_name)
@@ -22,7 +22,7 @@ def write_to_blob():
         print("\nUploading to Azure Storage as blob:\n\t" + blob_client.blob_name)
 
         # Upload the created file
-        with open("SnowflakeCloudData.json", "rb") as data:
+        with open("SnowflakeCloudData.csv", "rb") as data:
             blob_client.upload_blob(data, overwrite=True)
 
         # # Clean up
