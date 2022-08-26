@@ -147,27 +147,6 @@ class snowflakeCalculatorScraper:
             print('An error occured while scraping the prices: ' + str(e))
             pass
 
-    @staticmethod
-    #function to write file to JSON
-    def writeToJson():
-        try:
-            dataStorageCosts = snowflakeCalculatorScraper.scrapeStorageCosts()
-            dataScrapePrices = snowflakeCalculatorScraper.scrapePrices()
-
-            allData = dataStorageCosts + dataScrapePrices
-
-            allData = json.dumps(allData, indent=4, sort_keys=True)
-            # print(allData)
-            with open('SnowflakeCloudData.json', 'w') as outfile:
-                outfile.write(allData)
-
-        except Exception as e:
-            print('An error occured while writing the file to JSON: ' + str(e))
-            pass
-
-
-snowflakeCalculatorScraper.writeToJson()
-
 df_storage_costs = pd.DataFrame(snowflakeCalculatorScraper.scrapeStorageCosts())
 
 df_prices = pd.DataFrame(snowflakeCalculatorScraper.scrapePrices())
