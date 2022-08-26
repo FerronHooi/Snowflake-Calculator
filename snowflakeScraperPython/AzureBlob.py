@@ -37,5 +37,3 @@ def write_to_blob():
     except Exception as ex:
         print('Exception:')
         print(ex)
-
-write_to_blob()

@@ -38,14 +38,17 @@ class snowflakeCalculatorScraper:
             #empty array
             dataScrapeStorageCosts = []
 
-            listOfNames = ['on_demand_price_usd', 'on_demand_price_eur', 'on_demand_price_gbp',
-                           'capacity_storage_price_usd',
-                           'capacity_storage_price_eur', 'capacity_storage_price_gbp']
+            # listOfNames = ['on_demand_price_usd', 'on_demand_price_eur', 'on_demand_price_gbp',
+            #                'capacity_storage_price_usd',
+            #                'capacity_storage_price_eur', 'capacity_storage_price_gbp']
 
-            #loop to over splittedResult to get every line individually. Than remove the whitespaces before/after
+            listOfNames = ['on_demand_price_usd', 'on_demand_price_eur',
+                           'capacity_storage_price_usd', 'capacity_storage_price_eur']
+
+            #loop over splittedResult to get every line individually. Than remove the whitespaces before/after
 
             for line in splittedResult:
-                if "platforms." in line and not 'under_price' in line and not 'cta_text' in line and not 'cta_url' in line:
+                if "platforms." in line and not 'under_price' in line and not 'cta_text' in line and not 'cta_url' in line and not 'display_name' in line and not "{}" in line and not 'capacity_storage_price_gbp' in line and not 'on_demand_price_gbp' in line:
                     #remove whitespaces before and after
                     strippedLine = line.strip()
 
@@ -55,10 +58,17 @@ class snowflakeCalculatorScraper:
                     #replace the currency signs
                     replaceCurrencySigns = re.sub('[$, €, £]', '', strippedLine)
 
+                    #add decimals to digits
+                    replaceCurrencySigns = re.sub(r"([']\d\d['])", r'\1,00', replaceCurrencySigns)
+                    replaceCurrencySigns = replaceCurrencySigns.replace("'", "")
+                    replaceCurrencySigns = re.sub(r"(\d\d[,])", r'\1.', replaceCurrencySigns)
+                    replaceCurrencySigns = replaceCurrencySigns.replace(",.", ".")
+
                     #reverse the string, replace dot of first occurence, reverse back
                     reversedBack = snowflakeCalculatorScraper.reverseReplaceReverseback(replaceCurrencySigns, '.', ',', 1)
 
-                    splittedSentence = reversedBack.split('.')
+                    splittedSentence = reversedBack.split(".")
+
                     if len(splittedSentence) >= 3:
 
                         column = splittedSentence[2].split('=')
@@ -77,7 +87,7 @@ class snowflakeCalculatorScraper:
                                     #     {'platform': splittedSentence[0], 'cloudregion': splittedSentence[1],
                                     #      name[:-10]: {name.split('_')[2] + '_' + name.split('_')[3]: value.replace(',', '.')}})
 
-            print (dataScrapeStorageCosts)
+            # print(dataScrapeStorageCosts)
             return dataScrapeStorageCosts
 
         except Exception as e:
