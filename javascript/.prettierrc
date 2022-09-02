@@ -1,0 +1,5 @@
+//this code is used to let prettier extension make every double quote a single one 
+{
+  "singleQuote": true,
+  "arrowParens": "avoid"
+}

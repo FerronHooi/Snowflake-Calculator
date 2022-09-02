@@ -4,6 +4,7 @@ import pandas as pd
 import requests
 from bs4 import BeautifulSoup
 import json
+import csv
 import re
 from AzureBlob import write_to_blob
 
@@ -147,6 +148,7 @@ class snowflakeCalculatorScraper:
             print('An error occured while scraping the prices: ' + str(e))
             pass
 
+
 df_storage_costs = pd.DataFrame(snowflakeCalculatorScraper.scrapeStorageCosts())
 
 df_prices = pd.DataFrame(snowflakeCalculatorScraper.scrapePrices())
@@ -160,6 +162,21 @@ grouped_df = df_all.groupby(['platform_region_combined'],as_index=False).first()
 
 #write grouped_df to csv
 grouped_df.to_csv('SnowflakeCloudData.csv', index=False)
+
+csv_file = 'SnowflakeCloudData.csv'
+json_file = '../Datafiles/example.json'
+my_json = {}
+
+with open(csv_file, 'r') as fobj:
+    reader = csv.DictReader(fobj)
+    for row in reader:
+        # Use one of the CSV column names as a key
+        print(row)
+        key = row['platform_region_combined']
+        my_json[key] = row
+
+with open(json_file, 'w') as fobj:
+    fobj.write(json.dumps(my_json, indent=2))
 
 #write to blob
 write_to_blob()

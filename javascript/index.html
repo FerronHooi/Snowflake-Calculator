@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<head>
+    <meta charset="UTF-8">
+    <title>HTML 5 Boilerplate</title>
+    <link rel="stylesheet" href="src/style.css">
+</head>
+<body>
+<script src="index.js"></script>
+
+<div id="platforms"></div>
+
+<script>
+    var loc = "snowflakeCloudDataScript.js";
+    
+    $.getScript(loc, function(){
+        $(document).ready(function(){
+            console.log(platforms);
+
+            
+            });
+    });
+
+
+</script>
+
+<div>
+  <div class="home-container">
+    <div class="home-container01">
+      <div class="home-container02">
+        <h1>Usage Cost Estimation</h1>
+        <div class="home-container03">
+          <div class="home-container04"><h2 class="home-text01">ETL</h2></div>
+          <div class="home-container05">
+            <h3 class="home-warehouse-size">Warehouse Size</h3>
+            <span class="home-text02"><span>X-Small</span></span>
+            <div id="warehouze-size-area" class="home-container06">
+              <button
+                id="warehouse-size-button-left"
+                class="home-button button"
+              >
+                <span class="home-text04">&lt;</span>
+              </button>
+              <span id="warehouse-size-number" class="home-text05">1</span>
+              <button
+                id="warehouse-size-button-right"
+                class="home-button01 button"
+              >
+                &gt;
+              </button>
+            </div>
+          </div>
+          <div class="home-container07">
+            <input
+              type="ETL Warehouse"
+              placeholder="placeholder"
+              id="etlnameinputfield"
+              value="ETL Warehouse"
+              class="input"
+            />
+            <div class="home-container-etl-days">
+              <span class="home-text06">
+                <span>Active Days</span>
+                <span></span>
+              </span>
+              <button id="etlmondaybutton" class="home-button02 button">
+                Mon.
+              </button>
+              <button id="etltuesdaybutton" class="home-button03 button">
+                Tue.
+              </button>
+              <button id="etlwednesdaybutton" class="home-button04 button">
+                Wed.
+              </button>
+              <button id="etlthursdaybutton" class="home-button05 button">
+                Thu.
+              </button>
+              <button id="etlfridaybutton" class="home-button06 button">
+                Fri.
+              </button>
+              <button id="etlsaturdaybutton" class="home-button07 button">
+                Sat.
+              </button>
+              <button id="etlsundaybutton" class="home-button08 button">
+                Sun.
+              </button>
+            </div>
+            <div class="home-container-etl-frequency">
+              <span class="home-e-l-t-e-t-l-frequency">
+                <span>ELT / ETL Frequency</span>
+              </span>
+              <select id="etlfrequencyselector">
+                <option value="Option 1">Every Hour</option>
+                <option value="Option 2">Every 2 Hours</option>
+                <option value="Option 3">Every 4 Hours</option>
+              </select>
+              <span class="home-duration-minutes">
+                <span>Duration (Minutes)</span>
+              </span>
+              <input
+                type="number"
+                placeholder="placeholder"
+                id="durationinputfield"
+                value="1"
+                class="input"
+              />
+            </div>
+          </div>
+          <div class="home-container08">
+            <h1>Total</h1>
+            <div class="home-container09">
+              <span>
+                <span>4 Credits/Hour</span>
+                <br />
+                <span>Used Hours 122</span>
+                <br />
+                <span>Total 487 credits</span>
+              </span>
+            </div>
+            <button id="deleteall" type="reset" class="button">Delete</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<script> 
+
+    // const standardWarehouseSizeNumber = 1
+    var currentWarehouseNumber = document.querySelector('#warehouse-size-number').textContent
+    var currentWarehouseName = document.querySelector('#warehouse-name').textContent
+    const standardWarehouseName = 'X-Small'
+    const warehouseSizes = {'Name':['X-Small', 'Small', 'Medium', 'Large', 'X-Large', '2X-Large', '3X-Large', '4X-Large'], 'Size':[1, 2, 4, 8, 16, 32, 64, 64]}
+
+    // document.querySelector('#warehouse-size-number').textContent = standardWarehouseSizeNumber;
+    // document.querySelector('#warehouse-name').textContent = standardWarehouseName;
+
+    //Left button to select warehouse sizes
+    document.querySelector('#warehouse-size-button-left').addEventListener('click', function () {
+    console.log(document.querySelector('#warehouse-size-number').textContent = currentWarehouseNumber);
+    currentWarehouseNumber--
+    console.log(document.querySelector('#warehouse-name').textContent = 'Small');
+});
+    
+        
+    //Right button to select warehouse sizes
+    document.querySelector('#warehouse-size-button-right').addEventListener('click', function () {
+    console.log(document.querySelector('#warehouse-size-number').textContent = currentWarehouseNumber);
+    currentWarehouseNumber++
+    console.log(document.querySelector('#warehouse-name').textContent = 'Huge');
+});
+    
+    </script>
+</body>
+</html>

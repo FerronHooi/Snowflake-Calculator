@@ -1,0 +1,716 @@
+[
+    {
+        "cloudregion": "microsoftazure-eastus2virginia",
+        "dataStandard": {
+            "tier": "standard",
+            "priceUSD": "$2.00",
+            "priceEUR": "€1.67",
+            "priceGBP": "£"
+        },
+        "dataEnterprise": {
+            "tier": "enterprise",
+            "priceUSD": "$3.00",
+            "priceEUR": "€2.50",
+            "priceGBP": "£"
+        },
+        "dataBusinessCritical": {
+            "tier": "business-critical",
+            "priceUSD": "$4.00",
+            "priceEUR": "€3.33",
+            "priceGBP": "£"
+        }
+    },
+    {
+        "cloudregion": "microsoftazure-westus2washington",
+        "dataStandard": {
+            "tier": "standard",
+            "priceUSD": "$2.00",
+            "priceEUR": "€1.67",
+            "priceGBP": "£"
+        },
+        "dataEnterprise": {
+            "tier": "enterprise",
+            "priceUSD": "$3.00",
+            "priceEUR": "€2.50",
+            "priceGBP": "£"
+        },
+        "dataBusinessCritical": {
+            "tier": "business-critical",
+            "priceUSD": "$4.00",
+            "priceEUR": "€3.33",
+            "priceGBP": "£"
+        }
+    },
+    {
+        "cloudregion": "microsoftazure-centralusiowa",
+        "dataStandard": {
+            "tier": "standard",
+            "priceUSD": "$2.00",
+            "priceEUR": "€1.67",
+            "priceGBP": "£"
+        },
+        "dataEnterprise": {
+            "tier": "enterprise",
+            "priceUSD": "$3.00",
+            "priceEUR": "€2.50",
+            "priceGBP": "£"
+        },
+        "dataBusinessCritical": {
+            "tier": "business-critical",
+            "priceUSD": "$4.00",
+            "priceEUR": "€3.33",
+            "priceGBP": "£"
+        }
+    },
+    {
+        "cloudregion": "microsoftazure-southcentralustexas",
+        "dataStandard": {
+            "tier": "standard",
+            "priceUSD": "$2.00",
+            "priceEUR": "€1.67",
+            "priceGBP": "£"
+        },
+        "dataEnterprise": {
+            "tier": "enterprise",
+            "priceUSD": "$3.00",
+            "priceEUR": "€2.50",
+            "priceGBP": "£"
+        },
+        "dataBusinessCritical": {
+            "tier": "business-critical",
+            "priceUSD": "$4.00",
+            "priceEUR": "€3.33",
+            "priceGBP": "£"
+        }
+    },
+    {
+        "cloudregion": "microsoftazure-canadacentraltoronto",
+        "dataStandard": {
+            "tier": "standard",
+            "priceUSD": "$2.00",
+            "priceEUR": "€1.67",
+            "priceGBP": "£"
+        },
+        "dataEnterprise": {
+            "tier": "enterprise",
+            "priceUSD": "$3.00",
+            "priceEUR": "€2.50",
+            "priceGBP": "£"
+        },
+        "dataBusinessCritical": {
+            "tier": "business-critical",
+            "priceUSD": "$4.00",
+            "priceEUR": "€3.33",
+            "priceGBP": "£"
+        }
+    },
+    {
+        "cloudregion": "microsoftazure-westeuropenetherlands",
+        "dataStandard": {
+            "tier": "standard",
+            "priceUSD": "$2.00",
+            "priceEUR": "€1.67",
+            "priceGBP": "£"
+        },
+        "dataEnterprise": {
+            "tier": "enterprise",
+            "priceUSD": "$3.00",
+            "priceEUR": "€2.50",
+            "priceGBP": "£"
+        },
+        "dataBusinessCritical": {
+            "tier": "business-critical",
+            "priceUSD": "$4.00",
+            "priceEUR": "€3.33",
+            "priceGBP": "£"
+        }
+    },
+    {
+        "cloudregion": "microsoftazure-northeuropeireland",
+        "dataStandard": {
+            "tier": "standard",
+            "priceUSD": "$2.00",
+            "priceEUR": "€1.67",
+            "priceGBP": "£"
+        },
+        "dataEnterprise": {
+            "tier": "enterprise",
+            "priceUSD": "$3.00",
+            "priceEUR": "€2.50",
+            "priceGBP": "£"
+        },
+        "dataBusinessCritical": {
+            "tier": "business-critical",
+            "priceUSD": "$4.00",
+            "priceEUR": "€3.33",
+            "priceGBP": "£"
+        }
+    },
+    {
+        "cloudregion": "microsoftazure-australiaeastsydney",
+        "dataStandard": {
+            "tier": "standard",
+            "priceUSD": "$2.00",
+            "priceEUR": "€1.67",
+            "priceGBP": "£"
+        },
+        "dataEnterprise": {
+            "tier": "enterprise",
+            "priceUSD": "$3.00",
+            "priceEUR": "€2.50",
+            "priceGBP": "£"
+        },
+        "dataBusinessCritical": {
+            "tier": "business-critical",
+            "priceUSD": "$4.00",
+            "priceEUR": "€3.33",
+            "priceGBP": "£"
+        }
+    },
+    {
+        "cloudregion": "microsoftazure-southeastasiasingapore",
+        "dataStandard": {
+            "tier": "standard",
+            "priceUSD": "$2.00",
+            "priceEUR": "€1.67",
+            "priceGBP": "£"
+        },
+        "dataEnterprise": {
+            "tier": "enterprise",
+            "priceUSD": "$3.00",
+            "priceEUR": "€2.50",
+            "priceGBP": "£"
+        },
+        "dataBusinessCritical": {
+            "tier": "business-critical",
+            "priceUSD": "$4.00",
+            "priceEUR": "€3.33",
+            "priceGBP": "£"
+        }
+    },
+    {
+        "cloudregion": "microsoftazure-switzerlandnorthzurich",
+        "dataStandard": {
+            "tier": "standard",
+            "priceUSD": "$2.00",
+            "priceEUR": "€1.67",
+            "priceGBP": "£"
+        },
+        "dataEnterprise": {
+            "tier": "enterprise",
+            "priceUSD": "$3.00",
+            "priceEUR": "€2.50",
+            "priceGBP": "£"
+        },
+        "dataBusinessCritical": {
+            "tier": "business-critical",
+            "priceUSD": "$4.00",
+            "priceEUR": "€3.33",
+            "priceGBP": "£"
+        }
+    },
+    {
+        "cloudregion": "microsoftazure-usgovvirginia",
+        "dataStandard": {
+            "tier": "standard",
+            "priceUSD": "$2.00",
+            "priceEUR": "€1.67",
+            "priceGBP": "£"
+        },
+        "dataEnterprise": {
+            "tier": "enterprise",
+            "priceUSD": "$3.00",
+            "priceEUR": "€2.50",
+            "priceGBP": "£"
+        },
+        "dataBusinessCritical": {
+            "tier": "business-critical",
+            "priceUSD": "$4.00",
+            "priceEUR": "€3.33",
+            "priceGBP": "£"
+        }
+    },
+    {
+        "cloudregion": "microsoftazure-japaneasttokyo",
+        "dataStandard": {
+            "tier": "standard",
+            "priceUSD": "$2.00",
+            "priceEUR": "€1.67",
+            "priceGBP": "£"
+        },
+        "dataEnterprise": {
+            "tier": "enterprise",
+            "priceUSD": "$3.00",
+            "priceEUR": "€2.50",
+            "priceGBP": "£"
+        },
+        "dataBusinessCritical": {
+            "tier": "business-critical",
+            "priceUSD": "$4.00",
+            "priceEUR": "€3.33",
+            "priceGBP": "£"
+        }
+    },
+    {
+        "cloudregion": "microsoftazure-uaenorthdubai",
+        "dataStandard": {
+            "tier": "standard",
+            "priceUSD": "$2.00",
+            "priceEUR": "€1.67",
+            "priceGBP": "£"
+        },
+        "dataEnterprise": {
+            "tier": "enterprise",
+            "priceUSD": "$3.00",
+            "priceEUR": "€2.50",
+            "priceGBP": "£"
+        },
+        "dataBusinessCritical": {
+            "tier": "business-critical",
+            "priceUSD": "$4.00",
+            "priceEUR": "€3.33",
+            "priceGBP": "£"
+        }
+    },
+    {
+        "cloudregion": "microsoftazure-centralindiapune",
+        "dataStandard": {
+            "tier": "standard",
+            "priceUSD": "$2.00",
+            "priceEUR": "€1.67",
+            "priceGBP": "£"
+        },
+        "dataEnterprise": {
+            "tier": "enterprise",
+            "priceUSD": "$3.00",
+            "priceEUR": "€2.50",
+            "priceGBP": "£"
+        },
+        "dataBusinessCritical": {
+            "tier": "business-critical",
+            "priceUSD": "$4.00",
+            "priceEUR": "€3.33",
+            "priceGBP": "£"
+        }
+    },
+    {
+        "cloudregion": "amazonwebservicesaws-useastnorthernvirginia",
+        "dataStandard": {
+            "tier": "standard",
+            "priceUSD": "$2.00",
+            "priceEUR": "€1.67",
+            "priceGBP": "£"
+        },
+        "dataEnterprise": {
+            "tier": "enterprise",
+            "priceUSD": "$3.00",
+            "priceEUR": "€2.50",
+            "priceGBP": "£"
+        },
+        "dataBusinessCritical": {
+            "tier": "business-critical",
+            "priceUSD": "$4.00",
+            "priceEUR": "€3.33",
+            "priceGBP": "£"
+        }
+    },
+    {
+        "cloudregion": "amazonwebservicesaws-useastohio",
+        "dataStandard": {
+            "tier": "standard",
+            "priceUSD": "$2.00",
+            "priceEUR": "€1.67",
+            "priceGBP": "£"
+        },
+        "dataEnterprise": {
+            "tier": "enterprise",
+            "priceUSD": "$3.00",
+            "priceEUR": "€2.50",
+            "priceGBP": "£"
+        },
+        "dataBusinessCritical": {
+            "tier": "business-critical",
+            "priceUSD": "$4.00",
+            "priceEUR": "€3.33",
+            "priceGBP": "£"
+        }
+    },
+    {
+        "cloudregion": "amazonwebservicesaws-uswestoregon",
+        "dataStandard": {
+            "tier": "standard",
+            "priceUSD": "$2.00",
+            "priceEUR": "€1.67",
+            "priceGBP": "£"
+        },
+        "dataEnterprise": {
+            "tier": "enterprise",
+            "priceUSD": "$3.00",
+            "priceEUR": "€2.50",
+            "priceGBP": "£"
+        },
+        "dataBusinessCritical": {
+            "tier": "business-critical",
+            "priceUSD": "$4.00",
+            "priceEUR": "€3.33",
+            "priceGBP": "£"
+        }
+    },
+    {
+        "cloudregion": "amazonwebservicesaws-canadacentral",
+        "dataStandard": {
+            "tier": "standard",
+            "priceUSD": "$2.00",
+            "priceEUR": "€1.67",
+            "priceGBP": "£"
+        },
+        "dataEnterprise": {
+            "tier": "enterprise",
+            "priceUSD": "$3.00",
+            "priceEUR": "€2.50",
+            "priceGBP": "£"
+        },
+        "dataBusinessCritical": {
+            "tier": "business-critical",
+            "priceUSD": "$4.00",
+            "priceEUR": "€3.33",
+            "priceGBP": "£"
+        }
+    },
+    {
+        "cloudregion": "amazonwebservicesaws-eulondon",
+        "dataStandard": {
+            "tier": "standard",
+            "priceUSD": "$2.00",
+            "priceEUR": "€1.67",
+            "priceGBP": "£"
+        },
+        "dataEnterprise": {
+            "tier": "enterprise",
+            "priceUSD": "$3.00",
+            "priceEUR": "€2.50",
+            "priceGBP": "£"
+        },
+        "dataBusinessCritical": {
+            "tier": "business-critical",
+            "priceUSD": "$4.00",
+            "priceEUR": "€3.33",
+            "priceGBP": "£"
+        }
+    },
+    {
+        "cloudregion": "amazonwebservicesaws-euireland",
+        "dataStandard": {
+            "tier": "standard",
+            "priceUSD": "$2.00",
+            "priceEUR": "€1.67",
+            "priceGBP": "£"
+        },
+        "dataEnterprise": {
+            "tier": "enterprise",
+            "priceUSD": "$3.00",
+            "priceEUR": "€2.50",
+            "priceGBP": "£"
+        },
+        "dataBusinessCritical": {
+            "tier": "business-critical",
+            "priceUSD": "$4.00",
+            "priceEUR": "€3.33",
+            "priceGBP": "£"
+        }
+    },
+    {
+        "cloudregion": "amazonwebservicesaws-eufrankfurt",
+        "dataStandard": {
+            "tier": "standard",
+            "priceUSD": "$2.00",
+            "priceEUR": "€1.67",
+            "priceGBP": "£"
+        },
+        "dataEnterprise": {
+            "tier": "enterprise",
+            "priceUSD": "$3.00",
+            "priceEUR": "€2.50",
+            "priceGBP": "£"
+        },
+        "dataBusinessCritical": {
+            "tier": "business-critical",
+            "priceUSD": "$4.00",
+            "priceEUR": "€3.33",
+            "priceGBP": "£"
+        }
+    },
+    {
+        "cloudregion": "amazonwebservicesaws-europestockholm",
+        "dataStandard": {
+            "tier": "standard",
+            "priceUSD": "$2.00",
+            "priceEUR": "€1.67",
+            "priceGBP": "£"
+        },
+        "dataEnterprise": {
+            "tier": "enterprise",
+            "priceUSD": "$3.00",
+            "priceEUR": "€2.50",
+            "priceGBP": "£"
+        },
+        "dataBusinessCritical": {
+            "tier": "business-critical",
+            "priceUSD": "$4.00",
+            "priceEUR": "€3.33",
+            "priceGBP": "£"
+        }
+    },
+    {
+        "cloudregion": "amazonwebservicesaws-asiapacificsydney",
+        "dataStandard": {
+            "tier": "standard",
+            "priceUSD": "$2.00",
+            "priceEUR": "€1.67",
+            "priceGBP": "£"
+        },
+        "dataEnterprise": {
+            "tier": "enterprise",
+            "priceUSD": "$3.00",
+            "priceEUR": "€2.50",
+            "priceGBP": "£"
+        },
+        "dataBusinessCritical": {
+            "tier": "business-critical",
+            "priceUSD": "$4.00",
+            "priceEUR": "€3.33",
+            "priceGBP": "£"
+        }
+    },
+    {
+        "cloudregion": "amazonwebservicesaws-asiapacificsingapore",
+        "dataStandard": {
+            "tier": "standard",
+            "priceUSD": "$2.00",
+            "priceEUR": "€1.67",
+            "priceGBP": "£"
+        },
+        "dataEnterprise": {
+            "tier": "enterprise",
+            "priceUSD": "$3.00",
+            "priceEUR": "€2.50",
+            "priceGBP": "£"
+        },
+        "dataBusinessCritical": {
+            "tier": "business-critical",
+            "priceUSD": "$4.00",
+            "priceEUR": "€3.33",
+            "priceGBP": "£"
+        }
+    },
+    {
+        "cloudregion": "amazonwebservicesaws-asiapacifictokyo",
+        "dataStandard": {
+            "tier": "standard",
+            "priceUSD": "$2.00",
+            "priceEUR": "€1.67",
+            "priceGBP": "£"
+        },
+        "dataEnterprise": {
+            "tier": "enterprise",
+            "priceUSD": "$3.00",
+            "priceEUR": "€2.50",
+            "priceGBP": "£"
+        },
+        "dataBusinessCritical": {
+            "tier": "business-critical",
+            "priceUSD": "$4.00",
+            "priceEUR": "€3.33",
+            "priceGBP": "£"
+        }
+    },
+    {
+        "cloudregion": "amazonwebservicesaws-asiapacificosaka",
+        "dataStandard": {
+            "tier": "standard",
+            "priceUSD": "$2.00",
+            "priceEUR": "€1.67",
+            "priceGBP": "£"
+        },
+        "dataEnterprise": {
+            "tier": "enterprise",
+            "priceUSD": "$3.00",
+            "priceEUR": "€2.50",
+            "priceGBP": "£"
+        },
+        "dataBusinessCritical": {
+            "tier": "business-critical",
+            "priceUSD": "$4.00",
+            "priceEUR": "€3.33",
+            "priceGBP": "£"
+        }
+    },
+    {
+        "cloudregion": "amazonwebservicesaws-asiapacificseoul",
+        "dataStandard": {
+            "tier": "standard",
+            "priceUSD": "$2.00",
+            "priceEUR": "€1.67",
+            "priceGBP": "£"
+        },
+        "dataEnterprise": {
+            "tier": "enterprise",
+            "priceUSD": "$3.00",
+            "priceEUR": "€2.50",
+            "priceGBP": "£"
+        },
+        "dataBusinessCritical": {
+            "tier": "business-critical",
+            "priceUSD": "$4.00",
+            "priceEUR": "€3.33",
+            "priceGBP": "£"
+        }
+    },
+    {
+        "cloudregion": "amazonwebservicesaws-asiapacificmumbai",
+        "dataStandard": {
+            "tier": "standard",
+            "priceUSD": "$2.00",
+            "priceEUR": "€1.67",
+            "priceGBP": "£"
+        },
+        "dataEnterprise": {
+            "tier": "enterprise",
+            "priceUSD": "$3.00",
+            "priceEUR": "€2.50",
+            "priceGBP": "£"
+        },
+        "dataBusinessCritical": {
+            "tier": "business-critical",
+            "priceUSD": "$4.00",
+            "priceEUR": "€3.33",
+            "priceGBP": "£"
+        }
+    },
+    {
+        "cloudregion": "amazonwebservicesaws-useastcommercialgovnva",
+        "dataStandard": {
+            "tier": "standard",
+            "priceUSD": "$2.00",
+            "priceEUR": "€1.67",
+            "priceGBP": "£"
+        },
+        "dataEnterprise": {
+            "tier": "enterprise",
+            "priceUSD": "$3.00",
+            "priceEUR": "€2.50",
+            "priceGBP": "£"
+        },
+        "dataBusinessCritical": {
+            "tier": "business-critical",
+            "priceUSD": "$4.00",
+            "priceEUR": "€3.33",
+            "priceGBP": "£"
+        }
+    },
+    {
+        "cloudregion": "amazonwebservicesaws-southamericaeast1saopaulo",
+        "dataStandard": {
+            "tier": "standard",
+            "priceUSD": "$2.00",
+            "priceEUR": "€1.67",
+            "priceGBP": "£"
+        },
+        "dataEnterprise": {
+            "tier": "enterprise",
+            "priceUSD": "$3.00",
+            "priceEUR": "€2.50",
+            "priceGBP": "£"
+        },
+        "dataBusinessCritical": {
+            "tier": "business-critical",
+            "priceUSD": "$4.00",
+            "priceEUR": "€3.33",
+            "priceGBP": "£"
+        }
+    },
+    {
+        "cloudregion": "googlecloudplatform-uscentral1iowa",
+        "dataStandard": {
+            "tier": "standard",
+            "priceUSD": "$2.00",
+            "priceEUR": "€1.67",
+            "priceGBP": "£"
+        },
+        "dataEnterprise": {
+            "tier": "enterprise",
+            "priceUSD": "$3.00",
+            "priceEUR": "€2.50",
+            "priceGBP": "£"
+        },
+        "dataBusinessCritical": {
+            "tier": "business-critical",
+            "priceUSD": "$4.00",
+            "priceEUR": "€3.33",
+            "priceGBP": "£"
+        }
+    },
+    {
+        "cloudregion": "googlecloudplatform-useast4nvirginia",
+        "dataStandard": {
+            "tier": "standard",
+            "priceUSD": "$2.00",
+            "priceEUR": "€1.67",
+            "priceGBP": "£"
+        },
+        "dataEnterprise": {
+            "tier": "enterprise",
+            "priceUSD": "$3.00",
+            "priceEUR": "€2.50",
+            "priceGBP": "£"
+        },
+        "dataBusinessCritical": {
+            "tier": "business-critical",
+            "priceUSD": "$4.00",
+            "priceEUR": "€3.33",
+            "priceGBP": "£"
+        }
+    },
+    {
+        "cloudregion": "googlecloudplatform-europewest2london",
+        "dataStandard": {
+            "tier": "standard",
+            "priceUSD": "$2.00",
+            "priceEUR": "€1.67",
+            "priceGBP": "£"
+        },
+        "dataEnterprise": {
+            "tier": "enterprise",
+            "priceUSD": "$3.00",
+            "priceEUR": "€2.50",
+            "priceGBP": "£"
+        },
+        "dataBusinessCritical": {
+            "tier": "business-critical",
+            "priceUSD": "$4.00",
+            "priceEUR": "€3.33",
+            "priceGBP": "£"
+        }
+    },
+    {
+        "cloudregion": "googlecloudplatform-europewest4netherlands",
+        "dataStandard": {
+            "tier": "standard",
+            "priceUSD": "$2.00",
+            "priceEUR": "€1.67",
+            "priceGBP": "£"
+        },
+        "dataEnterprise": {
+            "tier": "enterprise",
+            "priceUSD": "$3.00",
+            "priceEUR": "€2.50",
+            "priceGBP": "£"
+        },
+        "dataBusinessCritical": {
+            "tier": "business-critical",
+            "priceUSD": "$4.00",
+            "priceEUR": "€3.33",
+            "priceGBP": "£"
+        }
+    }
+]
