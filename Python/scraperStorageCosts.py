@@ -1,4 +1,5 @@
 #TODO: CLEAN UP CODE
+#TODO: DATA DIE GESCRAPED IS IN DE JUISTE FORMAT STOPPEN
 
 import pandas as pd
 import requests
@@ -6,7 +7,7 @@ from bs4 import BeautifulSoup
 import json
 import csv
 import re
-from AzureBlob import write_to_blob
+# from AzureBlob import write_to_blob
 
 class snowflakeCalculatorScraper:
     @staticmethod
@@ -163,20 +164,25 @@ grouped_df = df_all.groupby(['platform_region_combined'],as_index=False).first()
 #write grouped_df to csv
 grouped_df.to_csv('SnowflakeCloudData.csv', index=False)
 
-csv_file = 'SnowflakeCloudData.csv'
-json_file = '../Datafiles/example.json'
-my_json = {}
+# print(grouped_df)
 
-with open(csv_file, 'r') as fobj:
-    reader = csv.DictReader(fobj)
-    for row in reader:
-        # Use one of the CSV column names as a key
-        print(row)
-        key = row['platform_region_combined']
-        my_json[key] = row
 
-with open(json_file, 'w') as fobj:
-    fobj.write(json.dumps(my_json, indent=2))
+#
+# #write to blob
+# write_to_blob()
 
-#write to blob
-write_to_blob()
+#dict_from_csv = pd.read_csv('SnowflakeCloudData.csv', header=None, index_col=0, squeeze=False).to_dict()
+#print(dict_from_csv)
+
+with open("SnowflakeCloudData.csv", "r") as f:
+    csv_reader = csv.DictReader(f)
+    SnowflakeCloudData = list(csv_reader)
+    # print(SnowflakeCloudData[0])
+
+#TODO: de rest van de hierarchie in de output bijvoegen
+sf_platform_region_combined = {}
+for combined in SnowflakeCloudData:
+    # print(combined)
+    sf_platform_region_combined[combined['platform']] = sf_platform_region_combined.get(combined['platform'], []) + [combined['cloudregion']]
+
+print(sf_platform_region_combined['googlecloudplatform'])
