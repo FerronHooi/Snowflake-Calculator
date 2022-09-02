@@ -15,24 +15,60 @@
         </h1>
         <div class="snowflake-calculator-container01">
           <div class="snowflake-calculator-container02">
-                    <script type="module" src="../javascript/index.js"></script>
+                    <script type="module">
+                      import myJson from '../Datafiles/example.json' assert {type: 'json'};
+                      
+                      var selectCloudplatform = document.getElementById("select-cloudplatform");
+                      var selectRegion = document.getElementById("select-region");
+                      var selectCurrency = document.getElementById("select-currency");
+
+                      //TODO: add the platform data in var options below
+                      var cloudplatformOptions = ["1", "2", "3", "4", "5"];
+                      var regionOptions = ["1", "2", "3", "4", "5", "6"];
+                      var currencyOptions = ["EUR", "USD", "GBP"];
+
+
+                      console.log(myJson.platform)
+
+                      for(var i = 0; i < cloudplatformOptions.length; i++) {
+                        var opt = cloudplatformOptions[i];
+                          var el = document.createElement("option");
+                          el.textContent = opt;
+                          el.value = opt;
+                          selectCloudplatform.appendChild(el);
+                      }
+
+                    for(var i = 0; i < regionOptions.length; i++) {
+                          var opt = regionOptions[i];
+                          var el = document.createElement("option");
+                          el.textContent = opt;
+                          el.value = opt;
+                          selectRegion.appendChild(el);
+                      }
+
+                    
+                    for(var i = 0; i < currencyOptions.length; i++) {
+                          var opt = currencyOptions[i];
+                          var el = document.createElement("option");
+                          el.textContent = opt;
+                          el.value = opt;
+                          selectCurrency.appendChild(el);
+                      }
+
+                    </script>
             <select id="select-cloudplatform" class="select-cloudplatform">
               <option value="Cloud platform" selected>Cloud platform</option>
-              <option value="Option 3">Option 3</option>
             </select>
           </div>
           <div class="snowflake-calculator-container03">
             <select id="select-region" class="select-region">
               <option value="Regio">Regio</option>
-              <option value="Option 2">Option 2</option>
-              <option value="Option 3">Option 3</option>
             </select>
           </div>
           <div class="snowflake-calculator-container04">
             <select id="select-currency" class="select-currency">
               <option value="Valuta">Valuta</option>
-              <option value="Option 2">Option 2</option>
-              <option value="Option 3">Option 3</option>
+
             </select>
           </div>
         </div>

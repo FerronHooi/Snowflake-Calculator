@@ -205,4 +205,4 @@ import myJson from '../Datafiles/example.json' assert {type: 'json'};
 //   tasks: [ 'develop', 'design', 'test' ],
 //   age: 30
 // }
-console.log(myJson)
+console.log(myJson.platform)
