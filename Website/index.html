@@ -1,6 +1,189 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script type="module">
+                      import myJson from '../Datafiles/example.json' assert {type: 'json'};
+
+                      jQuery(document).ready(function ($) {
+                      var platforms = myJson['platform'];
+                      var currentPlatform = "";
+                      var currentRegion = "";
+                      var currentCurrency = "";
+
+                      // data needed for the dropdowns
+                      var currencyOptions = ["EUR", "USD", "GBP"];
+                      var numberOfDays = [1, 2, 3, 4, 5, 6, 7]
+                      var hoursInAday = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24]
+                      
+                      // function used to clear options from select box
+                      function removeOptions(selectElement) {
+                      var i, L = selectElement.options.length - 1;
+                      for(i = L; i >= 0; i--) {
+                          selectElement.remove(i);
+                        }
+                      }
+                      
+                      // !!!!!!!!! VOORKEURS CLOUDPLATFORM EN REGION !!!!!!!!!
+
+                      // on document load hide select region as first cloud platform has to be selected
+                      $("#select-region").hide();
+
+                      // on document load hide select currency as first the cloudplatform and region has to be selected
+                      $("#select-currency").hide();
+
+                      // on document load hide select region text and select currency text
+                      $("#select-region-text").hide();
+                      $("#select-currency-text").hide();
+
+                      // load platforms (data)
+                      // on document load... load all the available platforms
+                      $.each(platforms, function (k, v) {
+                            $('#select-cloudplatform').append($('<option>', { 
+                                value: k,
+                                text : k
+                            }));
+                        });
+
+                      
+                    // on document load... load all the available currencies
+                      $.each(currencyOptions, function (k, v) {
+                            $('#select-currency').append($('<option>', { 
+                                value: v,
+                                text : v
+                            }));
+                        });
+
+                      // load regions based on platform selected
+                      $("#select-cloudplatform").on("change",function (e) {
+                      $("#select-region").show();
+                      $("#select-region-text").show();
+                      removeOptions(document.getElementById('select-region'));
+                       var currentPlatform = $(this).val();
+                          //  populate region dropdown with this platform's regions
+                        $.each(platforms[currentPlatform], function (k, v) {
+                          // console.log(k)
+                            $('#select-region').append($('<option>', { 
+                                value: k,
+                                text : k
+                            }));
+                        });
+
+                      // When a region is selected/changed then......
+                      $("#select-region").on("change",function (e) {
+                        $("#select-currency").show();
+                        $("#select-currency-text").show();
+                        $("#currentregionselection").show();
+                        });
+                      });
+
+                      // console.log(Object.keys(myJson.platform.microsoftazure));
+                      
+                      var selectCloudplatform = document.getElementById("select-cloudplatform");
+                      var selectRegion = document.getElementById("select-region");
+
+                    // !!!!!!!!! SCHATTING VERBRUIKSKOSTEN !!!!!!!!!
+
+                    
+                    // on document load... load all the available days
+                      $.each(numberOfDays, function (k, v) {
+                            $('#number-of-days-select').append($('<option>', { 
+                                value: v,
+                                text : v
+                            }));
+                        });
+
+                    
+                    // on document load... load all the available hours
+                      $.each(hoursInAday, function (k, v) {
+                            $('#usage-hours-select').append($('<option>', { 
+                                value: v,
+                                text : v
+                            }));
+                        });              
+                      
+                      
+                      // buttons
+
+                      $("#warehouse-size-button-left, #warehouse-size-button-right").click(function() {
+                        var warehouseSizes = Object.keys(warehouse)
+                        var warehouseSize = document.getElementById("warehouse-type").innerHTML
+
+                        document.getElementById("warehouse-type").innerHTML = warehouseSize;
+                        document.getElementById("warehouse-size-number").innerHTML = warehouse[warehouseSize]
+
+                      });
+                    
+                    
+                      // When the platform/region/currency/numberofdays/hours is changed then.....
+                      $("#select-cloudplatform, #select-region, #select-currency, #number-of-days-select, #usage-hours-select, #warehouse-size-button-left, #warehouse-size-button-right").on("change, click",function (e) {
+                        
+                        // current storagetbs, platform, region and currency
+                        var currentPlatform = document.getElementById("select-cloudplatform").value
+                        var currentStorageTBs = document.getElementById('input-storage-tb-per-month').value;
+                        var currentRegion = document.getElementById("select-region").value
+                        var currentCurrency = document.getElementById("select-currency").value.toLowerCase()
+
+                        // calculations of 'schatting verbruikskosten'
+                        var calculateTotalHours = document.getElementById('number-of-days-select').value * document.getElementById('usage-hours-select').value
+                        document.getElementById('total-hours').innerHTML = Math.trunc((calculateTotalHours * 52)/12);
+                        var creditsPerHour = document.getElementById('warehouse-size-number').innerHTML;
+                        var totalCreditsCount = document.getElementById('warehouse-size-number').innerHTML * calculateTotalHours; 
+                        var creditsPerHourString = document.getElementById('total-credits-per-hour').innerHTML = creditsPerHour + " Credit(s)/uur";
+                        var creditsTotal = document.getElementById('total-credits').innerHTML = Math.trunc((calculateTotalHours * creditsPerHour * 52)/12);
+                        
+                        // !!!! SCHATTING PER EDITIE !!!!! 
+
+                        var currentCloudplatformAndRegion = document.getElementById('currentregionselection').innerHTML = currentPlatform + " - " + currentRegion;
+                        
+                        var standardPrice = document.getElementById('inputfieldstandard').value = platforms[currentPlatform][currentRegion]['tier']['standard'][currentCurrency];
+                        var enterprisePrice = document.getElementById('inputfieldenterprise').value = platforms[currentPlatform][currentRegion]['tier']['enterprise'][currentCurrency];
+                        var businessCritcalPrice = document.getElementById('inputfieldbusinesscritical').value = platforms[currentPlatform][currentRegion]['tier']['business-critical'][currentCurrency];
+
+                        // calculations
+
+                        var totalCostsStandard = document.getElementById('standardeditionamount').innerHTML =  currentCurrency + " " +  standardPrice * creditsTotal
+                        var totalCostsEnterprise = document.getElementById('enterpriseeditionamount').innerHTML =  currentCurrency + " " + enterprisePrice * creditsTotal
+                        var totalCostsBusinessCritical = document.getElementById('businesscriticaleditionamount').innerHTML =  currentCurrency + " " + businessCritcalPrice * creditsTotal
+
+                        // !!!! GESCHATTE MAANDELIJKSE OPSLAGKOSTEN !!!!
+
+                        var totalOnDemandStorageCost = document.getElementById('on-demand-storage-amount').innerHTML =  currentCurrency + " " +  platforms[currentPlatform][currentRegion]['on_demand_price'][currentCurrency] * currentStorageTBs
+                        var totalCapacityStorageCost = document.getElementById('capacity-storage-amount').innerHTML =  currentCurrency + " " + platforms[currentPlatform][currentRegion]['capacity_storage_price'][currentCurrency] * currentStorageTBs
+
+                        });
+                    
+                    // !!!!!!!!! SCHATTING PER EDITIE !!!!!!!!!
+
+                    // on document load hide the cloudplatform and region header
+                    $("#currentregionselection").hide();
+
+                    // !!!!!!!!! GESCHATTE MAANDELIJKSE OPSLAGKOSTEN !!!!!!!!!
+
+                    // on document load hide the two divs (on-demand storage and capacity)
+                    $("#snowflake-calculator-container-storage-cost").hide();
+
+                    // get current input value
+                    var currentStorageTBs = document.getElementById('input-storage-tb-per-month');
+
+                    // When the storage input field is changed calculate the total costs (on-demand and capacity) based on currently selected platform, region and currency
+                      $("#input-storage-tb-per-month").on("change",function (e) {
+                        $("#snowflake-calculator-container-storage-cost").show();
+
+                        // current input storage tbs, platform, region and currency
+                        var currentPlatform = document.getElementById("select-cloudplatform").value
+                        var currentRegion = document.getElementById("select-region").value
+                        var currentCurrency = document.getElementById("select-currency").value.toLowerCase()
+                        var currentStorageTBs = document.getElementById('input-storage-tb-per-month').value;
+
+                        // TODO: Euro symbol instead of currentCurrency
+                        var totalOnDemandStorageCost = document.getElementById('on-demand-storage-amount').innerHTML = currentCurrency + " " + platforms[currentPlatform][currentRegion]['on_demand_price'][currentCurrency] * currentStorageTBs
+                        var totalCapacityStorageCost = document.getElementById('capacity-storage-amount').innerHTML = currentCurrency + " " + platforms[currentPlatform][currentRegion]['capacity_storage_price'][currentCurrency] * currentStorageTBs
+                        });
+
+                    });
+                    </script>
+
   <body>
 <div>
 
@@ -15,59 +198,18 @@
         </h1>
         <div class="snowflake-calculator-container01">
           <div class="snowflake-calculator-container02">
-                    <script type="module">
-                      import myJson from '../Datafiles/example.json' assert {type: 'json'};
-                      
-                      var selectCloudplatform = document.getElementById("select-cloudplatform");
-                      var selectRegion = document.getElementById("select-region");
-                      var selectCurrency = document.getElementById("select-currency");
-
-                      //TODO: add the platform data in var options below
-                      var cloudplatformOptions = ["1", "2", "3", "4", "5"];
-                      var regionOptions = ["1", "2", "3", "4", "5", "6"];
-                      var currencyOptions = ["EUR", "USD", "GBP"];
-
-
-                      console.log(myJson.platform)
-
-                      for(var i = 0; i < cloudplatformOptions.length; i++) {
-                        var opt = cloudplatformOptions[i];
-                          var el = document.createElement("option");
-                          el.textContent = opt;
-                          el.value = opt;
-                          selectCloudplatform.appendChild(el);
-                      }
-
-                    for(var i = 0; i < regionOptions.length; i++) {
-                          var opt = regionOptions[i];
-                          var el = document.createElement("option");
-                          el.textContent = opt;
-                          el.value = opt;
-                          selectRegion.appendChild(el);
-                      }
-
-                    
-                    for(var i = 0; i < currencyOptions.length; i++) {
-                          var opt = currencyOptions[i];
-                          var el = document.createElement("option");
-                          el.textContent = opt;
-                          el.value = opt;
-                          selectCurrency.appendChild(el);
-                      }
-
-                    </script>
+            <h4 id="select-cloudplatform-text">Selecteer je cloud platform</h4>        
             <select id="select-cloudplatform" class="select-cloudplatform">
-              <option value="Cloud platform" selected>Cloud platform</option>
             </select>
           </div>
           <div class="snowflake-calculator-container03">
+            <h4 id="select-region-text">Selecteer de regio</h4>        
             <select id="select-region" class="select-region">
-              <option value="Regio">Regio</option>
             </select>
           </div>
           <div class="snowflake-calculator-container04">
+             <h4 id="select-currency-text">Selecteer de valuta</h4>        
             <select id="select-currency" class="select-currency">
-              <option value="Valuta">Valuta</option>
 
             </select>
           </div>
@@ -86,26 +228,49 @@
           </div>
           <div class="snowflake-calculator-warehouse-container">
             <h3 class="snowflake-calculator-warehouse-size">Warehouse Size</h3>
-            <span class="warehouse-type"><span>X-Small</span></span>
+            <span class="warehouse-type"><span id="warehouse-type">X-Small</span></span>
             <div
               id="warehouze-size-area"
               class="snowflake-calculator-container06"
             >
               <button
                 id="warehouse-size-button-left"
-                class="snowflake-calculator-button button"
-              >
+                class="snowflake-calculator-button button" onclick="move(-1)"
+              ><script>
+                var warehouse = {
+                        "X-Small": 1,
+                        "Small": 2,
+                        "Medium": 4,
+                        "Large": 8,
+                        "X-Large": 16,
+                        "2X-Large": 32,
+                        "3X-Large": 64,
+                        "4X-Large": 64
+                      };
+                
+                warehouseSizes = Object.keys(warehouse);
+
+                let current = 0;
+                let back = document.getElementById("warehouse-size-button-left")
+
+                document.getElementById("warehouse-type").innerHTML = Object.keys(warehouse)[0]
+
+                function move(dir){
+                        current += dir;
+                        if(current < 0) current = warehouseSizes.length - 1;
+                        if(current === warehouseSizes.length) current = 0;
+                        document.getElementById("warehouse-type").innerHTML = Object.keys(warehouse)[current]
+                      }
+              </script>
                 <span class="snowflake-calculator-text04">&lt;</span>
               </button>
               <span
                 id="warehouse-size-number"
                 class="snowflake-calculator-text05"
-              >
-                1
-              </span>
+              >1</span>
               <button
                 id="warehouse-size-button-right"
-                class="snowflake-calculator-button1 button"
+                class="snowflake-calculator-button1 button" onclick="move(1)"
               >
                 &gt;
               </button>
@@ -121,50 +286,43 @@
             />
             <div class="snowflake-calculator-container-etl-days">
               <span class="snowflake-calculator-text06">Aantal dagen</span>
-              <select class="number-of-days-select">
-                <option value="Option 1">1</option>
-                <option value="Option 2">2</option>
-                <option value="Option 3">3</option>
+              <select class="number-of-days-select" id ="number-of-days-select">
               </select>
             </div>
             <div class="snowflake-calculator-container-etl-days1">
               <span class="snowflake-calculator-text07">
                 Geschat verbruik p/dag (uren)
               </span>
-              <select class="usage-hours-select">
-                <option value="Option 1">1</option>
-                <option value="Option 2">2</option>
-                <option value="Option 3">3</option>
+              <select class="usage-hours-select" id="usage-hours-select">
               </select>
             </div>
           </div>
           <div class="snowflake-calculator-container07">
             <h1 class="snowflake-calculator-text08">Totaal</h1>
             <div class="snowflake-calculator-container08">
-              <span class="total-credits-per-hour">4 Credits/uur</span>
+              <span id="total-credits-per-hour">1 Credit(s)/uur</span>
               <span class="snowflake-calculator-text13">
-                <span>Totale hours:</span>
-                <span class="snowflake-calculator-text12">122</span>
+                <span>Totale uren:</span>
+                <span class="snowflake-calculator-text12" id="total-hours"></span>
               </span>
               <span class="snowflake-calculator-text13">
                 <span>Totale credits:</span>
-                <span class="snowflake-calculator-text15">122</span>
+                <span class="snowflake-calculator-text15" id="total-credits"></span>
               </span>
             </div>
-            <button
+            <!-- <button
               id="deleteall"
               type="reset"
               class="snowflake-calculator-button2 button"
             >
               Delete
-            </button>
+            </button> -->
           </div>
         </div>
       </div>
       <div class="snowflake-calculator-estimates-by-edition-container">
         <h1 class="snowflake-calculator-text16">Schatting per editie</h1>
         <h2 id="currentregionselection" class="snowflake-calculator-text17">
-          (AWS - US-EAST)
         </h2>
         <div class="snowflake-calculator-container-edition-calculation">
           <div class="snowflake-calculator-container-standaard">
@@ -172,8 +330,8 @@
             <input
               type="number"
               id="inputfieldstandard"
-              value="2,00"
-              placeholder="2,00"
+              value="0,00"
+              placeholder="0,00"
               class="snowflake-calculator-textinput1 input"
             />
             <img
@@ -182,7 +340,6 @@
               class="snowflake-calculator-image1"
             />
             <h3 id="standardeditionamount" class="snowflake-calculator-text18">
-              $ 1100
             </h3>
             <span class="snowflake-calculator-usage-costs-per-month">
               Verbruikskosten per maand
@@ -193,8 +350,8 @@
             <input
               type="number"
               id="inputfieldenterprise"
-              value="3,00"
-              placeholder="3,00"
+              value="0,00"
+              placeholder="0,00"
               class="snowflake-calculator-textinput1 input"
             />
             <img
@@ -206,7 +363,6 @@
               id="enterpriseeditionamount"
               class="snowflake-calculator-heading1"
             >
-              $ 1100
             </h3>
             <span class="snowflake-calculator-usage-costs-per-month1">
               Verbruikskosten per maand
@@ -217,8 +373,8 @@
             <input
               type="number"
               id="inputfieldbusinesscritical"
-              value="2,00"
-              placeholder="2,00"
+              value="0,00"
+              placeholder="0,00"
               class="snowflake-calculator-textinput2 input"
             />
             <img
@@ -230,7 +386,6 @@
               id="businesscriticaleditionamount"
               class="snowflake-calculator-text19"
             >
-              $ 1100
             </h3>
             <span class="snowflake-calculator-usage-costs-per-month2">
               Verbruikskosten per maand
@@ -251,14 +406,14 @@
             </h1>
             <input
               type="number"
-              placeholder="1"
+              placeholder="Voer een getal in"
               id="input-storage-tb-per-month"
               class="input snowflake-calculator-textinput3"
             />
             <h1 class="snowflake-calculator-text22">tb / maand</h1>
           </div>
-          <div class="snowflake-calculator-container11">
-            <div class="snowflake-calculator-container12">
+          <div class="snowflake-calculator-container-storage-cost" id="snowflake-calculator-container-storage-cost">
+            <div class="snowflake-calculator-on-demand-storage-div">
               <h1 class="snowflake-calculator-on-demand-storage">
                 <span>On-Demand Storage</span>
                 <br />
@@ -272,13 +427,12 @@
                 id="on-demand-storage-amount"
                 class="on-demand-storage-amount"
               >
-                $ 1100
               </h3>
               <span class="snowflake-calculator-opslagkosten-per-maand">
                 Opslagkosten per maand
               </span>
             </div>
-            <div class="snowflake-calculator-container13">
+            <div class="snowflake-calculator-capacity-storage-div">
               <h1 class="snowflake-calculator-on-demand-storage1">
                 Capacity Storage
               </h1>
@@ -288,10 +442,9 @@
                 class="snowflake-calculator-image5"
               />
               <h3
-                id="on-demand-storage-amount"
+                id="capacity-storage-amount"
                 class="snowflake-calculator-heading3 on-demand-storage-amount"
               >
-                $ 1100
               </h3>
               <span class="snowflake-calculator-opslagkosten-per-maand1">
                 Opslagkosten per maand

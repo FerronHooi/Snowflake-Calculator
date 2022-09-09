@@ -161,6 +161,7 @@
 .snowflake-calculator-button {
   display: flex;
   position: relative;
+  z-index: 100;
   align-self: center;
   margin-right: 15%;
   flex-direction: row;
@@ -183,6 +184,7 @@
 .snowflake-calculator-button1 {
   align-self: center;
   margin-left: 15%;
+  z-index: 100;
 }
 .snowflake-calculator-container-days-and-hours {
   flex: 0 0 auto;
@@ -473,13 +475,13 @@
   margin-left: 5%;
   margin-right: 5%;
 }
-.snowflake-calculator-container11 {
+.snowflake-calculator-container-storage-cost {
   flex: 0 0 auto;
   width: 100%;
   display: flex;
   align-items: flex-start;
 }
-.snowflake-calculator-container12 {
+.snowflake-calculator-on-demand-storage-div {
   flex: 0 0 auto;
   width: 45%;
   height: 100%;
@@ -508,7 +510,7 @@
   align-self: center;
   margin-bottom: 5%;
 }
-.snowflake-calculator-container13 {
+.snowflake-calculator-capacity-storage-div {
   flex: 0 0 auto;
   width: 45%;
   height: 100%;
