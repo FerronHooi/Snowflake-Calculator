@@ -1,6 +1,200 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script type="module">
+                      import myJson from '../Datafiles/example.json' assert {type: 'json'};
+
+                      jQuery(document).ready(function ($) {
+                      var platforms = myJson['platform'];
+                      // console.log(platforms['amazonwebserviceaws']);
+                      var currentPlatform = "";
+                      var currentRegion = "";
+                      var currentCurrency = "";
+
+                      // data needed for the dropdowns
+                      var currencyOptions = ["EUR", "USD", "GBP"];
+                      var warehouseSize = ["XS", "S", "M", "L", "XL", "XXL"];
+                      var numberOfDays = [1, 2, 3, 4, 5, 6, 7]
+                      var hoursInAday = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24]
+                      
+                      // function used to clear options from select box
+                      function removeOptions(selectElement) {
+                      var i, L = selectElement.options.length - 1;
+                      for(i = L; i >= 0; i--) {
+                          selectElement.remove(i);
+                        }
+                      }
+                      
+                      // on document load hide select region as first cloud platform has to be selected
+                      document.getElementById("select-region").style.display = "none";
+
+                      // on document load hide select currency as first the cloudplatform and region has to be selected
+                      document.getElementById("select-currency").style.display = "none";
+
+                      // on document load hide select region text and select currency text
+                      document.getElementById("select-region-text").style.display = "none";
+                      document.getElementById("select-currency-text").style.display = "none";
+
+                      // load platforms (data)
+                      // on document load... load all the available platforms
+                      $.each(platforms, function (k, v) {
+                          // console.log(k)
+                            $('#select-cloudplatform').append($('<option>', { 
+                                value: k,
+                                text : k
+                            }));
+                        });
+
+                      // load regions based on platform selected
+                      $("#select-cloudplatform").on("change",function (e) {
+                      document.getElementById("select-region").style.display = "block";
+                      document.getElementById("select-region-text").style.display = "block";
+                      removeOptions(document.getElementById('select-region'));
+                       var currentPlatform = $(this).val();
+                        console.log(currentPlatform);
+                          //  populate region dropdown with this platform's regions
+                        $.each(platforms[currentPlatform], function (k, v) {
+                          // console.log(k)
+                            $('#select-region').append($('<option>', { 
+                                value: k,
+                                text : k
+                            }));
+                        });
+
+                      // When a region is selected/changed then......
+                      $("#select-region").on("change",function (e) {
+                      document.getElementById("select-currency").style.display = "block";
+                      document.getElementById("select-currency-text").style.display = "block";
+                        });
+                      
+                      var selectCloudplatform = document.getElementById("select-cloudplatform");
+                      var selectRegion = document.getElementById("select-region");
+                      var selectCurrency = document.getElementById("select-currency");
+                      var selectNumberOfDays = document.getElementById("number-of-days-select");
+                      var selectHoursPerDay = document.getElementById("usage-hours-select");
+
+                      // //Get data for cloudplatform
+                      // for(var i = 0; i < cloudplatformOptions.length; i++) {
+                      //   var opt = cloudplatformOptions[i];
+                      //     var el = document.createElement("option");
+                      //     el.textContent = opt;
+                      //     el.value = opt;
+                      //     selectCloudplatform.appendChild(el);
+                      // }
+
+                    //Get data for regions
+                    //TODO: This data should be visible based on cloudplatform selection
+                    // for(var i = 0; i < regionOptions.length; i++) {
+                    //       var opt = regionOptions[i];
+                    //       var el = document.createElement("option");
+                    //       el.textContent = opt;
+                    //       el.value = opt;
+                    //       selectRegion.appendChild(el);
+                    //   }
+
+                    //Get data for the currency
+                    for(var i = 0; i < currencyOptions.length; i++) {
+                          var opt = currencyOptions[i];
+                          var el = document.createElement("option");
+                          el.textContent = opt;
+                          el.value = opt;
+                          selectCurrency.appendChild(el);
+                      }
+
+                    // Get data for the numbers of days                 
+                    for(var i = 0; i < numberOfDays.length; i++) {
+                          var opt = numberOfDays[i];
+                          var el = document.createElement("option");
+                          el.textContent = opt;
+                          el.value = opt;
+                          selectNumberOfDays.appendChild(el);
+                      }
+
+                    // Get data for the numbers of hours in a day
+                    for(var i = 0; i < hoursInAday.length; i++) {
+                          var opt = hoursInAday[i];
+                          var el = document.createElement("option");
+                          el.textContent = opt;
+                          el.value = opt;
+                          selectHoursPerDay.appendChild(el);
+                      }                
+
+                    // Get region data based on cloudplatform selection
+                    //TODO: List should not append, it should replace the existing list
+
+                    // // Voorkeursplatform
+                    // var currentPlatform = document.getElementById('select-cloudplatform').addEventListener('change', function() {
+                    // // console.log(this.value);
+                    // var regionOptions = Object.keys(myJson['platform'][this.value]);
+
+                    //     for(var i = 0; i < regionOptions.length; i++) {
+                    //       var opt = regionOptions[i];
+                    //       var el = document.createElement("option");
+                    //       el.textContent = opt;
+                    //       console.log(opt);
+                    //       el.value = opt;
+                    //       selectRegion.appendChild(el);
+                    //   }
+                    //     }); 
+
+                    var regions = document.getElementById('select-region').addEventListener('change', function() {
+                        console.log(this.value);
+                        document.getElementById('currentregionselection').innerHTML = selectCloudplatform.value + "-" + this.value;
+                        var currentCloudplatform = console.log(document.getElementById('select-cloudplatform').value);
+                        }); 
+
+                    var currentCurrency = document.getElementById('select-currency').addEventListener('change', function() {
+                        console.log(this.value);
+                        document.getElementById('inputfieldstandard').value = myJson['platform']['microsoftazure']['asiaAZURE']['tier']['standard']['eur']
+                        document.getElementById('inputfieldenterprise').value = myJson['platform']['microsoftazure']['asiaAZURE']['tier']['enterprise']['eur']
+                        document.getElementById('inputfieldbusinesscritical').value = myJson['platform']['microsoftazure']['asiaAZURE']['tier']['business-critical']['eur']
+
+                        });
+                    
+                    //Schatting per editie
+                    var currentSelectedDays = document.getElementById('number-of-days-select').addEventListener('change', function() {
+                        var calculateTotalHours = document.getElementById('number-of-days-select').value * document.getElementById('usage-hours-select').value
+                        document.getElementById('total-hours').innerHTML = calculateTotalHours;
+                        var creditsPerHour = document.getElementById('warehouse-size-number').innerHTML;
+                        var totalCreditsCount = document.getElementById('warehouse-size-number').innerHTML * calculateTotalHours; 
+                        console.log(creditsPerHour);
+                        var creditsPerHourString = document.getElementById('total-credits-per-hour').innerHTML = creditsPerHour + " Credit(s)/uur";
+                        var creditsTotal = document.getElementById('total-credits').innerHTML = calculateTotalHours * creditsPerHour;
+                        }); 
+
+                    var currentSelectedHours = document.getElementById('usage-hours-select').addEventListener('change', function() {
+                        var calculateTotalHours = document.getElementById('number-of-days-select').value * document.getElementById('usage-hours-select').value
+                        document.getElementById('total-hours').innerHTML = calculateTotalHours;
+                        var creditsPerHour = document.getElementById('warehouse-size-number').innerHTML;
+                        var totalCreditsCount = document.getElementById('warehouse-size-number').innerHTML * calculateTotalHours; 
+                        console.log(creditsPerHour);
+                        var creditsPerHourString = document.getElementById('total-credits-per-hour').innerHTML = creditsPerHour + " Credit(s)/uur";
+                        var creditsTotal = document.getElementById('total-credits').innerHTML = calculateTotalHours * creditsPerHour;
+                        });
+
+                  var currentSelectedHours = document.getElementById('usage-hours-select').addEventListener('change', function() {
+                        var calculateTotalHours = document.getElementById('number-of-days-select').value * document.getElementById('usage-hours-select').value
+                        document.getElementById('total-hours').innerHTML = calculateTotalHours;
+                        var creditsPerHour = document.getElementById('warehouse-size-number').innerHTML;
+                        var totalCreditsCount = document.getElementById('warehouse-size-number').innerHTML * calculateTotalHours; 
+                        console.log(creditsPerHour);
+                        var creditsPerHourString = document.getElementById('total-credits-per-hour').innerHTML = creditsPerHour + " Credit(s)/uur";
+                        var creditsTotal = document.getElementById('total-credits').innerHTML = calculateTotalHours * creditsPerHour;
+                        });
+
+                    //Geschatte maandelijkse opslagkosten
+                    var currentSelectedStorage = document.getElementById('input-storage-tb-per-month').addEventListener('change', function() {
+                        console.log(document.getElementById('input-storage-tb-per-month').value);
+                        var currentCurrency = document.getElementById('select-currency').value
+                        console.log(currentCurrency)
+                        var totalOnDemandStorageCost = document.getElementById('on-demand-storage-amount').innerHTML = myJson['platform']['microsoftazure']['asiaAZURE']['on_demand_price'][currentCurrency];
+                        var totalCapacityStorageCost = document.getElementById('capacity-storage-amount').innerHTML = myJson['platform']['microsoftazure']['asiaAZURE']['capacity_storage_price'][currentCurrency];
+                        });
+
+                    });
+                    </script>
+
   <body>
 <div>
 
@@ -15,59 +209,18 @@
         </h1>
         <div class="snowflake-calculator-container01">
           <div class="snowflake-calculator-container02">
-                    <script type="module">
-                      import myJson from '../Datafiles/example.json' assert {type: 'json'};
-                      
-                      var selectCloudplatform = document.getElementById("select-cloudplatform");
-                      var selectRegion = document.getElementById("select-region");
-                      var selectCurrency = document.getElementById("select-currency");
-
-                      //TODO: add the platform data in var options below
-                      var cloudplatformOptions = ["1", "2", "3", "4", "5"];
-                      var regionOptions = ["1", "2", "3", "4", "5", "6"];
-                      var currencyOptions = ["EUR", "USD", "GBP"];
-
-
-                      console.log(myJson.platform)
-
-                      for(var i = 0; i < cloudplatformOptions.length; i++) {
-                        var opt = cloudplatformOptions[i];
-                          var el = document.createElement("option");
-                          el.textContent = opt;
-                          el.value = opt;
-                          selectCloudplatform.appendChild(el);
-                      }
-
-                    for(var i = 0; i < regionOptions.length; i++) {
-                          var opt = regionOptions[i];
-                          var el = document.createElement("option");
-                          el.textContent = opt;
-                          el.value = opt;
-                          selectRegion.appendChild(el);
-                      }
-
-                    
-                    for(var i = 0; i < currencyOptions.length; i++) {
-                          var opt = currencyOptions[i];
-                          var el = document.createElement("option");
-                          el.textContent = opt;
-                          el.value = opt;
-                          selectCurrency.appendChild(el);
-                      }
-
-                    </script>
+            <h4 id="select-cloudplatform-text">Selecteer je cloud platform</h4>        
             <select id="select-cloudplatform" class="select-cloudplatform">
-              <option value="Cloud platform" selected>Cloud platform</option>
             </select>
           </div>
           <div class="snowflake-calculator-container03">
+            <h4 id="select-region-text">Selecteer de regio</h4>        
             <select id="select-region" class="select-region">
-              <option value="Regio">Regio</option>
             </select>
           </div>
           <div class="snowflake-calculator-container04">
+             <h4 id="select-currency-text">Selecteer de valuta</h4>        
             <select id="select-currency" class="select-currency">
-              <option value="Valuta">Valuta</option>
 
             </select>
           </div>
@@ -86,7 +239,7 @@
           </div>
           <div class="snowflake-calculator-warehouse-container">
             <h3 class="snowflake-calculator-warehouse-size">Warehouse Size</h3>
-            <span class="warehouse-type"><span>X-Small</span></span>
+            <span class="warehouse-type"><span id="warehouse-type">X-Small</span></span>
             <div
               id="warehouze-size-area"
               class="snowflake-calculator-container06"
@@ -100,9 +253,7 @@
               <span
                 id="warehouse-size-number"
                 class="snowflake-calculator-text05"
-              >
-                1
-              </span>
+              >1</span>
               <button
                 id="warehouse-size-button-right"
                 class="snowflake-calculator-button1 button"
@@ -121,34 +272,28 @@
             />
             <div class="snowflake-calculator-container-etl-days">
               <span class="snowflake-calculator-text06">Aantal dagen</span>
-              <select class="number-of-days-select">
-                <option value="Option 1">1</option>
-                <option value="Option 2">2</option>
-                <option value="Option 3">3</option>
+              <select class="number-of-days-select" id ="number-of-days-select">
               </select>
             </div>
             <div class="snowflake-calculator-container-etl-days1">
               <span class="snowflake-calculator-text07">
                 Geschat verbruik p/dag (uren)
               </span>
-              <select class="usage-hours-select">
-                <option value="Option 1">1</option>
-                <option value="Option 2">2</option>
-                <option value="Option 3">3</option>
+              <select class="usage-hours-select" id="usage-hours-select">
               </select>
             </div>
           </div>
           <div class="snowflake-calculator-container07">
             <h1 class="snowflake-calculator-text08">Totaal</h1>
             <div class="snowflake-calculator-container08">
-              <span class="total-credits-per-hour">4 Credits/uur</span>
+              <span id="total-credits-per-hour">1 Credit(s)/uur</span>
               <span class="snowflake-calculator-text13">
-                <span>Totale hours:</span>
-                <span class="snowflake-calculator-text12">122</span>
+                <span>Total hours:</span>
+                <span class="snowflake-calculator-text12" id="total-hours"></span>
               </span>
               <span class="snowflake-calculator-text13">
                 <span>Totale credits:</span>
-                <span class="snowflake-calculator-text15">122</span>
+                <span class="snowflake-calculator-text15" id="total-credits"></span>
               </span>
             </div>
             <button
@@ -288,7 +433,7 @@
                 class="snowflake-calculator-image5"
               />
               <h3
-                id="on-demand-storage-amount"
+                id="capacity-storage-amount"
                 class="snowflake-calculator-heading3 on-demand-storage-amount"
               >
                 $ 1100
