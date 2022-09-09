@@ -146,9 +146,7 @@
                         // current platform, region and currency
                         var currentPlatform = document.getElementById("select-cloudplatform").value
                         var currentRegion = document.getElementById("select-region").value
-                        // var currentCurrency = document.getElementById("select-currency").value
-                        var currentCurrency = "eur"
-                        console.log(currentPlatform, currentRegion, currentCurrency)
+                        var currentCurrency = document.getElementById("select-currency").value.toLowerCase()
 
                         var totalOnDemandStorageCost = document.getElementById('on-demand-storage-amount').innerHTML = platforms[currentPlatform][currentRegion]['on_demand_price'][currentCurrency];
                         var totalCapacityStorageCost = document.getElementById('capacity-storage-amount').innerHTML = platforms[currentPlatform][currentRegion]['capacity_storage_price'][currentCurrency];
