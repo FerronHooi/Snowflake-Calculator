@@ -108,6 +108,13 @@
                     
                       // When the platform/region/currency/numberofdays/hours is changed then.....
                       $("#select-cloudplatform, #select-region, #select-currency, #number-of-days-select, #usage-hours-select").on("change",function (e) {
+                        
+                        // current platform, region and currency
+                        var currentPlatform = document.getElementById("select-cloudplatform").value
+                        var currentRegion = document.getElementById("select-region").value
+                        var currentCurrency = document.getElementById("select-currency").value
+
+                        // calculations of 'schatting verbruikskosten'
                         var calculateTotalHours = document.getElementById('number-of-days-select').value * document.getElementById('usage-hours-select').value
                         document.getElementById('total-hours').innerHTML = calculateTotalHours;
                         var creditsPerHour = document.getElementById('warehouse-size-number').innerHTML;
@@ -115,9 +122,13 @@
                         console.log(creditsPerHour);
                         var creditsPerHourString = document.getElementById('total-credits-per-hour').innerHTML = creditsPerHour + " Credit(s)/uur";
                         var creditsTotal = document.getElementById('total-credits').innerHTML = calculateTotalHours * creditsPerHour;
+                        
+                        // !!!! SCHATTING PER EDITIE !!!!! 
+
+                        var currentCloudplatformAndRegion = document.getElementById('currentregionselection').innerHTML = currentPlatform + " - " + currentRegion;
+
                         });
                         
-                    // !!!!!!!!! SCHATTING PER EDITIE !!!!!!!!!
 
                     // !!!!!!!!! GESCHATTE MAANDELIJKSE OPSLAGKOSTEN !!!!!!!!!
 
@@ -131,6 +142,14 @@
                     // When the storage input field is changed calculate the total costs (on-demand and capacity) based on currently selected platform, region and currency
                       $("#input-storage-tb-per-month").on("change",function (e) {
                         $("#snowflake-calculator-container-storage-cost").show();
+
+                        // current platform, region and currency
+                        var currentPlatform = document.getElementById("select-cloudplatform").value
+                        var currentRegion = document.getElementById("select-region").value
+                        // var currentCurrency = document.getElementById("select-currency").value
+                        var currentCurrency = "eur"
+                        console.log(currentPlatform, currentRegion, currentCurrency)
+
                         var totalOnDemandStorageCost = document.getElementById('on-demand-storage-amount').innerHTML = platforms[currentPlatform][currentRegion]['on_demand_price'][currentCurrency];
                         var totalCapacityStorageCost = document.getElementById('capacity-storage-amount').innerHTML = platforms[currentPlatform][currentRegion]['capacity_storage_price'][currentCurrency];
                         });
