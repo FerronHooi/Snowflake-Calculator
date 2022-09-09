@@ -8,6 +8,7 @@
                       jQuery(document).ready(function ($) {
                       var platforms = myJson['platform'];
                       // console.log(platforms['amazonwebserviceaws']);
+                      // console.log(platforms['amazonwebserviceaws']['asia_test']['capacity_storage_price']['eur'])
                       var currentPlatform = "";
                       var currentRegion = "";
                       var currentCurrency = "";
@@ -29,14 +30,18 @@
                       // !!!!!!!!! VOORKEURS CLOUDPLATFORM EN REGION !!!!!!!!!
 
                       // on document load hide select region as first cloud platform has to be selected
-                      document.getElementById("select-region").style.display = "none";
+                      // document.getElementById("select-region").style.display = "none";
+                      $("#select-region").hide();
 
                       // on document load hide select currency as first the cloudplatform and region has to be selected
-                      document.getElementById("select-currency").style.display = "none";
+                      // document.getElementById("select-currency").style.display = "none";
+                      $("#select-currency").hide();
 
                       // on document load hide select region text and select currency text
-                      document.getElementById("select-region-text").style.display = "none";
-                      document.getElementById("select-currency-text").style.display = "none";
+                      // document.getElementById("select-region-text").style.display = "none";
+                      // document.getElementById("select-currency-text").style.display = "none";
+                      $("#select-region-text").hide();
+                      $("#select-currency-text").hide();
 
                       // load platforms (data)
                       // on document load... load all the available platforms
@@ -58,8 +63,10 @@
 
                       // load regions based on platform selected
                       $("#select-cloudplatform").on("change",function (e) {
-                      document.getElementById("select-region").style.display = "block";
-                      document.getElementById("select-region-text").style.display = "block";
+                      $("#select-region").show();
+                      $("#select-region-text").show();
+                      // document.getElementById("select-region").style.display = "block";
+                      // document.getElementById("select-region-text").style.display = "block";
                       removeOptions(document.getElementById('select-region'));
                        var currentPlatform = $(this).val();
                         console.log(currentPlatform);
@@ -74,8 +81,10 @@
 
                       // When a region is selected/changed then......
                       $("#select-region").on("change",function (e) {
-                        document.getElementById("select-currency").style.display = "block";
-                        document.getElementById("select-currency-text").style.display = "block";
+                        $("#select-currency").show();
+                        $("#select-currency-text").show();
+                        // document.getElementById("select-currency").style.display = "block";
+                        // document.getElementById("select-currency-text").style.display = "block";
                         });
                       });
 
@@ -120,14 +129,18 @@
 
                     // !!!!!!!!! GESCHATTE MAANDELIJKSE OPSLAGKOSTEN !!!!!!!!!
 
+                    // on document load hide the two divs (on-demand storage and capacity)
+                    $("#snowflake-calculator-container-storage-cost").hide();
+
                     // get current input value
                     var currentStorageTBs = document.getElementById('input-storage-tb-per-month');
                     console.log(currentStorageTBs.value)
 
                     // When the storage input field is changed calculate the total costs (on-demand and capacity) based on currently selected platform, region and currency
                       $("#input-storage-tb-per-month").on("change",function (e) {
-                        var totalOnDemandStorageCost = document.getElementById('on-demand-storage-amount').innerHTML = myJson['platform'][currentPlatform][currentRegion]['on_demand_price'][currentCurrency];
-                        var totalCapacityStorageCost = document.getElementById('capacity-storage-amount').innerHTML = myJson['platform'][currentPlatform][currentRegion]['capacity_storage_price'][currentCurrency];
+                        $("#snowflake-calculator-container-storage-cost").show();
+                        var totalOnDemandStorageCost = document.getElementById('on-demand-storage-amount').innerHTML = platforms[currentPlatform][currentRegion]['on_demand_price'][currentCurrency];
+                        var totalCapacityStorageCost = document.getElementById('capacity-storage-amount').innerHTML = platforms[currentPlatform][currentRegion]['capacity_storage_price'][currentCurrency];
                         });
 
                     });
@@ -334,14 +347,14 @@
             </h1>
             <input
               type="number"
-              placeholder="1"
+              placeholder="Voer een getal in"
               id="input-storage-tb-per-month"
               class="input snowflake-calculator-textinput3"
             />
             <h1 class="snowflake-calculator-text22">tb / maand</h1>
           </div>
-          <div class="snowflake-calculator-container11">
-            <div class="snowflake-calculator-container12">
+          <div class="snowflake-calculator-container-storage-cost" id="snowflake-calculator-container-storage-cost">
+            <div class="snowflake-calculator-on-demand-storage-div">
               <h1 class="snowflake-calculator-on-demand-storage">
                 <span>On-Demand Storage</span>
                 <br />
@@ -361,7 +374,7 @@
                 Opslagkosten per maand
               </span>
             </div>
-            <div class="snowflake-calculator-container13">
+            <div class="snowflake-calculator-capacity-storage-div">
               <h1 class="snowflake-calculator-on-demand-storage1">
                 Capacity Storage
               </h1>
