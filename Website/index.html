@@ -30,16 +30,12 @@
                       // !!!!!!!!! VOORKEURS CLOUDPLATFORM EN REGION !!!!!!!!!
 
                       // on document load hide select region as first cloud platform has to be selected
-                      // document.getElementById("select-region").style.display = "none";
                       $("#select-region").hide();
 
                       // on document load hide select currency as first the cloudplatform and region has to be selected
-                      // document.getElementById("select-currency").style.display = "none";
                       $("#select-currency").hide();
 
                       // on document load hide select region text and select currency text
-                      // document.getElementById("select-region-text").style.display = "none";
-                      // document.getElementById("select-currency-text").style.display = "none";
                       $("#select-region-text").hide();
                       $("#select-currency-text").hide();
 
@@ -65,8 +61,6 @@
                       $("#select-cloudplatform").on("change",function (e) {
                       $("#select-region").show();
                       $("#select-region-text").show();
-                      // document.getElementById("select-region").style.display = "block";
-                      // document.getElementById("select-region-text").style.display = "block";
                       removeOptions(document.getElementById('select-region'));
                        var currentPlatform = $(this).val();
                         console.log(currentPlatform);
@@ -83,8 +77,6 @@
                       $("#select-region").on("change",function (e) {
                         $("#select-currency").show();
                         $("#select-currency-text").show();
-                        // document.getElementById("select-currency").style.display = "block";
-                        // document.getElementById("select-currency-text").style.display = "block";
                         });
                       });
 
