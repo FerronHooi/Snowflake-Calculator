@@ -86,29 +86,23 @@
 
                     // !!!!!!!!! SCHATTING VERBRUIKSKOSTEN !!!!!!!!!
 
+                    
+                    // on document load... load all the available days
+                      $.each(numberOfDays, function (k, v) {
+                            $('#number-of-days-select').append($('<option>', { 
+                                value: v,
+                                text : v
+                            }));
+                        });
 
-
-                      var selectCurrency = document.getElementById("select-currency");
-                      var selectNumberOfDays = document.getElementById("number-of-days-select");
-                      var selectHoursPerDay = document.getElementById("usage-hours-select");
-
-                    // add data to select option of number of days (7 days, so one week)           
-                    for(var i = 0; i < numberOfDays.length; i++) {
-                          var opt = numberOfDays[i];
-                          var el = document.createElement("option");
-                          el.textContent = opt;
-                          el.value = opt;
-                          selectNumberOfDays.appendChild(el);
-                      }
-
-                    // add data to select option of hours per day (24 hours)
-                    for(var i = 0; i < hoursInAday.length; i++) {
-                          var opt = hoursInAday[i];
-                          var el = document.createElement("option");
-                          el.textContent = opt;
-                          el.value = opt;
-                          selectHoursPerDay.appendChild(el);
-                      }                
+                    
+                    // on document load... load all the available hours
+                      $.each(hoursInAday, function (k, v) {
+                            $('#usage-hours-select').append($('<option>', { 
+                                value: v,
+                                text : v
+                            }));
+                        });              
 
                     var regions = document.getElementById('select-region').addEventListener('change', function() {
                         console.log(this.value);
