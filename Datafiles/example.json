@@ -29,6 +29,95 @@
             "gbp": "1.00"
           }
         }
+      },
+      "asia_test": {
+        "on_demand_price": {
+          "eur": "1.00",
+          "usd": "1.00",
+          "gbp": "1.00"
+        },
+        "capacity_storage_price": {
+          "eur": "1.00",
+          "usd": "1.00",
+          "gbp": "1.00"
+        },
+        "tier": {
+          "standard": {
+            "eur": "1.00",
+            "usd": "1.00",
+            "gbp": "1.00"
+          },
+          "enterprise": {
+            "eur": "1.00",
+            "usd": "1.00",
+            "gbp": "1.00"
+          },
+          "business-critical": {
+            "eur": "1.00",
+            "usd": "1.00",
+            "gbp": "1.00"
+          }
+        }
+      }
+    },
+    "googlecloudplatform": {
+      "europe-west": {
+        "on_demand_price": {
+          "eur": "1.00",
+          "usd": "1.00",
+          "gbp": "1.00"
+        },
+        "capacity_storage_price": {
+          "eur": "1.00",
+          "usd": "1.00",
+          "gbp": "1.00"
+        },
+        "tier": {
+          "standard": {
+            "eur": "1.00",
+            "usd": "1.00",
+            "gbp": "1.00"
+          },
+          "enterprise": {
+            "eur": "1.00",
+            "usd": "1.00",
+            "gbp": "1.00"
+          },
+          "business-critical": {
+            "eur": "1.00",
+            "usd": "1.00",
+            "gbp": "1.00"
+          }
+        }
+      },
+      "europe_east": {
+        "on_demand_price": {
+          "eur": "1.00",
+          "usd": "1.00",
+          "gbp": "1.00"
+        },
+        "capacity_storage_price": {
+          "eur": "1.00",
+          "usd": "1.00",
+          "gbp": "1.00"
+        },
+        "tier": {
+          "standard": {
+            "eur": "1.00",
+            "usd": "1.00",
+            "gbp": "1.00"
+          },
+          "enterprise": {
+            "eur": "1.00",
+            "usd": "1.00",
+            "gbp": "1.00"
+          },
+          "business-critical": {
+            "eur": "1.00",
+            "usd": "1.00",
+            "gbp": "1.00"
+          }
+        }
       }
     }
   }

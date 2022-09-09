@@ -31,6 +31,7 @@ class snowflakeCalculatorScraper:
             scriptStorageCost = str((allScripts[13]))
 
             #get only the relevant part of the script (so all the text between start and end)
+            print(scriptStorageCost)
             start = "jQuery(document).ready(function($)"
             end = "// custom select"
             result = scriptStorageCost[scriptStorageCost.find(start)+len(start):scriptStorageCost.rfind(end)]

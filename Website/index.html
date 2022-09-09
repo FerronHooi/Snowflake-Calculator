@@ -26,6 +26,8 @@
                         }
                       }
                       
+                      // !!!!!!!!! VOORKEURS CLOUDPLATFORM EN REGION !!!!!!!!!
+
                       // on document load hide select region as first cloud platform has to be selected
                       document.getElementById("select-region").style.display = "none";
 
@@ -39,10 +41,18 @@
                       // load platforms (data)
                       // on document load... load all the available platforms
                       $.each(platforms, function (k, v) {
-                          // console.log(k)
                             $('#select-cloudplatform').append($('<option>', { 
                                 value: k,
                                 text : k
+                            }));
+                        });
+
+                      
+                    // on document load... load all the available currencies
+                      $.each(currencyOptions, function (k, v) {
+                            $('#select-currency').append($('<option>', { 
+                                value: v,
+                                text : v
                             }));
                         });
 
@@ -67,42 +77,22 @@
                       document.getElementById("select-currency").style.display = "block";
                       document.getElementById("select-currency-text").style.display = "block";
                         });
+                      });
+
+                      // console.log(Object.keys(myJson.platform.microsoftazure));
                       
                       var selectCloudplatform = document.getElementById("select-cloudplatform");
                       var selectRegion = document.getElementById("select-region");
+
+                    // !!!!!!!!! SCHATTING VERBRUIKSKOSTEN !!!!!!!!!
+
+
+
                       var selectCurrency = document.getElementById("select-currency");
                       var selectNumberOfDays = document.getElementById("number-of-days-select");
                       var selectHoursPerDay = document.getElementById("usage-hours-select");
 
-                      // //Get data for cloudplatform
-                      // for(var i = 0; i < cloudplatformOptions.length; i++) {
-                      //   var opt = cloudplatformOptions[i];
-                      //     var el = document.createElement("option");
-                      //     el.textContent = opt;
-                      //     el.value = opt;
-                      //     selectCloudplatform.appendChild(el);
-                      // }
-
-                    //Get data for regions
-                    //TODO: This data should be visible based on cloudplatform selection
-                    // for(var i = 0; i < regionOptions.length; i++) {
-                    //       var opt = regionOptions[i];
-                    //       var el = document.createElement("option");
-                    //       el.textContent = opt;
-                    //       el.value = opt;
-                    //       selectRegion.appendChild(el);
-                    //   }
-
-                    //Get data for the currency
-                    for(var i = 0; i < currencyOptions.length; i++) {
-                          var opt = currencyOptions[i];
-                          var el = document.createElement("option");
-                          el.textContent = opt;
-                          el.value = opt;
-                          selectCurrency.appendChild(el);
-                      }
-
-                    // Get data for the numbers of days                 
+                    // add data to select option of number of days (7 days, so one week)           
                     for(var i = 0; i < numberOfDays.length; i++) {
                           var opt = numberOfDays[i];
                           var el = document.createElement("option");
@@ -111,7 +101,7 @@
                           selectNumberOfDays.appendChild(el);
                       }
 
-                    // Get data for the numbers of hours in a day
+                    // add data to select option of hours per day (24 hours)
                     for(var i = 0; i < hoursInAday.length; i++) {
                           var opt = hoursInAday[i];
                           var el = document.createElement("option");
@@ -119,24 +109,6 @@
                           el.value = opt;
                           selectHoursPerDay.appendChild(el);
                       }                
-
-                    // Get region data based on cloudplatform selection
-                    //TODO: List should not append, it should replace the existing list
-
-                    // // Voorkeursplatform
-                    // var currentPlatform = document.getElementById('select-cloudplatform').addEventListener('change', function() {
-                    // // console.log(this.value);
-                    // var regionOptions = Object.keys(myJson['platform'][this.value]);
-
-                    //     for(var i = 0; i < regionOptions.length; i++) {
-                    //       var opt = regionOptions[i];
-                    //       var el = document.createElement("option");
-                    //       el.textContent = opt;
-                    //       console.log(opt);
-                    //       el.value = opt;
-                    //       selectRegion.appendChild(el);
-                    //   }
-                    //     }); 
 
                     var regions = document.getElementById('select-region').addEventListener('change', function() {
                         console.log(this.value);
