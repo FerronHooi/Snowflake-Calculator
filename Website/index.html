@@ -119,7 +119,7 @@
                     
                     
                       // When the platform/region/currency/numberofdays/hours is changed then.....
-                      $("#select-cloudplatform, #select-region, #select-currency, #number-of-days-select, #usage-hours-select").on("change",function (e) {
+                      $("#select-cloudplatform, #select-region, #select-currency, #number-of-days-select, #usage-hours-select, #warehouse-size-button-left, #warehouse-size-button-right").on("change, click",function (e) {
                         
                         // current storagetbs, platform, region and currency
                         var currentPlatform = document.getElementById("select-cloudplatform").value
@@ -131,6 +131,7 @@
                         var calculateTotalHours = document.getElementById('number-of-days-select').value * document.getElementById('usage-hours-select').value
                         document.getElementById('total-hours').innerHTML = Math.trunc((calculateTotalHours * 52)/12);
                         var creditsPerHour = document.getElementById('warehouse-size-number').innerHTML;
+                        console.log(creditsPerHour)
                         var totalCreditsCount = document.getElementById('warehouse-size-number').innerHTML * calculateTotalHours; 
                         console.log(creditsPerHour);
                         var creditsPerHourString = document.getElementById('total-credits-per-hour').innerHTML = creditsPerHour + " Credit(s)/uur";
@@ -146,15 +147,15 @@
 
                         // calculations
 
-                        var totalCostsStandard = document.getElementById('standardeditionamount').innerHTML = standardPrice * creditsTotal
-                        var totalCostsEnterprise = document.getElementById('enterpriseeditionamount').innerHTML = enterprisePrice * creditsTotal
-                        var totalCostsBusinessCritical = document.getElementById('businesscriticaleditionamount').innerHTML = businessCritcalPrice * creditsTotal
+                        var totalCostsStandard = document.getElementById('standardeditionamount').innerHTML =  currentCurrency + " " +  standardPrice * creditsTotal
+                        var totalCostsEnterprise = document.getElementById('enterpriseeditionamount').innerHTML =  currentCurrency + " " + enterprisePrice * creditsTotal
+                        var totalCostsBusinessCritical = document.getElementById('businesscriticaleditionamount').innerHTML =  currentCurrency + " " + businessCritcalPrice * creditsTotal
 
                         // !!!! GESCHATTE MAANDELIJKSE OPSLAGKOSTEN !!!!
 
-                        var totalOnDemandStorageCost = document.getElementById('on-demand-storage-amount').innerHTML = platforms[currentPlatform][currentRegion]['on_demand_price'][currentCurrency] * currentStorageTBs
+                        var totalOnDemandStorageCost = document.getElementById('on-demand-storage-amount').innerHTML =  currentCurrency + " " +  platforms[currentPlatform][currentRegion]['on_demand_price'][currentCurrency] * currentStorageTBs
                         console.log(totalOnDemandStorageCost)
-                        var totalCapacityStorageCost = document.getElementById('capacity-storage-amount').innerHTML = platforms[currentPlatform][currentRegion]['capacity_storage_price'][currentCurrency] * currentStorageTBs
+                        var totalCapacityStorageCost = document.getElementById('capacity-storage-amount').innerHTML =  currentCurrency + " " + platforms[currentPlatform][currentRegion]['capacity_storage_price'][currentCurrency] * currentStorageTBs
 
                         });
                     
@@ -182,8 +183,9 @@
                         var currentCurrency = document.getElementById("select-currency").value.toLowerCase()
                         var currentStorageTBs = document.getElementById('input-storage-tb-per-month').value;
 
-                        var totalOnDemandStorageCost = document.getElementById('on-demand-storage-amount').innerHTML = platforms[currentPlatform][currentRegion]['on_demand_price'][currentCurrency] * currentStorageTBs
-                        var totalCapacityStorageCost = document.getElementById('capacity-storage-amount').innerHTML = platforms[currentPlatform][currentRegion]['capacity_storage_price'][currentCurrency] * currentStorageTBs
+                        // TODO: Euro symbol instead of currentCurrency
+                        var totalOnDemandStorageCost = document.getElementById('on-demand-storage-amount').innerHTML = currentCurrency + " " + platforms[currentPlatform][currentRegion]['on_demand_price'][currentCurrency] * currentStorageTBs
+                        var totalCapacityStorageCost = document.getElementById('capacity-storage-amount').innerHTML = currentCurrency + " " + platforms[currentPlatform][currentRegion]['capacity_storage_price'][currentCurrency] * currentStorageTBs
                         });
 
                     });
@@ -307,7 +309,7 @@
             <div class="snowflake-calculator-container08">
               <span id="total-credits-per-hour">1 Credit(s)/uur</span>
               <span class="snowflake-calculator-text13">
-                <span>Total hours:</span>
+                <span>Totale uren:</span>
                 <span class="snowflake-calculator-text12" id="total-hours"></span>
               </span>
               <span class="snowflake-calculator-text13">
@@ -315,13 +317,13 @@
                 <span class="snowflake-calculator-text15" id="total-credits"></span>
               </span>
             </div>
-            <button
+            <!-- <button
               id="deleteall"
               type="reset"
               class="snowflake-calculator-button2 button"
             >
               Delete
-            </button>
+            </button> -->
           </div>
         </div>
       </div>
@@ -335,8 +337,8 @@
             <input
               type="number"
               id="inputfieldstandard"
-              value="2,00"
-              placeholder="2,00"
+              value="0,00"
+              placeholder="0,00"
               class="snowflake-calculator-textinput1 input"
             />
             <img
@@ -345,7 +347,6 @@
               class="snowflake-calculator-image1"
             />
             <h3 id="standardeditionamount" class="snowflake-calculator-text18">
-              $ 1100
             </h3>
             <span class="snowflake-calculator-usage-costs-per-month">
               Verbruikskosten per maand
@@ -356,8 +357,8 @@
             <input
               type="number"
               id="inputfieldenterprise"
-              value="3,00"
-              placeholder="3,00"
+              value="0,00"
+              placeholder="0,00"
               class="snowflake-calculator-textinput1 input"
             />
             <img
@@ -369,7 +370,6 @@
               id="enterpriseeditionamount"
               class="snowflake-calculator-heading1"
             >
-              $ 1100
             </h3>
             <span class="snowflake-calculator-usage-costs-per-month1">
               Verbruikskosten per maand
@@ -380,8 +380,8 @@
             <input
               type="number"
               id="inputfieldbusinesscritical"
-              value="2,00"
-              placeholder="2,00"
+              value="0,00"
+              placeholder="0,00"
               class="snowflake-calculator-textinput2 input"
             />
             <img
@@ -393,7 +393,6 @@
               id="businesscriticaleditionamount"
               class="snowflake-calculator-text19"
             >
-              $ 1100
             </h3>
             <span class="snowflake-calculator-usage-costs-per-month2">
               Verbruikskosten per maand
@@ -435,7 +434,6 @@
                 id="on-demand-storage-amount"
                 class="on-demand-storage-amount"
               >
-                $ 1100
               </h3>
               <span class="snowflake-calculator-opslagkosten-per-maand">
                 Opslagkosten per maand
@@ -454,7 +452,6 @@
                 id="capacity-storage-amount"
                 class="snowflake-calculator-heading3 on-demand-storage-amount"
               >
-                $ 1100
               </h3>
               <span class="snowflake-calculator-opslagkosten-per-maand1">
                 Opslagkosten per maand
