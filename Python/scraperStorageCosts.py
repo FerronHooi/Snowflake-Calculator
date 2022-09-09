@@ -174,15 +174,27 @@ grouped_df.to_csv('SnowflakeCloudData.csv', index=False)
 #dict_from_csv = pd.read_csv('SnowflakeCloudData.csv', header=None, index_col=0, squeeze=False).to_dict()
 #print(dict_from_csv)
 
-with open("SnowflakeCloudData.csv", "r") as f:
+snowflake_csv = r"C:\Users\GurcanOzdemir\Desktop\SF_CALCULATOR\Python\SnowflakeCloudData.csv"
+
+with open(snowflake_csv, encoding='utf-8-sig') as f:
     csv_reader = csv.DictReader(f)
-    SnowflakeCloudData = list(csv_reader)
+    combined_col = {'platform': []}
+    for record in csv_reader:
+        combined_col['platform'].append(record['platform'])
+        print(combined_col)
+
     # print(SnowflakeCloudData[0])
-
+##
 #TODO: de rest van de hierarchie in de output bijvoegen
-sf_platform_region_combined = {}
-for combined in SnowflakeCloudData:
+#sf_platform_region_combined = {}
+#for combined in SnowflakeCloudData:
+    #sf_platform_region_combined[row[0]] = {'cloudregion':row[1],'on_demand_price_usd':[2]}
     # print(combined)
-    sf_platform_region_combined[combined['platform']] = sf_platform_region_combined.get(combined['platform'], []) + [combined['cloudregion']]
+ #   sf_platform_region_combined[combined['cloudregion']] = sf_platform_region_combined.get(combined['cloudregion'], []) + [combined['cloudregion']]
 
-print(sf_platform_region_combined['googlecloudplatform'])
+
+
+#print(sf_platform_region_combined['googlecloudplatform'])
+
+
+
