@@ -1,7 +1,7 @@
 #TODO: CLEAN UP CODE
 #TODO: DATA DIE GESCRAPED IS IN DE JUISTE FORMAT STOPPEN
 
-import pandas as pd
+# import pandas as pd
 import requests
 from bs4 import BeautifulSoup
 import json
@@ -42,6 +42,9 @@ class snowflakeCalculatorScraper:
 
             #empty array
             dataScrapeStorageCosts = []
+
+            #empty dict
+            priceDataDict = {}
 
             # listOfNames = ['on_demand_price_usd', 'on_demand_price_eur', 'on_demand_price_gbp',
             #                'capacity_storage_price_usd',
@@ -88,10 +91,9 @@ class snowflakeCalculatorScraper:
                                     dataScrapeStorageCosts.append(
                                         {'platform': splittedSentence[0], 'cloudregion': splittedSentence[1],
                                          name[:-10] + '_' + name.split('_')[2] + '_' + name.split('_')[3]: value.replace(',', '.')})
-                                    # dataScrapeStorageCosts.append(
-                                    #     {'platform': splittedSentence[0], 'cloudregion': splittedSentence[1],
-                                    #      name[:-10]: {name.split('_')[2] + '_' + name.split('_')[3]: value.replace(',', '.')}})
+                                    priceDataDict =  {'platform': splittedSentence[0], 'cloudregion': splittedSentence[1], name[:-10]: {name.split('_')[2] + '_' + name.split('_')[3]: value.replace(',', '.')}}
 
+            print(priceDataDict)
             # print(dataScrapeStorageCosts)
             return dataScrapeStorageCosts
 
@@ -151,19 +153,19 @@ class snowflakeCalculatorScraper:
             pass
 
 
-df_storage_costs = pd.DataFrame(snowflakeCalculatorScraper.scrapeStorageCosts())
-
-df_prices = pd.DataFrame(snowflakeCalculatorScraper.scrapePrices())
-
-#combine the two dataframes
-df_all = pd.concat([df_storage_costs, df_prices], axis=0)
-df_all['platform_region_combined'] = df_all['platform'] + '_' + df_all['cloudregion']
-df_all.sort_values(by=['platform_region_combined'], inplace=True)
-df_all.reset_index(drop=True, inplace=True)
-grouped_df = df_all.groupby(['platform_region_combined'],as_index=False).first()
-
-#write grouped_df to csv
-grouped_df.to_csv('SnowflakeCloudData.csv', index=False)
+# df_storage_costs = pd.DataFrame(snowflakeCalculatorScraper.scrapeStorageCosts())
+#
+# df_prices = pd.DataFrame(snowflakeCalculatorScraper.scrapePrices())
+#
+# #combine the two dataframes
+# df_all = pd.concat([df_storage_costs, df_prices], axis=0)
+# df_all['platform_region_combined'] = df_all['platform'] + '_' + df_all['cloudregion']
+# df_all.sort_values(by=['platform_region_combined'], inplace=True)
+# df_all.reset_index(drop=True, inplace=True)
+# grouped_df = df_all.groupby(['platform_region_combined'],as_index=False).first()
+#
+# #write grouped_df to csv
+# grouped_df.to_csv('SnowflakeCloudData.csv', index=False)
 
 # print(grouped_df)
 
