@@ -20,6 +20,7 @@ with open(snowflake_csv, encoding='utf-8-sig') as f:
 
             currencies = ['eur', 'usd', 'gbp']
             tiers = ['standard', 'enterprise', 'business-critical']
+            storages = ['on_demand', 'capacity_storage']
 
             #STORAGE COSTS
             if 'storage' in key or 'demand' in key:
@@ -28,12 +29,13 @@ with open(snowflake_csv, encoding='utf-8-sig') as f:
                 # print(key)
                 currencies = ['eur', 'usd']
                 # print(parts)
-                for currency in currencies:
-                    if 'on_demand_price_' + currency or 'capacity_storage_price' + currency in key:
-                        # print(parts)
-                        # print(key)
-                        priceDataDict = {'platform': {record['platform']:{record['cloudregion']:{'on_demand_price' : {currency:record['on_demand_price_' + currency]}}}}}
-                        # print(priceDataDict)
+                for storage in storages:
+                    for currency in currencies:
+                        if storage + '_price_' + currency in key:
+                            # print(parts)
+                            # print(key)
+                            priceDataDict = {'platform': {record['platform']:{record['cloudregion']:{storage + '_price' : {currency:record[storage + '_price_' + currency]}}}}}
+                            # print(priceDataDict)
 
             #PRICES
             if 'tier' in key:
