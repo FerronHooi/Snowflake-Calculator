@@ -14,102 +14,36 @@ with open(snowflake_csv, encoding='utf-8-sig') as f:
         # print(record['on_demand_price_eur'])
         for key in record:
             # print(key)
+            # print(record['platform'])
             # parts = key.split('_')
-            if 'usd' in key or 'gbp' in key or 'eur' in key:
+            # if 'usd' in key or 'gbp' in key or 'eur' in key:
 
-                #STORAGE COSTS
-                if 'storage' in key or 'demand' in key:
-                    parts = key.split('_')
-                    # print(parts[0:3])
-                    if 'on_demand_price_eur' in key:
-                        test = {'platform': {record['platform']:{record['cloudregion']:{parts[0] + '_' + parts[1] + '_' + parts[2] : {parts[3]:record['on_demand_price_eur']}}}}}
+            currencies = ['eur', 'usd', 'gbp']
+            tiers = ['standard', 'enterprise', 'business-critical']
+
+            #STORAGE COSTS
+            if 'storage' in key or 'demand' in key:
+                parts = key.split('_')
+                # print(parts[0:3])
+                # print(key)
+                currencies = ['eur', 'usd']
+                # print(parts)
+                for currency in currencies:
+                    if 'on_demand_price_' + currency or 'capacity_storage_price' + currency in key:
+                        # print(parts)
+                        # print(key)
+                        test = {record['platform']:{record['cloudregion']:{'on_demand_price' : {currency:record['on_demand_price_' + currency]}}}}
                         # print(test)
 
-                    if 'on_demand_price_usd' in key:
-                        test = {'platform': {record['platform']:{record['cloudregion']:{parts[0] + '_' + parts[1] + '_' + parts[2] : {parts[3]:record['on_demand_price_usd']}}}}}
-                        # print(test)
-
-                    if 'on_demand_price_gbp' in key:
-                        test = {'platform': {record['platform']:{record['cloudregion']:{parts[0] + '_' + parts[1] + '_' + parts[2] : {parts[3]:record['on_demand_price_gbp']}}}}}
-                        # print(test)
-
-                    if 'capacity_storage_price_eur' in key:
-                        test = {'platform': {record['platform']:{record['cloudregion']:{parts[0] + '_' + parts[1] + '_' + parts[2] : {parts[3]:record['capacity_storage_price_eur']}}}}}
-                        # print(test)
-
-                    if 'capacity_storage_price_usd' in key:
-                        test = {'platform': {record['platform']:{record['cloudregion']:{parts[0] + '_' + parts[1] + '_' + parts[2] : {parts[3]:record['capacity_storage_price_usd']}}}}}
-                        # print(test)
-
-                    if 'capacity_storage_price_gbp' in key:
-                        test = {'platform': {record['platform']:{record['cloudregion']:{parts[0] + '_' + parts[1] + '_' + parts[2] : {parts[3]:record['on_demand_price_gbp']}}}}}
-                        # print(test)
-
-                #PRICES
-                if 'tier' in key:
-                    parts = key.split('_')
-                    # print(parts[0:3])
-
-                    if 'standard_tier_price_eur' in key:
-                        # tier = 'enterprise'
-                        test = {'platform': {record['platform']:{record['cloudregion']:{'tier' : {parts[0]: {parts[3]: record['standard_tier_price_eur']}}}}}}
-                        # print(record['on_demand_price_eur'])
-                        # print(test)
-
-                    if 'standard_tier_price_usd' in key:
-                        # tier = 'enterprise'
-                        test = {'platform': {record['platform']: {record['cloudregion']: {
-                            'tier': {parts[0]: {parts[3]: record['standard_tier_price_usd']}}}}}}
-                        # print(record['on_demand_price_eur'])
-                        # print(test)
-
-                    if 'standard_tier_price_gbp' in key:
-                        # tier = 'enterprise'
-                        test = {'platform': {record['platform']: {record['cloudregion']: {
-                            'tier': {parts[0]: {parts[3]: record['standard_tier_price_gbp']}}}}}}
-                        # print(record['on_demand_price_eur'])
-                        # print(test)
-
-                    if 'enterprise_tier_price_eur' in key:
-                        # tier = 'enterprise'
-                        test = {'platform': {record['platform']:{record['cloudregion']:{'tier' : {parts[0]: {parts[3]: record['enterprise_tier_price_eur']}}}}}}
-                        # print(record['on_demand_price_eur'])
-                        # print(test)
-
-                    if 'enterprise_tier_price_usd' in key:
-                        # tier = 'enterprise'
-                        test = {'platform': {record['platform']: {record['cloudregion']: {
-                            'tier': {parts[0]: {parts[3]: record['enterprise_tier_price_usd']}}}}}}
-                        # print(record['on_demand_price_eur'])
-                        # print(test)
-
-                    if 'enterprise_tier_price_gbp' in key:
-                        # tier = 'enterprise'
-                        test = {'platform': {record['platform']: {record['cloudregion']: {
-                            'tier': {parts[0]: {parts[3]: record['enterprise_tier_price_gbp']}}}}}}
-                        # print(record['on_demand_price_eur'])
-                        # print(test)
-
-                    if 'business-critical_tier_price_eur' in key:
-                        # tier = 'enterprise'
-                        test = {'platform': {record['platform']: {record['cloudregion']: {
-                            'tier': {parts[0]: {parts[3]: record['business-critical_tier_price_eur']}}}}}}
-                        # print(record['on_demand_price_eur'])
-                        # print(test)
-
-                    if 'business-critical_tier_price_usd' in key:
-                        # tier = 'enterprise'
-                        test = {'platform': {record['platform']: {record['cloudregion']: {
-                            'tier': {parts[0]: {parts[3]: record['business-critical_tier_price_usd']}}}}}}
-                        # print(record['on_demand_price_eur'])
-                        # print(test)
-
-                    if 'business-critical_tier_price_usd' in key:
-                        # tier = 'enterprise'
-                        test = {'platform': {record['platform']: {record['cloudregion']: {
-                            'tier': {parts[0]: {parts[3]: record['business-critical_tier_price_gbp']}}}}}}
-                        # print(record['on_demand_price_eur'])
-                        # print(test)
+            #PRICES
+            if 'tier' in key:
+                parts = key.split('_')
+                for tier in tiers:
+                    for currency in currencies:
+                        if tier + '_tier_price_' + currency in key:
+                            test = {'platform': {record['platform']:{record['cloudregion']:{'tier' : {parts[0]: {parts[3]: record[tier + '_tier_price_' + currency]}}}}}}
+                            # print(record['on_demand_price_eur'])
+                            print(test)
 
             # print(test)
 
@@ -117,5 +51,6 @@ with open(snowflake_csv, encoding='utf-8-sig') as f:
             if len(test) != 0:
                 dictList.append(test)
 
-print(dictList)
+# print(dictList['platform'])
 
+# print(dictList)
