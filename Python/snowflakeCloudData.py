@@ -3,7 +3,7 @@ from collections import defaultdict
 
 snowflake_csv = "SnowflakeCloudData.csv"
 
-test = {}
+priceDataDict = {}
 dictList = []
 
 with open(snowflake_csv, encoding='utf-8-sig') as f:
@@ -32,8 +32,8 @@ with open(snowflake_csv, encoding='utf-8-sig') as f:
                     if 'on_demand_price_' + currency or 'capacity_storage_price' + currency in key:
                         # print(parts)
                         # print(key)
-                        test = {record['platform']:{record['cloudregion']:{'on_demand_price' : {currency:record['on_demand_price_' + currency]}}}}
-                        # print(test)
+                        priceDataDict = {'platform': {record['platform']:{record['cloudregion']:{'on_demand_price' : {currency:record['on_demand_price_' + currency]}}}}}
+                        # print(priceDataDict)
 
             #PRICES
             if 'tier' in key:
@@ -41,15 +41,15 @@ with open(snowflake_csv, encoding='utf-8-sig') as f:
                 for tier in tiers:
                     for currency in currencies:
                         if tier + '_tier_price_' + currency in key:
-                            test = {'platform': {record['platform']:{record['cloudregion']:{'tier' : {parts[0]: {parts[3]: record[tier + '_tier_price_' + currency]}}}}}}
+                            priceDataDict = {'platform': {record['platform']:{record['cloudregion']:{'tier' : {parts[0]: {parts[3]: record[tier + '_tier_price_' + currency]}}}}}}
                             # print(record['on_demand_price_eur'])
-                            print(test)
+                            # print(priceDataDict)
 
-            # print(test)
+            print(priceDataDict)
 
             # check if dictionary is empty
-            if len(test) != 0:
-                dictList.append(test)
+            if len(priceDataDict) != 0:
+                dictList.append(priceDataDict)
 
 # print(dictList['platform'])
 
