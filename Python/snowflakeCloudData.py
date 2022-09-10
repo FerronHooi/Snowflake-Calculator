@@ -4,6 +4,8 @@ from collections import defaultdict
 snowflake_csv = "SnowflakeCloudData.csv"
 
 test = {}
+dictList = []
+
 with open(snowflake_csv, encoding='utf-8-sig') as f:
     csv_reader = csv.DictReader(f)
 
@@ -109,5 +111,11 @@ with open(snowflake_csv, encoding='utf-8-sig') as f:
                         # print(record['on_demand_price_eur'])
                         # print(test)
 
-                print(test)
-# print(test)
+            # print(test)
+
+            # check if dictionary is empty
+            if len(test) != 0:
+                dictList.append(test)
+
+print(dictList)
+
