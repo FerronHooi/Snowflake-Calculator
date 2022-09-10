@@ -197,7 +197,7 @@
 
 // scrapeDataFromSnowflakePricing()
 
-import myJson from '../Datafiles/example.json' assert {type: 'json'};
+import myJson from '../Datafiles/example-.json' assert {type: 'json'};
 
 // 👇️ {
 //   name: 'Alice',

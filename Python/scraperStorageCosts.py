@@ -1,7 +1,7 @@
 #TODO: CLEAN UP CODE
 #TODO: DATA DIE GESCRAPED IS IN DE JUISTE FORMAT STOPPEN
 
-import pandas as pd
+# import pandas as pd
 import requests
 from bs4 import BeautifulSoup
 import json
@@ -32,7 +32,7 @@ class snowflakeCalculatorScraper:
             scriptStorageCost = str((allScripts[13]))
 
             #get only the relevant part of the script (so all the text between start and end)
-            print(scriptStorageCost)
+            # print(scriptStorageCost)
             start = "jQuery(document).ready(function($)"
             end = "// custom select"
             result = scriptStorageCost[scriptStorageCost.find(start)+len(start):scriptStorageCost.rfind(end)]
@@ -41,7 +41,10 @@ class snowflakeCalculatorScraper:
             splittedResult = result.splitlines()
 
             #empty array
-            dataScrapeStorageCosts = []
+            listOfPrices = []
+
+            #empty dict
+            priceDataDict = {}
 
             # listOfNames = ['on_demand_price_usd', 'on_demand_price_eur', 'on_demand_price_gbp',
             #                'capacity_storage_price_usd',
@@ -85,15 +88,16 @@ class snowflakeCalculatorScraper:
                         for column[0] in splittedSentence:
                             for name in listOfNames:
                                 if name in column[0]:
-                                    dataScrapeStorageCosts.append(
-                                        {'platform': splittedSentence[0], 'cloudregion': splittedSentence[1],
-                                         name[:-10] + '_' + name.split('_')[2] + '_' + name.split('_')[3]: value.replace(',', '.')})
                                     # dataScrapeStorageCosts.append(
                                     #     {'platform': splittedSentence[0], 'cloudregion': splittedSentence[1],
-                                    #      name[:-10]: {name.split('_')[2] + '_' + name.split('_')[3]: value.replace(',', '.')}})
+                                    #      name[:-10] + '_' + name.split('_')[2] + '_' + name.split('_')[3]: value.replace(',', '.')})
+                                    priceDataDict =  {'platform': splittedSentence[0], 'region': splittedSentence[1], 'data': { name[:-4]: {name.split('_')[3]: value.replace(',', '.')}}}
+                                    listOfPrices.append(priceDataDict)
 
+                        # print(priceDataDict)
+            # print(priceDataDict)
             # print(dataScrapeStorageCosts)
-            return dataScrapeStorageCosts
+            return listOfPrices
 
         except Exception as e:
             print('An error occured while scraping the storage costs: ' + str(e))
@@ -107,8 +111,11 @@ class snowflakeCalculatorScraper:
             url = requests.get('https://www.snowflake.com/pricing/', headers={'User-Agent': 'Mozilla/5.0'})
             soup = BeautifulSoup(url.text, 'html.parser')
 
-            #empty array
-            dataScrapePrices = []
+            #empty dict
+            dataScrapePrices = {}
+
+            #empty list
+            listOfPrices = []
 
             #platforms
             platforms = ['microsoftazure', 'amazonwebservicesaws', 'googlecloudplatform']
@@ -141,61 +148,39 @@ class snowflakeCalculatorScraper:
                             priceUsd = re.sub('[$, €, £]', '', price['data-price-usd'])
                             priceEur = re.sub('[$, €, £]', '', price['data-price-eur'])
                             priceGbp = re.sub('[$, €, £]', '', price['data-price-gbp'])
-                            dataScrapePrices.append({'platform':platform, 'cloudregion':region, tier + '_tier_price_eur': priceEur, tier + '_tier_price_usd': priceUsd, tier + '_tier_price_gbp': priceGbp})
-                            # dataScrapePrices.append({'platform':platform, 'cloudregion':region, 'tier': { tier: {'price_eur': priceEur, 'price_usd': priceUsd, 'price_gbp': priceGbp}}})
+                            dataScrapePrices = {'platform':platform, 'region': region, 'data':{ 'tier':{tier: {'eur':priceEur, 'usd':priceUsd, 'gbp':priceGbp}}}}
+                            listOfPrices.append(dataScrapePrices)
+                            # print(listOfPrices)
 
-            return dataScrapePrices
+            return listOfPrices
 
         except Exception as e:
             print('An error occured while scraping the prices: ' + str(e))
             pass
 
 
-df_storage_costs = pd.DataFrame(snowflakeCalculatorScraper.scrapeStorageCosts())
+# snowflakeCalculatorScraper.scrapeStorageCosts()
+# print(snowflakeCalculatorScraper.scrapePrices())
 
-df_prices = pd.DataFrame(snowflakeCalculatorScraper.scrapePrices())
+lst = snowflakeCalculatorScraper.scrapeStorageCosts() + snowflakeCalculatorScraper.scrapePrices()
 
-#combine the two dataframes
-df_all = pd.concat([df_storage_costs, df_prices], axis=0)
-df_all['platform_region_combined'] = df_all['platform'] + '_' + df_all['cloudregion']
-df_all.sort_values(by=['platform_region_combined'], inplace=True)
-df_all.reset_index(drop=True, inplace=True)
-grouped_df = df_all.groupby(['platform_region_combined'],as_index=False).first()
-
-#write grouped_df to csv
-grouped_df.to_csv('SnowflakeCloudData.csv', index=False)
-
-# print(grouped_df)
-
-
-#
-# #write to blob
-# write_to_blob()
-
-#dict_from_csv = pd.read_csv('SnowflakeCloudData.csv', header=None, index_col=0, squeeze=False).to_dict()
-#print(dict_from_csv)
-
-snowflake_csv = r"C:\Users\GurcanOzdemir\Desktop\SF_CALCULATOR\Python\SnowflakeCloudData.csv"
-
-with open(snowflake_csv, encoding='utf-8-sig') as f:
-    csv_reader = csv.DictReader(f)
-    combined_col = {'platform': []}
-    for record in csv_reader:
-        combined_col['platform'].append(record['platform'])
-        print(combined_col)
-
-    # print(SnowflakeCloudData[0])
-##
-#TODO: de rest van de hierarchie in de output bijvoegen
-#sf_platform_region_combined = {}
-#for combined in SnowflakeCloudData:
-    #sf_platform_region_combined[row[0]] = {'cloudregion':row[1],'on_demand_price_usd':[2]}
-    # print(combined)
- #   sf_platform_region_combined[combined['cloudregion']] = sf_platform_region_combined.get(combined['cloudregion'], []) + [combined['cloudregion']]
+out = {}
+for dct in lst:
+    if "tier" in dct["data"]:
+        out.setdefault(dct["platform"], {}).setdefault(
+            dct["region"], {}
+        ).setdefault("tier", {}).setdefault(
+            (n := list(dct["data"]["tier"])[0]), {}
+        ).update(
+            dct["data"]["tier"][n]
+        )
+    else:
+        out.setdefault(dct["platform"], {}).setdefault(
+            dct["region"], {}
+        ).setdefault((n := list(dct["data"])[0]), {}).update(dct["data"][n])
 
 
+print(out)
 
-#print(sf_platform_region_combined['googlecloudplatform'])
-
-
-
+with open("../Datafiles/snowflakeData.json", "w") as outfile:
+    json.dump(out, outfile)
