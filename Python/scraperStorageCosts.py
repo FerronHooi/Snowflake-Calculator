@@ -182,5 +182,5 @@ for dct in lst:
 
 print(out)
 
-with open("../Datafiles/example.json", "w") as outfile:
+with open("../Datafiles/snowflakeData.json", "w") as outfile:
     json.dump(out, outfile)
