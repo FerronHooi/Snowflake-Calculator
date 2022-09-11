@@ -20,6 +20,7 @@ try:
     data = json.loads(blob_client.download_blob().readall())
     #correct JSON
     data = json.dumps(data, indent=4)
+    data = '[' + data
 
     print(data)
 
