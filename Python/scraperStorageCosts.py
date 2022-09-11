@@ -192,7 +192,8 @@ for dct in lst:
             dct["region"], {}
         ).setdefault((n := list(dct["data"])[0]), {}).update(dct["data"][n])
 
-output = json.dumps(out)
+output = json.dumps(out, indent=4)
+# print(type(output))
 
 # WRITING FILE TO AZURE BLOB STORAGE
 
@@ -231,3 +232,5 @@ try:
 
 except Exception as ex:
     print(ex)
+
+print(type(json.loads(output)))
