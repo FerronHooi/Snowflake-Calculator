@@ -111,8 +111,18 @@ try:
                 for column[0] in splittedSentence:
                     for name in listOfNames:
                         if name in column[0]:
-                            priceDataDict =  {'platform': splittedSentence[0], 'region': splittedSentence[1], 'data': { name[:-4]: {name.split('_')[3]: value.replace(',', '.')}}}
-                            listOfPricesStorage.append(priceDataDict)
+                            platform = splittedSentence[0]
+                            region = splittedSentence[1]
+
+                            if platform == 'amazonwebservicesaws':
+                                platform = 'Amazon Web Services (AWS)'
+                            elif platform == 'googlecloudplatform':
+                                 platform = 'Google Cloud Platform'
+                            elif platform == 'microsoftazure':
+                                platform = 'Microsoft Azure'
+
+                                priceDataDict =  {'platform': platform, 'region': region, 'data': { name[:-4]: {name.split('_')[3]: value.replace(',', '.')}}}
+                                listOfPricesStorage.append(priceDataDict)
 
 except Exception as e:
     print('An error occured while scraping the storage costs: ' + str(e))
@@ -162,6 +172,16 @@ try:
                     priceUsd = re.sub('[$, €, £]', '', price['data-price-usd'])
                     priceEur = re.sub('[$, €, £]', '', price['data-price-eur'])
                     priceGbp = re.sub('[$, €, £]', '', price['data-price-gbp'])
+
+                    #clean up cloud platform names
+
+                    if platform == 'amazonwebservicesaws':
+                        platform = 'Amazon Web Services (AWS)'
+                    elif platform == 'googlecloudplatform':
+                        platform = 'Google Cloud Platform'
+                    elif platform == 'microsoftazure':
+                        platform = 'Microsoft Azure'
+
                     dataScrapePrices = {'platform':platform, 'region': region, 'data':{'tier':{tier: {'eur':priceEur, 'usd':priceUsd, 'gbp':priceGbp}}}}
                     listOfPrices.append(dataScrapePrices)
                     # print(listOfPrices)
