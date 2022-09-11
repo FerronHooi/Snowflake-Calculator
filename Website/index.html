@@ -3,35 +3,13 @@
 <head>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
   <script type="module">
-                      //     function loadJSON(path, success, error) {
-                      //   var xhr = new XMLHttpRequest();
-                      //   xhr.onreadystatechange = function () {
-                      //     if (xhr.readyState === 4) {
-                      //       if (xhr.status === 200) {
-                      //         success(JSON.parse(xhr.responseText));
-                      //       }
-                      //       else {
-                      //         error(xhr);
-                      //       }
-                      //     }
-                      //   };
-                      //   xhr.open('GET', path, true);
-                      //   xhr.send();
-                      // }
 
-                      // loadJSON("http://ergast.com/api/f1/2004/1/results.json",myData,'jsonp');
-
-                      // function myData(Data)
-                      // {
-                      //   console.log(Data);
-                      // }
-
-                      $.get('https://snowflakedatascraper.azurewebsites.net/api/snowflakeclouddatajson.json',function(data){
-                          console.log(data);
-                      },'json');
+                      // get json data from the azure function
+                      $.get('https://snowflakedatascraper.azurewebsites.net/api/snowflakeclouddatajson?',function(data){
+                          // console.log(data);
 
                       jQuery(document).ready(function ($) {
-                      var platforms = myJson;
+                      var platforms = data;
                       var currentPlatform = "";
                       var currentRegion = "";
                       var currentCurrency = "";
@@ -205,6 +183,7 @@
                         var totalOnDemandStorageCost = document.getElementById('on-demand-storage-amount').innerHTML = currentCurrency + " " + platforms[currentPlatform][currentRegion]['on_demand_price'][currentCurrency] * currentStorageTBs
                         var totalCapacityStorageCost = document.getElementById('capacity-storage-amount').innerHTML = currentCurrency + " " + platforms[currentPlatform][currentRegion]['capacity_storage_price'][currentCurrency] * currentStorageTBs
                         });
+                      },'json');
 
                     });
                     </script>
