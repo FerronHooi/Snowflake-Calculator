@@ -11,6 +11,9 @@ import re
 import os, uuid
 from azure.storage.blob import BlobServiceClient, BlobClient, ContainerClient, __version__
 
+# create list of region and their prettier display names
+regionList = []
+
 #STORAGE COSTS
 
 # scrape the https://www.snowflake.com/pricing/ page for the storage costs
@@ -50,27 +53,29 @@ try:
     #loop over splittedResult to get every line individually. Than remove the whitespaces before/after
 
     for line in splittedResult:
-        # if 'display_name' in line:
-            # #remove whitespaces before and after
-            # strippedLine = line.strip()
-            #
-            # #remove prefix 'platforms.' as that is not needed
-            # strippedLine = strippedLine.removeprefix('platforms.')
-            #
-            # #get display name
-            # display_name = line.split('=')[1].replace("'", '')
-            #
-            # #get platform
-            # platform = strippedLine.split('.')[0]
-            #
-            # #get region
-            # region = strippedLine.split('.')[1]
-            #
-            # priceDataDict = {'platform': platform, 'region': region, 'display_name': display_name,
-            #                  'data': []}
-            # listOfPrices.append(priceDataDict)
-            #
-            # print(priceDataDict)
+        if 'display_name' in line:
+            #remove whitespaces before and after
+            strippedLine = line.strip()
+
+            #remove prefix 'platforms.' as that is not needed
+            strippedLine = strippedLine.removeprefix('platforms.')
+
+            #get display name
+            display_name = line.split('=')[1].replace("'", '')
+
+            #remove the whitespace from display name, capitalize first letter and remove the ;
+            display_name = display_name.lstrip().title().replace(';', '')
+
+            #get platform
+            platform = strippedLine.split('.')[0]
+
+            #get region
+            region = strippedLine.split('.')[1]
+
+
+            #dict for region names and pretty region names
+            regionDicts = {'region':region, 'display_name':display_name}
+            regionList.append(regionDicts)
 
         if "platforms." in line and not 'under_price' in line and not 'cta_text' in line and not 'cta_url' in line and not "{}" in line and not 'capacity_storage_price_gbp' in line and not 'on_demand_price_gbp' in line:
             #remove whitespaces before and after
@@ -96,8 +101,8 @@ try:
 
             splittedSentence = reversedBack.split(".")
 
-            if not '€' in strippedLine and not '$' in strippedLine:
-                display_name = strippedLine.split('=')[1].replace("'", '')
+            # if not '€' in strippedLine and not '$' in strippedLine:
+            #     display_name = strippedLine.split('=')[1].replace("'", '')
 
 
             if len(splittedSentence) >= 3:
@@ -121,8 +126,12 @@ try:
                             elif platform == 'microsoftazure':
                                 platform = 'Microsoft Azure'
 
-                                priceDataDict =  {'platform': platform, 'region': region, 'data': { name[:-4]: {name.split('_')[3]: value.replace(',', '.')}}}
-                                listOfPricesStorage.append(priceDataDict)
+                            for reg in regionList:
+                                if reg['region'] == region:
+                                    priceDataDict =  {'platform': platform, 'region': reg['display_name'], 'data': { name[:-4]: {name.split('_')[3]: value.replace(',', '.')}}}
+                                    listOfPricesStorage.append(priceDataDict)
+
+                                # print(priceDataDict)
 
 except Exception as e:
     print('An error occured while scraping the storage costs: ' + str(e))
@@ -182,13 +191,20 @@ try:
                     elif platform == 'microsoftazure':
                         platform = 'Microsoft Azure'
 
-                    dataScrapePrices = {'platform':platform, 'region': region, 'data':{'tier':{tier: {'eur':priceEur, 'usd':priceUsd, 'gbp':priceGbp}}}}
-                    listOfPrices.append(dataScrapePrices)
-                    # print(listOfPrices)
+                    for reg in regionList:
+                        if reg['region'] == region:
+                            dataScrapePrices = {'platform':platform, 'region': reg['display_name'], 'data':{'tier':{tier: {'eur':priceEur, 'usd':priceUsd, 'gbp':priceGbp}}}}
+                            listOfPrices.append(dataScrapePrices)
+                            # print(listOfPrices)
 
+                # print(dataScrapePrices)
 except Exception as e:
     print('An error occured while scraping the prices: ' + str(e))
     pass
+
+
+# for dict in regionList:
+#     print(dict['display_name'])
 
 
 lst = listOfPricesStorage + listOfPrices
@@ -215,6 +231,7 @@ for dct in lst:
 output = json.dumps(out, indent=4)
 # print(type(output))
 
+# print(regionDicts[1])
 # WRITING FILE TO AZURE BLOB STORAGE
 
 try:
