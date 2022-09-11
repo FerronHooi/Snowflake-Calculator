@@ -8,6 +8,9 @@ import json
 import csv
 import re
 # from AzureBlob import write_to_blob
+import os, uuid
+from azure.storage.blob import BlobServiceClient, BlobClient, ContainerClient, __version__
+
 
 class snowflakeCalculatorScraper:
     @staticmethod
@@ -56,7 +59,29 @@ class snowflakeCalculatorScraper:
             #loop over splittedResult to get every line individually. Than remove the whitespaces before/after
 
             for line in splittedResult:
-                if "platforms." in line and not 'under_price' in line and not 'cta_text' in line and not 'cta_url' in line and not 'display_name' in line and not "{}" in line and not 'capacity_storage_price_gbp' in line and not 'on_demand_price_gbp' in line:
+                # if 'display_name' in line:
+                    # #remove whitespaces before and after
+                    # strippedLine = line.strip()
+                    #
+                    # #remove prefix 'platforms.' as that is not needed
+                    # strippedLine = strippedLine.removeprefix('platforms.')
+                    #
+                    # #get display name
+                    # display_name = line.split('=')[1].replace("'", '')
+                    #
+                    # #get platform
+                    # platform = strippedLine.split('.')[0]
+                    #
+                    # #get region
+                    # region = strippedLine.split('.')[1]
+                    #
+                    # priceDataDict = {'platform': platform, 'region': region, 'display_name': display_name,
+                    #                  'data': []}
+                    # listOfPrices.append(priceDataDict)
+                    #
+                    # print(priceDataDict)
+
+                if "platforms." in line and not 'under_price' in line and not 'cta_text' in line and not 'cta_url' in line and not "{}" in line and not 'capacity_storage_price_gbp' in line and not 'on_demand_price_gbp' in line:
                     #remove whitespaces before and after
                     strippedLine = line.strip()
 
@@ -77,6 +102,11 @@ class snowflakeCalculatorScraper:
 
                     splittedSentence = reversedBack.split(".")
 
+                    if not '€' in strippedLine and not '$' in strippedLine:
+                        display_name = strippedLine.split('=')[1].replace("'", '')
+                        # print(display_name)
+
+
                     if len(splittedSentence) >= 3:
 
                         column = splittedSentence[2].split('=')
@@ -93,6 +123,7 @@ class snowflakeCalculatorScraper:
                                     #      name[:-10] + '_' + name.split('_')[2] + '_' + name.split('_')[3]: value.replace(',', '.')})
                                     priceDataDict =  {'platform': splittedSentence[0], 'region': splittedSentence[1], 'data': { name[:-4]: {name.split('_')[3]: value.replace(',', '.')}}}
                                     listOfPrices.append(priceDataDict)
+                                    # print(priceDataDict)
 
                         # print(priceDataDict)
             # print(priceDataDict)
@@ -148,7 +179,7 @@ class snowflakeCalculatorScraper:
                             priceUsd = re.sub('[$, €, £]', '', price['data-price-usd'])
                             priceEur = re.sub('[$, €, £]', '', price['data-price-eur'])
                             priceGbp = re.sub('[$, €, £]', '', price['data-price-gbp'])
-                            dataScrapePrices = {'platform':platform, 'region': region, 'data':{ 'tier':{tier: {'eur':priceEur, 'usd':priceUsd, 'gbp':priceGbp}}}}
+                            dataScrapePrices = {'platform':platform, 'region': region, 'data':{'tier':{tier: {'eur':priceEur, 'usd':priceUsd, 'gbp':priceGbp}}}}
                             listOfPrices.append(dataScrapePrices)
                             # print(listOfPrices)
 
@@ -159,13 +190,14 @@ class snowflakeCalculatorScraper:
             pass
 
 
-# snowflakeCalculatorScraper.scrapeStorageCosts()
+print(snowflakeCalculatorScraper.scrapeStorageCosts())
 # print(snowflakeCalculatorScraper.scrapePrices())
 
 lst = snowflakeCalculatorScraper.scrapeStorageCosts() + snowflakeCalculatorScraper.scrapePrices()
 
 out = {}
 for dct in lst:
+    print(dct)
     if "tier" in dct["data"]:
         out.setdefault(dct["platform"], {}).setdefault(
             dct["region"], {}
@@ -174,6 +206,7 @@ for dct in lst:
         ).update(
             dct["data"]["tier"][n]
         )
+
     else:
         out.setdefault(dct["platform"], {}).setdefault(
             dct["region"], {}
@@ -184,3 +217,44 @@ print(out)
 
 with open("../Datafiles/snowflakeData.json", "w") as outfile:
     json.dump(out, outfile)
+
+output = json.dumps(out)
+
+#Writing file to Azure Blob storage
+
+def write_to_blob():
+    try:
+        connect_str = "DefaultEndpointsProtocol=https;AccountName=snowflakecalculatordata;AccountKey=2QlRyOr9e9UQagpZGxzKam3lp4vpU+pokDKDdqt63EgbGP5dCrWQhVKaqGCZJRHd8whE4nBl1meV+ASt5nncdA==;EndpointSuffix=core.windows.net"
+        print("Azure Blob Storage v" + __version__ + " - Python quickstart sample")
+
+        # Create the BlobServiceClient object which will be used to create a container client
+        blob_service_client = BlobServiceClient.from_connection_string(connect_str)
+
+        # Create a unique name for the container
+        container_name = "snowflakedata"
+        blob_name = "SnowflakeCloudData.json"
+
+        # Create a blob client using the local file name as the name for the blob
+        blob_client = blob_service_client.get_blob_client(container=container_name, blob=blob_name)
+
+        print("\nUploading to Azure Storage as blob:\n\t" + blob_client.blob_name)
+
+        # # Upload the created file
+        # with open("../Datafiles/snowflakeData.json", "rb") as data:
+        #     blob_client.upload_blob(data, overwrite=True)
+
+        blob_client.upload_blob(output, overwrite=True)
+
+        # # Clean up
+        # print("\nPress the Enter key to begin clean up")
+        # input()
+        #
+        # print("Deleting blob container...")
+        # container_client.delete_container()
+
+        print("Done")
+
+    except Exception as ex:
+        print(ex)
+
+write_to_blob()
