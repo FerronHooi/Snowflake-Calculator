@@ -11,6 +11,9 @@ from azure.storage.blob import BlobServiceClient, BlobClient, ContainerClient, _
 def main(req: func.HttpRequest) -> func.HttpResponse:
     logging.info('Python HTTP trigger function processed a request.')
 
+    # create list of region and their prettier display names
+    regionList = []
+
     # STORAGE COSTS
 
     # scrape the https://www.snowflake.com/pricing/ page for the storage costs
@@ -50,27 +53,28 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
         # loop over splittedResult to get every line individually. Than remove the whitespaces before/after
 
         for line in splittedResult:
-            # if 'display_name' in line:
-            # #remove whitespaces before and after
-            # strippedLine = line.strip()
-            #
-            # #remove prefix 'platforms.' as that is not needed
-            # strippedLine = strippedLine.removeprefix('platforms.')
-            #
-            # #get display name
-            # display_name = line.split('=')[1].replace("'", '')
-            #
-            # #get platform
-            # platform = strippedLine.split('.')[0]
-            #
-            # #get region
-            # region = strippedLine.split('.')[1]
-            #
-            # priceDataDict = {'platform': platform, 'region': region, 'display_name': display_name,
-            #                  'data': []}
-            # listOfPrices.append(priceDataDict)
-            #
-            # print(priceDataDict)
+            if 'display_name' in line:
+                # remove whitespaces before and after
+                strippedLine = line.strip()
+
+                # remove prefix 'platforms.' as that is not needed
+                strippedLine = strippedLine.removeprefix('platforms.')
+
+                # get display name
+                display_name = line.split('=')[1].replace("'", '')
+
+                # remove the whitespace from display name, capitalize first letter and remove the ;
+                display_name = display_name.lstrip().title().replace(';', '')
+
+                # get platform
+                platform = strippedLine.split('.')[0]
+
+                # get region
+                region = strippedLine.split('.')[1]
+
+                # dict for region names and pretty region names
+                regionDicts = {'region': region, 'display_name': display_name}
+                regionList.append(regionDicts)
 
             if "platforms." in line and not 'under_price' in line and not 'cta_text' in line and not 'cta_url' in line and not "{}" in line and not 'capacity_storage_price_gbp' in line and not 'on_demand_price_gbp' in line:
                 # remove whitespaces before and after
@@ -96,8 +100,8 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
 
                 splittedSentence = reversedBack.split(".")
 
-                if not '€' in strippedLine and not '$' in strippedLine:
-                    display_name = strippedLine.split('=')[1].replace("'", '')
+                # if not '€' in strippedLine and not '$' in strippedLine:
+                #     display_name = strippedLine.split('=')[1].replace("'", '')
 
                 if len(splittedSentence) >= 3:
 
@@ -109,9 +113,23 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
                     for column[0] in splittedSentence:
                         for name in listOfNames:
                             if name in column[0]:
-                                priceDataDict = {'platform': splittedSentence[0], 'region': splittedSentence[1],
-                                                 'data': {name[:-4]: {name.split('_')[3]: value.replace(',', '.')}}}
-                                listOfPricesStorage.append(priceDataDict)
+                                platform = splittedSentence[0]
+                                region = splittedSentence[1]
+
+                                if platform == 'amazonwebservicesaws':
+                                    platform = 'Amazon Web Services (AWS)'
+                                elif platform == 'googlecloudplatform':
+                                    platform = 'Google Cloud Platform'
+                                elif platform == 'microsoftazure':
+                                    platform = 'Microsoft Azure'
+
+                                for reg in regionList:
+                                    if reg['region'] == region:
+                                        priceDataDict = {'platform': platform, 'region': reg['display_name'], 'data': {
+                                            name[:-4]: {name.split('_')[3]: value.replace(',', '.')}}}
+                                        listOfPricesStorage.append(priceDataDict)
+
+                                    # print(priceDataDict)
 
     except Exception as e:
         print('An error occured while scraping the storage costs: ' + str(e))
@@ -158,11 +176,24 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
                         priceUsd = re.sub('[$, €, £]', '', price['data-price-usd'])
                         priceEur = re.sub('[$, €, £]', '', price['data-price-eur'])
                         priceGbp = re.sub('[$, €, £]', '', price['data-price-gbp'])
-                        dataScrapePrices = {'platform': platform, 'region': region, 'data': {
-                            'tier': {tier: {'eur': priceEur, 'usd': priceUsd, 'gbp': priceGbp}}}}
-                        listOfPrices.append(dataScrapePrices)
-                        # print(listOfPrices)
 
+                        # clean up cloud platform names
+
+                        if platform == 'amazonwebservicesaws':
+                            platform = 'Amazon Web Services (AWS)'
+                        elif platform == 'googlecloudplatform':
+                            platform = 'Google Cloud Platform'
+                        elif platform == 'microsoftazure':
+                            platform = 'Microsoft Azure'
+
+                        for reg in regionList:
+                            if reg['region'] == region:
+                                dataScrapePrices = {'platform': platform, 'region': reg['display_name'], 'data': {
+                                    'tier': {tier: {'eur': priceEur, 'usd': priceUsd, 'gbp': priceGbp}}}}
+                                listOfPrices.append(dataScrapePrices)
+                                # print(listOfPrices)
+
+                    # print(dataScrapePrices)
     except Exception as e:
         print('An error occured while scraping the prices: ' + str(e))
         pass
