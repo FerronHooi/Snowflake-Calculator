@@ -35,7 +35,7 @@ try:
     splittedResult = result.splitlines()
 
     #empty array
-    listOfPrices = []
+    listOfPricesStorage = []
 
     #empty dict
     priceDataDict = {}
@@ -112,11 +112,13 @@ try:
                     for name in listOfNames:
                         if name in column[0]:
                             priceDataDict =  {'platform': splittedSentence[0], 'region': splittedSentence[1], 'data': { name[:-4]: {name.split('_')[3]: value.replace(',', '.')}}}
-                            listOfPrices.append(priceDataDict)
+                            listOfPricesStorage.append(priceDataDict)
 
 except Exception as e:
     print('An error occured while scraping the storage costs: ' + str(e))
     pass
+
+
 
 # PRICES
 try:
@@ -169,7 +171,7 @@ except Exception as e:
     pass
 
 
-lst = listOfPrices
+lst = listOfPricesStorage + listOfPrices
 
 # MERGING THE DATA BY PLATFORM, REGION
 
@@ -189,9 +191,6 @@ for dct in lst:
         out.setdefault(dct["platform"], {}).setdefault(
             dct["region"], {}
         ).setdefault((n := list(dct["data"])[0]), {}).update(dct["data"][n])
-
-with open("../Datafiles/snowflakeData.json", "w") as outfile:
-    json.dump(out, outfile)
 
 output = json.dumps(out)
 
