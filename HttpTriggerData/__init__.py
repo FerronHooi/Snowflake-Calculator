@@ -122,6 +122,8 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
                                     platform = 'Google Cloud Platform'
                                 elif platform == 'microsoftazure':
                                     platform = 'Microsoft Azure'
+                                else:
+                                    platform = platform
 
                                 for reg in regionList:
                                     if reg['region'] == region:
@@ -185,6 +187,8 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
                             platform = 'Google Cloud Platform'
                         elif platform == 'microsoftazure':
                             platform = 'Microsoft Azure'
+                        else:
+                            platform = platform
 
                         for reg in regionList:
                             if reg['region'] == region:
