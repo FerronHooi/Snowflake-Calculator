@@ -180,10 +180,14 @@
                         var totalCostsStandard = document.getElementById('standardeditionamount').innerHTML =   formatterUsd.format(standardPrice * creditsTotal)
                         var totalCostsEnterprise = document.getElementById('enterpriseeditionamount').innerHTML =  formatterUsd.format(enterprisePrice * creditsTotal)
                         var totalCostsBusinessCritical = document.getElementById('businesscriticaleditionamount').innerHTML =   formatterUsd.format(businessCritcalPrice * creditsTotal)
-                        } else {
+                        } else if (currentCurrency == 'gbp') {
                         var totalCostsStandard = document.getElementById('standardeditionamount').innerHTML =   formatterGbp.format(standardPrice * creditsTotal)
                         var totalCostsEnterprise = document.getElementById('enterpriseeditionamount').innerHTML =   formatterGbp.format(enterprisePrice * creditsTotal)
                         var totalCostsBusinessCritical = document.getElementById('businesscriticaleditionamount').innerHTML =  formatterGbp.format(businessCritcalPrice * creditsTotal)
+                        } else {
+                          var totalCostsStandard = document.getElementById('standardeditionamount').innerHTML =   standardPrice * creditsTotal
+                        var totalCostsEnterprise = document.getElementById('enterpriseeditionamount').innerHTML =   enterprisePrice * creditsTotal
+                        var totalCostsBusinessCritical = document.getElementById('businesscriticaleditionamount').innerHTML =  businessCritcalPrice * creditsTotal  
                         }
                         // !!!! GESCHATTE MAANDELIJKSE OPSLAGKOSTEN !!!!
 
@@ -193,10 +197,14 @@
                         } else if (currentCurrency == 'usd') {
                         var totalOnDemandStorageCost = document.getElementById('on-demand-storage-amount').innerHTML = formatterUsd.format(platforms[currentPlatform][currentRegion]['on_demand_price'][currentCurrency] * currentStorageTBs)
                         var totalCapacityStorageCost = document.getElementById('capacity-storage-amount').innerHTML =  formatterUsd.format(platforms[currentPlatform][currentRegion]['capacity_storage_price'][currentCurrency] * currentStorageTBs)
-                        } else {
+                        } else if (currentCurrency == 'gbp') {
                         var totalOnDemandStorageCost = document.getElementById('on-demand-storage-amount').innerHTML =  formatterGbp.format(platforms[currentPlatform][currentRegion]['on_demand_price'][currentCurrency] * currentStorageTBs)
                         var totalCapacityStorageCost = document.getElementById('capacity-storage-amount').innerHTML =  formatterGbp.format(platforms[currentPlatform][currentRegion]['capacity_storage_price'][currentCurrency] * currentStorageTBs)
+                        } else {
+                        var totalOnDemandStorageCost = document.getElementById('on-demand-storage-amount').innerHTML =  platforms[currentPlatform][currentRegion]['on_demand_price'][currentCurrency] * currentStorageTBs
+                        var totalCapacityStorageCost = document.getElementById('capacity-storage-amount').innerHTML =  platforms[currentPlatform][currentRegion]['capacity_storage_price'][currentCurrency] * currentStorageTBs
                         }
+
                         });
                     
                     // !!!!!!!!! SCHATTING PER EDITIE !!!!!!!!!
@@ -228,9 +236,12 @@
                         } else if (currentCurrency == 'usd') {
                         var totalOnDemandStorageCost = document.getElementById('on-demand-storage-amount').innerHTML = formatterUsd.format(platforms[currentPlatform][currentRegion]['on_demand_price'][currentCurrency] * currentStorageTBs)
                         var totalCapacityStorageCost = document.getElementById('capacity-storage-amount').innerHTML =  formatterUsd.format(platforms[currentPlatform][currentRegion]['capacity_storage_price'][currentCurrency] * currentStorageTBs)
-                        } else {
+                        } else if (currentCurrency == 'gbp') {
                         var totalOnDemandStorageCost = document.getElementById('on-demand-storage-amount').innerHTML =  formatterGbp.format(platforms[currentPlatform][currentRegion]['on_demand_price'][currentCurrency] * currentStorageTBs)
                         var totalCapacityStorageCost = document.getElementById('capacity-storage-amount').innerHTML =  formatterGbp.format(platforms[currentPlatform][currentRegion]['capacity_storage_price'][currentCurrency] * currentStorageTBs)
+                        } else {
+                        var totalOnDemandStorageCost = document.getElementById('on-demand-storage-amount').innerHTML =  platforms[currentPlatform][currentRegion]['on_demand_price'][currentCurrency] * currentStorageTBs
+                        var totalCapacityStorageCost = document.getElementById('capacity-storage-amount').innerHTML =  platforms[currentPlatform][currentRegion]['capacity_storage_price'][currentCurrency] * currentStorageTBs
                         }
 
                         });
