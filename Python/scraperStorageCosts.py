@@ -125,6 +125,8 @@ try:
                                  platform = 'Google Cloud Platform'
                             elif platform == 'microsoftazure':
                                 platform = 'Microsoft Azure'
+                            else:
+                                platform = platform
 
                             for reg in regionList:
                                 if reg['region'] == region:
@@ -190,6 +192,8 @@ try:
                         platform = 'Google Cloud Platform'
                     elif platform == 'microsoftazure':
                         platform = 'Microsoft Azure'
+                    else:
+                        platform = platform
 
                     for reg in regionList:
                         if reg['region'] == region:
