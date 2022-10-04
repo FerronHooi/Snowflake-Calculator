@@ -1,8 +1,6 @@
 import datetime
 import logging
-
 import azure.functions as func
-
 import json
 import requests
 from bs4 import BeautifulSoup
@@ -47,7 +45,6 @@ try:
     scriptStorageCost = str((allScripts[13]))
 
     #get only the relevant part of the script (so all the text between start and end)
-    # print(scriptStorageCost)
     start = "jQuery(document).ready(function($)"
     end = "// custom select"
     result = scriptStorageCost[scriptStorageCost.find(start)+len(start):scriptStorageCost.rfind(end)]
@@ -61,15 +58,11 @@ try:
     #empty dict
     priceDataDict = {}
 
-    # listOfNames = ['on_demand_price_usd', 'on_demand_price_eur', 'on_demand_price_gbp',
-    #                'capacity_storage_price_usd',
-    #                'capacity_storage_price_eur', 'capacity_storage_price_gbp']
 
     listOfNames = ['on_demand_price_usd', 'on_demand_price_eur',
                    'capacity_storage_price_usd', 'capacity_storage_price_eur']
 
     #loop over splittedResult to get every line individually. Than remove the whitespaces before/after
-
     for line in splittedResult:
         if 'display_name' in line:
             #remove whitespaces before and after
@@ -119,10 +112,6 @@ try:
 
             splittedSentence = reversedBack.split(".")
 
-            # if not '€' in strippedLine and not '$' in strippedLine:
-            #     display_name = strippedLine.split('=')[1].replace("'", '')
-
-
             if len(splittedSentence) >= 3:
 
                 column = splittedSentence[2].split('=')
@@ -137,6 +126,7 @@ try:
                             platform = splittedSentence[0]
                             region = splittedSentence[1]
 
+                            #cleans up the platform name
                             if platform == 'amazonwebservicesaws':
                                 platform = 'Amazon Web Services (AWS)'
                             elif platform == 'googlecloudplatform':
@@ -151,12 +141,9 @@ try:
                                     priceDataDict =  {'platform': platform, 'region': reg['display_name'], 'data': { name[:-4]: {name.split('_')[3]: value.replace(',', '.')}}}
                                     listOfPricesStorage.append(priceDataDict)
 
-                                # print(priceDataDict)
-
 except Exception as e:
     print('An error occured while scraping the storage costs: ' + str(e))
     pass
-
 
 
 # PRICES
@@ -177,7 +164,6 @@ try:
     #first get all the platforms with corresponding region name to scrape the data per platform + region
     for platform in platforms:
         resultsPlatformRegions = soup.find_all('div', {'id': lambda L: L and L.startswith(platform)})
-        # print(results)
 
         for result in resultsPlatformRegions:
             if result != None:
@@ -217,16 +203,10 @@ try:
                         if reg['region'] == region:
                             dataScrapePrices = {'platform':platform, 'region': reg['display_name'], 'data':{'tier':{tier: {'eur':priceEur, 'usd':priceUsd, 'gbp':priceGbp}}}}
                             listOfPrices.append(dataScrapePrices)
-                            # print(listOfPrices)
 
-                # print(dataScrapePrices)
 except Exception as e:
     print('An error occured while scraping the prices: ' + str(e))
     pass
-
-
-# for dict in regionList:
-#     print(dict['display_name'])
 
 lst = listOfPricesStorage + listOfPrices
 
@@ -249,6 +229,7 @@ for dct in lst:
 
 output = json.dumps(out, indent=4)
 
+# BELOW FUNCTIONS ARE NEEDED FOR LOG ANALYTICS
 def build_signature(customer_id, shared_key, date, content_length, method, content_type, resource):
     """Returns authorization header which will be used when sending data into Azure Log Analytics"""
 
@@ -299,7 +280,7 @@ azure_log_shared_key =  'QDc9toRWv2HrjLNhYcrACGs6yw8IGFCo0cKr6lwjRneC0c4B8Cnacis
 
 table_name = 'snowflake_scraper_monitor'
 
-# ERROR HANDLING. 144 IS THE ORIGNAL NUMBER OF ITEMS IN LISTOFPRICESSTORAGE, 102 FOR LISTOFPRICES. 206 IN TOTAL
+# THIS PART IS ERROR HANDLING. 144 IS THE ORIGNAL NUMBER OF ITEMS IN LISTOFPRICESSTORAGE, 102 FOR LISTOFPRICES. 206 IN TOTAL
 # IF THE NUMBER OF ITEMS IS LOWER OR HIGHER THAN 206, DATA IS NOT UPDATED.
 # PLEASE CHECK THE OUTCOME OF THE SCRAPE AND UPDATE THE NUMBER OF TOTAL ITEMS IN THE LIST, IF IT STILL WORKING ACCORDINGLY
 
@@ -313,7 +294,7 @@ if len(listOfPrices) >= 102:
 else:
     print(f'Prices might NOT successfully scraped, there might be some changes. The original counts was 102, now it is: {len(listOfPrices)}')
 
-# DATA IS ONLY UPDATED WHEN THE NUMBER OF ITEMS IN THE LIST IS 206
+# DATA IS ONLY UPDATED IN THE BLOB STORAGE WHEN THE NUMBER OF ITEMS IN THE LIST IS 206
 if len(lst) >= 246:
     lengthList = len(lst)
     status = (f'Data succesfully scraped, there are {lengthList} items in the list')
@@ -335,18 +316,7 @@ if len(lst) >= 246:
 
         print("\nUploading to Azure Storage as blob:\n\t" + blob_client.blob_name)
 
-        # # Upload the created file
-        # with open("../Datafiles/snowflakeData.json", "rb") as data:
-        #     blob_client.upload_blob(data, overwrite=True)
-
         blob_client.upload_blob(output, overwrite=True)
-
-        # # Clean up
-        # print("\nPress the Enter key to begin clean up")
-        # input()
-        #
-        # print("Deleting blob container...")
-        # container_client.delete_container()
 
         print("Done")
 
