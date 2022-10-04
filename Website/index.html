@@ -695,6 +695,7 @@
                   "border",
                   "2px solid black"
                 );
+                $("#standard-logo-div").css("border", "2px solid black");
                 $("#standard-edition-container").css(
                   "box-shadow",
                   "0 0 0 2px black"
@@ -710,6 +711,9 @@
                 $(
                   "#enterprise-edition-container, #business-critical-edition-container"
                 ).css("box-shadow", "0 0 0 0px #e0e0e0");
+                $("#enterprise-logo-div").css("border", "none");
+                $("#business-critical-logo-div").css("border", "none");
+
                 $("#totale-kosten-div").show();
 
                 var selectedEdition =
@@ -750,6 +754,7 @@
                   "border",
                   "2px solid black"
                 );
+                $("#enterprise-logo-div").css("border", "2px solid black");
                 $("#enterprise-edition-container").css(
                   "box-shadow",
                   "0 0 0 2px black"
@@ -765,6 +770,8 @@
                 $(
                   "#standard-edition-container, #business-critical-edition-container"
                 ).css("box-shadow", "0 0 0 0px #e0e0e0");
+                $("#standard-logo-div").css("border", "none");
+                $("#business-critical-logo-div").css("border", "none");
                 $("#totale-kosten-div").show();
 
                 var selectedEdition =
@@ -810,6 +817,10 @@
                   "border",
                   "2px solid black"
                 );
+                $("#business-critical-logo-div").css(
+                  "border",
+                  "2px solid black"
+                );
                 $("#business-critical-edition-container").css(
                   "box-shadow",
                   "0 0 0 2px black"
@@ -826,6 +837,9 @@
                 $(
                   "#standard-edition-container, #enterprise-edition-container"
                 ).css("box-shadow", "0 0 0 0px #e0e0e0");
+                $("#enterprise-logo-div").css("border", "none");
+                $("#standard-logo-div").css("border", "none");
+
                 $("#totale-kosten-div").show();
 
                 var selectedEdition =
@@ -1130,7 +1144,10 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam eget magna ac leo p
                     class="snowflake-calc-standard-edition-container"
                     id="standard-edition-container"
                   >
-                    <div class="snowflake-calc-container12">
+                    <div
+                      class="snowflake-calc-container12"
+                      id="standard-logo-div"
+                    >
                       <img
                         alt="image"
                         src="images/standard-logo.svg"
@@ -1205,7 +1222,10 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam eget magna ac leo p
                     class="snowflake-calc-enterprise-edition-container"
                     id="enterprise-edition-container"
                   >
-                    <div class="snowflake-calc-container15">
+                    <div
+                      class="snowflake-calc-container15"
+                      id="enterprise-logo-div"
+                    >
                       <img
                         alt="image"
                         src="images/enterprise-logo.svg"
@@ -1269,7 +1289,10 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam eget magna ac leo p
                     class="snowflake-calc-business-critical-edition-container"
                     id="business-critical-edition-container"
                   >
-                    <div class="snowflake-calc-container18">
+                    <div
+                      class="snowflake-calc-container18"
+                      id="business-critical-logo-div"
+                    >
                       <img
                         alt="image"
                         src="images/business-critical-logo.svg"
