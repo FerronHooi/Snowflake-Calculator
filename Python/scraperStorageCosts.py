@@ -7,9 +7,16 @@ from bs4 import BeautifulSoup
 import json
 import csv
 import re
+import logging
+import datetime
+import hashlib
+import hmac
+import base64
+import urllib3
+
 # from AzureBlob import write_to_blob
 import os, uuid
-from azure.storage.blob import BlobServiceClient, BlobClient, ContainerClient, __version__
+# from azure.storage.blob import BlobServiceClient, BlobClient, ContainerClient, __version__
 
 # create list of region and their prettier display names
 regionList = []
@@ -20,6 +27,10 @@ regionList = []
 
 try:
     url = requests.get('https://www.snowflake.com/pricing/', headers={'User-Agent': 'Mozilla/5.0'})
+
+    # if str(url) == "<Response [404]>":
+    #     print("404 error")
+
     soup = BeautifulSoup(url.text, 'html.parser')
 
     #find the <script> that contains the storage costs
@@ -210,14 +221,11 @@ except Exception as e:
 # for dict in regionList:
 #     print(dict['display_name'])
 
-
 lst = listOfPricesStorage + listOfPrices
 
 # MERGING THE DATA BY PLATFORM, REGION
-
 out = {}
 for dct in lst:
-    print(dct)
     if "tier" in dct["data"]:
         out.setdefault(dct["platform"], {}).setdefault(
             dct["region"], {}
@@ -233,45 +241,140 @@ for dct in lst:
         ).setdefault((n := list(dct["data"])[0]), {}).update(dct["data"][n])
 
 output = json.dumps(out, indent=4)
-# print(type(output))
 
-# print(regionDicts[1])
-# WRITING FILE TO AZURE BLOB STORAGE
+def build_signature(customer_id, shared_key, date, content_length, method, content_type, resource):
+    """Returns authorization header which will be used when sending data into Azure Log Analytics"""
 
-try:
-    connect_str = "DefaultEndpointsProtocol=https;AccountName=snowflakecalculatordata;AccountKey=2QlRyOr9e9UQagpZGxzKam3lp4vpU+pokDKDdqt63EgbGP5dCrWQhVKaqGCZJRHd8whE4nBl1meV+ASt5nncdA==;EndpointSuffix=core.windows.net"
-    print("Azure Blob Storage v" + __version__ + " - Python quickstart sample")
+    x_headers = 'x-ms-date:' + date
+    string_to_hash = method + "\n" + str(content_length) + "\n" + content_type + "\n" + x_headers + "\n" + resource
+    bytes_to_hash = bytes(string_to_hash, 'UTF-8')
+    decoded_key = base64.b64decode(shared_key)
+    encoded_hash = base64.b64encode(hmac.new(decoded_key, bytes_to_hash, digestmod=hashlib.sha256).digest()).decode(
+        'utf-8')
+    authorization = "SharedKey {}:{}".format(customer_id, encoded_hash)
+    return authorization
 
-    # Create the BlobServiceClient object which will be used to create a container client
-    blob_service_client = BlobServiceClient.from_connection_string(connect_str)
 
-    # Create a unique name for the container
-    container_name = "snowflakedata"
-    blob_name = "SnowflakeCloudData.json"
+def post_data(customer_id, shared_key, body, log_type):
+    """Sends payload to Azure Log Analytics Workspace
 
-    # Create a blob client using the local file name as the name for the blob
-    blob_client = blob_service_client.get_blob_client(
+    Keyword arguments:
+    customer_id -- Workspace ID obtained from Advanced Settings
+    shared_key -- Authorization header, created using build_signature
+    body -- payload to send to Azure Log Analytics
+    log_type -- Azure Log Analytics table name
+    """
 
-        container=container_name, blob=blob_name)
+    method = 'POST'
+    content_type = 'application/json'
+    resource = '/api/logs'
+    rfc1123date = datetime.datetime.utcnow().strftime('%a, %d %b %Y %H:%M:%S GMT')
+    content_length = len(body)
+    signature = build_signature(customer_id, shared_key, rfc1123date, content_length, method, content_type, resource)
 
-    print("\nUploading to Azure Storage as blob:\n\t" + blob_client.blob_name)
+    uri = 'https://' + customer_id + '.ods.opinsights.azure.com' + resource + '?api-version=2016-04-01'
 
-    # # Upload the created file
-    # with open("../Datafiles/snowflakeData.json", "rb") as data:
-    #     blob_client.upload_blob(data, overwrite=True)
+    headers = {
+        'content-type': content_type,
+        'Authorization': signature,
+        'Log-Type': log_type,
+        'x-ms-date': rfc1123date
+    }
 
-    blob_client.upload_blob(output, overwrite=True)
+    response = requests.post(uri, data=body, headers=headers)
+    if (response.status_code >= 200 and response.status_code <= 299):
+        logging.info('Accepted payload:' + body)
+    else:
+        logging.error("Unable to Write: " + format(response.status_code))
 
-    # # Clean up
-    # print("\nPress the Enter key to begin clean up")
-    # input()
-    #
-    # print("Deleting blob container...")
-    # container_client.delete_container()
+azure_log_customer_id = '471ef5ef-b0e4-42f2-80ae-aaba17c0405b'
+azure_log_shared_key =  'QDc9toRWv2HrjLNhYcrACGs6yw8IGFCo0cKr6lwjRneC0c4B8CnaciszbMeKfyixsUQplAKi1/E42CCtZ8zRIA=='
 
-    print("Done")
+table_name = 'snowflake_scraper_monitor'
 
-except Exception as ex:
-    print(ex)
+# ERROR HANDLING. 144 IS THE ORIGNAL NUMBER OF ITEMS IN LISTOFPRICESSTORAGE, 102 FOR LISTOFPRICES. 206 IN TOTAL
+# IF THE NUMBER OF ITEMS IS LOWER OR HIGHER THAN 206, DATA IS NOT UPDATED.
+# PLEASE CHECK THE OUTCOME OF THE SCRAPE AND UPDATE THE NUMBER OF TOTAL ITEMS IN THE LIST, IF IT STILL WORKING ACCORDINGLY
 
-print(type(json.loads(output)))
+if len(listOfPricesStorage) >= 144:
+    print('Storage costs successfully scraped')
+else:
+    print(f'Storage costs might NOT successfully scraped, there might be some changes. The original counts was 144, now it is: {len(listOfPricesStorage)}')
+
+if len(listOfPrices) >= 102:
+    print('Prices successfully scraped')
+else:
+    print(f'Prices might NOT successfully scraped, there might be some changes. The original counts was 102, now it is: {len(listOfPrices)}')
+
+# DATA IS ONLY UPDATED WHEN THE NUMBER OF ITEMS IN THE LIST IS 206
+if len(lst) >= 246:
+    lengthList = len(lst)
+    status = (f'Data succesfully scraped, there are {lengthList} items in the list')
+    try:
+        connect_str = "DefaultEndpointsProtocol=https;AccountName=snowflakecalculatordata;AccountKey=2QlRyOr9e9UQagpZGxzKam3lp4vpU+pokDKDdqt63EgbGP5dCrWQhVKaqGCZJRHd8whE4nBl1meV+ASt5nncdA==;EndpointSuffix=core.windows.net"
+        print("Azure Blob Storage v" + __version__ + " - Python quickstart sample")
+
+        # Create the BlobServiceClient object which will be used to create a container client
+        blob_service_client = BlobServiceClient.from_connection_string(connect_str)
+
+        # Create a unique name for the container
+        container_name = "snowflakedata"
+        blob_name = "SnowflakeCloudData.json"
+
+        # Create a blob client using the local file name as the name for the blob
+        blob_client = blob_service_client.get_blob_client(
+
+            container=container_name, blob=blob_name)
+
+        print("\nUploading to Azure Storage as blob:\n\t" + blob_client.blob_name)
+
+        # # Upload the created file
+        # with open("../Datafiles/snowflakeData.json", "rb") as data:
+        #     blob_client.upload_blob(data, overwrite=True)
+
+        blob_client.upload_blob(output, overwrite=True)
+
+        # # Clean up
+        # print("\nPress the Enter key to begin clean up")
+        # input()
+        #
+        # print("Deleting blob container...")
+        # container_client.delete_container()
+
+        print("Done")
+
+    except Exception as ex:
+     print(ex)
+
+    data = {
+        "status": "ok",
+        "full_status": status,
+        "number_of_records_listOfPricesStorage": len(listOfPricesStorage),
+        "number_of_records_listOfPrices": len(listOfPrices),
+        "number_of_records_total": len(lst),
+        "blob_upload": "yes"
+    }
+    data_json = json.dumps(data)
+
+    try:
+        post_data(azure_log_customer_id, azure_log_shared_key, data_json, table_name)
+    except Exception as error:
+        logging.error("Unable to send data to Azure Log")
+        logging.error(error)
+else:
+    status = (f'Data might NOT successfully scraped, there might be some changes. The original count was 246, now it is: {len(lst)}')
+    data = {
+        "status": "error",
+        "full_status": status,
+        "number_of_records_listOfPricesStorage": len(listOfPricesStorage),
+        "number_of_records_listOfPrices": len(listOfPrices),
+        "number_of_records_total": len(lst),
+        "blob_upload": "no"
+    }
+    data_json = json.dumps(data)
+
+    try:
+        post_data(azure_log_customer_id, azure_log_shared_key, data_json, table_name)
+    except Exception as error:
+        logging.error("Unable to send data to Azure Log")
+        logging.error(error)
