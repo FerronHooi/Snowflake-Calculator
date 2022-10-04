@@ -12,6 +12,14 @@
             var currentPlatform = "";
             var currentRegion = "";
             var currentCurrency = "";
+            const elements = [
+              "standard-edition",
+              "enterprise-edition",
+              "business-critical-edition",
+              "on-demand-storage",
+              "capacity-storage",
+              "total-costs",
+            ];
 
             // Data die benodigd is voor de dropdowns. Als je hier bijv "GBP" toevoegt krijg je "GBP" te zien in de dropdown.
             var currencyOptions = ["EUR", "USD"];
@@ -239,17 +247,7 @@
                   ) / 100
                 ).toFixed(2));
 
-                // Array benodigd voor de for each loop hieronder
-                const elementsForStandard = [
-                  "standard-edition",
-                  "enterprise-edition",
-                  "business-critical-edition",
-                  "on-demand-storage",
-                  "capacity-storage",
-                  "total-costs",
-                ];
-
-                elementsForStandard.forEach(function (element) {
+                elements.forEach(function (element) {
                   document.getElementById(
                     "currency-sign-" + element
                   ).innerHTML = "€";
@@ -274,17 +272,7 @@
                   ) / 100
                 ).toFixed(2));
 
-                // Array benodigd voor de for each loop hieronder
-                const elementsForStandard = [
-                  "standard-edition",
-                  "enterprise-edition",
-                  "business-critical-edition",
-                  "on-demand-storage",
-                  "capacity-storage",
-                  "total-costs",
-                ];
-
-                elementsForStandard.forEach(function (element) {
+                elements.forEach(function (element) {
                   document.getElementById(
                     "currency-sign-" + element
                   ).innerHTML = "$";
@@ -309,17 +297,7 @@
                   ) / 100
                 ).toFixed(2));
 
-                // Array benodigd voor de for each loop hieronder
-                const elementsForStandard = [
-                  "standard-edition",
-                  "enterprise-edition",
-                  "business-critical-edition",
-                  "on-demand-storage",
-                  "capacity-storage",
-                  "total-costs",
-                ];
-
-                elementsForStandard.forEach(function (element) {
+                elements.forEach(function (element) {
                   document.getElementById(
                     "currency-sign-" + element
                   ).innerHTML = "£";
@@ -344,17 +322,7 @@
                   ) / 100
                 ).toFixed(2));
 
-                // Array benodigd voor de for each loop hieronder
-                const elementsForStandard = [
-                  "standard-edition",
-                  "enterprise-edition",
-                  "business-critical-edition",
-                  "on-demand-storage",
-                  "capacity-storage",
-                  "total-costs",
-                ];
-
-                elementsForStandard.forEach(function (element) {
+                elements.forEach(function (element) {
                   document.getElementById(
                     "currency-sign-" + element
                   ).innerHTML = "";
@@ -388,17 +356,7 @@
                   ) / 100
                 ).toFixed(2));
 
-                // Array benodigd voor de for each loop hieronder
-                const elementsForStandard = [
-                  "standard-edition",
-                  "enterprise-edition",
-                  "business-critical-edition",
-                  "on-demand-storage",
-                  "capacity-storage",
-                  "total-costs",
-                ];
-
-                elementsForStandard.forEach(function (element) {
+                elements.forEach(function (element) {
                   document.getElementById(
                     "currency-sign-" + element
                   ).innerHTML = "€";
@@ -427,17 +385,7 @@
                   ) / 100
                 ).toFixed(2));
 
-                // Array benodigd voor de for each loop hieronder
-                const elementsForStandard = [
-                  "standard-edition",
-                  "enterprise-edition",
-                  "business-critical-edition",
-                  "on-demand-storage",
-                  "capacity-storage",
-                  "total-costs",
-                ];
-
-                elementsForStandard.forEach(function (element) {
+                elements.forEach(function (element) {
                   document.getElementById(
                     "currency-sign-" + element
                   ).innerHTML = "$";
@@ -465,16 +413,8 @@
                     ) * 100
                   ) / 100
                 ).toFixed(2));
-                const elementsForStandard = [
-                  "standard-edition",
-                  "enterprise-edition",
-                  "business-critical-edition",
-                  "on-demand-storage",
-                  "capacity-storage",
-                  "total-costs",
-                ];
 
-                elementsForStandard.forEach(function (element) {
+                elements.forEach(function (element) {
                   document.getElementById(
                     "currency-sign-" + element
                   ).innerHTML = "£";
@@ -503,16 +443,7 @@
                   ) / 100
                 ).toFixed(2));
 
-                const elementsForStandard = [
-                  "standard-edition",
-                  "enterprise-edition",
-                  "business-critical-edition",
-                  "on-demand-storage",
-                  "capacity-storage",
-                  "total-costs",
-                ];
-
-                elementsForStandard.forEach(function (element) {
+                elements.forEach(function (element) {
                   document.getElementById(
                     "currency-sign-" + element
                   ).innerHTML = "";
