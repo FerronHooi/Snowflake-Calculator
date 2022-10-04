@@ -7,24 +7,17 @@
       $.get(
         "https://snowflakedatascraper.azurewebsites.net/api/snowflakeclouddatajson?",
         function (data) {
-          // console.log(data);
-
           jQuery(document).ready(function ($) {
             var platforms = data;
             var currentPlatform = "";
             var currentRegion = "";
             var currentCurrency = "";
 
-            // data needed for the dropdowns
+            // Data die benodigd is voor de dropdowns. Als je hier bijv "GBP" toevoegt krijg je "GBP" te zien in de dropdown.
             var currencyOptions = ["EUR", "USD"];
-            var numberOfDays = [1, 2, 3, 4, 5, 6, 7];
-            var hoursInAday = [
-              1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19,
-              20, 21, 22, 23, 24,
-            ];
             var editions = ["Standard", "Enterprise", "Business Critical"];
 
-            // function used to clear options from select box
+            // Functie die gebruikt wordt om de select dropdowns leeg te maken
             function removeOptions(selectElement) {
               var i,
                 L = selectElement.options.length - 1;
@@ -33,27 +26,11 @@
               }
             }
 
-            //var for formatting the integers (eur, usd, gbp)
-            var formatterUsd = new Intl.NumberFormat("en-US", {
-              style: "currency",
-              currency: "USD",
-
-              // These options are needed to round to whole numbers if that's what you want.
-              //minimumFractionDigits: 0, // (this suffices for whole numbers, but will print 2500.10 as $2,500.1)
-              //maximumFractionDigits: 0, // (causes 2500.99 to be printed as $2,501)
-            });
-
-            var formatterEur = new Intl.NumberFormat("en-US", {
-              style: "currency",
-              currency: "EUR",
-            });
-
-            var formatterGbp = new Intl.NumberFormat("en-US", {
-              style: "currency",
-              currency: "GBP",
-            });
-
             // !!!!!!!!! VOORKEURS CLOUDPLATFORM EN REGION !!!!!!!!!
+
+            /* De code hieronder heeft betrekking op het selecteren van de cloudplatform, regio en valuta. Door deze code wordt alleen de select dropdown voor de cloudplatform getoond.
+            Nadat een gebruiker een cloudplatform heeft geselecteerd, wordt de regio dropdown getoond. Nadat een gebruiker een regio heeft geselecteerd, wordt de valuta dropdown getoond. 
+            Het verbergen gebeurt door de .hide(), het tonen begint later in de code d.m.v. de .show() */
 
             // on document load hide select region as first cloud platform has to be selected
             $("#select-region").hide();
@@ -63,20 +40,14 @@
 
             // on document load hide select region text, select currency text and all other main divs + dividers
             $("#select-region-text").hide();
-            $(
-              "#line-divider-voorkeur-schatting, #schatting-opslag-div, #line-divider-schatting-schatting, #line-divider-schatting-kosten, #schatting-per-editie-div,  #totale-kosten-div, #contact-button-div, #total-cost-title, #total-cost-icon, #select-edition, #totale-kosten-title-div"
-            ).hide();
 
-            // switch(platforms) {
-            //   case "amazonwebservicesaws":
-            //   cleanNames = "Amazon";
-            //   break;
-            //   case "googlecloudplatform":
-            //     cleanNames = "Google Cloud"
-            // }
+            // Deze kun je uitcommentarieren als je alle divs wilt zien (en dus niet elke keer eerst een platform, regio en valuta wil selecteren voor het testen)
 
-            // load platforms (data)
-            // on document load... load all the available platforms
+            // $(
+            //   "#line-divider-voorkeur-schatting, #schatting-opslag-div, #line-divider-schatting-schatting, #line-divider-schatting-kosten, #schatting-per-editie-div,  #totale-kosten-div, #contact-button-div, #total-cost-title, #total-cost-icon, #select-edition, #totale-kosten-title-div, #select-storage-type"
+            // ).hide();
+
+            // Hier wordt de data (cloudplatforms) uit de json file gehaald en in de dropdowns gezet
             $.each(platforms, function (k, v) {
               $("#select-cloudplatform").append(
                 $("<option>", {
@@ -86,7 +57,7 @@
               );
             });
 
-            // on document load... load all the available currencies
+            // Hier wordt de data (valuta) uit de currencyOptions array gehaald en in de dropdowns gezet
             $.each(currencyOptions, function (k, v) {
               $("#select-currency").append(
                 $("<option>", {
@@ -96,8 +67,7 @@
               );
             });
 
-            //NEW
-            // on document load... load all the available editions
+            // Hier wordt de data (edities) uit de editions array gehaald en in de dropdowns gezet
             $.each(editions, function (k, v) {
               $("#select-edition").append(
                 $("<option>", {
@@ -107,7 +77,7 @@
               );
             });
 
-            // load regions based on platform selected
+            // Hier wordt de data (regios) uit de json file gehaald en worden ze getoond op basis van de selectie van het cloudplatform
             $("#select-cloudplatform").on("change", function (e) {
               $("#select-region").show();
               $("#select-region-text").show();
@@ -115,7 +85,6 @@
               var currentPlatform = $(this).val();
               //  populate region dropdown with this platform's regions
               $.each(platforms[currentPlatform], function (k, v) {
-                // console.log(k)
                 $("#select-region").append(
                   $("<option>", {
                     value: k,
@@ -124,49 +93,27 @@
                 );
               });
 
-              // When a region is selected/changed then......
+              // Als een regio wordt geselecteerd dan wordt de valuta dropdown getoond
               $("#select-region").on("change", function (e) {
                 $("#select-currency").show();
                 $("#select-currency-text").show();
                 $("#currentregionselection").show();
               });
 
-              // When a currency is selected/changed then....
+              // Als een valuta wordt geselecteerd dan worden alle divs getoond
               $("#select-currency").on("change", function (e) {
                 $(
-                  "#line-divider-voorkeur-schatting, #schatting-opslag-div, #line-divider-schatting-schatting, #line-divider-schatting-kosten, #schatting-per-editie-div, #total-cost-title, #total-cost-icon, #select-edition, #totale-kosten-title-div"
+                  "#line-divider-voorkeur-schatting, #schatting-opslag-div, #line-divider-schatting-schatting, #line-divider-schatting-kosten, #schatting-per-editie-div, #total-cost-title, #total-cost-icon, #select-edition, #totale-kosten-title-div, #select-storage-type"
                 ).show();
               });
             });
 
-            // console.log(Object.keys(myJson.platform.microsoftazure));
-
-            var selectCloudplatform = document.getElementById(
-              "select-cloudplatform"
-            );
-            var selectRegion = document.getElementById("select-region");
+            // var selectCloudplatform = document.getElementById(
+            //   "select-cloudplatform"
+            // );
+            // var selectRegion = document.getElementById("select-region");
 
             // !!!!!!!!! SCHATTING VERBRUIKSKOSTEN !!!!!!!!!
-
-            // on document load... load all the available days
-            $.each(numberOfDays, function (k, v) {
-              $("#number-of-days-select").append(
-                $("<option>", {
-                  value: v,
-                  text: v,
-                })
-              );
-            });
-
-            // on document load... load all the available hours
-            $.each(hoursInAday, function (k, v) {
-              $("#usage-hours-select").append(
-                $("<option>", {
-                  value: v,
-                  text: v,
-                })
-              );
-            });
 
             // buttons
 
@@ -755,6 +702,7 @@
               }
             });
 
+            //tooltips for the question mark icons
             $(".tooltips").append("<span></span>");
             $(".tooltips:not([tooltip-position])").attr(
               "tooltip-position",
@@ -764,17 +712,175 @@
             $(".tooltips").mouseenter(function () {
               $(this).find("span").empty().append($(this).attr("tooltip"));
             });
-            // //hover over questionmarks, show popup
-            // $("#schatting-opslag-question-mark").hover(
-            //   function () {
-            //     $(this)
-            //       .css("cursor", "pointer")
-            //       .attr("title", "This is a hover text.");
-            //   },
-            //   function () {
-            //     $(this).css("cursor", "auto");
-            //   }
-            // );
+
+            //div click action standard edition
+            $("#standard-edition-container, #inputfieldstandard").on(
+              "click",
+
+              function () {
+                var totalCostStorCreditsStandard =
+                  Number(
+                    document.getElementById("standardeditionamount").innerHTML
+                  ) +
+                  Number(
+                    document.getElementById("on-demand-storage-amount")
+                      .innerHTML
+                  ) +
+                  Number(
+                    document.getElementById("capacity-storage-amount").innerHTML
+                  );
+                document.getElementById(
+                  "total-amount-selected-edition"
+                ).innerHTML = (
+                  Math.round(Number(totalCostStorCreditsStandard) * 100) / 100
+                ).toFixed(2);
+                $("#standard-edition-container").css(
+                  "background-color",
+                  "#f5f5f5"
+                );
+                $("#standard-edition-container").css(
+                  "border",
+                  "2px solid black"
+                );
+                $("#standard-edition-container").css(
+                  "box-shadow",
+                  "0 0 0 4px #e0e0e0"
+                );
+                $("#standard-edition-container").css("border", "none");
+                document.getElementById("select-edition").value = "Standard";
+                $(
+                  "#enterprise-edition-container, #business-critical-edition-container"
+                ).css("background-color", "white");
+                $(
+                  "#enterprise-edition-container, #business-critical-edition-container"
+                ).css("border", "1px solid rgba(120, 120, 120, 0.4)");
+                $(
+                  "#enterprise-edition-container, #business-critical-edition-container"
+                ).css("box-shadow", "0 0 0 0px #e0e0e0");
+                $("#totale-kosten-div").show();
+
+                var selectedEdition =
+                  document.getElementById("select-edition").value;
+                var selectedEditionUpper = selectedEdition.toUpperCase();
+
+                document.getElementById("selected-edition").innerHTML =
+                  "(" + selectedEditionUpper + " EDITIE)";
+              }
+            );
+
+            //div click action enterprise edition
+            $("#enterprise-edition-container, #inputfieldenterprise").on(
+              "click",
+
+              function () {
+                var totalCostStorCreditsEnterprise =
+                  Number(
+                    document.getElementById("enterpriseeditionamount").innerHTML
+                  ) +
+                  Number(
+                    document.getElementById("on-demand-storage-amount")
+                      .innerHTML
+                  ) +
+                  Number(
+                    document.getElementById("capacity-storage-amount").innerHTML
+                  );
+                document.getElementById(
+                  "total-amount-selected-edition"
+                ).innerHTML = (
+                  Math.round(Number(totalCostStorCreditsEnterprise) * 100) / 100
+                ).toFixed(2);
+                $("#enterprise-edition-container").css(
+                  "background-color",
+                  "#f5f5f5"
+                );
+                $("#enterprise-edition-container").css(
+                  "border",
+                  "2px solid black"
+                );
+                $("#enterprise-edition-container").css(
+                  "box-shadow",
+                  "0 0 0 4px #e0e0e0"
+                );
+                $("#enterprise-edition-container").css("border", "none");
+                document.getElementById("select-edition").value = "Enterprise";
+                $(
+                  "#standard-edition-container, #business-critical-edition-container"
+                ).css("background-color", "white");
+                $(
+                  "#standard-edition-container, #business-critical-edition-container"
+                ).css("border", "1px solid rgba(120, 120, 120, 0.4)");
+                $(
+                  "#standard-edition-container, #business-critical-edition-container"
+                ).css("box-shadow", "0 0 0 0px #e0e0e0");
+                $("#totale-kosten-div").show();
+
+                var selectedEdition =
+                  document.getElementById("select-edition").value;
+                var selectedEditionUpper = selectedEdition.toUpperCase();
+
+                document.getElementById("selected-edition").innerHTML =
+                  "(" + selectedEditionUpper + " EDITIE)";
+              }
+            );
+
+            //div click action businass critical edition
+            $("#business-critical-edition-container, #inputfieldenterprise").on(
+              "click",
+
+              function () {
+                var totalCostStorCreditsBusinesscritical =
+                  Number(
+                    document.getElementById("businesscriticaleditionamount")
+                      .innerHTML
+                  ) +
+                  Number(
+                    document.getElementById("on-demand-storage-amount")
+                      .innerHTML
+                  ) +
+                  Number(
+                    document.getElementById("capacity-storage-amount").innerHTML
+                  );
+                document.getElementById(
+                  "total-amount-selected-edition"
+                ).innerHTML = (
+                  Math.round(
+                    Number(totalCostStorCreditsBusinesscritical) * 100
+                  ) / 100
+                ).toFixed(2);
+                $("#business-critical-edition-container").css(
+                  "background-color",
+                  "#f5f5f5"
+                );
+                $("#business-critical-edition-container").css(
+                  "border",
+                  "2px solid black"
+                );
+                $("#business-critical-edition-container").css(
+                  "box-shadow",
+                  "0 0 0 4px #e0e0e0"
+                );
+                $("#business-critical-edition-container").css("border", "none");
+                document.getElementById("select-edition").value =
+                  "Business Critical";
+                $(
+                  "#standard-edition-container, #enterprise-edition-container"
+                ).css("background-color", "white");
+                $(
+                  "#standard-edition-container, #enterprise-edition-container"
+                ).css("border", "1px solid rgba(120, 120, 120, 0.4)");
+                $(
+                  "#standard-edition-container, #enterprise-edition-container"
+                ).css("box-shadow", "0 0 0 0px #e0e0e0");
+                $("#totale-kosten-div").show();
+
+                var selectedEdition =
+                  document.getElementById("select-edition").value;
+                var selectedEditionUpper = selectedEdition.toUpperCase();
+
+                document.getElementById("selected-edition").innerHTML =
+                  "(" + selectedEditionUpper + " EDITIE)";
+              }
+            );
 
             // when edition is changed then show the total costs div and contact buttons
             $("#select-edition").on("change", function (e) {
@@ -1066,7 +1172,10 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam eget magna ac leo p
                   id="standard-enterprise-businesscritical-costs-div"
                   class="snowflake-calc-standard-enterprise-businesscritical-costs-div"
                 >
-                  <div class="snowflake-calc-standard-edition-container">
+                  <div
+                    class="snowflake-calc-standard-edition-container"
+                    id="standard-edition-container"
+                  >
                     <div class="snowflake-calc-container12">
                       <img
                         alt="image"
@@ -1138,7 +1247,10 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam eget magna ac leo p
                       </span>
                     </div>
                   </div>
-                  <div class="snowflake-calc-enterprise-edition-container">
+                  <div
+                    class="snowflake-calc-enterprise-edition-container"
+                    id="enterprise-edition-container"
+                  >
                     <div class="snowflake-calc-container15">
                       <img
                         alt="image"
@@ -1201,6 +1313,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam eget magna ac leo p
                   </div>
                   <div
                     class="snowflake-calc-business-critical-edition-container"
+                    id="business-critical-edition-container"
                   >
                     <div class="snowflake-calc-container18">
                       <img
@@ -1359,6 +1472,12 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam eget magna ac leo p
             >
               <select id="select-edition" class="snowflake-calc-select-editie">
                 <option value="Editie" selected>Editie</option>
+              </select>
+              <select
+                id="select-storage-type"
+                class="snowflake-calc-select-storage-type"
+              >
+                <option value="Type opslag" selected>Type opslag</option>
               </select>
             </div>
             <div
