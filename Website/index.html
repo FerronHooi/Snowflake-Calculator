@@ -25,6 +25,15 @@
             var currencyOptions = ["EUR", "USD"];
             var editions = ["Standard", "Enterprise", "Business Critical"];
 
+            // Functie die gebruikt wordt om de select dropdowns leeg te maken. Bijv. als je van cloudplatform veranderd dan voegt hij ook de regio's toe van bijv. Microsoft Azure; wat niet klopt.
+            function removeOptions(selectElement) {
+              var i,
+                L = selectElement.options.length - 1;
+              for (i = L; i >= 0; i--) {
+                selectElement.remove(i);
+              }
+            }
+
             // !!!!!!!!! VOORKEURS CLOUDPLATFORM EN REGION !!!!!!!!!
 
             /* De code hieronder heeft betrekking op het selecteren van de cloudplatform, regio en valuta. Door deze code wordt alleen de select dropdown voor de cloudplatform getoond.
@@ -86,6 +95,7 @@
             $("#select-cloudplatform").on("change", function (e) {
               $("#select-region").show();
               $("#select-region-text").show();
+              removeOptions(document.getElementById("select-region"));
 
               var currentPlatform = $(this).val();
               //  populate region dropdown with this platform's regions

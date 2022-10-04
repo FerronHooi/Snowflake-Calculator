@@ -52,7 +52,7 @@ select {
 
 .snowflake-calc-select-storage-type {
   color: #595959;
-  width: 200px;
+  width: 250px;
   height: 40px;
   border: none;
   font-size: 14px;
@@ -89,7 +89,7 @@ select {
 }
 .snowflake-calc-select-currency {
   color: #595959;
-  width: var(--dl-size-size-xlarge);
+  width: 150px;
   border: none;
   height: 40px;
   font-size: 14px;
@@ -1057,7 +1057,7 @@ select {
 }
 .snowflake-calc-select-editie {
   color: #595959;
-  width: var(--dl-size-size-xlarge);
+  width: 250px;
   height: 40px;
   font-size: 14px;
   border: none;
