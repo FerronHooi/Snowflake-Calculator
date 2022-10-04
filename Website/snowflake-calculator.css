@@ -352,6 +352,7 @@
   height: 24px;
   align-self: center;
   margin-left: 25px;
+  justify-content: center;
 }
 .snowflake-calc-total-hours-credits-storage-div {
   flex: 1;
@@ -1306,6 +1307,8 @@
   position: relative;
   display: inline;
   overflow: visible;
+  display: flex;
+  justify-content: center;
 }
 
 .tooltips span {
