@@ -29,7 +29,7 @@
             // !!!!!!!!! VOORKEURS CLOUDPLATFORM EN REGION !!!!!!!!!
 
             /* De code hieronder heeft betrekking op het selecteren van de cloudplatform, regio en valuta. Door deze code wordt alleen de select dropdown voor de cloudplatform getoond.
-            Nadat een gebruiker een cloudplatform heeft geselecteerd, wordt de regio dropdown getoond. Nadat een gebruiker een regio heeft geselecteerd, wordt de valuta dropdown getoond. 
+            Nadat een gebruiker een cloudplatform heeft geselecteerd, wordt de regio dropdown getoond. Nadat een gebruiker een regio heeft geselecteerd, wordt de valuta dropdown getoond.
             Het verbergen gebeurt door de .hide(), het tonen begint later in de code d.m.v. de .show() */
 
             // on document load hide select region as first cloud platform has to be selected
@@ -40,6 +40,12 @@
 
             // on document load hide select region text, select currency text and all other main divs + dividers
             $("#select-region-text").hide();
+
+            // on document load hide the cloudplatform and region header
+            $("#currentregionselection").hide();
+
+            // on document load hide the two divs (on-demand storage and capacity)
+            $("#snowflake-calculator-container-storage-cost").hide();
 
             // Deze kun je uitcommentarieren als je alle divs wilt zien (en dus niet elke keer eerst een platform, regio en valuta wil selecteren voor het testen)
 
@@ -165,36 +171,42 @@
                 "warehouse-size-number"
               ).innerHTML;
 
-              // Hierdoor wordt "X credits p/m" getoond in div met id "total-credits"
+              // Hierdoor wordt "X credits /uur" getoond
               var creditsPerHourString = (document.getElementById(
                 "total-credits-per-hour"
               ).innerHTML = creditsPerHour + " Credit(s)/uur");
 
               // Totale uren * totale credits
               var creditsTotal = calculateTotalHours * creditsPerHour;
+
+              // Hierdoor wordt "X credits p/m" getoond in de div met id "total-credits"
               var creditsTotalString = (document.getElementById(
                 "total-credits"
               ).innerHTML =
                 calculateTotalHours * creditsPerHour + " Credits p/m");
+
+              // Hierdoor wordt "X TB p/m" getoond in de div met id "total-storage"
               var storagetbTotal = (document.getElementById(
                 "total-storage"
               ).innerHTML =
                 document.getElementById("input-storage-tb-per-month").value +
                 " tb opslag p/m");
 
-              document.getElementById("total-hours-edition").innerHTML =
-                calculateTotalHours + " uren p/m";
-              document.getElementById("total-credits-edition").innerHTML =
-                calculateTotalHours * creditsPerHour + " Credits p/m";
-              document.getElementById("total-storage-edition").innerHTML =
-                document.getElementById("input-storage-tb-per-month").value +
-                " tb opslag p/m";
-
               // !!!! SCHATTING PER EDITIE !!!!!
 
+              // Hierdoor wordt de huidige geselecteerde cloudplatform + regio weergeven in de header van de div met id "currentregionselection"
               var currentCloudplatformAndRegion = (document.getElementById(
                 "currentregionselection"
               ).innerHTML = currentPlatform + " - " + currentRegion);
+
+              // Hierdoor worden de prijzen (per credit) weergeven van de huidige geselecteerde cloudplatform + regio (van standard, enterprise, business critical)
+
+              // editions.forEach(function (edition) {
+              //   document.getElementById("inputfield" + edition).value =
+              //     platforms[currentPlatform][currentRegion]["tier"][edition][
+              //       currentCurrency
+              //     ];
+              // });
 
               var standardPrice = (document.getElementById(
                 "inputfieldstandard"
@@ -215,7 +227,8 @@
                   "business-critical"
                 ][currentCurrency]);
 
-              // calculations
+              /* Hieronder worden de totale berekend op basis van de variabelen hierboven. Tevens wordt hier gekeken wat de geselecteerde currency is
+              en op basis daarvan wordt het juiste symbool (euro, usd of gbp) weergeven */
               if (currentCurrency == "eur") {
                 var totalCostsStandard = (document.getElementById(
                   "standardeditionamount"
@@ -234,23 +247,23 @@
                     Number(businessCritcalPrice * creditsTotal) * 100
                   ) / 100
                 ).toFixed(2));
-                document.getElementById(
-                  "currency-sign-standard-edition"
-                ).innerHTML = "€";
-                document.getElementById(
-                  "currency-sign-enterprise-edition"
-                ).innerHTML = "€";
-                document.getElementById(
-                  "currency-sign-business-critical-edition"
-                ).innerHTML = "€";
-                document.getElementById(
-                  "currency-sign-on-demand-storage"
-                ).innerHTML = "€";
-                document.getElementById(
-                  "currency-sign-capacity-storage"
-                ).innerHTML = "€";
-                document.getElementById("currency-sign-total-costs").innerHTML =
-                  "€";
+
+                // Array benodigd voor de for each loop hieronder
+                const elementsForStandard = [
+                  "standard-edition",
+                  "enterprise-edition",
+                  "business-critical-edition",
+                  "on-demand-storage",
+                  "capacity-storage",
+                  "total-costs",
+                ];
+
+                elementsForStandard.forEach(function (element) {
+                  document.getElementById(
+                    "currency-sign-" + element
+                  ).innerHTML = "€";
+                  console.log(element);
+                });
               } else if (currentCurrency == "usd") {
                 var totalCostsStandard = (document.getElementById(
                   "standardeditionamount"
@@ -269,23 +282,23 @@
                     Number(businessCritcalPrice * creditsTotal) * 100
                   ) / 100
                 ).toFixed(2));
-                document.getElementById(
-                  "currency-sign-standard-edition"
-                ).innerHTML = "$";
-                document.getElementById(
-                  "currency-sign-enterprise-edition"
-                ).innerHTML = "$";
-                document.getElementById(
-                  "currency-sign-business-critical-edition"
-                ).innerHTML = "$";
-                document.getElementById(
-                  "currency-sign-on-demand-storage"
-                ).innerHTML = "$";
-                document.getElementById(
-                  "currency-sign-capacity-storage"
-                ).innerHTML = "$";
-                document.getElementById("currency-sign-total-costs").innerHTML =
-                  "$";
+
+                // Array benodigd voor de for each loop hieronder
+                const elementsForStandard = [
+                  "standard-edition",
+                  "enterprise-edition",
+                  "business-critical-edition",
+                  "on-demand-storage",
+                  "capacity-storage",
+                  "total-costs",
+                ];
+
+                elementsForStandard.forEach(function (element) {
+                  document.getElementById(
+                    "currency-sign-" + element
+                  ).innerHTML = "$";
+                  console.log(element);
+                });
               } else if (currentCurrency == "gbp") {
                 var totalCostsStandard = (document.getElementById(
                   "standardeditionamount"
@@ -304,23 +317,23 @@
                     Number(businessCritcalPrice * creditsTotal) * 100
                   ) / 100
                 ).toFixed(2));
-                document.getElementById(
-                  "currency-sign-standard-edition"
-                ).innerHTML = "£";
-                document.getElementById(
-                  "currency-sign-enterprise-edition"
-                ).innerHTML = "£";
-                document.getElementById(
-                  "currency-sign-business-critical-edition"
-                ).innerHTML = "£";
-                document.getElementById(
-                  "currency-sign-on-demand-storage"
-                ).innerHTML = "£";
-                document.getElementById(
-                  "currency-sign-capacity-storage"
-                ).innerHTML = "£";
-                document.getElementById("currency-sign-total-costs").innerHTML =
-                  "£";
+
+                // Array benodigd voor de for each loop hieronder
+                const elementsForStandard = [
+                  "standard-edition",
+                  "enterprise-edition",
+                  "business-critical-edition",
+                  "on-demand-storage",
+                  "capacity-storage",
+                  "total-costs",
+                ];
+
+                elementsForStandard.forEach(function (element) {
+                  document.getElementById(
+                    "currency-sign-" + element
+                  ).innerHTML = "£";
+                  console.log(element);
+                });
               } else {
                 var totalCostsStandard = (document.getElementById(
                   "standardeditionamount"
@@ -339,25 +352,26 @@
                     Number(businessCritcalPrice * creditsTotal) * 100
                   ) / 100
                 ).toFixed(2));
-                document.getElementById(
-                  "currency-sign-standard-edition"
-                ).innerHTML = "";
-                document.getElementById(
-                  "currency-sign-enterprise-edition"
-                ).innerHTML = "";
-                document.getElementById(
-                  "currency-sign-business-critical-edition"
-                ).innerHTML = "";
-                document.getElementById(
-                  "currency-sign-on-demand-storage"
-                ).innerHTML = "";
-                document.getElementById(
-                  "currency-sign-capacity-storage"
-                ).innerHTML = "";
-                document.getElementById("currency-sign-total-costs").innerHTML =
-                  "";
+
+                // Array benodigd voor de for each loop hieronder
+                const elementsForStandard = [
+                  "standard-edition",
+                  "enterprise-edition",
+                  "business-critical-edition",
+                  "on-demand-storage",
+                  "capacity-storage",
+                  "total-costs",
+                ];
+
+                elementsForStandard.forEach(function (element) {
+                  document.getElementById(
+                    "currency-sign-" + element
+                  ).innerHTML = "";
+                  console.log(element);
+                });
               }
-              // !!!! GESCHATTE MAANDELIJKSE OPSLAGKOSTEN !!!!
+
+              // !!!! ON-DEMAND STORAGE EN CAPACITY STORAGE !!!!
 
               if (currentCurrency == "eur") {
                 var totalOnDemandStorageCost = (document.getElementById(
@@ -382,23 +396,22 @@
                     ) * 100
                   ) / 100
                 ).toFixed(2));
-                document.getElementById(
-                  "currency-sign-standard-edition"
-                ).innerHTML = "€";
-                document.getElementById(
-                  "currency-sign-enterprise-edition"
-                ).innerHTML = "€";
-                document.getElementById(
-                  "currency-sign-business-critical-edition"
-                ).innerHTML = "€";
-                document.getElementById(
-                  "currency-sign-on-demand-storage"
-                ).innerHTML = "€";
-                document.getElementById(
-                  "currency-sign-capacity-storage"
-                ).innerHTML = "€";
-                document.getElementById("currency-sign-total-costs").innerHTML =
-                  "€";
+
+                // Array benodigd voor de for each loop hieronder
+                const elementsForStandard = [
+                  "standard-edition",
+                  "enterprise-edition",
+                  "business-critical-edition",
+                  "on-demand-storage",
+                  "capacity-storage",
+                  "total-costs",
+                ];
+
+                elementsForStandard.forEach(function (element) {
+                  document.getElementById(
+                    "currency-sign-" + element
+                  ).innerHTML = "€";
+                });
               } else if (currentCurrency == "usd") {
                 var totalOnDemandStorageCost = (document.getElementById(
                   "on-demand-storage-amount"
@@ -422,23 +435,22 @@
                     ) * 100
                   ) / 100
                 ).toFixed(2));
-                document.getElementById(
-                  "currency-sign-standard-edition"
-                ).innerHTML = "$";
-                document.getElementById(
-                  "currency-sign-enterprise-edition"
-                ).innerHTML = "$";
-                document.getElementById(
-                  "currency-sign-business-critical-edition"
-                ).innerHTML = "$";
-                document.getElementById(
-                  "currency-sign-on-demand-storage"
-                ).innerHTML = "$";
-                document.getElementById(
-                  "currency-sign-capacity-storage"
-                ).innerHTML = "$";
-                document.getElementById("currency-sign-total-costs").innerHTML =
-                  "$";
+
+                // Array benodigd voor de for each loop hieronder
+                const elementsForStandard = [
+                  "standard-edition",
+                  "enterprise-edition",
+                  "business-critical-edition",
+                  "on-demand-storage",
+                  "capacity-storage",
+                  "total-costs",
+                ];
+
+                elementsForStandard.forEach(function (element) {
+                  document.getElementById(
+                    "currency-sign-" + element
+                  ).innerHTML = "$";
+                });
               } else if (currentCurrency == "gbp") {
                 var totalOnDemandStorageCost = (document.getElementById(
                   "on-demand-storage-amount"
@@ -462,23 +474,20 @@
                     ) * 100
                   ) / 100
                 ).toFixed(2));
-                document.getElementById(
-                  "currency-sign-standard-edition"
-                ).innerHTML = "£";
-                document.getElementById(
-                  "currency-sign-enterprise-edition"
-                ).innerHTML = "£";
-                document.getElementById(
-                  "currency-sign-business-critical-edition"
-                ).innerHTML = "£";
-                document.getElementById(
-                  "currency-sign-on-demand-storage"
-                ).innerHTML = "£";
-                document.getElementById(
-                  "currency-sign-capacity-storage"
-                ).innerHTML = "£";
-                document.getElementById("currency-sign-total-costs").innerHTML =
-                  "£";
+                const elementsForStandard = [
+                  "standard-edition",
+                  "enterprise-edition",
+                  "business-critical-edition",
+                  "on-demand-storage",
+                  "capacity-storage",
+                  "total-costs",
+                ];
+
+                elementsForStandard.forEach(function (element) {
+                  document.getElementById(
+                    "currency-sign-" + element
+                  ).innerHTML = "£";
+                });
               } else {
                 var totalOnDemandStorageCost = (document.getElementById(
                   "on-demand-storage-amount"
@@ -502,29 +511,46 @@
                     ) * 100
                   ) / 100
                 ).toFixed(2));
-                document.getElementById(
-                  "currency-sign-standard-edition"
-                ).innerHTML = "";
-                document.getElementById(
-                  "currency-sign-enterprise-edition"
-                ).innerHTML = "";
-                document.getElementById(
-                  "currency-sign-business-critical-edition"
-                ).innerHTML = "";
-                document.getElementById(
-                  "currency-sign-on-demand-storage"
-                ).innerHTML = "";
-                document.getElementById(
-                  "currency-sign-capacity-storage"
-                ).innerHTML = "";
-                document.getElementById("currency-sign-total-costs").innerHTML =
-                  "";
+
+                const elementsForStandard = [
+                  "standard-edition",
+                  "enterprise-edition",
+                  "business-critical-edition",
+                  "on-demand-storage",
+                  "capacity-storage",
+                  "total-costs",
+                ];
+
+                elementsForStandard.forEach(function (element) {
+                  document.getElementById(
+                    "currency-sign-" + element
+                  ).innerHTML = "";
+                });
               }
+
+              // !!!! TOTALE KOSTEN !!!!!
+
+              // when edition is changed then show the total costs div and contact buttons
+              $("#select-edition").on("change", function (e) {
+                $("#totale-kosten-div, #contact-button-div").show();
+              });
+
+              // Deze hieronder worden gebruikt om "X uren p/m", "X credits p/m" en "X TB p/m" te weergeven.
+              document.getElementById("total-hours-edition").innerHTML =
+                calculateTotalHours + " uren p/m";
+              document.getElementById("total-credits-edition").innerHTML =
+                calculateTotalHours * creditsPerHour + " Credits p/m";
+              document.getElementById("total-storage-edition").innerHTML =
+                document.getElementById("input-storage-tb-per-month").value +
+                " tb opslag p/m";
+
+              // Hieronder wordt een variabele met daarin de geselecteerde editie gemaakt. Deze wordt vervolgens naar UPPERCASE gedaan omdat dit mooier weergeven is onder het totale bedrag
 
               var selectedEdition =
                 document.getElementById("select-edition").value;
               var selectedEditionUpper = selectedEdition.toUpperCase();
 
+              // Hieronder worden de berekeningen gedaan voor de totale kosten van de verschillende editie's (de berekening is totale kosten editie + on-demand-kost + capacity-storage kost ===FOUT!!!)
               var totalCostStorCreditsStandard =
                 Number(
                   document.getElementById("standardeditionamount").innerHTML
@@ -557,6 +583,7 @@
                   document.getElementById("capacity-storage-amount").innerHTML
                 );
 
+              // Hierdoor worden de totaal bedrag weergeven in de div met id "total-amount-selected-edition"
               if (selectedEdition == "Standard") {
                 document.getElementById(
                   "total-amount-selected-edition"
@@ -580,138 +607,133 @@
               } else {
               }
 
+              // Maakt een variable aan met daarin het aantal TB's dat de gebruiker heeft ingevuld
+              var currentStorageTBs = document.getElementById(
+                "input-storage-tb-per-month"
+              );
+
+              // When the storage input field is changed calculate the total costs (on-demand and capacity) based on currently selected platform, region and currency
+              $("#input-storage-tb-per-month").on("change", function (e) {
+                $("#snowflake-calculator-container-storage-cost").show();
+
+                // current input storage tbs, platform, region and currency
+                var currentPlatform = document.getElementById(
+                  "select-cloudplatform"
+                ).value;
+                var currentRegion =
+                  document.getElementById("select-region").value;
+                var currentCurrency = document
+                  .getElementById("select-currency")
+                  .value.toLowerCase();
+                var currentStorageTBs = document.getElementById(
+                  "input-storage-tb-per-month"
+                ).value;
+
+                if (currentCurrency == "eur") {
+                  var totalOnDemandStorageCost = (document.getElementById(
+                    "on-demand-storage-amount"
+                  ).innerHTML = (
+                    Math.round(
+                      Number(
+                        platforms[currentPlatform][currentRegion][
+                          "on_demand_price"
+                        ][currentCurrency] * currentStorageTBs
+                      ) * 100
+                    ) / 100
+                  ).toFixed(2));
+                  var totalCapacityStorageCost = (document.getElementById(
+                    "capacity-storage-amount"
+                  ).innerHTML = (
+                    Math.round(
+                      Number(
+                        platforms[currentPlatform][currentRegion][
+                          "capacity_storage_price"
+                        ][currentCurrency] * currentStorageTBs
+                      ) * 100
+                    ) / 100
+                  ).toFixed(2));
+                } else if (currentCurrency == "usd") {
+                  var totalOnDemandStorageCost = (document.getElementById(
+                    "on-demand-storage-amount"
+                  ).innerHTML = (
+                    Math.round(
+                      Number(
+                        platforms[currentPlatform][currentRegion][
+                          "on_demand_price"
+                        ][currentCurrency] * currentStorageTBs
+                      ) * 100
+                    ) / 100
+                  ).toFixed(2));
+                  var totalCapacityStorageCost = (document.getElementById(
+                    "capacity-storage-amount"
+                  ).innerHTML = (
+                    Math.round(
+                      Number(
+                        platforms[currentPlatform][currentRegion][
+                          "capacity_storage_price"
+                        ][currentCurrency] * currentStorageTBs
+                      ) * 100
+                    ) / 100
+                  ).toFixed(2));
+                } else if (currentCurrency == "gbp") {
+                  var totalOnDemandStorageCost = (document.getElementById(
+                    "on-demand-storage-amount"
+                  ).innerHTML = (
+                    Math.round(
+                      Number(
+                        platforms[currentPlatform][currentRegion][
+                          "on_demand_price"
+                        ][currentCurrency] * currentStorageTBs
+                      ) * 100
+                    ) / 100
+                  ).toFixed(2));
+                  var totalCapacityStorageCost = (document.getElementById(
+                    "capacity-storage-amount"
+                  ).innerHTML = (
+                    Math.round(
+                      Number(
+                        platforms[currentPlatform][currentRegion][
+                          "capacity_storage_price"
+                        ][currentCurrency] * currentStorageTBs
+                      ) * 100
+                    ) / 100
+                  ).toFixed(2));
+                } else {
+                  var totalOnDemandStorageCost = (document.getElementById(
+                    "on-demand-storage-amount"
+                  ).innerHTML = (
+                    Math.round(
+                      Number(
+                        platforms[currentPlatform][currentRegion][
+                          "on_demand_price"
+                        ][currentCurrency] * currentStorageTBs
+                      ) * 100
+                    ) / 100
+                  ).toFixed(2));
+                  var totalCapacityStorageCost = (document.getElementById(
+                    "capacity-storage-amount"
+                  ).innerHTML = (
+                    Math.round(
+                      Number(
+                        platforms[currentPlatform][currentRegion][
+                          "capacity_storage_price"
+                        ][currentCurrency] * currentStorageTBs
+                      ) * 100
+                    ) / 100
+                  ).toFixed(2));
+                }
+              });
+
+              // Hierdoor wordt "X EDITIE" weergeven in de div met id "selected-edition"
               document.getElementById("selected-edition").innerHTML =
                 "(" + selectedEditionUpper + " EDITIE)";
             });
 
-            // !!!!!!!!! SCHATTING PER EDITIE !!!!!!!!!
+            /* EINDE CODE CALCULATOR */
 
-            // on document load hide the cloudplatform and region header
-            $("#currentregionselection").hide();
+            /* START CODE DESIGN */
 
-            // !!!!!!!!! GESCHATTE MAANDELIJKSE OPSLAGKOSTEN !!!!!!!!!
-
-            // on document load hide the two divs (on-demand storage and capacity)
-            $("#snowflake-calculator-container-storage-cost").hide();
-
-            // get current input value
-            var currentStorageTBs = document.getElementById(
-              "input-storage-tb-per-month"
-            );
-
-            // When the storage input field is changed calculate the total costs (on-demand and capacity) based on currently selected platform, region and currency
-            $("#input-storage-tb-per-month").on("change", function (e) {
-              $("#snowflake-calculator-container-storage-cost").show();
-
-              // current input storage tbs, platform, region and currency
-              var currentPlatform = document.getElementById(
-                "select-cloudplatform"
-              ).value;
-              var currentRegion =
-                document.getElementById("select-region").value;
-              var currentCurrency = document
-                .getElementById("select-currency")
-                .value.toLowerCase();
-              var currentStorageTBs = document.getElementById(
-                "input-storage-tb-per-month"
-              ).value;
-
-              if (currentCurrency == "eur") {
-                var totalOnDemandStorageCost = (document.getElementById(
-                  "on-demand-storage-amount"
-                ).innerHTML = (
-                  Math.round(
-                    Number(
-                      platforms[currentPlatform][currentRegion][
-                        "on_demand_price"
-                      ][currentCurrency] * currentStorageTBs
-                    ) * 100
-                  ) / 100
-                ).toFixed(2));
-                var totalCapacityStorageCost = (document.getElementById(
-                  "capacity-storage-amount"
-                ).innerHTML = (
-                  Math.round(
-                    Number(
-                      platforms[currentPlatform][currentRegion][
-                        "capacity_storage_price"
-                      ][currentCurrency] * currentStorageTBs
-                    ) * 100
-                  ) / 100
-                ).toFixed(2));
-              } else if (currentCurrency == "usd") {
-                var totalOnDemandStorageCost = (document.getElementById(
-                  "on-demand-storage-amount"
-                ).innerHTML = (
-                  Math.round(
-                    Number(
-                      platforms[currentPlatform][currentRegion][
-                        "on_demand_price"
-                      ][currentCurrency] * currentStorageTBs
-                    ) * 100
-                  ) / 100
-                ).toFixed(2));
-                var totalCapacityStorageCost = (document.getElementById(
-                  "capacity-storage-amount"
-                ).innerHTML = (
-                  Math.round(
-                    Number(
-                      platforms[currentPlatform][currentRegion][
-                        "capacity_storage_price"
-                      ][currentCurrency] * currentStorageTBs
-                    ) * 100
-                  ) / 100
-                ).toFixed(2));
-              } else if (currentCurrency == "gbp") {
-                var totalOnDemandStorageCost = (document.getElementById(
-                  "on-demand-storage-amount"
-                ).innerHTML = (
-                  Math.round(
-                    Number(
-                      platforms[currentPlatform][currentRegion][
-                        "on_demand_price"
-                      ][currentCurrency] * currentStorageTBs
-                    ) * 100
-                  ) / 100
-                ).toFixed(2));
-                var totalCapacityStorageCost = (document.getElementById(
-                  "capacity-storage-amount"
-                ).innerHTML = (
-                  Math.round(
-                    Number(
-                      platforms[currentPlatform][currentRegion][
-                        "capacity_storage_price"
-                      ][currentCurrency] * currentStorageTBs
-                    ) * 100
-                  ) / 100
-                ).toFixed(2));
-              } else {
-                var totalOnDemandStorageCost = (document.getElementById(
-                  "on-demand-storage-amount"
-                ).innerHTML = (
-                  Math.round(
-                    Number(
-                      platforms[currentPlatform][currentRegion][
-                        "on_demand_price"
-                      ][currentCurrency] * currentStorageTBs
-                    ) * 100
-                  ) / 100
-                ).toFixed(2));
-                var totalCapacityStorageCost = (document.getElementById(
-                  "capacity-storage-amount"
-                ).innerHTML = (
-                  Math.round(
-                    Number(
-                      platforms[currentPlatform][currentRegion][
-                        "capacity_storage_price"
-                      ][currentCurrency] * currentStorageTBs
-                    ) * 100
-                  ) / 100
-                ).toFixed(2));
-              }
-            });
-
-            //tooltips for the question mark icons
+            // Tooltips for the question mark icons
             $(".tooltips").append("<span></span>");
             $(".tooltips:not([tooltip-position])").attr(
               "tooltip-position",
@@ -722,7 +744,7 @@
               $(this).find("span").empty().append($(this).attr("tooltip"));
             });
 
-            //div click action standard edition
+            // Klik actie voor op de standard-edition-container (background, border)
             $("#standard-edition-container, #inputfieldstandard").on(
               "click",
 
@@ -777,7 +799,7 @@
               }
             );
 
-            //div click action enterprise edition
+            // Klik actie voor op de enterprise-edition-container (background, border)
             $("#enterprise-edition-container, #inputfieldenterprise").on(
               "click",
 
@@ -832,8 +854,10 @@
               }
             );
 
-            //div click action businass critical edition
-            $("#business-critical-edition-container, #inputfieldenterprise").on(
+            // Klik actie voor op de business-critical-edition-container (background, border)
+            $(
+              "#business-critical-edition-container, #inputfieldbusinesscritical"
+            ).on(
               "click",
 
               function () {
@@ -890,11 +914,6 @@
                   "(" + selectedEditionUpper + " EDITIE)";
               }
             );
-
-            // when edition is changed then show the total costs div and contact buttons
-            $("#select-edition").on("change", function (e) {
-              $("#totale-kosten-div, #contact-button-div").show();
-            });
           }, "json");
         }
       );
