@@ -1371,7 +1371,7 @@
 
 .tooltips[tooltip-position="bottom"] span:after {
   bottom: 100%;
-  left: 50%;
+  left: 18%;
   margin-left: -8px;
   border-bottom: 8px solid black;
   border-right: 8px solid transparent;
@@ -1415,6 +1415,7 @@
 .tooltips[tooltip-position="bottom"]:hover span {
   top: 30px;
   left: 50%;
+  margin-top: 10px;
   margin-left: -76px;
 }
 
