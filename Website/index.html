@@ -108,14 +108,10 @@
               });
             });
 
-            // var selectCloudplatform = document.getElementById(
-            //   "select-cloudplatform"
-            // );
-            // var selectRegion = document.getElementById("select-region");
+            // !!!!!!!!! SCHATTING OPSLAG & VERBRUIKSKOSTEN !!!!!!!!!
 
-            // !!!!!!!!! SCHATTING VERBRUIKSKOSTEN !!!!!!!!!
-
-            // buttons
+            /* De code hieronder wordt gebruik om de buttons op de juiste manier te laten werken (bij warehouse size). Belangrijk! Er staat nog een stuk Javascript code onderaan deze pagina die de buttons op de juiste manier laat werken.
+            Deze kun je vinden door te zoeken naar de button met id="warehouse-size-button-left" */
 
             $(
               "#warehouse-size-button-left, #warehouse-size-button-right"
@@ -130,38 +126,51 @@
                 warehouse[warehouseSize];
             });
 
-            // When the platform/region/currency/numberofdays/hours is changed then.....
+            // Als een platform, regio, valuta, aantal tb/s, button of editie wordt geselecteerd dan veranderd de rest mee. Let op: vrijwel alle code hieronder valt hier binnen.
             $(
-              "#select-cloudplatform, #select-region, #select-currency, #number-of-days-select, #usage-hours-select, #input-storage-tb-per-month, #warehouse-size-button-left, #warehouse-size-button-right, #select-edition"
+              "#select-cloudplatform, #select-region, #select-currency, #input-storage-tb-per-month, #warehouse-size-button-left, #warehouse-size-button-right, #select-edition"
             ).on("change, click", function (e) {
-              // current storagetbs, platform, region and currency
+              // Huidige geselecteerde platform
               var currentPlatform = document.getElementById(
                 "select-cloudplatform"
               ).value;
+              // Hudige aantal geselecteerde TBs
               var currentStorageTBs = document.getElementById(
                 "input-storage-tb-per-month"
               ).value;
+              // Huidige geselecteerde regio
               var currentRegion =
                 document.getElementById("select-region").value;
+
+              // Huidige geselecteerde valuta. De toLowerCase() functie wordt hier gebruikt omdat in de data de valuta in kleine letters staan.
               var currentCurrency = document
                 .getElementById("select-currency")
                 .value.toLowerCase();
 
-              // calculations of 'schatting verbruikskosten'
+              /* CALCULATIONS */
+
+              // Berekeningen die gebruikt worden bij 'schatting opslag & verbruikskosten'
+
+              // Aantal dagen * Aantal uren
               var calculateTotalHours =
                 document.getElementById("number-of-days-select").value *
                 document.getElementById("usage-hours-select").value;
+
+              // Dit is het gedeelte "X uren p/m". Hier wordt dus alleen aan calculatetotalHours de string " uren p/m" toegevoegd en wordt dan getoond in div met id "total-hours"
               document.getElementById("total-hours").innerHTML =
                 calculateTotalHours + " uren p/m";
+
+              // Hier wordt een variabele aangemaakt met daarin de huidige waarde van de geselecteerde warehouse credits (dit gebeurd dus door de buttons te gebruiken)
               var creditsPerHour = document.getElementById(
                 "warehouse-size-number"
               ).innerHTML;
-              var totalCreditsCount =
-                document.getElementById("warehouse-size-number").innerHTML *
-                calculateTotalHours;
+
+              // Hierdoor wordt "X credits p/m" getoond in div met id "total-credits"
               var creditsPerHourString = (document.getElementById(
                 "total-credits-per-hour"
               ).innerHTML = creditsPerHour + " Credit(s)/uur");
+
+              // Totale uren * totale credits
               var creditsTotal = calculateTotalHours * creditsPerHour;
               var creditsTotalString = (document.getElementById(
                 "total-credits"
