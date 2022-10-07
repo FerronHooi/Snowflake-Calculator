@@ -1,0 +1,946 @@
+{
+    "Amazon Web Services (AWS)": {
+        "Us East (Northern Virginia)": {
+            "on_demand_price": {
+                "usd": "40.00",
+                "eur": "33.33"
+            },
+            "capacity_storage_price": {
+                "usd": "23.00",
+                "eur": "19.17"
+            },
+            "tier": {
+                "standard": {
+                    "eur": "1.67",
+                    "usd": "2.00",
+                    "gbp": ""
+                },
+                "enterprise": {
+                    "eur": "2.50",
+                    "usd": "3.00",
+                    "gbp": ""
+                },
+                "business-critical": {
+                    "eur": "3.33",
+                    "usd": "4.00",
+                    "gbp": ""
+                }
+            }
+        },
+        "Us East (Ohio)": {
+            "on_demand_price": {
+                "usd": "40.00",
+                "eur": "33.33"
+            },
+            "capacity_storage_price": {
+                "usd": "23.00",
+                "eur": "19.17"
+            },
+            "tier": {
+                "standard": {
+                    "eur": "1.67",
+                    "usd": "2.00",
+                    "gbp": ""
+                },
+                "enterprise": {
+                    "eur": "2.50",
+                    "usd": "3.00",
+                    "gbp": ""
+                },
+                "business-critical": {
+                    "eur": "2.75",
+                    "usd": "4.00",
+                    "gbp": ""
+                }
+            }
+        },
+        "Us West (Oregon)": {
+            "on_demand_price": {
+                "usd": "40.00",
+                "eur": "33.33"
+            },
+            "capacity_storage_price": {
+                "usd": "23.00",
+                "eur": "19.17"
+            },
+            "tier": {
+                "standard": {
+                    "eur": "1.67",
+                    "usd": "2.00",
+                    "gbp": ""
+                },
+                "enterprise": {
+                    "eur": "2.50",
+                    "usd": "3.00",
+                    "gbp": ""
+                },
+                "business-critical": {
+                    "eur": "3.33",
+                    "usd": "4.00",
+                    "gbp": ""
+                }
+            }
+        },
+        "Canada (Central)": {
+            "on_demand_price": {
+                "usd": "46.00",
+                "eur": "38.33"
+            },
+            "capacity_storage_price": {
+                "usd": "25.00",
+                "eur": "20.83"
+            },
+            "tier": {
+                "standard": {
+                    "eur": "1.88",
+                    "usd": "2.25",
+                    "gbp": ""
+                },
+                "enterprise": {
+                    "eur": "2.92",
+                    "usd": "3.50",
+                    "gbp": ""
+                },
+                "business-critical": {
+                    "eur": "3.75",
+                    "usd": "4.50",
+                    "gbp": ""
+                }
+            }
+        },
+        "Eu (London)": {
+            "on_demand_price": {
+                "usd": "42.00",
+                "eur": "35.00"
+            },
+            "capacity_storage_price": {
+                "usd": "24.00",
+                "eur": "20.00"
+            },
+            "tier": {
+                "standard": {
+                    "eur": "2.25",
+                    "usd": "2.70",
+                    "gbp": ""
+                },
+                "enterprise": {
+                    "eur": "3.33",
+                    "usd": "4.00",
+                    "gbp": ""
+                },
+                "business-critical": {
+                    "eur": "4.50",
+                    "usd": "5.40",
+                    "gbp": ""
+                }
+            }
+        },
+        "Eu (Ireland)": {
+            "on_demand_price": {
+                "usd": "40.00",
+                "eur": "33.33"
+            },
+            "capacity_storage_price": {
+                "usd": "23.00",
+                "eur": "19.17"
+            },
+            "tier": {
+                "standard": {
+                    "eur": "2.17",
+                    "usd": "2.60",
+                    "gbp": ""
+                },
+                "enterprise": {
+                    "eur": "3.25",
+                    "usd": "3.90",
+                    "gbp": ""
+                },
+                "business-critical": {
+                    "eur": "4.33",
+                    "usd": "5.20",
+                    "gbp": ""
+                }
+            }
+        },
+        "Eu (Frankfurt)": {
+            "on_demand_price": {
+                "usd": "45.00",
+                "eur": "37.50"
+            },
+            "capacity_storage_price": {
+                "usd": "24.50",
+                "eur": "20.42"
+            },
+            "tier": {
+                "standard": {
+                    "eur": "2.17",
+                    "usd": "2.60",
+                    "gbp": ""
+                },
+                "enterprise": {
+                    "eur": "3.25",
+                    "usd": "3.90",
+                    "gbp": ""
+                },
+                "business-critical": {
+                    "eur": "4.33",
+                    "usd": "5.20",
+                    "gbp": ""
+                }
+            }
+        },
+        "Europe (Stockholm)": {
+            "on_demand_price": {
+                "usd": "40.00",
+                "eur": "33.33"
+            },
+            "capacity_storage_price": {
+                "usd": "23.00",
+                "eur": "19.17"
+            },
+            "tier": {
+                "standard": {
+                    "eur": "2.17",
+                    "usd": "2.60",
+                    "gbp": ""
+                },
+                "enterprise": {
+                    "eur": "3.25",
+                    "usd": "3.90",
+                    "gbp": ""
+                },
+                "business-critical": {
+                    "eur": "4.33",
+                    "usd": "5.20",
+                    "gbp": ""
+                }
+            }
+        },
+        "Eu (Paris)": {
+            "on_demand_price": {
+                "usd": "42.00",
+                "eur": "35.00"
+            },
+            "capacity_storage_price": {
+                "usd": "24.00",
+                "eur": "20.00"
+            },
+            "tier": {
+                "standard": {
+                    "eur": "2.17",
+                    "usd": "2.60",
+                    "gbp": ""
+                },
+                "enterprise": {
+                    "eur": "3.25",
+                    "usd": "3.90",
+                    "gbp": ""
+                },
+                "business-critical": {
+                    "eur": "4.33",
+                    "usd": "5.20",
+                    "gbp": ""
+                }
+            }
+        },
+        "Asia Pacific (Sydney)": {
+            "on_demand_price": {
+                "usd": "46.00",
+                "eur": "38.33"
+            },
+            "capacity_storage_price": {
+                "usd": "25.00",
+                "eur": "20.83"
+            },
+            "tier": {
+                "standard": {
+                    "eur": "2.29",
+                    "usd": "2.75",
+                    "gbp": ""
+                },
+                "enterprise": {
+                    "eur": "3.38",
+                    "usd": "4.05",
+                    "gbp": ""
+                },
+                "business-critical": {
+                    "eur": "4.58",
+                    "usd": "5.50",
+                    "gbp": ""
+                }
+            }
+        },
+        "Asia Pacific (Singapore)": {
+            "on_demand_price": {
+                "usd": "46.00",
+                "eur": "38.33"
+            },
+            "capacity_storage_price": {
+                "usd": "25.00",
+                "eur": "20.83"
+            },
+            "tier": {
+                "standard": {
+                    "eur": "2.08",
+                    "usd": "2.50",
+                    "gbp": ""
+                },
+                "enterprise": {
+                    "eur": "3.08",
+                    "usd": "3.70",
+                    "gbp": ""
+                },
+                "business-critical": {
+                    "eur": "3.38",
+                    "usd": "5.00",
+                    "gbp": ""
+                }
+            }
+        },
+        "Asia Pacific (Tokyo)": {
+            "on_demand_price": {
+                "usd": "46.00",
+                "eur": "38.33"
+            },
+            "capacity_storage_price": {
+                "usd": "25.00",
+                "eur": "20.83"
+            },
+            "tier": {
+                "standard": {
+                    "eur": "2.38",
+                    "usd": "2.85",
+                    "gbp": ""
+                },
+                "enterprise": {
+                    "eur": "3.58",
+                    "usd": "4.30",
+                    "gbp": ""
+                },
+                "business-critical": {
+                    "eur": "4.75",
+                    "usd": "5.70",
+                    "gbp": ""
+                }
+            }
+        },
+        "Asia Pacific (Osaka)": {
+            "on_demand_price": {
+                "usd": "46.00",
+                "eur": "38.33"
+            },
+            "capacity_storage_price": {
+                "usd": "25.00",
+                "eur": "20.83"
+            },
+            "tier": {
+                "standard": {
+                    "eur": "2.38",
+                    "usd": "2.85",
+                    "gbp": ""
+                },
+                "enterprise": {
+                    "eur": "3.58",
+                    "usd": "4.30",
+                    "gbp": ""
+                },
+                "business-critical": {
+                    "eur": "4.75",
+                    "usd": "5.70",
+                    "gbp": ""
+                }
+            }
+        },
+        "Asia Pacific (Seoul)": {
+            "on_demand_price": {
+                "usd": "46.00",
+                "eur": "38.33"
+            },
+            "capacity_storage_price": {
+                "usd": "25.00",
+                "eur": "20.83"
+            },
+            "tier": {
+                "standard": {
+                    "eur": "2.29",
+                    "usd": "2.75",
+                    "gbp": ""
+                },
+                "enterprise": {
+                    "eur": "3.38",
+                    "usd": "4.05",
+                    "gbp": ""
+                },
+                "business-critical": {
+                    "eur": "4.58",
+                    "usd": "5.50",
+                    "gbp": ""
+                }
+            }
+        },
+        "Asia Pacific (Mumbai)": {
+            "on_demand_price": {
+                "usd": "46.00",
+                "eur": "38.33"
+            },
+            "capacity_storage_price": {
+                "usd": "25.00",
+                "eur": "20.83"
+            },
+            "tier": {
+                "standard": {
+                    "eur": "1.83",
+                    "usd": "2.20",
+                    "gbp": ""
+                },
+                "enterprise": {
+                    "eur": "2.75",
+                    "usd": "3.30",
+                    "gbp": ""
+                },
+                "business-critical": {
+                    "eur": "3.67",
+                    "usd": "4.40",
+                    "gbp": ""
+                }
+            }
+        },
+        "Us East (Commercial Gov - N. Va)": {
+            "on_demand_price": {
+                "usd": "40.00",
+                "eur": "33.33"
+            },
+            "capacity_storage_price": {
+                "usd": "23.00",
+                "eur": "19.17"
+            }
+        },
+        "South America East 1 (S\u00e3o Paulo)": {
+            "on_demand_price": {
+                "usd": "74.00",
+                "eur": "61.66"
+            },
+            "capacity_storage_price": {
+                "usd": "40.50",
+                "eur": "33.75"
+            },
+            "tier": {
+                "standard": {
+                    "eur": "2.58",
+                    "usd": "3.10",
+                    "gbp": ""
+                },
+                "enterprise": {
+                    "eur": "3.88",
+                    "usd": "4.65",
+                    "gbp": ""
+                },
+                "business-critical": {
+                    "eur": "5.17",
+                    "usd": "6.20",
+                    "gbp": ""
+                }
+            }
+        }
+    },
+    "Microsoft Azure": {
+        "East Us 2 (Virginia)": {
+            "on_demand_price": {
+                "usd": "40.00",
+                "eur": "33.33"
+            },
+            "capacity_storage_price": {
+                "usd": "23.00",
+                "eur": "19.17"
+            },
+            "tier": {
+                "standard": {
+                    "eur": "1.67",
+                    "usd": "2.00",
+                    "gbp": ""
+                },
+                "enterprise": {
+                    "eur": "2.50",
+                    "usd": "3.00",
+                    "gbp": ""
+                },
+                "business-critical": {
+                    "eur": "3.33",
+                    "usd": "4.00",
+                    "gbp": ""
+                }
+            }
+        },
+        "West Us 2 (Washington)": {
+            "on_demand_price": {
+                "usd": "40.00",
+                "eur": "33.33"
+            },
+            "capacity_storage_price": {
+                "usd": "23.00",
+                "eur": "19.17"
+            },
+            "tier": {
+                "standard": {
+                    "eur": "1.67",
+                    "usd": "2.00",
+                    "gbp": ""
+                },
+                "enterprise": {
+                    "eur": "2.50",
+                    "usd": "3.00",
+                    "gbp": ""
+                },
+                "business-critical": {
+                    "eur": "3.33",
+                    "usd": "4.00",
+                    "gbp": ""
+                }
+            }
+        },
+        "Central Us (Iowa)": {
+            "on_demand_price": {
+                "usd": "40.00",
+                "eur": "33.33"
+            },
+            "capacity_storage_price": {
+                "usd": "23.00",
+                "eur": "19.17"
+            },
+            "tier": {
+                "standard": {
+                    "eur": "1.67",
+                    "usd": "2.00",
+                    "gbp": ""
+                },
+                "enterprise": {
+                    "eur": "2.50",
+                    "usd": "3.00",
+                    "gbp": ""
+                },
+                "business-critical": {
+                    "eur": "3.33",
+                    "usd": "4.00",
+                    "gbp": ""
+                }
+            }
+        },
+        "South Central Us (Texas)": {
+            "on_demand_price": {
+                "usd": "40.00",
+                "eur": "33.33"
+            },
+            "capacity_storage_price": {
+                "usd": "23.00",
+                "eur": "19.17"
+            },
+            "tier": {
+                "standard": {
+                    "eur": "1.67",
+                    "usd": "2.00",
+                    "gbp": ""
+                },
+                "enterprise": {
+                    "eur": "2.50",
+                    "usd": "3.00",
+                    "gbp": ""
+                },
+                "business-critical": {
+                    "eur": "3.33",
+                    "usd": "4.00",
+                    "gbp": ""
+                }
+            }
+        },
+        "Canada Central (Toronto)": {
+            "on_demand_price": {
+                "usd": "46.00",
+                "eur": "38.33"
+            },
+            "capacity_storage_price": {
+                "usd": "25.00",
+                "eur": "20.83"
+            },
+            "tier": {
+                "standard": {
+                    "eur": "1.88",
+                    "usd": "2.25",
+                    "gbp": ""
+                },
+                "enterprise": {
+                    "eur": "2.92",
+                    "usd": "3.50",
+                    "gbp": ""
+                },
+                "business-critical": {
+                    "eur": "3.75",
+                    "usd": "4.50",
+                    "gbp": ""
+                }
+            }
+        },
+        "West Europe (Netherlands)": {
+            "on_demand_price": {
+                "usd": "40.00",
+                "eur": "33.33"
+            },
+            "capacity_storage_price": {
+                "usd": "23.00",
+                "eur": "19.17"
+            },
+            "tier": {
+                "standard": {
+                    "eur": "2.17",
+                    "usd": "2.60",
+                    "gbp": ""
+                },
+                "enterprise": {
+                    "eur": "3.25",
+                    "usd": "3.90",
+                    "gbp": ""
+                },
+                "business-critical": {
+                    "eur": "4.33",
+                    "usd": "5.20",
+                    "gbp": ""
+                }
+            }
+        },
+        "North Europe (Ireland)": {
+            "on_demand_price": {
+                "usd": "40.00",
+                "eur": "33.33"
+            },
+            "capacity_storage_price": {
+                "usd": "23.00",
+                "eur": "19.17"
+            },
+            "tier": {
+                "standard": {
+                    "eur": "2.17",
+                    "usd": "2.60",
+                    "gbp": ""
+                },
+                "enterprise": {
+                    "eur": "3.25",
+                    "usd": "3.90",
+                    "gbp": ""
+                },
+                "business-critical": {
+                    "eur": "4.33",
+                    "usd": "5.20",
+                    "gbp": ""
+                }
+            }
+        },
+        "Australia East (Sydney)": {
+            "on_demand_price": {
+                "usd": "46.00",
+                "eur": "38.33"
+            },
+            "capacity_storage_price": {
+                "usd": "25.00",
+                "eur": "20.83"
+            },
+            "tier": {
+                "standard": {
+                    "eur": "2.29",
+                    "usd": "2.75",
+                    "gbp": ""
+                },
+                "enterprise": {
+                    "eur": "3.38",
+                    "usd": "4.05",
+                    "gbp": ""
+                },
+                "business-critical": {
+                    "eur": "4.58",
+                    "usd": "5.50",
+                    "gbp": ""
+                }
+            }
+        },
+        "Southeast Asia (Singapore)": {
+            "on_demand_price": {
+                "usd": "46.00",
+                "eur": "38.33"
+            },
+            "capacity_storage_price": {
+                "usd": "25.00",
+                "eur": "20.83"
+            },
+            "tier": {
+                "standard": {
+                    "eur": "2.08",
+                    "usd": "2.50",
+                    "gbp": ""
+                },
+                "enterprise": {
+                    "eur": "3.08",
+                    "usd": "3.70",
+                    "gbp": ""
+                },
+                "business-critical": {
+                    "eur": "4.17",
+                    "usd": "5.00",
+                    "gbp": ""
+                }
+            }
+        },
+        "Switzerland North (Zurich) ": {
+            "on_demand_price": {
+                "usd": "50.50",
+                "eur": "42.08"
+            },
+            "capacity_storage_price": {
+                "usd": "28.80",
+                "eur": "24.00"
+            },
+            "tier": {
+                "standard": {
+                    "eur": "2.58",
+                    "usd": "3.10",
+                    "gbp": ""
+                },
+                "enterprise": {
+                    "eur": "3.88",
+                    "usd": "4.65",
+                    "gbp": ""
+                },
+                "business-critical": {
+                    "eur": "5.17",
+                    "usd": "6.20",
+                    "gbp": ""
+                }
+            }
+        },
+        "Us Gov Virginia": {
+            "on_demand_price": {
+                "usd": "68.00",
+                "eur": "56.67"
+            },
+            "capacity_storage_price": {
+                "usd": "39.00",
+                "eur": "32.50"
+            }
+        },
+        "Japan East (Tokyo)": {
+            "on_demand_price": {
+                "usd": "46.00",
+                "eur": "38.33"
+            },
+            "capacity_storage_price": {
+                "usd": "25.00",
+                "eur": "20.83"
+            },
+            "tier": {
+                "standard": {
+                    "eur": "2.38",
+                    "usd": "2.85",
+                    "gbp": ""
+                },
+                "enterprise": {
+                    "eur": "3.58",
+                    "usd": "4.30",
+                    "gbp": ""
+                },
+                "business-critical": {
+                    "eur": "4.75",
+                    "usd": "5.70",
+                    "gbp": ""
+                }
+            }
+        },
+        "Uae North (Dubai)": {
+            "on_demand_price": {
+                "usd": "44.50",
+                "eur": "37.08"
+            },
+            "capacity_storage_price": {
+                "usd": "25.40",
+                "eur": "21.17"
+            },
+            "tier": {
+                "standard": {
+                    "eur": "2.25",
+                    "usd": "2.70",
+                    "gbp": ""
+                },
+                "enterprise": {
+                    "eur": "3.33",
+                    "usd": "4.40",
+                    "gbp": ""
+                },
+                "business-critical": {
+                    "eur": "4.50",
+                    "usd": "5.40",
+                    "gbp": ""
+                }
+            }
+        },
+        "Central India (Pune)": {
+            "on_demand_price": {
+                "usd": "46.00",
+                "eur": "38.33"
+            },
+            "capacity_storage_price": {
+                "usd": "25.00",
+                "eur": "20.83"
+            },
+            "tier": {
+                "standard": {
+                    "eur": "1.83",
+                    "usd": "2.20",
+                    "gbp": ""
+                },
+                "enterprise": {
+                    "eur": "2.75",
+                    "usd": "3.30",
+                    "gbp": ""
+                },
+                "business-critical": {
+                    "eur": "3.67",
+                    "usd": "4.40",
+                    "gbp": ""
+                }
+            }
+        },
+        "Uk South (London)": {
+            "on_demand_price": {
+                "usd": "42.00",
+                "eur": "35.00"
+            },
+            "capacity_storage_price": {
+                "usd": "24.00",
+                "eur": "20.00"
+            },
+            "tier": {
+                "standard": {
+                    "eur": "2.25",
+                    "usd": "2.70",
+                    "gbp": ""
+                },
+                "enterprise": {
+                    "eur": "3.33",
+                    "usd": "4.00",
+                    "gbp": ""
+                },
+                "business-critical": {
+                    "eur": "4.50",
+                    "usd": "5.40",
+                    "gbp": ""
+                }
+            }
+        }
+    },
+    "Google Cloud Platform": {
+        "Us-Central1 (Iowa)": {
+            "on_demand_price": {
+                "usd": "35.00",
+                "eur": "29.17"
+            },
+            "capacity_storage_price": {
+                "usd": "20.00",
+                "eur": "16.67"
+            },
+            "tier": {
+                "standard": {
+                    "eur": "1.67",
+                    "usd": "2.00",
+                    "gbp": ""
+                },
+                "enterprise": {
+                    "eur": "2.50",
+                    "usd": "3.00",
+                    "gbp": ""
+                },
+                "business-critical": {
+                    "eur": "3.33",
+                    "usd": "4.00",
+                    "gbp": ""
+                }
+            }
+        },
+        "Us-East4 (N. Virginia)": {
+            "on_demand_price": {
+                "usd": "40.00",
+                "eur": "33.33"
+            },
+            "capacity_storage_price": {
+                "usd": "23.00",
+                "eur": "19.17"
+            },
+            "tier": {
+                "standard": {
+                    "eur": "1.67",
+                    "usd": "2.00",
+                    "gbp": ""
+                },
+                "enterprise": {
+                    "eur": "2.50",
+                    "usd": "3.00",
+                    "gbp": ""
+                },
+                "business-critical": {
+                    "eur": "3.33",
+                    "usd": "4.00",
+                    "gbp": ""
+                }
+            }
+        },
+        "Europe-West2 (London)": {
+            "on_demand_price": {
+                "usd": "40.00",
+                "eur": "33.33"
+            },
+            "capacity_storage_price": {
+                "usd": "23.00",
+                "eur": "19.17"
+            },
+            "tier": {
+                "standard": {
+                    "eur": "2.25",
+                    "usd": "2.70",
+                    "gbp": ""
+                },
+                "enterprise": {
+                    "eur": "3.33",
+                    "usd": "4.00",
+                    "gbp": ""
+                },
+                "business-critical": {
+                    "eur": "4.50",
+                    "usd": "5.40",
+                    "gbp": ""
+                }
+            }
+        },
+        "Europe-West4 (Netherlands)": {
+            "on_demand_price": {
+                "usd": "35.00",
+                "eur": "33.33"
+            },
+            "capacity_storage_price": {
+                "usd": "20.00",
+                "eur": "19.17"
+            },
+            "tier": {
+                "standard": {
+                    "eur": "2.17",
+                    "usd": "2.60",
+                    "gbp": ""
+                },
+                "enterprise": {
+                    "eur": "3.25",
+                    "usd": "3.90",
+                    "gbp": ""
+                },
+                "business-critical": {
+                    "eur": "4.33",
+                    "usd": "5.20",
+                    "gbp": ""
+                }
+            }
+        }
+    }
+}
