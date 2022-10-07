@@ -24,6 +24,7 @@
           // Data die benodigd is voor de dropdowns. Als je hier bijv "GBP" toevoegt krijg je "GBP" te zien in de dropdown.
           var currencyOptions = ["EUR", "USD"];
           var editions = ["Standard", "Enterprise", "Business Critical"];
+          var storageType = ["On-Demand Storage", "Capacity Storage"];
 
           // Functie die gebruikt wordt om de select dropdowns leeg te maken. Bijv. als je van cloudplatform veranderd dan voegt hij ook de regio's toe van bijv. Microsoft Azure; wat niet klopt.
           function removeOptions(selectElement) {
@@ -57,9 +58,9 @@
 
           // Deze kun je uitcommentarieren als je alle divs wilt zien (en dus niet elke keer eerst een platform, regio en valuta wil selecteren voor het testen)
 
-          $(
-            "#line-divider-voorkeur-schatting, #schatting-opslag-div, #line-divider-schatting-schatting, #line-divider-schatting-kosten, #schatting-per-editie-div,  #totale-kosten-div, #contact-button-div, #total-cost-title, #total-cost-icon, #select-edition, #totale-kosten-title-div, #select-storage-type"
-          ).hide();
+          // $(
+          //   "#line-divider-voorkeur-schatting, #schatting-opslag-div, #line-divider-schatting-schatting, #line-divider-schatting-kosten, #schatting-per-editie-div,  #totale-kosten-div, #contact-button-div, #total-cost-title, #total-cost-icon, #select-edition, #totale-kosten-title-div, #select-storage-type"
+          // ).hide();
 
           // Hier wordt de data (cloudplatforms) uit de json file gehaald en in de dropdowns gezet
           $.each(platforms, function (k, v) {
@@ -90,6 +91,20 @@
               })
             );
           });
+
+
+          // Hier wordt de data (cloudplatforms) uit de json file gehaald en in de dropdowns gezet
+          $.each(storageType, function (k, v) {
+            $("#select-storage-type").append(
+              $("<option>", {
+                value: v,
+                text: v,
+              })
+            );
+          });
+
+
+
 
           // Hier wordt de data (regios) uit de json file gehaald en worden ze getoond op basis van de selectie van het cloudplatform
           $("#select-cloudplatform").on("change", function (e) {
@@ -234,6 +249,11 @@
               platforms[currentPlatform][currentRegion]["tier"][
                 "business-critical"
               ][currentCurrency]);
+            
+            var on_demand_price = (document.getElementById(
+              "inputfieldondemand"
+            ).value =
+              platforms[currentPlatform][currentRegion]["on_demand_price"][currentCurrency]);
 
             /* Hieronder worden de totale berekend op basis van de variabelen hierboven. Tevens wordt hier gekeken wat de geselecteerde currency is
               en op basis daarvan wordt het juiste symbool (euro, usd of gbp) weergeven */
@@ -836,6 +856,79 @@
                 "(" + selectedEditionUpper + " EDITIE)";
             }
           );
+
+
+          // Klik actie voor storage cost (background, border)
+          $("#snowflake-calc-on-demand-storage-div, #inputfieldondemand").on(
+            "click",
+
+            function () {
+              var totalCostStorCreditsStandard =
+                Number(
+                  document.getElementById("standardeditionamount").innerHTML
+                ) +
+                Number(
+                  document.getElementById("on-demand-storage-amount").innerHTML
+                ) +
+                Number(
+                  document.getElementById("capacity-storage-amount").innerHTML
+                );
+              document.getElementById(
+                "total-amount-selected-edition"
+              ).innerHTML = (
+                Math.round(Number(totalCostStorCreditsStandard) * 100) / 100
+              ).toFixed(2);
+              $("#standard-edition-container").css(
+                "background-color",
+                "#f5f5f5"
+              );
+              $("#standard-edition-container").css("border", "2px solid black");
+              $("#standard-logo-div").css("border", "2px solid black");
+              $("#standard-edition-container").css(
+                "box-shadow",
+                "0 0 0 2px black"
+              );
+              $("#standard-edition-container").css("border", "none");
+              document.getElementById("select-edition").value = "Standard";
+              $(
+                "#enterprise-edition-container, #business-critical-edition-container"
+              ).css("background-color", "white");
+              $(
+                "#enterprise-edition-container, #business-critical-edition-container"
+              ).css("border", "1px solid rgba(120, 120, 120, 0.4)");
+              $(
+                "#enterprise-edition-container, #business-critical-edition-container"
+              ).css("box-shadow", "0 0 0 0px #e0e0e0");
+              $("#enterprise-logo-div").css("border", "none");
+              $("#business-critical-logo-div").css("border", "none");
+
+              $("#totale-kosten-div").show();
+
+              var selectedEdition =
+                document.getElementById("select-edition").value;
+              var selectedEditionUpper = selectedEdition.toUpperCase();
+
+              document.getElementById("selected-edition").innerHTML =
+                "(" + selectedEditionUpper + " EDITIE)";
+            }
+          );
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         }, "json");
       });
     </script>
