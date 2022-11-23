@@ -143,7 +143,7 @@
               ).innerHTML = this.value;
 
               document.getElementById("number-of-days-select-1").value =
-                this.value;
+                Math.round(this.value * (52 / 12));
             }
           );
 
