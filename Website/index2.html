@@ -11,7 +11,7 @@
           var platforms = data;
           var currentPlatform = "";
           var currentRegion = "";
-          var currentCurrency = "";
+          var currentCurrency = "usd";
           const elements = [
             "standard-edition",
             "enterprise-edition",
@@ -95,6 +95,35 @@
           });
 
           // TODO:
+
+          // Alles wat in de tekst staat in de input velden zetten
+          $(document).ready(function () {
+            $("#select-days-per-week-scenario-warehouse-example-1").val(
+              document.getElementById("days-per-week-text-wh-scenario-1")
+                .innerHTML
+            );
+          });
+
+          $(document).ready(function () {
+            $("#select-gebruikstijd-scenario-warehouse-example-1").val(
+              document.getElementById("usage-time-text-wh-scenario-1").innerHTML
+            );
+          });
+
+          $(document).ready(function () {
+            $("#select-bezettingspercentage-scenario-warehouse-example-1").val(
+              document.getElementById(
+                "bezettings-percentage-text-wh-scenario-1"
+              ).innerHTML
+            );
+          });
+
+          $(document).ready(function () {
+            $("#select-warehouse-size-scenario-warehouse-example-1").val(
+              document.getElementById("warehouse-size-text-wh-scenario-1")
+                .innerHTML
+            );
+          });
 
           // Hier wordt de aantal dagen in een week uit de daysPerweek array gehaald en in de dropdowns gezet
           $.each(daysPerWeek, function (k, v) {
@@ -259,7 +288,7 @@
 
           // Als een platform, regio, valuta, aantal tb/s, button of editie wordt geselecteerd dan veranderd de rest mee. Let op: vrijwel alle code hieronder valt hier binnen.
           $(
-            "#select-cloudplatform, #select-region, #select-currency, #input-storage-tb-per-month, #warehouse-size-button-left, #warehouse-size-button-right, #select-edition, #number-of-days-select, #usage-hours-select "
+            "#select-days-per-week-scenario-warehouse-example-1, #select-gebruikstijd-scenario-warehouse-example-1, #select-bezettingspercentage-scenario-warehouse-example-1, #select-warehouse-size-scenario-warehouse-example-1, #select-cloudplatform, #select-region, #input-storage-tb-per-month, #warehouse-size-button-left, #warehouse-size-button-right, #select-edition, #number-of-days-select-1, #number-of-hours-day-select-1"
           ).on("change, click", function (e) {
             // Huidige geselecteerde platform
             var currentPlatform = document.getElementById(
@@ -270,21 +299,26 @@
               "input-storage-tb-per-month"
             ).value;
             // Huidige geselecteerde regio
+            console.log(document.getElementById("select-region").value);
             var currentRegion = document.getElementById("select-region").value;
 
-            // Huidige geselecteerde valuta. De toLowerCase() functie wordt hier gebruikt omdat in de data de valuta in kleine letters staan.
-            var currentCurrency = document
-              .getElementById("select-currency")
-              .value.toLowerCase();
+            // Past de platform aan in de tekst bij de scenario's op basis van de selectie
+            document.getElementById("cloudplatform-text-scenario-1").innerHTML =
+              document.getElementById("select-cloudplatform").value;
+
+            // Past de regio aan in de tekst bij de scenario's op basis van de selectie
+            document.getElementById("region-text-scenario-1").innerHTML =
+              document.getElementById("select-region").value;
 
             /* CALCULATIONS */
 
             // Berekeningen die gebruikt worden bij 'schatting opslag & verbruikskosten'
 
             // Aantal dagen * Aantal uren
+
             var calculateTotalHours =
               document.getElementById("number-of-days-select-1").value *
-              document.getElementById("usage-hours-select-1").value;
+              document.getElementById("number-of-hours-day-select-1").value;
 
             // Dit is het gedeelte "X uren p/m". Hier wordt dus alleen aan calculatetotalHours de string " uren p/m" toegevoegd en wordt dan getoond in div met id "total-hours"
             document.getElementById("total-hours-1").innerHTML =
@@ -292,12 +326,12 @@
 
             // Hier wordt een variabele aangemaakt met daarin de huidige waarde van de geselecteerde warehouse credits (dit gebeurd dus door de buttons te gebruiken)
             var creditsPerHour = document.getElementById(
-              "warehouse-size-number"
+              "warehouse-size-number-1"
             ).innerHTML;
 
             // Hierdoor wordt "X credits /uur" getoond
             var creditsPerHourString = (document.getElementById(
-              "total-credits-per-hour"
+              "total-credits-per-hour-1"
             ).innerHTML = creditsPerHour + " Credit(s)/uur");
 
             // Totale uren * totale credits
@@ -305,16 +339,16 @@
 
             // Hierdoor wordt "X credits p/m" getoond in de div met id "total-credits"
             var creditsTotalString = (document.getElementById(
-              "total-credits"
+              "total-credits-1"
             ).innerHTML =
               calculateTotalHours * creditsPerHour + " Credits p/m");
 
             // Hierdoor wordt "X TB p/m" getoond in de div met id "total-storage"
-            var storagetbTotal = (document.getElementById(
-              "total-storage"
-            ).innerHTML =
-              document.getElementById("input-storage-tb-per-month").value +
-              " tb opslag p/m");
+            //var storagetbTotal = (document.getElementById(
+            //  "total-storage"
+            //).innerHTML =
+            //  document.getElementById("input-storage-tb-per-month").value +
+            //  " tb opslag p/m");
 
             // !!!! SCHATTING PER EDITIE !!!!!
 
@@ -374,7 +408,6 @@
               elements.forEach(function (element) {
                 document.getElementById("currency-sign-" + element).innerHTML =
                   "€";
-                console.log(element);
               });
             } else if (currentCurrency == "usd") {
               var totalCostsStandard = (document.getElementById(
@@ -397,7 +430,6 @@
               elements.forEach(function (element) {
                 document.getElementById("currency-sign-" + element).innerHTML =
                   "$";
-                console.log(element);
               });
             } else if (currentCurrency == "gbp") {
               var totalCostsStandard = (document.getElementById(
@@ -420,7 +452,6 @@
               elements.forEach(function (element) {
                 document.getElementById("currency-sign-" + element).innerHTML =
                   "£";
-                console.log(element);
               });
             } else {
               var totalCostsStandard = (document.getElementById(
@@ -443,7 +474,6 @@
               elements.forEach(function (element) {
                 document.getElementById("currency-sign-" + element).innerHTML =
                   "";
-                console.log(element);
               });
             }
 
@@ -1033,13 +1063,18 @@
                   <p id="scenario-text-main" class="sf-calc-text001">
                     <span>
                       ﻿Een klant wil overgaan tot het aanschaffen van de
-                      Snowflake service op het
+                      Snowflake service op
                     </span>
-                    <span class="sf-calc-text003">Amazon Web Services</span>
-                    <span>cloudplatform, regio</span>
-                    <span class="sf-calc-text005">US-East</span>
-                    <span>in Nederland.</span>
-                    <span>Deze klant:</span>
+                    <span
+                      id="cloudplatform-text-scenario-1"
+                      class="sf-calc-text003"
+                      >Amazon Web Services</span
+                    >
+                    <span> regio</span>
+                    <span id="region-text-scenario-1" class="sf-calc-text005"
+                      >US-East</span
+                    >
+                    <span>. Deze klant:</span>
                     <br />
                   </p>
                 </div>
