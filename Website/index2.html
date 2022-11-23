@@ -24,6 +24,9 @@
           // Data die benodigd is voor de dropdowns. Als je hier bijv "GBP" toevoegt krijg je "GBP" te zien in de dropdown.
           var currencyOptions = ["EUR", "USD"];
           var editions = ["Standard", "Enterprise", "Business Critical"];
+          var daysPerWeek = ["7", "5", "4", "3", "2", "1"];
+          var hoursInADay = ["24", "12", "8"];
+          var occupationPercentage = ["100", "75", "50", "25", "10", "5", "1"];
 
           // Functie die gebruikt wordt om de select dropdowns leeg te maken. Bijv. als je van cloudplatform veranderd dan voegt hij ook de regio's toe van bijv. Microsoft Azure; wat niet klopt.
           function removeOptions(selectElement) {
@@ -57,9 +60,9 @@
 
           // Deze kun je uitcommentarieren als je alle divs wilt zien (en dus niet elke keer eerst een platform, regio en valuta wil selecteren voor het testen)
 
-          $(
-            "#line-divider-voorkeur-schatting, #schatting-opslag-div, #line-divider-schatting-schatting, #line-divider-schatting-kosten, #schatting-per-editie-div,  #totale-kosten-div, #contact-button-div, #total-cost-title, #total-cost-icon, #select-edition, #totale-kosten-title-div, #select-storage-type"
-          ).hide();
+          //$(
+          //  "#line-divider-voorkeur-schatting, #schatting-opslag-div, #line-divider-schatting-schatting, #line-divider-schatting-kosten, #schatting-per-editie-div,  #totale-kosten-div, #contact-button-div, #total-cost-title, #total-cost-icon, #select-edition, #totale-kosten-title-div, #select-storage-type"
+          //).hide();
 
           // Hier wordt de data (cloudplatforms) uit de json file gehaald en in de dropdowns gezet
           $.each(platforms, function (k, v) {
@@ -90,6 +93,119 @@
               })
             );
           });
+
+          // TODO:
+
+          // Hier wordt de aantal dagen in een week uit de daysPerweek array gehaald en in de dropdowns gezet
+          $.each(daysPerWeek, function (k, v) {
+            $("#select-days-per-week-scenario-warehouse-example-1").append(
+              $("<option>", {
+                value: v,
+                text: v,
+              })
+            );
+          });
+
+          $("#select-days-per-week-scenario-warehouse-example-1").on(
+            "change, click",
+            function (e) {
+              document.getElementById(
+                "days-per-week-text-wh-scenario-1"
+              ).innerHTML = this.value;
+
+              document.getElementById("number-of-days-select-1").value =
+                this.value;
+            }
+          );
+
+          // Hier wordt de aantal dagen een week dag uit de hoursInADay array gehaald en in de dropdowns gezet
+          $.each(hoursInADay, function (k, v) {
+            $("#select-gebruikstijd-scenario-warehouse-example-1").append(
+              $("<option>", {
+                value: v,
+                text: v,
+              })
+            );
+          });
+
+          $("#select-gebruikstijd-scenario-warehouse-example-1").on(
+            "change, click",
+            function (e) {
+              document.getElementById(
+                "usage-time-text-wh-scenario-1"
+              ).innerHTML = this.value;
+
+              document.getElementById("number-of-hours-day-select-1").value =
+                this.value;
+            }
+          );
+
+          // Hier wordt het percentage uit de occupationPercentage array gehaald en in de dropdowns gezet
+          $.each(occupationPercentage, function (k, v) {
+            $(
+              "#select-bezettingspercentage-scenario-warehouse-example-1"
+            ).append(
+              $("<option>", {
+                value: v,
+                text: v,
+              })
+            );
+          });
+
+          $("#select-bezettingspercentage-scenario-warehouse-example-1").on(
+            "change, click",
+            function (e) {
+              document.getElementById(
+                "bezettings-percentage-text-wh-scenario-1"
+              ).innerHTML = this.value;
+
+              // TODO: Fix this id name
+              document.getElementById("percentage-bezetting-inout").value =
+                this.value;
+            }
+          );
+
+          // Hier hetzelfde voor warehousesizes
+          var warehouse = {
+            "X-Small": 1,
+            Small: 2,
+            Medium: 4,
+            Large: 8,
+            "X-Large": 16,
+            "2X-Large": 32,
+            "3X-Large": 64,
+            "4X-Large": 128,
+          };
+
+          var warehouseSizes = Object.keys(warehouse);
+
+          // Hier wordt het percentage uit de occupationPercentage array gehaald en in de dropdowns gezet
+          $.each(warehouseSizes, function (k, v) {
+            $("#select-warehouse-size-scenario-warehouse-example-1").append(
+              $("<option>", {
+                value: v,
+                text: v,
+              })
+            );
+          });
+
+          $("#select-warehouse-size-scenario-warehouse-example-1").on(
+            "change, click",
+            function (e) {
+              // Huidige geselecteerde platform
+              document.getElementById(
+                "warehouse-size-text-wh-scenario-1"
+              ).innerHTML = this.value;
+
+              document.getElementById("warehouse-type-1").innerHTML =
+                this.value;
+
+              document.getElementById("warehouse-size-number-1").innerHTML =
+                warehouse[this.value];
+            }
+          );
+
+          // END TODO:
 
           // Hier wordt de data (regios) uit de json file gehaald en worden ze getoond op basis van de selectie van het cloudplatform
           $("#select-cloudplatform").on("change", function (e) {
@@ -167,11 +283,11 @@
 
             // Aantal dagen * Aantal uren
             var calculateTotalHours =
-              document.getElementById("number-of-days-select").value *
-              document.getElementById("usage-hours-select").value;
+              document.getElementById("number-of-days-select-1").value *
+              document.getElementById("usage-hours-select-1").value;
 
             // Dit is het gedeelte "X uren p/m". Hier wordt dus alleen aan calculatetotalHours de string " uren p/m" toegevoegd en wordt dan getoond in div met id "total-hours"
-            document.getElementById("total-hours").innerHTML =
+            document.getElementById("total-hours-1").innerHTML =
               calculateTotalHours + " uren p/m";
 
             // Hier wordt een variabele aangemaakt met daarin de huidige waarde van de geselecteerde warehouse credits (dit gebeurd dus door de buttons te gebruiken)
@@ -940,18 +1056,34 @@
                     >
                       <p id="scenario-text-1" class="sf-calc-text009">
                         <span>Draait</span>
-                        <span class="sf-calc-text011">7 dagen per week</span>
-                        <span>een batch-load van</span>
-                        <span class="sf-calc-text013">2.5 uur</span>
-                        <span>, waarbij hij gebruikt maakt van een</span>
-                        <span class="sf-calc-text015">Small </span>
+                        <span
+                          id="days-per-week-text-wh-scenario-1"
+                          class="sf-calc-text011"
+                          >7</span
+                        >
+                        <span>dagen per week een batch-load van</span>
+                        <span
+                          id="usage-time-text-wh-scenario-1"
+                          class="sf-calc-text013"
+                          >2.5</span
+                        >
+                        <span>uur, waarbij hij gebruikt maakt van een</span>
+                        <span
+                          id="warehouse-size-text-wh-scenario-1"
+                          class="sf-calc-text015"
+                          >Small </span
+                        >
                         <span>
                           Virtual Warehouse. Deze warehouse draait tijdens het
                           loaden van de batch
                         </span>
                         <span> </span>
-                        <span class="sf-calc-text018">100%</span>
-                        <span>van de tijd.</span>
+                        <span
+                          id="bezettings-percentage-text-wh-scenario-1"
+                          class="sf-calc-text018"
+                          >100</span
+                        >
+                        <span>% van de tijd.</span>
                         <br />
                       </p>
                     </div>
