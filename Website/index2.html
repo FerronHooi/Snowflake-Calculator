@@ -22,11 +22,41 @@
           ];
 
           // Data die benodigd is voor de dropdowns. Als je hier bijv "GBP" toevoegt krijg je "GBP" te zien in de dropdown.
+          var calculatorVersions = ["Met voorbeelden", "Zonder voorbeelden"];
           var currencyOptions = ["EUR", "USD"];
           var editions = ["Standard", "Enterprise", "Business Critical"];
           var daysPerWeek = ["7", "5", "4", "3", "2", "1"];
-          var hoursInADay = ["24", "12", "8"];
+          var hoursInADay = [
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7",
+            "8",
+            "9",
+            "10",
+            "11",
+            "12",
+            "13",
+            "14",
+            "15",
+            "16",
+            "17",
+            "18",
+            "19",
+            "20",
+            "21",
+            "22",
+            "23",
+            "24",
+          ];
           var occupationPercentage = ["100", "75", "50", "25", "10", "5", "1"];
+
+          // Huidige geselecteerde div's
+          var currentSelectedEditon = "";
+          var currentSelectedStorageType = "on-demand-storage-amount";
 
           // Functie die gebruikt wordt om de select dropdowns leeg te maken. Bijv. als je van cloudplatform veranderd dan voegt hij ook de regio's toe van bijv. Microsoft Azure; wat niet klopt.
           function removeOptions(selectElement) {
@@ -51,6 +81,8 @@
 
           // on document load hide select region text, select currency text and all other main divs + dividers
           $("#select-region-text").hide();
+
+          $("#select-calculator-version").hide();
 
           // on document load hide the cloudplatform and region header
           $("#currentregionselection").hide();
@@ -102,26 +134,29 @@
               document.getElementById("days-per-week-text-wh-scenario-1")
                 .innerHTML
             );
-          });
-
-          $(document).ready(function () {
             $("#select-gebruikstijd-scenario-warehouse-example-1").val(
               document.getElementById("usage-time-text-wh-scenario-1").innerHTML
             );
-          });
 
-          $(document).ready(function () {
             $("#select-bezettingspercentage-scenario-warehouse-example-1").val(
               document.getElementById(
                 "bezettings-percentage-text-wh-scenario-1"
               ).innerHTML
             );
-          });
 
-          $(document).ready(function () {
             $("#select-warehouse-size-scenario-warehouse-example-1").val(
               document.getElementById("warehouse-size-text-wh-scenario-1")
                 .innerHTML
+            );
+          });
+
+          // Hier worden de versies uit de calculatorVersions array gehaald en in de dropdowns gezet
+          $.each(calculatorVersions, function (k, v) {
+            $("#select-calculator-version").append(
+              $("<option>", {
+                value: v,
+                text: v,
+              })
             );
           });
 
@@ -236,6 +271,39 @@
 
           // END TODO:
 
+          // Verbergt de voorbeelden wanneer er een wijziging wordt gedaan in de dropdowns bij de schatting maandelijks opslag & verbruikskosten
+
+          $(
+            "#number-of-days-select-1, #number-of-hours-day-select-1, #percentage-bezetting-inout, #warehouse-size-button-left-1, #warehouse-size-button-right-1"
+          ).on("change, click", function (e) {
+            $("#wrapper-calculation-examples-container").hide();
+            document.getElementById("hide-examples-button").innerHTML =
+              "Show examples";
+          });
+
+          // Verbergt de voorbeelden wanneer er op 'hide examples' wordt geklikt
+
+          $("#hide-examples-button").on("click", function (e) {
+            $("#wrapper-calculation-examples-container").toggle();
+            document.getElementById("hide-examples-button").innerHTML =
+              "Hide/show examples";
+            document.getElementById("hide-examples-button").id =
+              "show-examples-button";
+          });
+
+          // Als het prullenbakje aan wordt geklikt in de div --> verwijder daarin alle data
+
+          $("#delete-warehouse-1").on("click", function (e) {
+            document.getElementById("number-of-days-select-1").value = null;
+            document.getElementById("number-of-hours-day-select-1").value =
+              null;
+            document.getElementById("percentage-bezetting-inout").value = null;
+            document.getElementById("total-hours-1").innerHTML = null;
+            document.getElementById("total-credits-1").innerHTML = null;
+            document.getElementById("warehouse-type-1").innerHTML = "Small";
+            document.getElementById("warehouse-size-number-1").innerHTML = 2;
+          });
+
           // Hier wordt de data (regios) uit de json file gehaald en worden ze getoond op basis van de selectie van het cloudplatform
           $("#select-cloudplatform").on("change", function (e) {
             $("#select-region").show();
@@ -258,6 +326,17 @@
               $("#select-currency").show();
               $("#select-currency-text").show();
               $("#currentregionselection").show();
+              $("#select-calculator-version").show();
+            });
+
+            // Als een regio wordt geselecteerd dan wordt de valuta dropdown getoond
+            $("#select-calculator-version").on("change", function (e) {
+              var currentVersion = $(this).val();
+              if (currentVersion == "Zonder voorbeelden") {
+                $("#wrapper-calculation-examples-container").hide();
+              } else {
+                $("#wrapper-calculation-examples-container").show();
+              }
             });
 
             // Als een valuta wordt geselecteerd dan worden alle divs getoond
@@ -273,22 +352,22 @@
           /* De code hieronder wordt gebruik om de buttons op de juiste manier te laten werken (bij warehouse size). Belangrijk! Er staat nog een stuk Javascript code onderaan deze pagina die de buttons op de juiste manier laat werken.
             Deze kun je vinden door te zoeken naar de button met id="warehouse-size-button-left" */
 
-          $("#warehouse-size-button-left, #warehouse-size-button-right").click(
-            function () {
-              var warehouseSizes = Object.keys(warehouse);
-              var warehouseSize =
-                document.getElementById("warehouse-type").innerHTML;
+          $(
+            "#warehouse-size-button-left-1, #warehouse-size-button-right-1"
+          ).click(function () {
+            var warehouseSizes = Object.keys(warehouse);
+            var warehouseSize =
+              document.getElementById("warehouse-type-1").innerHTML;
 
-              document.getElementById("warehouse-type").innerHTML =
-                warehouseSize;
-              document.getElementById("warehouse-size-number").innerHTML =
-                warehouse[warehouseSize];
-            }
-          );
+            document.getElementById("warehouse-type-1").innerHTML =
+              warehouseSize;
+            document.getElementById("warehouse-size-number-1").innerHTML =
+              warehouse[warehouseSize];
+          });
 
           // Als een platform, regio, valuta, aantal tb/s, button of editie wordt geselecteerd dan veranderd de rest mee. Let op: vrijwel alle code hieronder valt hier binnen.
           $(
-            "#select-days-per-week-scenario-warehouse-example-1, #select-gebruikstijd-scenario-warehouse-example-1, #select-bezettingspercentage-scenario-warehouse-example-1, #select-warehouse-size-scenario-warehouse-example-1, #select-cloudplatform, #select-region, #input-storage-tb-per-month, #warehouse-size-button-left, #warehouse-size-button-right, #select-edition, #number-of-days-select-1, #number-of-hours-day-select-1"
+            "#percentage-bezetting-inout, #select-days-per-week-scenario-warehouse-example-1, #select-gebruikstijd-scenario-warehouse-example-1, #select-bezettingspercentage-scenario-warehouse-example-1, #select-warehouse-size-scenario-warehouse-example-1, #select-cloudplatform, #select-region, #input-storage-tb-per-month, #warehouse-size-button-left, #warehouse-size-button-right, #select-edition, #number-of-days-select-1, #number-of-hours-day-select-1"
           ).on("change, click", function (e) {
             // Huidige geselecteerde platform
             var currentPlatform = document.getElementById(
@@ -317,12 +396,14 @@
             // Aantal dagen * Aantal uren
 
             var calculateTotalHours =
-              document.getElementById("number-of-days-select-1").value *
-              document.getElementById("number-of-hours-day-select-1").value;
+              (document.getElementById("number-of-days-select-1").value *
+                document.getElementById("number-of-hours-day-select-1").value *
+                document.getElementById("percentage-bezetting-inout").value) /
+              100;
 
             // Dit is het gedeelte "X uren p/m". Hier wordt dus alleen aan calculatetotalHours de string " uren p/m" toegevoegd en wordt dan getoond in div met id "total-hours"
             document.getElementById("total-hours-1").innerHTML =
-              calculateTotalHours + " uren p/m";
+              Math.round(calculateTotalHours * 10) / 10 + " uren p/m";
 
             // Hier wordt een variabele aangemaakt met daarin de huidige waarde van de geselecteerde warehouse credits (dit gebeurd dus door de buttons te gebruiken)
             var creditsPerHour = document.getElementById(
@@ -330,9 +411,9 @@
             ).innerHTML;
 
             // Hierdoor wordt "X credits /uur" getoond
-            var creditsPerHourString = (document.getElementById(
-              "total-credits-per-hour-1"
-            ).innerHTML = creditsPerHour + " Credit(s)/uur");
+            //var creditsPerHourString = (document.getElementById(
+            //  "total-credits-per-hour-1"
+            // ).innerHTML = creditsPerHour + " Credit(s)/uur");
 
             // Totale uren * totale credits
             var creditsTotal = calculateTotalHours * creditsPerHour;
@@ -341,7 +422,8 @@
             var creditsTotalString = (document.getElementById(
               "total-credits-1"
             ).innerHTML =
-              calculateTotalHours * creditsPerHour + " Credits p/m");
+              Math.round(calculateTotalHours * creditsPerHour * 10) / 10 +
+              " Credits p/m");
 
             // Hierdoor wordt "X TB p/m" getoond in de div met id "total-storage"
             //var storagetbTotal = (document.getElementById(
@@ -615,26 +697,20 @@
               document.getElementById("select-edition").value;
             var selectedEditionUpper = selectedEdition.toUpperCase();
 
-            // Hieronder worden de berekeningen gedaan voor de totale kosten van de verschillende editie's (de berekening is totale kosten editie + on-demand-kost + capacity-storage kost ===FOUT!!!)
+            // Hieronder worden de berekeningen gedaan voor de totale kosten van de verschillende editie's (de berekening is totale kosten geselecteerde editie + geselecteerde storage type)
             var totalCostStorCreditsStandard =
               Number(
                 document.getElementById("standardeditionamount").innerHTML
               ) +
               Number(
-                document.getElementById("on-demand-storage-amount").innerHTML
-              ) +
-              Number(
-                document.getElementById("capacity-storage-amount").innerHTML
+                document.getElementById(currentSelectedStorageType).innerHTML
               );
             var totalCostStorCreditsEnterprise =
               Number(
                 document.getElementById("enterpriseeditionamount").innerHTML
               ) +
               Number(
-                document.getElementById("on-demand-storage-amount").innerHTML
-              ) +
-              Number(
-                document.getElementById("capacity-storage-amount").innerHTML
+                document.getElementById(currentSelectedStorageType).innerHTML
               );
             var totalCostStorCreditsBusinesscritical =
               Number(
@@ -642,10 +718,7 @@
                   .innerHTML
               ) +
               Number(
-                document.getElementById("on-demand-storage-amount").innerHTML
-              ) +
-              Number(
-                document.getElementById("capacity-storage-amount").innerHTML
+                document.getElementById(currentSelectedStorageType).innerHTML
               );
 
             // Hierdoor worden de totaal bedrag weergeven in de div met id "total-amount-selected-edition"
@@ -813,15 +886,13 @@
             "click",
 
             function () {
+              currentSelectedEditon = "standardeditionamount";
               var totalCostStorCreditsStandard =
                 Number(
                   document.getElementById("standardeditionamount").innerHTML
                 ) +
                 Number(
-                  document.getElementById("on-demand-storage-amount").innerHTML
-                ) +
-                Number(
-                  document.getElementById("capacity-storage-amount").innerHTML
+                  document.getElementById(currentSelectedStorageType).innerHTML
                 );
               document.getElementById(
                 "total-amount-selected-edition"
@@ -868,15 +939,13 @@
             "click",
 
             function () {
+              currentSelectedEditon = "enterpriseeditionamount";
               var totalCostStorCreditsEnterprise =
                 Number(
                   document.getElementById("enterpriseeditionamount").innerHTML
                 ) +
                 Number(
-                  document.getElementById("on-demand-storage-amount").innerHTML
-                ) +
-                Number(
-                  document.getElementById("capacity-storage-amount").innerHTML
+                  document.getElementById(currentSelectedStorageType).innerHTML
                 );
               document.getElementById(
                 "total-amount-selected-edition"
@@ -927,16 +996,14 @@
             "click",
 
             function () {
+              currentSelectedEditon = "businesscriticaleditionamount";
               var totalCostStorCreditsBusinesscritical =
                 Number(
                   document.getElementById("businesscriticaleditionamount")
                     .innerHTML
                 ) +
                 Number(
-                  document.getElementById("on-demand-storage-amount").innerHTML
-                ) +
-                Number(
-                  document.getElementById("capacity-storage-amount").innerHTML
+                  document.getElementById(currentSelectedStorageType).innerHTML
                 );
               document.getElementById(
                 "total-amount-selected-edition"
@@ -944,6 +1011,7 @@
                 Math.round(Number(totalCostStorCreditsBusinesscritical) * 100) /
                 100
               ).toFixed(2);
+
               $("#business-critical-edition-container").css(
                 "background-color",
                 "#f5f5f5"
@@ -971,6 +1039,91 @@
               ).css("box-shadow", "0 0 0 0px #e0e0e0");
               $("#enterprise-logo-div").css("border", "none");
               $("#standard-logo-div").css("border", "none");
+
+              $("#totale-kosten-div").show();
+
+              var selectedEdition =
+                document.getElementById("select-edition").value;
+              var selectedEditionUpper = selectedEdition.toUpperCase();
+
+              document.getElementById("selected-edition").innerHTML =
+                "(" + selectedEditionUpper + " EDITIE)";
+            }
+          );
+
+          // Klik actie voor op de on-demand-storage container (background, border)
+          $("#on-demand-storage-div").on(
+            "click",
+
+            function () {
+              currentSelectedStorageType = "on-demand-storage-amount";
+              var totalCostStorCreditsStandard =
+                Number(
+                  document.getElementById(currentSelectedEditon).innerHTML
+                ) +
+                Number(
+                  document.getElementById(currentSelectedStorageType).innerHTML
+                );
+              document.getElementById(
+                "total-amount-selected-edition"
+              ).innerHTML = (
+                Math.round(Number(totalCostStorCreditsStandard) * 100) / 100
+              ).toFixed(2);
+              $("#on-demand-storage-div").css("background-color", "#f5f5f5");
+              $("#on-demand-storage-div").css("border", "2px solid black");
+              $("#on-demand-storage-div").css("box-shadow", "0 0 0 2px black");
+              $("#on-demand-storage-div").css("border", "none");
+              document.getElementById("select-edition").value = "Standard";
+              $("#capacity-storage-div").css("background-color", "white");
+              $("capacity-storage-div").css(
+                "border",
+                "1px solid rgba(120, 120, 120, 0.4)"
+              );
+              $("#capacity-storage-div").css("box-shadow", "0 0 0 0px #e0e0e0");
+
+              $("#totale-kosten-div").show();
+
+              var selectedEdition =
+                document.getElementById("select-edition").value;
+              var selectedEditionUpper = selectedEdition.toUpperCase();
+
+              document.getElementById("selected-edition").innerHTML =
+                "(" + selectedEditionUpper + " EDITIE)";
+            }
+          );
+
+          // Klik actie voor op de capacity-storage container (background, border)
+          $("#capacity-storage-div").on(
+            "click",
+
+            function () {
+              currentSelectedStorageType = "capacity-storage-amount";
+              var totalCostStorCreditsStandard =
+                Number(
+                  document.getElementById(currentSelectedEditon).innerHTML
+                ) +
+                Number(
+                  document.getElementById(currentSelectedStorageType).innerHTML
+                );
+              document.getElementById(
+                "total-amount-selected-edition"
+              ).innerHTML = (
+                Math.round(Number(totalCostStorCreditsStandard) * 100) / 100
+              ).toFixed(2);
+              $("#capacity-storage-div").css("background-color", "#f5f5f5");
+              $("#capacity-storage-div").css("border", "2px solid black");
+              $("#capacity-storage-div").css("box-shadow", "0 0 0 2px black");
+              $("#capacity-storage-div").css("border", "none");
+              document.getElementById("select-edition").value = "Standard";
+              $("#on-demand-storage-div").css("background-color", "white");
+              $("#on-demand-storage-div").css(
+                "border",
+                "1px solid rgba(120, 120, 120, 0.4)"
+              );
+              $("#on-demand-storage-div").css(
+                "box-shadow",
+                "0 0 0 0px #e0e0e0"
+              );
 
               $("#totale-kosten-div").show();
 
@@ -1029,7 +1182,7 @@
             </div>
             <div id="hide-div" class="sf-calc-hide-div">
               <button id="hide-examples-button" class="sf-calc-button button">
-                Hide examples
+                Hide/show examples
               </button>
             </div>
             <div
@@ -1100,13 +1253,13 @@
                         <span
                           id="usage-time-text-wh-scenario-1"
                           class="sf-calc-text013"
-                          >2.5</span
+                          >2</span
                         >
                         <span>uur, waarbij hij gebruikt maakt van een</span>
                         <span
                           id="warehouse-size-text-wh-scenario-1"
                           class="sf-calc-text015"
-                          >Small </span
+                          >X-Large</span
                         >
                         <span>
                           Virtual Warehouse. Deze warehouse draait tijdens het
@@ -1577,7 +1730,42 @@
                         <button
                           id="warehouse-size-button-left-1"
                           class="sf-calc-left-button button"
+                          onclick="move(-1)"
                         >
+                          <script>
+                            var warehouse = {
+                              "X-Small": 1,
+                              Small: 2,
+                              Medium: 4,
+                              Large: 8,
+                              "X-Large": 16,
+                              "2X-Large": 32,
+                              "3X-Large": 64,
+                              "4X-Large": 128,
+                            };
+
+                            warehouseSizes = Object.keys(warehouse);
+
+                            let current = 0;
+                            let back = document.getElementById(
+                              "warehouse-size-button-left-1"
+                            );
+
+                            document.getElementById(
+                              "warehouse-type-1"
+                            ).innerHTML = Object.keys(warehouse)[0];
+
+                            function move(dir) {
+                              current += dir;
+                              if (current < 0)
+                                current = warehouseSizes.length - 1;
+                              if (current === warehouseSizes.length)
+                                current = 0;
+                              document.getElementById(
+                                "warehouse-type-1"
+                              ).innerHTML = Object.keys(warehouse)[current];
+                            }
+                          </script>
                           &lt;
                         </button>
                         <span
@@ -1589,6 +1777,7 @@
                         <button
                           id="warehouse-size-button-right-1"
                           class="sf-calc-right-button button"
+                          onclick="move(1)"
                         >
                           &gt;
                         </button>
@@ -1647,6 +1836,7 @@
                       >
                       <input
                         type="number"
+                        required
                         id="number-of-days-select-1"
                         max="31"
                         min="1"
