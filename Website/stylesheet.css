@@ -676,6 +676,7 @@ input[type="range"]:focus::-ms-fill-upper {
 }
 .sf-calc-wrapper-scenario-examples-div-1 {
   position: relative;
+  border: 1px solid #c9d3dd;
 }
 .sf-calc-wrapper-div-scenario-warehouse-example-toelichting-1 {
   flex: 0;
@@ -2809,11 +2810,7 @@ input[type="range"]:focus::-ms-fill-upper {
     flex: 0.3;
   }
   .sf-calc-scenario-text-div {
-    border-width: 0px;
-    border-top-width: 1px;
-    border-left-width: 1px;
-    border-right-width: 1px;
-    border-bottom-width: 0px;
+    border: 1px solid #c9d3dd;
   }
   .sf-calc-text001 {
     margin-bottom: 0px;
@@ -2825,8 +2822,7 @@ input[type="range"]:focus::-ms-fill-upper {
     border-bottom-width: 1px;
   }
   .sf-calc-wrapper-scenario-example-warehouse-1 {
-    border-right-width: 1px;
-    border: 1px solid black;
+    border-right: 1px solid #c9d3dd;
   }
   .sf-calc-wrapper-div-scenario-warehouse-example-toelichting-1 {
     width: auto;
@@ -2839,7 +2835,7 @@ input[type="range"]:focus::-ms-fill-upper {
     height: 210px;
   }
   .sf-calc-wrapper-scenario-example-warehouse-2 {
-    border-right-width: 1px;
+    border-right: 1px solid #c9d3dd;
   }
   .sf-calc-wrapper-div-scenario-warehouse-example-toelichting-2 {
     width: auto;
@@ -2851,9 +2847,7 @@ input[type="range"]:focus::-ms-fill-upper {
     width: 100%;
     height: 210px;
   }
-  .sf-calc-wrapper-scenario-example-storage-1 {
-    border-right-width: 0px;
-  }
+
   .sf-calc-wrapper-div-scenario-warehouse-example-toelichting-3 {
     width: auto;
     height: auto;

@@ -110,17 +110,16 @@
           $("#warehouse-button-1-1").css("background-color", "#edf0f4");
 
           $("#warehouse-button-2-1").on("click", function (e) {
-            $("#warehouse-button-2-1").css("background-color", "#edf0f4");
-            $("#warehouse-button-1-1").css("background-color", "white");
-            $("#wrapper-warehouse-info-filler-1").hide();
-            var warehouseInformation = document.querySelector(
-              "#wrapper-warehouse-info-filler-1"
-            );
-            var clonedWarehouseInformation =
-              warehouseInformation.cloneNode(true);
-            clonedWarehouseInformation.id = "wrapper-warehouse-info-filler-2";
-            warehouseInformation.after(clonedWarehouseInformation);
-            $("#wrapper-warehouse-info-filler-2").show();
+            var $row = $(".sf-calc-wrapper-warehouse-info-filler-1").last(); //Select the row
+            var num = parseInt($row.attr("id").match(/\d+$/)[0]) + 1; //get the current index
+            var clone = $row.clone(); //clone the row
+            clone.attr("id", "wrapper-warehouse-info-filler-" + num); //change its id
+            clone.find("[id]").each(function () {
+              //go through all elements with an id
+              $(this).attr("id", $(this).attr("id").replace(/\d+$/, num)); //change the id
+            });
+
+            clone.appendTo("#wrapper-warehouse-selection-1"); //append the result to the body (replace 'body' with where you want it)
           });
 
           $("#warehouse-button-1-1").on("click", function (e) {
