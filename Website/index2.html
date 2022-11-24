@@ -22,6 +22,7 @@
           ];
 
           // Data die benodigd is voor de dropdowns. Als je hier bijv "GBP" toevoegt krijg je "GBP" te zien in de dropdown.
+          var storageTypes = ["On-Demand storage", "Capacity storage"];
           var calculatorVersions = ["Met voorbeelden", "Zonder voorbeelden"];
           var currencyOptions = ["EUR", "USD"];
           var editions = ["Standard", "Enterprise", "Business Critical"];
@@ -191,9 +192,29 @@
             );
           });
 
+          // Hier wordt de aantal tb selecter gevuld
+          $.each(daysPerWeek, function (k, v) {
+            $("#select-storage-scenario-storage-example-1").append(
+              $("<option>", {
+                value: v,
+                text: v,
+              })
+            );
+          });
+
+          // Hier wordt de storage type selector gevuld
+          $.each(storageTypes, function (k, v) {
+            $("#select-storage-type-example-1").append(
+              $("<option>", {
+                value: v,
+                text: v,
+              })
+            );
+          });
+
           // TODO:
 
-          // Alles wat in de tekst staat in de input velden zetten
+          // Alles wat in de tekst van scenario 1 example 1 staat in de input velden zetten
           $(document).ready(function () {
             $("#select-days-per-week-scenario-warehouse-example-1").val(
               document.getElementById("days-per-week-text-wh-scenario-1")
@@ -215,6 +236,44 @@
             );
           });
 
+          // Alles wat in de tekst van scenario 1 example 2 staat in de input velden zetten
+          $(document).ready(function () {
+            $("#select-days-per-week-scenario-warehouse-example-2").val(
+              document.getElementById("days-per-week-text-wh-scenario-1-wh-2")
+                .innerHTML
+            );
+            $("#select-gebruikstijd-scenario-warehouse-example-2").val(
+              document.getElementById("usage-time-text-wh-scenario-1-wh-2")
+                .innerHTML
+            );
+
+            $("#select-bezettingspercentage-scenario-warehouse-example-2").val(
+              document.getElementById(
+                "bezettings-percentage-text-wh-scenario-1-wh-2"
+              ).innerHTML
+            );
+
+            $("#select-warehouse-size-scenario-warehouse-example-2").val(
+              document.getElementById("warehouse-size-text-wh-scenario-1-wh-2")
+                .innerHTML
+            );
+          });
+
+          // Alles wat in de tekst van scenario 1 storage example 1 staat in de input velden zetten
+          $(document).ready(function () {
+            $("#select-storage-scenario-storage-example-1").val(
+              document.getElementById("tb-storage-st-scenario-1-st-1").innerHTML
+            );
+            console.log(
+              document.getElementById("tb-storage-type-st-scenario-1-st-1")
+                .innerHTML
+            );
+            $("#select-storage-type-example-1").val(
+              document.getElementById("tb-storage-type-st-scenario-1-st-1")
+                .innerHTML
+            );
+          });
+
           // Hier worden de versies uit de calculatorVersions array gehaald en in de dropdowns gezet
           $.each(calculatorVersions, function (k, v) {
             $("#select-calculator-version").append(
@@ -227,7 +286,9 @@
 
           // Hier wordt de aantal dagen in een week uit de daysPerweek array gehaald en in de dropdowns gezet
           $.each(daysPerWeek, function (k, v) {
-            $("#select-days-per-week-scenario-warehouse-example-1").append(
+            $(
+              "#select-days-per-week-scenario-warehouse-example-1, #select-days-per-week-scenario-warehouse-example-2"
+            ).append(
               $("<option>", {
                 value: v,
                 text: v,
@@ -247,9 +308,41 @@
             }
           );
 
+          $("#select-days-per-week-scenario-warehouse-example-2").on(
+            "change, click",
+            function (e) {
+              document.getElementById(
+                "days-per-week-text-wh-scenario-1-wh-2"
+              ).innerHTML = this.value;
+
+              document.getElementById("number-of-days-select-2").value =
+                Math.round(this.value * (52 / 12));
+            }
+          );
+
+          $("#select-storage-scenario-storage-example-1").on(
+            "change, click",
+            function (e) {
+              document.getElementById(
+                "tb-storage-st-scenario-1-st-1"
+              ).innerHTML = this.value;
+
+              document.getElementById("input-storage-tb-per-month").value =
+                this.value;
+            }
+          );
+
+          $("#select-storage-type-example-1").on("change, click", function (e) {
+            document.getElementById(
+              "tb-storage-type-st-scenario-1-st-1"
+            ).innerHTML = this.value;
+          });
+
           // Hier wordt de aantal dagen een week dag uit de hoursInADay array gehaald en in de dropdowns gezet
           $.each(hoursInADay, function (k, v) {
-            $("#select-gebruikstijd-scenario-warehouse-example-1").append(
+            $(
+              "#select-gebruikstijd-scenario-warehouse-example-1, #select-gebruikstijd-scenario-warehouse-example-2"
+            ).append(
               $("<option>", {
                 value: v,
                 text: v,
@@ -269,10 +362,22 @@
             }
           );
 
+          $("#select-gebruikstijd-scenario-warehouse-example-2").on(
+            "change, click",
+            function (e) {
+              document.getElementById(
+                "usage-time-text-wh-scenario-1-wh-2"
+              ).innerHTML = this.value;
+
+              document.getElementById("number-of-hours-day-select-2").value =
+                this.value;
+            }
+          );
+
           // Hier wordt het percentage uit de occupationPercentage array gehaald en in de dropdowns gezet
           $.each(occupationPercentage, function (k, v) {
             $(
-              "#select-bezettingspercentage-scenario-warehouse-example-1"
+              "#select-bezettingspercentage-scenario-warehouse-example-1, #select-bezettingspercentage-scenario-warehouse-example-2"
             ).append(
               $("<option>", {
                 value: v,
@@ -294,6 +399,19 @@
             }
           );
 
+          $("#select-bezettingspercentage-scenario-warehouse-example-2").on(
+            "change, click",
+            function (e) {
+              document.getElementById(
+                "bezettings-percentage-text-wh-scenario-1-wh-2"
+              ).innerHTML = this.value;
+
+              // TODO: Fix this id name
+              document.getElementById("percentage-bezetting-inout-2").value =
+                this.value;
+            }
+          );
+
           // Hier hetzelfde voor warehousesizes
           var warehouse = {
             "X-Small": 1,
@@ -310,7 +428,9 @@
 
           // Hier wordt het percentage uit de occupationPercentage array gehaald en in de dropdowns gezet
           $.each(warehouseSizes, function (k, v) {
-            $("#select-warehouse-size-scenario-warehouse-example-1").append(
+            $(
+              "#select-warehouse-size-scenario-warehouse-example-1, #select-warehouse-size-scenario-warehouse-example-2"
+            ).append(
               $("<option>", {
                 value: v,
                 text: v,
@@ -330,6 +450,22 @@
                 this.value;
 
               document.getElementById("warehouse-size-number-1").innerHTML =
+                warehouse[this.value];
+            }
+          );
+
+          $("#select-warehouse-size-scenario-warehouse-example-2").on(
+            "change, click",
+            function (e) {
+              // Huidige geselecteerde platform
+              document.getElementById(
+                "warehouse-size-text-wh-scenario-1-wh-2"
+              ).innerHTML = this.value;
+
+              document.getElementById("warehouse-type-2").innerHTML =
+                this.value;
+
+              document.getElementById("warehouse-size-number-2").innerHTML =
                 warehouse[this.value];
             }
           );
@@ -1453,20 +1589,37 @@
                     >
                       <p id="scenario-text-2" class="sf-calc-text021">
                         <span>Zorgt ervoor dat 8 gebruikers</span>
-                        <span class="sf-calc-text023">5 dagen per week</span>
-                        <span> </span>
-                        <span class="sf-calc-text025">10 uur per dag</span>
+                        <span
+                          id="days-per-week-text-wh-scenario-1-wh-2"
+                          class="sf-calc-text023"
+                          >5</span
+                        >
+                        <span> dagen per week</span>
+                        <span
+                          id="usage-time-text-wh-scenario-1-wh-2"
+                          class="sf-calc-text025"
+                          >10</span
+                        >
                         <span>
-                           kunnen werken, waarbij gebruikt gemaakt wordt van een
+                          uur per dag kunnen werken, waarbij gebruikt gemaakt
+                          wordt van een
                         </span>
-                        <span class="sf-calc-text027">Medium</span>
+                        <span
+                          id="warehouse-size-text-wh-scenario-1-wh-2"
+                          class="sf-calc-text027"
+                          >Medium</span
+                        >
                         <span
                           >Virtual Warehouse. Deze gebruikers maken
                           ongeveer</span
                         >
-                        <span class="sf-calc-text029">10%</span>
                         <span
-                          >van deze tijd gebruik van het datawarehouse.</span
+                          id="bezettings-percentage-text-wh-scenario-1-wh-2"
+                          class="sf-calc-text029"
+                          >10</span
+                        >
+                        <span
+                          >% van deze tijd gebruik van het datawarehouse.</span
                         >
                         <br />
                       </p>
@@ -1584,15 +1737,20 @@
                     >
                       <p id="scenario-text-3" class="sf-calc-text032">
                         <span>Slaat gemiddeld</span>
-                        <span class="sf-calc-text034">4 TB</span>
+                        <span
+                          id="tb-storage-st-scenario-1-st-1"
+                          class="sf-calc-text034"
+                          >4</span
+                        >
                         <span>
-                          aan gecomprimeerde data op (ongecomprimeerd is deze
-                          data 20 TB),
-                        </span>
-                        <span class="sf-calc-text036">
-                          hierbij betaald hij de data op month-to-month basis
-                          (on-demand-storage)
-                        </span>
+                          TB aan gecomprimeerde data op (ongecomprimeerd is deze
+                          data 20 TB), </span
+                        ><span> hierbij maakt hij gebruik van</span>
+                        <span
+                          class="sf-calc-text036"
+                          id="tb-storage-type-st-scenario-1-st-1"
+                          >On-Demand storage</span
+                        >
                         <span>.</span>
                         <br />
                       </p>
