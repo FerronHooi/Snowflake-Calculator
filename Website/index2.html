@@ -71,8 +71,8 @@
           // !!!!!!!!! VOORKEURS CLOUDPLATFORM EN REGION !!!!!!!!!
 
           /* De code hieronder heeft betrekking op het selecteren van de cloudplatform, regio en valuta. Door deze code wordt alleen de select dropdown voor de cloudplatform getoond.
-            Nadat een gebruiker een cloudplatform heeft geselecteerd, wordt de regio dropdown getoond. Nadat een gebruiker een regio heeft geselecteerd, wordt de valuta dropdown getoond.
-            Het verbergen gebeurt door de .hide(), het tonen begint later in de code d.m.v. de .show() */
+                 Nadat een gebruiker een cloudplatform heeft geselecteerd, wordt de regio dropdown getoond. Nadat een gebruiker een regio heeft geselecteerd, wordt de valuta dropdown getoond.
+                 Het verbergen gebeurt door de .hide(), het tonen begint later in de code d.m.v. de .show() */
 
           // on document load hide select region as first cloud platform has to be selected
           $("#select-region").hide();
@@ -108,28 +108,7 @@
 
           // Warehouse buttons
 
-          $("#warehouse-button-1-1").css("background-color", "#edf0f4");
-
-          $("#warehouse-button-2-1").on("click", function (e) {
-            var $row = $(".sf-calc-wrapper-warehouse-info-filler-1").last(); //Select the row
-            var num = parseInt($row.attr("id").match(/\d+$/)[0]) + 1; //get the current index
-            var clone = $row.clone(); //clone the row
-            clone.attr("id", "wrapper-warehouse-info-filler-" + num); //change its id
-            clone.find("[id]").each(function () {
-              //go through all elements with an id
-              $(this).attr("id", $(this).attr("id").replace(/\d+$/, num)); //change the id
-            });
-
-            clone.appendTo("#wrapper-warehouse-selection-1"); //append the result to the body (replace 'body' with where you want it)
-          });
-
-          $("#warehouse-button-1-1").on("click", function (e) {
-            $("#warehouse-button-1-1").css("background-color", "#edf0f4");
-            $("#warehouse-button-2-1").css("background-color", "white");
-            $("#wrapper-warehouse-info-filler-1").show();
-
-            $("#wrapper-warehouse-info-filler-2").hide();
-          });
+          $("#warehouse-button-1").css("background-color", "#edf0f4");
 
           // create new warehouses
 
@@ -551,7 +530,7 @@
           // !!!!!!!!! SCHATTING OPSLAG & VERBRUIKSKOSTEN !!!!!!!!!
 
           /* De code hieronder wordt gebruik om de buttons op de juiste manier te laten werken (bij warehouse size). Belangrijk! Er staat nog een stuk Javascript code onderaan deze pagina die de buttons op de juiste manier laat werken.
-            Deze kun je vinden door te zoeken naar de button met id="warehouse-size-button-left" */
+                 Deze kun je vinden door te zoeken naar de button met id="warehouse-size-button-left" */
 
           $(
             "#warehouse-size-button-left-1, #warehouse-size-button-right-1"
@@ -669,7 +648,7 @@
               ][currentCurrency]);
 
             /* Hieronder worden de totale berekend op basis van de variabelen hierboven. Tevens wordt hier gekeken wat de geselecteerde currency is
-              en op basis daarvan wordt het juiste symbool (euro, usd of gbp) weergeven */
+                   en op basis daarvan wordt het juiste symbool (euro, usd of gbp) weergeven */
             if (currentCurrency == "eur") {
               var totalCostsStandard = (document.getElementById(
                 "standardeditionamount"
