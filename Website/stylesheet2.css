@@ -5197,7 +5197,6 @@
 .sf-calc-text508 {
   align-self: center;
 }
-@media (max-width: 1600px) {
   .sf-calc-hide-div {
     flex: 0;
     width: 100%;
