@@ -398,6 +398,16 @@
               );
           });
 
+          // Alles wat in de tekst van scenario 1 storage example 1 staat in de input velden zetten
+          $(document).ready(function () {
+            $("#select-storage-scenario-storage-example-1-3").val(
+              document.getElementById("tb-storage-st-1-3").innerHTML
+            );
+            $("#select-storage-type-example-1.3").val(
+              document.getElementById("storage-type-st-1-3").innerHTML
+            );
+          });
+
           // Hier worden de versies uit de calculatorVersions array gehaald en in de dropdowns gezet
           $.each(calculatorVersions, function (k, v) {
             $("#select-calculator-version").append(
@@ -408,61 +418,60 @@
             );
           });
 
-          
-          var allCalculationSelectors = document.querySelectorAll(
-            "[id^=number-of-days-select-]"
+          $("#select-days-per-week-scenario-warehouse-example-1-1").on(
+            "change, click",
+            function (e) {
+              document.getElementById("days-per-week-text-wh-1-1").innerHTML =
+                this.value;
+
+              document.getElementById("number-of-days-select-1").value =
+                Math.round(this.value * (52 / 12));
+            }
           );
 
-                    var listOfCalculationSelectorNumbers = [];
-          allCalculationSelectors.forEach((selector) => {
-            listOfCalculationSelectorNumbers.push(
-              String(selector.id).slice(-1)
-            );
-          });
+          $("#select-gebruikstijd-scenario-warehouse-example-1-1").on(
+            "change, click",
+            function (e) {
+              document.getElementById("usage-hours-wh-1-1").innerHTML =
+                this.value;
 
-          console.log(listOfCalculationSelectorNumbers)
-
-          var allExampleDivs = document.querySelectorAll(
-                        "[id^=wrapper-scenario-div]"
+              document.getElementById("number-of-hours-day-select-1").value =
+                this.value;
+            }
           );
 
-          var listOfExampleDivsNumbers = [];
-          allExampleDivs.forEach((div) => {
-            listOfExampleDivsNumbers.push(
-              String(div.id).slice(-1)
-            );
-          });
+          $("#select-gebruikstijd-scenario-warehouse-example-1-2").on(
+            "change, click",
+            function (e) {
+              document.getElementById("usage-hours-wh-1-2").innerHTML =
+                this.value;
 
-          console.log(listOfExampleDivsNumbers)
+              document.getElementById("number-of-hours-day-select-2").value =
+                this.value;
+            }
+          );
 
-          allExampleDivs.forEach((div) => {
-            console.log(div)
-            console.log(div.querySelector('.child'))
+          $("#select-bezettingspercentage-scenario-warehouse-1-1").on(
+            "change, click",
+            function (e) {
+              document.getElementById("bezettingspercentage-wh-1-1").innerHTML =
+                this.value;
 
-          });
+              document.getElementById("percentage-bezetting-1").value =
+                this.value;
+            }
+          );
 
+          $("#select-bezettingspercentage-scenario-warehouse-1-2").on(
+            "change, click",
+            function (e) {
+              document.getElementById("bezettingspercentage-wh-1-2").innerHTML =
+                this.value;
 
-                    $("#make-calculation-button").on("click", function (e) {
-
-          listOfCalculationSelectorNumbers.forEach((selectorNumber) => {
-            document.getElementById("number-of-days-select-" + selectorNumber).value =
-                Math.round(document.getElementById("select-days-per-week-scenario-warehouse-example-1-" + selectorNumber).value * (52 / 12));
-
-                              document.getElementById("number-of-hours-day-select-" + selectorNumber).value =
-                Math.round(document.getElementById("select-gebruikstijd-scenario-warehouse-example-1-" + selectorNumber).value);
-
-                              document.getElementById("percentage-bezetting-" + selectorNumber).value =
-                Math.round(document.getElementById("select-bezettingspercentage-scenario-warehouse-1-" + selectorNumber).value);
-          });
-
-                  //TODO: ^ voor storage
-
-         document.getElementById("input-storage-tb-per-month").value =
-                Math.round(document.getElementById("select-storage-scenario-storage-example-1-" + selectorNumber).value);
-            
-            });
-
-  
+              document.getElementById("percentage-bezetting-2").value =
+                this.value;
+            }
+          );
 
           //on document load hide all scenario div except for the first one
           document
@@ -1548,7 +1557,7 @@
                     </ul>
                   </div>
                 </div>
-                <div id="wrapper-scenario-div-1" class="sf-calc-wrapper-scenario">
+                <div id="wrapper-scenario-1" class="sf-calc-wrapper-scenario">
                   <div class="sf-calc-container01">
                     <span class="sf-calc-text001">
                       <span>
@@ -1585,7 +1594,7 @@
                     class="sf-calc-wrapper-scenario-examples-div scenario-example-warehouse"
                   >
                     <div
-                      id="wrapper-scenario-example-1-1"
+                      id="wrapper-scenario-example-1.1"
                       class="scenario-example-warehouses sf-calc-wrapper-scenario-example"
                     >
                       <div
@@ -1758,7 +1767,7 @@
                       </div>
                     </div>
                     <div
-                      id="wrapper-scenario-example-1-2"
+                      id="wrapper-scenario-example-1.2"
                       class="scenario-example-warehouses sf-calc-wrapper-scenario-example1"
                     >
                       <div
@@ -2046,7 +2055,7 @@
                     </div>
                   </div>
                 </div>
-                <div id="wrapper-scenario-div-2" class="sf-calc-wrapper-scenario1">
+                <div id="wrapper-scenario-2" class="sf-calc-wrapper-scenario1">
                   <div class="sf-calc-container05">
                     <span class="sf-calc-text112">
                       <span>
@@ -2080,7 +2089,7 @@
                     class="sf-calc-wrapper-scenario-examples-div1 scenario-example-warehouse"
                   >
                     <div
-                      id="wrapper-scenario-example-2-1"
+                      id="wrapper-scenario-example-2.1"
                       class="scenario-example-warehouses sf-calc-wrapper-scenario-example3"
                     >
                       <div
@@ -2155,7 +2164,7 @@
                         </div>
                       </div>
                       <div
-                        id="wrapper-div-scenario-warehouse-example-2-1"
+                        id="wrapper-div-scenario-warehouse-example-2.1"
                         class="sf-calc-wrapper-div-scenario-warehouse-example-21"
                       >
                         <div
@@ -2251,7 +2260,7 @@
                       </div>
                     </div>
                     <div
-                      id="wrapper-scenario-example-2-2"
+                      id="wrapper-scenario-example-1.2"
                       class="scenario-example-warehouses sf-calc-wrapper-scenario-example4"
                     >
                       <div
@@ -2429,7 +2438,7 @@
                       </div>
                     </div>
                     <div
-                      id="wrapper-scenario-example-2.3"
+                      id="wrapper-scenario-example-1.2"
                       class="scenario-example-warehouses sf-calc-wrapper-scenario-example5"
                     >
                       <div
@@ -2602,7 +2611,7 @@
                       </div>
                     </div>
                     <div
-                      id="wrapper-scenario-example-2-4"
+                      id="wrapper-scenario-example-2.4"
                       class="scenario-example-warehouses sf-calc-wrapper-scenario-example6"
                     >
                       <div
