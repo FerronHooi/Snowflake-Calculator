@@ -728,7 +728,6 @@
                 $("#wrapper-calculation-examples-container").show();
               }
             });
-          });
 
             // Als een valuta wordt geselecteerd dan worden alle divs getoond
             // $("#select-currency").on("change", function (e) {
@@ -770,10 +769,10 @@
             allFieldsToRefresh.push(allInputFieldsInWHdiv.item(i).id)
           }
 
-          allFieldsToRefresh.forEach((field) => {
+          //HEEEEEEREEEE
+
             // Als een platform, regio, valuta, aantal tb/s, button of editie wordt geselecteerd dan veranderd de rest mee. Let op: vrijwel alle code hieronder valt hier binnen.
-            $(`#${field}, #select-cloudplatform, #select-region, #select-edition`
-            ).on("change, click", function (e) {
+
               // Huidige geselecteerde platform
               var currentPlatform = document.getElementById(
                 "select-cloudplatform"
@@ -875,7 +874,6 @@
               //     platforms[currentPlatform][currentRegion]["tier"][edition][
               //       currentCurrency
               //     ];
-            });
 
             var standardPrice = (document.getElementById(
               "inputfieldstandard"
@@ -1104,7 +1102,6 @@
                   "";
               });
             }
-          });
 
             // !!!! TOTALE KOSTEN !!!!!
 
@@ -1567,6 +1564,7 @@
             }
           );
         }, "json");
+      });
     </script>
 
     <body>
