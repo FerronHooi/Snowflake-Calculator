@@ -99,6 +99,12 @@
           // on document load hide select region text, select currency text and all other main divs + dividers
           $("#select-region-text").hide();
 
+          var editable = document.getElementById('warehouse-title-1');
+editable.addEventListener('input', (e) => {
+    console.log(e.target.innerText);
+    document.getElementById('warehouse-button-1').innerHTML = e.target.innerText.trim();
+});
+
           $("#select-calculator-version").hide();
 
           // on document load hide the cloudplatform and region header
@@ -201,6 +207,13 @@
               );
             });
           });
+
+          //on click of the select cloudplatform
+
+          $("#warehouse-title-1").on("click", function (e) {
+          document.getElementById("warehouse-title-1").setAttribute("type", "input")
+          });
+          
 
           // Days per week selection
 
@@ -1688,63 +1701,60 @@
                         class="sf-calc-wrapper-div-scenario-warehouse-example-toelichting-1"
                       >
                         <div class="sf-calc-container02">
-                          <span class="sf-calc-text014">
-                            <span>Draait </span>
+                          <span contenteditable="true" class="editable"> 
+                            <span contenteditable="true" class="editable">Draait </span>
                             <br />
                           </span>
                           <span
                             id="days-per-week-text-wh-1-1"
-                            display="inline-block"
-                            class="sf-calc-text017"
-                            >7</span
+                            display="inline-block" contenteditable="false" class="editable">7</span
                           >
                           <span display="inline-block" class="sf-calc-text018">
-                            <span> dagen per week</span>
+                            <span contenteditable="false" class="editable"> dagen per week</span>
                             <br />
                           </span>
                           <span display="inline-block" class="sf-calc-text021">
-                            <span>een batch-load van circa </span>
+                            <span contenteditable="true" class="editable">een batch-load van circa </span>
                             <br />
                           </span>
-                          <span id="usage-hours-wh-1-1" class="sf-calc-text024"
+                          <span contenteditable="false" class="editable" id="usage-hours-wh-1-1" 
                             >2</span
                           >
                           <span class="sf-calc-text027">
-                            <span> uur, waarbij hij gebruik</span>
+                            <span contenteditable="true" class="editable"> uur, waarbij hij gebruik</span>
                             <br />
                           </span>
                           <span class="sf-calc-text030">
-                            <span>maakt van een </span>
-                            <br />
+                            <span contenteditable="true" class="editable">maakt van een </span>
                           </span>
                           <span
                             id="warehouse-size-wh-1-1"
-                            class="sf-calc-text033"
+                            contenteditable="false" class="editable"
                             >Small</span
                           >
                           <span class="sf-calc-text036">
                             <span> virtual</span>
                             <br />
                           </span>
-                          <span class="sf-calc-text039"
+                          <span contenteditable="true" class="editable"
                             >warehouse. Tijdens het </span
                           >
                           <span class="sf-calc-text040">
-                            <span>laden van de batch draait </span>
+                            <span class="editable" contenteditable="true">laden van de batch draait </span>
                             <br />
                           </span>
                           <span class="sf-calc-text043">
-                            <span>het warehouse </span>
+                            <span contenteditable="true" class="editable">het warehouse </span>
                             <br />
                           </span>
                           <span
                             id="bezettingspercentage-wh-1-1"
-                            class="sf-calc-text046"
+                           contenteditable="false" class="editable"
                           >
                             100
                           </span>
                           <span class="sf-calc-text049">
-                            <span>% van de tijd.</span>
+                            <span contenteditable="false" class="editable">% van de tijd.</span>
                             <br />
                           </span>
                         </div>
@@ -3340,9 +3350,9 @@
                       id="wrapper-warehouse-title-edit-delete"
                       class="sf-calc-wrapper-warehouse-title-edit-delete"
                     >
-                      <h1 id="warehouse-title-1" class="sf-calc-heading12">
-                        Datawarehouse
-                      </h1>
+                      <h1 contenteditable="true" id="warehouse-title-1" class="sf-calc-heading12">
+                        Datawarehouse</span>
+                      
                       <svg
                         id="edit-warehouse-1"
                         viewBox="0 0 865.7188571428571 1024"
@@ -3501,7 +3511,7 @@
                       id="wrapper-warehouse-title-edit-delete"
                       class="sf-calc-wrapper-warehouse-title-edit-delete1"
                     >
-                      <h1 id="warehouse-title-2" class="sf-calc-heading14">
+                      <h1 id="warehouse-title-2" class="sf-calc-heading14" contenteditable="true">
                         Datawarehouse
                       </h1>
                       <svg
