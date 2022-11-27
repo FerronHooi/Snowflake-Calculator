@@ -547,35 +547,58 @@
             });
           });
 
-          $("#select-warehouse-size-scenario-warehouse-example-1-1").on(
-            "change, click",
-            function (e) {
-              // Huidige geselecteerde platform
-              document.getElementById("warehouse-size-wh-1-1").innerHTML =
-                this.value;
-
-              document.getElementById("warehouse-type-1").innerHTML =
-                this.value;
-
-              document.getElementById("warehouse-size-number-1").innerHTML =
-                warehouse[this.value];
-            }
+           var allCalculationSelectors = document.querySelectorAll(
+            "[id^=number-of-days-select-]"
           );
 
-          $("#select-warehouse-size-scenario-warehouse-example-1-2").on(
-            "change, click",
-            function (e) {
-              // Huidige geselecteerde platform
-              document.getElementById("warehouse-size-wh-1-2").innerHTML =
-                this.value;
+                    var listOfCalculationSelectorNumbers = [];
+          allCalculationSelectors.forEach((selector) => {
+            listOfCalculationSelectorNumbers.push(
+              String(selector.id).slice(-1)
+            );
+          });
 
-              document.getElementById("warehouse-type-2").innerHTML =
-                this.value;
+          console.log(listOfCalculationSelectorNumbers)
 
-              document.getElementById("warehouse-size-number-2").innerHTML =
-                warehouse[this.value];
-            }
+          var allExampleDivs = document.querySelectorAll(
+                        "[id^=wrapper-scenario-div]"
           );
+
+          var listOfExampleDivsNumbers = [];
+          allExampleDivs.forEach((div) => {
+            listOfExampleDivsNumbers.push(
+              String(div.id).slice(-1)
+            );
+          });
+
+          console.log(listOfExampleDivsNumbers)
+
+          allExampleDivs.forEach((div) => {
+            console.log(div)
+            console.log(div.querySelector('.child'))
+
+          });
+
+
+                    $("#make-calculation-button").on("click", function (e) {
+
+          listOfCalculationSelectorNumbers.forEach((selectorNumber) => {
+            document.getElementById("number-of-days-select-" + selectorNumber).value =
+                Math.round(document.getElementById("select-days-per-week-scenario-warehouse-example-1-" + selectorNumber).value * (52 / 12));
+
+                              document.getElementById("number-of-hours-day-select-" + selectorNumber).value =
+                Math.round(document.getElementById("select-gebruikstijd-scenario-warehouse-example-1-" + selectorNumber).value);
+
+                              document.getElementById("percentage-bezetting-" + selectorNumber).value =
+                Math.round(document.getElementById("select-bezettingspercentage-scenario-warehouse-1-" + selectorNumber).value);
+          });
+
+                  //TODO: ^ voor storage
+
+         document.getElementById("input-storage-tb-per-month").value =
+                Math.round(document.getElementById("select-storage-scenario-storage-example-1-" + selectorNumber).value);
+            
+            });
 
           // Verbergt de voorbeelden wanneer er een wijziging wordt gedaan in de dropdowns bij de schatting maandelijks opslag & verbruikskosten
 
