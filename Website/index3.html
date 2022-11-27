@@ -797,40 +797,9 @@
                 );
               });
 
+      
               var totalHours = []
-
-              activeWarehouseNumbers.forEach((number) => {
-                 var hours = (document.getElementById("number-of-days-select-" + number).value *
-                  document.getElementById("number-of-hours-day-select-" + number)
-                    .value *
-                  document.getElementById("percentage-bezetting-" + number).value) /
-                100;
-                totalHours.push(hours)
-              });
-                              
-              var calculateTotalHours = totalHours.reduce((a, b) => a + b, 0)
-
-              // Dit is het gedeelte "X uren p/m". Hier wordt dus alleen aan calculatetotalHours de string " uren p/m" toegevoegd en wordt dan getoond in div met id "total-hours"
-              document.getElementById("total-hours-1").innerHTML =
-                Math.round(calculateTotalHours * 10) / 10 + " uren p/m";
-
-              // Hier wordt een variabele aangemaakt met daarin de huidige waarde van de geselecteerde warehouse credits (dit gebeurd dus door de buttons te gebruiken)
-              var totalCredits = []  
-              
-              activeWarehouseNumbers.forEach((number) => {
-                 var credits = document.getElementById("warehouse-size-number-" + number).innerHTML
-                 console.log(credits.trim())
-                totalCredits.push(Number(credits.trim()))
-                })
-              console.log(totalCredits)
-              var creditsPerHour = totalCredits.reduce((a, b) => a + b, 0)
-              console.log(creditsPerHour)
-
-              //
-              var calculateTotalPerWarehouse = []
-
-              totalHours = []
-              totalCredits = []
+              var totalCredits = []
               
                activeWarehouseNumbers.forEach((number) => {
                  var hours = (document.getElementById("number-of-days-select-" + number).value *
@@ -849,6 +818,11 @@
               var calculateTotalHours = totalHours.reduce((a, b) => a + b, 0)
 
               var creditsTotal = totalCredits.reduce((a, b) => a + b, 0)
+
+              // Dit is het gedeelte "X uren p/m". Hier wordt dus alleen aan calculatetotalHours de string " uren p/m" toegevoegd en wordt dan getoond in div met id "total-hours"
+              document.getElementById("total-hours-1").innerHTML =
+                Math.round(calculateTotalHours * 10) / 10 + " uren p/m";
+
 
               // Hierdoor wordt "X credits /uur" getoond
               //var creditsPerHourString = (document.getElementById(
