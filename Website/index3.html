@@ -337,6 +337,15 @@
                   .getElementById("bezettingspercentage-wh-" + selectorNumber)
                   .innerHTML.trim()
               );
+              //
+                                                        $(
+                "#select-warehouse-size-scenario-warehouse-example-" +
+                  selectorNumber
+              ).val(
+                document
+                  .getElementById("warehouse-size-wh-" + selectorNumber)
+                  .innerHTML.trim()
+              );
             });
 
             $("#select-days-per-week-scenario-warehouse-example-1-1").val(
@@ -2431,8 +2440,7 @@
                             <br />
                           </span>
                           <span id="usage-hours-wh-2-3" class="sf-calc-text211">
-                            <span class="sf-calc-text212">3</span>
-                            <br />
+                           3
                           </span>
                           <span class="sf-calc-text214">
                             <span> uur, waarbij hij gebruik</span>
@@ -2445,9 +2453,7 @@
                           <span
                             id="warehouse-size-wh-2-3"
                             class="sf-calc-text220"
-                          >
-                            <span class="sf-calc-text221">Small</span>
-                            <br />
+                          >Small
                           </span>
                           <span class="sf-calc-text223">
                             <span> virtual</span>
@@ -2467,9 +2473,7 @@
                           <span
                             id="bezettingspercentage-wh-2-3"
                             class="sf-calc-text233"
-                          >
-                            <span class="sf-calc-text234">100</span>
-                            <br />
+                          >100
                           </span>
                           <span class="sf-calc-text236">
                             <span>% van de tijd.</span>
