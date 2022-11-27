@@ -54,6 +54,19 @@
             "24",
           ];
           var occupationPercentage = ["100", "75", "50", "25", "10", "5", "1"];
+          // Hier hetzelfde voor warehousesizes
+          var warehouse = {
+            "X-Small": 1,
+            Small: 2,
+            Medium: 4,
+            Large: 8,
+            "X-Large": 16,
+            "2X-Large": 32,
+            "3X-Large": 64,
+            "4X-Large": 128,
+          };
+
+          var warehouseSizes = Object.keys(warehouse);
 
           // Huidige geselecteerde div's
           var currentSelectedEditon = "";
@@ -71,8 +84,8 @@
           // !!!!!!!!! VOORKEURS CLOUDPLATFORM EN REGION !!!!!!!!!
 
           /* De code hieronder heeft betrekking op het selecteren van de cloudplatform, regio en valuta. Door deze code wordt alleen de select dropdown voor de cloudplatform getoond.
-                 Nadat een gebruiker een cloudplatform heeft geselecteerd, wordt de regio dropdown getoond. Nadat een gebruiker een regio heeft geselecteerd, wordt de valuta dropdown getoond.
-                 Het verbergen gebeurt door de .hide(), het tonen begint later in de code d.m.v. de .show() */
+                      Nadat een gebruiker een cloudplatform heeft geselecteerd, wordt de regio dropdown getoond. Nadat een gebruiker een regio heeft geselecteerd, wordt de valuta dropdown getoond.
+                      Het verbergen gebeurt door de .hide(), het tonen begint later in de code d.m.v. de .show() */
 
           // on document load hide select region as first cloud platform has to be selected
           $("#select-region").hide();
@@ -94,29 +107,6 @@
           // on document load hide the two divs (on-demand storage and capacity)
           $("#snowflake-calculator-container-storage-cost").hide();
 
-          // Scenario buttons
-          $("#scenario-button-1").css("background-color", "#edf0f4");
-
-          $("#scenario-button-1").on("click", function (e) {
-            $("#wrapper-scenario-2").hide();
-            $("#wrapper-scenario-1").show();
-            $("#scenario-button-1").css("background-color", "#edf0f4");
-            $("#scenario-button-2").css("background-color", "white");
-          });
-
-          $("#scenario-button-2").on("click", function (e) {
-            $("#wrapper-scenario-1").hide();
-            $("#wrapper-scenario-2").show();
-            $("#scenario-button-1").css("background-color", "white");
-            $("#scenario-button-2").css("background-color", "#edf0f4");
-          });
-
-          // Warehouse buttons
-
-          $("#warehouse-button-1").css("background-color", "#edf0f4");
-
-          // create new warehouses
-
           // TODO: Disabled
           $("#add-warehouse-button-1").on("click", function (e) {
             var warehouseButton = document.querySelector(
@@ -130,17 +120,6 @@
             $("#warehouse-button-1-2").css("background-color", "#edf0f4");
           });
 
-          //TODO: Use this for range of numbers
-          function rangeOfNumbers(start, end) {
-            return Array.from(
-              { length: end - start },
-              (_, i) => i + start + ""
-            );
-          }
-
-          $.each(rangeOfNumbers(0, 12), function (k, v) {
-            console.log(k);
-          });
           // Deze kun je uitcommentarieren als je alle divs wilt zien (en dus niet elke keer eerst een platform, regio en valuta wil selecteren voor het testen)
 
           //$(
@@ -157,16 +136,6 @@
             );
           });
 
-          // Hier wordt de data (valuta) uit de currencyOptions array gehaald en in de dropdowns gezet
-          $.each(currencyOptions, function (k, v) {
-            $("#select-currency").append(
-              $("<option>", {
-                value: v,
-                text: v,
-              })
-            );
-          });
-
           // Hier wordt de data (edities) uit de editions array gehaald en in de dropdowns gezet
           $.each(editions, function (k, v) {
             $("#select-edition").append(
@@ -177,71 +146,163 @@
             );
           });
 
-          // Hier wordt de aantal tb selecter gevuld
-          $.each(daysPerWeek, function (k, v) {
-            $("#select-storage-scenario-storage-example-1.3").append(
-              $("<option>", {
-                value: v,
-                text: v,
-              })
-            );
+          //hide scenario div on list click
+          var allScenarioButtons = document.querySelectorAll(
+            "[id*=scenario-button-]"
+          );
+
+          allScenarioButtons.forEach((button) => {
+            $(`#${button.id}`).on("click", function (e) {
+              console.log(button.id);
+              // find all divs with id starting with "warehouse-button" and hide them
+              document
+                .querySelectorAll("[id*=wrapper-scenario-]")
+                .forEach((scenarioWrapper) => {
+                  if (
+                    String(scenarioWrapper.id).slice(-1) !==
+                    String(button.id).slice(-1)
+                  ) {
+                    $(`#${scenarioWrapper.id}`).hide();
+                    $(`#${button.id}`).css("background-color", "white");
+                  } else {
+                    $(`#${scenarioWrapper.id}`).show();
+                    $(`#${button.id}`).css("background-color", "#edf0f4");
+                  }
+                });
+            });
           });
 
-          // Hier wordt de storage type selector gevuld
-          $.each(storageTypes, function (k, v) {
-            $("#select-storage-type-example-1.3").append(
-              $("<option>", {
-                value: v,
-                text: v,
-              })
-            );
+          var allStorageTBSelectors = document.querySelectorAll(
+            "[id*=select-storage-scenario-storage-example-]"
+          );
+
+          allStorageTBSelectors.forEach((storageTBSelector) => {
+            $.each(daysPerWeek, function (k, v) {
+              $(`#${storageTBSelector.id}`).append(
+                $("<option>", {
+                  value: v,
+                  text: v,
+                })
+              );
+            });
           });
 
-          // TODO:
+          var allStorageTypeSelectors = document.querySelectorAll(
+            "[id*=select-storage-type-]"
+          );
+
+          allStorageTypeSelectors.forEach((storageTypeSelector) => {
+            $.each(storageTypes, function (k, v) {
+              $(`#${storageTypeSelector.id}`).append(
+                $("<option>", {
+                  value: v,
+                  text: v,
+                })
+              );
+            });
+          });
+
+          // Days per week selection
+
+          var allDaysPerWeekSelector = document.querySelectorAll(
+            "[id*=select-days-per-week-scenario-warehouse-example-]"
+          );
+
+          allDaysPerWeekSelector.forEach((dayPerWeekSelector) => {
+            $.each(daysPerWeek, function (k, v) {
+              $(`#${dayPerWeekSelector.id}`).append(
+                $("<option>", {
+                  value: v,
+                  text: v,
+                })
+              );
+            });
+          });
+
+          // Gebruikstijden (uren) selector
+
+          var allUsageHoursSelector = document.querySelectorAll(
+            "[id*=select-gebruikstijd-scenario-warehouse-example-]"
+          );
+
+          allUsageHoursSelector.forEach((usageHoursSelector) => {
+            $.each(hoursInADay, function (k, v) {
+              $(`#${usageHoursSelector.id}`).append(
+                $("<option>", {
+                  value: v,
+                  text: v,
+                })
+              );
+            });
+          });
+
+          // Bezettingspercentage selector
+
+          var allBezettingspercentageSelector = document.querySelectorAll(
+            "[id*=select-bezettingspercentage-scenario-warehouse-]"
+          );
+
+          allBezettingspercentageSelector.forEach(
+            (bezettingspercentageSelector) => {
+              $.each(occupationPercentage, function (k, v) {
+                $(`#${bezettingspercentageSelector.id}`).append(
+                  $("<option>", {
+                    value: v,
+                    text: v,
+                  })
+                );
+              });
+            }
+          );
+
+          // Warehousesizes selector
+
+          var allWarehouseSizeSelectors = document.querySelectorAll(
+            "[id*=select-warehouse-size-scenario-warehouse-example-]"
+          );
+
+          allWarehouseSizeSelectors.forEach((warehouseSizeSelector) => {
+            $.each(warehouseSizes, function (k, v) {
+              $(`#${warehouseSizeSelector.id}`).append(
+                $("<option>", {
+                  value: v,
+                  text: v,
+                })
+              );
+            });
+          });
 
           // Alles wat in de tekst van scenario 1 example 1 staat in de input velden zetten
           $(document).ready(function () {
-            $("#days-per-week-text-wh1.1").val(
-              document.getElementById("days-per-week-text-wh1.1").innerHTML
-            );
-            $("#select-gebruikstijd-scenario-warehouse-example-1.1").val(
-              document.getElementById("usage-hours-wh-1.1").innerHTML
+            $("#select-days-per-week-scenario-warehouse-example-1-1").val(
+              document.getElementById("days-per-week-text-wh-1-1").innerHTML
             );
 
-            $("#select-bezettingspercentage-scenario-warehouse-1.1").val(
-              document.getElementById("bezettingspercentage-wh-1.1").innerHTML
+            console.log(
+              String(
+                document.getElementById("days-per-week-text-wh-1-1").innerHTML
+              )
+            );
+            $("#select-gebruikstijd-scenario-warehouse-example-1-1").val(
+              document.getElementById("usage-hours-wh-1-1").innerHTML
             );
 
-            $("#select-warehouse-size-scenario-warehouse-example-1.1").val(
-              document.getElementById("warehouse-size-wh-1.1").innerHTML
-            );
-          });
-
-          // Alles wat in de tekst van scenario 1 example 2 staat in de input velden zetten
-          $(document).ready(function () {
-            $("#days-per-week-text-wh1.2").val(
-              document.getElementById("days-per-week-text-wh1.2").innerHTML
-            );
-            $("#select-gebruikstijd-scenario-warehouse-example-1.2").val(
-              document.getElementById("usage-hours-wh-1.2").innerHTML
+            $("#select-bezettingspercentage-scenario-warehouse-1-1").val(
+              document.getElementById("bezettingspercentage-wh-1-1").innerHTML
             );
 
-            $("#select-bezettingspercentage-scenario-warehouse-1.2").val(
-              document.getElementById("bezettingspercentage-wh-1.2").innerHTML
-            );
-
-            $("#select-warehouse-size-scenario-warehouse-example-1.2").val(
-              document.getElementById("warehouse-size-wh-1.2").innerHTML
+            $("#select-warehouse-size-scenario-warehouse-example-1-1").val(
+              document.getElementById("warehouse-size-wh-1-1").innerHTML
             );
           });
 
           // Alles wat in de tekst van scenario 1 storage example 1 staat in de input velden zetten
           $(document).ready(function () {
-            $("#select-storage-scenario-storage-example-1.3").val(
-              document.getElementById("tb-storage-st-1.3").innerHTML
+            $("#select-storage-scenario-storage-example-1-3").val(
+              document.getElementById("tb-storage-st-1-3").innerHTML
             );
             $("#select-storage-type-example-1.3").val(
-              document.getElementById("storage-type-st-1.3").innerHTML
+              document.getElementById("storage-type-st-1-3").innerHTML
             );
           });
 
@@ -255,20 +316,10 @@
             );
           });
 
-          // Hier wordt de aantal dagen in een week uit de daysPerweek array gehaald en in de dropdowns gezet
-          $.each(daysPerWeek, function (k, v) {
-            $("#select-days-per-week-scenario-warehouse-example-1.1").append(
-              $("<option>", {
-                value: v,
-                text: v,
-              })
-            );
-          });
-
-          $("#select-days-per-week-scenario-warehouse-example-1.1").on(
+          $("#select-days-per-week-scenario-warehouse-example-1-1").on(
             "change, click",
             function (e) {
-              document.getElementById("days-per-week-text-wh1.1").innerHTML =
+              document.getElementById("days-per-week-text-wh-1-1").innerHTML =
                 this.value;
 
               document.getElementById("number-of-days-select-1").value =
@@ -276,52 +327,10 @@
             }
           );
 
-          $("#select-days-per-week-scenario-warehouse-example-1.2").on(
+          $("#select-gebruikstijd-scenario-warehouse-example-1-1").on(
             "change, click",
             function (e) {
-              document.getElementById("days-per-week-text-wh1.2").innerHTML =
-                this.value;
-
-              document.getElementById("number-of-days-select-2").value =
-                Math.round(this.value * (52 / 12));
-            }
-          );
-
-          $("#select-storage-scenario-storage-example-1.3").on(
-            "change, click",
-            function (e) {
-              document.getElementById("tb-storage-st-1.3").innerHTML =
-                this.value;
-
-              document.getElementById("input-storage-tb-per-month").value =
-                this.value;
-            }
-          );
-
-          $("#select-storage-type-example-1.3").on(
-            "change, click",
-            function (e) {
-              document.getElementById("storage-type-st-1.3").innerHTML =
-                this.value;
-            }
-          );
-
-          // Hier wordt de aantal dagen een week dag uit de hoursInADay array gehaald en in de dropdowns gezet
-          $.each(hoursInADay, function (k, v) {
-            $(
-              "#select-gebruikstijd-scenario-warehouse-example-1.1, #select-gebruikstijd-scenario-warehouse-example-1.2"
-            ).append(
-              $("<option>", {
-                value: v,
-                text: v,
-              })
-            );
-          });
-
-          $("#select-gebruikstijd-scenario-warehouse-example-1.1").on(
-            "change, click",
-            function (e) {
-              document.getElementById("usage-hours-wh-1.1").innerHTML =
+              document.getElementById("usage-hours-wh-1-1").innerHTML =
                 this.value;
 
               document.getElementById("number-of-hours-day-select-1").value =
@@ -329,10 +338,10 @@
             }
           );
 
-          $("#select-gebruikstijd-scenario-warehouse-example-1.2").on(
+          $("#select-gebruikstijd-scenario-warehouse-example-1-2").on(
             "change, click",
             function (e) {
-              document.getElementById("usage-hours-wh-1.2").innerHTML =
+              document.getElementById("usage-hours-wh-1-2").innerHTML =
                 this.value;
 
               document.getElementById("number-of-hours-day-select-2").value =
@@ -340,22 +349,10 @@
             }
           );
 
-          // Hier wordt het percentage uit de occupationPercentage array gehaald en in de dropdowns gezet
-          $.each(occupationPercentage, function (k, v) {
-            $(
-              "#select-bezettingspercentage-scenario-warehouse-1.1, #select-bezettingspercentage-scenario-warehouse-1.2"
-            ).append(
-              $("<option>", {
-                value: v,
-                text: v,
-              })
-            );
-          });
-
-          $("#select-bezettingspercentage-scenario-warehouse-1.1").on(
+          $("#select-bezettingspercentage-scenario-warehouse-1-1").on(
             "change, click",
             function (e) {
-              document.getElementById("bezettingspercentage-wh-1.1").innerHTML =
+              document.getElementById("bezettingspercentage-wh-1-1").innerHTML =
                 this.value;
 
               document.getElementById("percentage-bezetting-1").value =
@@ -363,10 +360,10 @@
             }
           );
 
-          $("#select-bezettingspercentage-scenario-warehouse-1.2").on(
+          $("#select-bezettingspercentage-scenario-warehouse-1-2").on(
             "change, click",
             function (e) {
-              document.getElementById("bezettingspercentage-wh-1.2").innerHTML =
+              document.getElementById("bezettingspercentage-wh-1-2").innerHTML =
                 this.value;
 
               document.getElementById("percentage-bezetting-2").value =
@@ -374,24 +371,10 @@
             }
           );
 
-          // Hier hetzelfde voor warehousesizes
-          var warehouse = {
-            "X-Small": 1,
-            Small: 2,
-            Medium: 4,
-            Large: 8,
-            "X-Large": 16,
-            "2X-Large": 32,
-            "3X-Large": 64,
-            "4X-Large": 128,
-          };
-
-          var warehouseSizes = Object.keys(warehouse);
-
           // Hier wordt het percentage uit de occupationPercentage array gehaald en in de dropdowns gezet
           $.each(warehouseSizes, function (k, v) {
             $(
-              "#select-warehouse-size-scenario-warehouse-example-1.1, #select-warehouse-size-scenario-warehouse-example-1.2"
+              "#select-warehouse-size-scenario-warehouse-example-1-1, #select-warehouse-size-scenario-warehouse-example-1-2"
             ).append(
               $("<option>", {
                 value: v,
@@ -400,8 +383,55 @@
             );
           });
 
+          //on document load hide all scenario div except for the first one
+          document
+            .querySelectorAll("[id*=wrapper-scenario-]")
+            .forEach((scenarioWrapper) => {
+              if (String(scenarioWrapper.id).slice(-1) !== String(1)) {
+                $(`#${scenarioWrapper.id}`).hide();
+              } else {
+                $(`#${scenarioWrapper.id}`).show();
+              }
+            });
+
+          //hide scenario div on list click
+          var allScenarioButtons = document.querySelectorAll(
+            "[id*=scenario-button-]"
+          );
+
+          allScenarioButtons.forEach((button) => {
+            $(`#${button.id}`).on("click", function (e) {
+              console.log(button.id);
+              // find all divs with id starting with "warehouse-button" and hide them
+              document
+                .querySelectorAll("[id*=wrapper-scenario-]")
+                .forEach((scenarioWrapper) => {
+                  if (
+                    String(scenarioWrapper.id).slice(-1) !==
+                    String(button.id).slice(-1)
+                  ) {
+                    $(`#${scenarioWrapper.id}`).hide();
+                    $(`#${button.id}`).css("background-color", "white");
+                  } else {
+                    $(`#${scenarioWrapper.id}`).show();
+                    $(`#${button.id}`).css("background-color", "#edf0f4");
+                  }
+                });
+            });
+          });
+
+          //on document load hide all scenario div except for the first one
+          document
+            .querySelectorAll("[id*=wrapper-warehouse-info-filler-]")
+            .forEach((warehouseButtonWrapper) => {
+              if (String(warehouseButtonWrapper.id).slice(-1) !== String(1)) {
+                $(`#${warehouseButtonWrapper.id}`).hide();
+              } else {
+                $(`#${warehouseButtonWrapper.id}`).show();
+              }
+            });
+
           //hide warehouse div on list click
-          // TODO: This should work...
           var allWarehouseButtons = document.querySelectorAll(
             "[id*=warehouse-button-]"
           );
@@ -409,6 +439,8 @@
           allWarehouseButtons.forEach((button) => {
             $(`#${button.id}`).on("click", function (e) {
               console.log(button.id);
+              $(`#${button.id}`).css("background-color", "edf0f4");
+
               // find all divs with id starting with "warehouse-button" and hide them
               document
                 .querySelectorAll("[id*=wrapper-warehouse-info-filler-]")
@@ -418,32 +450,18 @@
                     String(button.id).slice(-1)
                   ) {
                     $(`#${warehouseButtonWrapper.id}`).hide();
-                    console.log(
-                      String(warehouseButtonWrapper.id).slice(-1) + "Hide"
-                    );
-                    console.log(String(button.id).slice(-1) + "Hide");
-                    console.log(button.id + "Hide");
                   } else {
                     $(`#${warehouseButtonWrapper.id}`).show();
-                    console.log(
-                      String(warehouseButtonWrapper.id).slice(-1) + "Show"
-                    );
-                    console.log(String(button.id).slice(-1) + "Show");
-                    console.log(button.id + "Show");
                   }
                 });
             });
           });
 
-          $("#warehouse-button-1").on("change, click", function (e) {
-            console.log("test");
-          });
-
-          $("#select-warehouse-size-scenario-warehouse-example-1.1").on(
+          $("#select-warehouse-size-scenario-warehouse-example-1-1").on(
             "change, click",
             function (e) {
               // Huidige geselecteerde platform
-              document.getElementById("warehouse-size-wh-1.1").innerHTML =
+              document.getElementById("warehouse-size-wh-1-1").innerHTML =
                 this.value;
 
               document.getElementById("warehouse-type-1").innerHTML =
@@ -454,11 +472,11 @@
             }
           );
 
-          $("#select-warehouse-size-scenario-warehouse-example-1.2").on(
+          $("#select-warehouse-size-scenario-warehouse-example-1-2").on(
             "change, click",
             function (e) {
               // Huidige geselecteerde platform
-              document.getElementById("warehouse-size-wh-1.2").innerHTML =
+              document.getElementById("warehouse-size-wh-1-2").innerHTML =
                 this.value;
 
               document.getElementById("warehouse-type-2").innerHTML =
@@ -491,15 +509,31 @@
 
           // Als het prullenbakje aan wordt geklikt in de div --> verwijder daarin alle data
 
-          $("#delete-warehouse-1").on("click", function (e) {
-            document.getElementById("number-of-days-select-1").value = null;
-            document.getElementById("number-of-hours-day-select-1").value =
-              null;
-            document.getElementById("percentage-bezetting-1").value = null;
-            document.getElementById("total-hours-1").innerHTML = null;
-            document.getElementById("total-credits-1").innerHTML = null;
-            document.getElementById("warehouse-type-1").innerHTML = "Small";
-            document.getElementById("warehouse-size-number-1").innerHTML = 2;
+          var allDeleteButtons = document.querySelectorAll(
+            "[id*=delete-warehouse-]"
+          );
+          console.log(allDeleteButtons);
+
+          allDeleteButtons.forEach((button) => {
+            $(`#${button.id}`).on("click", function (e) {
+              // find all divs with id starting with "warehouse-button" and hide them
+              var currentNumber = String(button.id).slice(-1);
+              document.getElementById(
+                "number-of-days-select-" + currentNumber
+              ).value = null;
+              document.getElementById(
+                "number-of-hours-day-select-" + currentNumber
+              ).value = null;
+              document.getElementById(
+                "percentage-bezetting-" + currentNumber
+              ).value = null;
+              document.getElementById(
+                "warehouse-type-" + currentNumber
+              ).innerHTML = "Small";
+              document.getElementById(
+                "warehouse-size-number-" + currentNumber
+              ).innerHTML = 2;
+            });
           });
 
           // Hier wordt de data (regios) uit de json file gehaald en worden ze getoond op basis van de selectie van het cloudplatform
@@ -550,7 +584,7 @@
             // !!!!!!!!! SCHATTING OPSLAG & VERBRUIKSKOSTEN !!!!!!!!!
 
             /* De code hieronder wordt gebruik om de buttons op de juiste manier te laten werken (bij warehouse size). Belangrijk! Er staat nog een stuk Javascript code onderaan deze pagina die de buttons op de juiste manier laat werken.
-                 Deze kun je vinden door te zoeken naar de button met id="warehouse-size-button-left" */
+                      Deze kun je vinden door te zoeken naar de button met id="warehouse-size-button-left" */
 
             $(
               "#warehouse-size-button-left-1, #warehouse-size-button-right-1"
@@ -683,7 +717,7 @@
               ][currentCurrency]);
 
             /* Hieronder worden de totale berekend op basis van de variabelen hierboven. Tevens wordt hier gekeken wat de geselecteerde currency is
-                   en op basis daarvan wordt het juiste symbool (euro, usd of gbp) weergeven */
+                        en op basis daarvan wordt het juiste symbool (euro, usd of gbp) weergeven */
             if (currentCurrency == "eur") {
               var totalCostsStandard = (document.getElementById(
                 "standardeditionamount"
@@ -1356,7 +1390,7 @@
 
     <body>
       <div>
-        <link href="stylesheet2.css" rel="stylesheet" />
+        <link href="./stylesheet2.css" rel="stylesheet" />
         <div class="sf-calc-container">
           <div
             id="wrapper-voorkeurs-platform-regio-div"
@@ -1414,14 +1448,20 @@
                 >
                   <div class="sf-calc-wrapper-select-scenario-2">
                     <ul class="sf-calc-ul list">
-                      <li id="scenario-button-1" class="sf-calc-li list-item">
-                        <button class="button sf-calc-button01">
+                      <li class="sf-calc-li list-item">
+                        <button
+                          id="scenario-button-1"
+                          class="button sf-calc-button01"
+                        >
                           Scenario 1
                         </button>
                       </li>
-                      <li id="scenario-button-2" class="sf-calc-li1 list-item">
-                        <button class="button sf-calc-button02">
-                          Warehouse 2
+                      <li class="sf-calc-li1 list-item">
+                        <button
+                          id="scenario-button-2"
+                          class="button sf-calc-button02"
+                        >
+                          Scenario 2
                         </button>
                       </li>
                     </ul>
@@ -1477,7 +1517,7 @@
                             <br />
                           </span>
                           <span
-                            id="days-per-week-text-wh1.1"
+                            id="days-per-week-text-wh-1-1"
                             display="inline-block"
                             class="sf-calc-text017"
                           >
@@ -1491,7 +1531,7 @@
                             <span>een batch-load van circa </span>
                             <br />
                           </span>
-                          <span id="usage-hours-wh-1.1" class="sf-calc-text024">
+                          <span id="usage-hours-wh-1-1" class="sf-calc-text024">
                             <span class="sf-calc-text025">2.5</span>
                             <br />
                           </span>
@@ -1504,7 +1544,7 @@
                             <br />
                           </span>
                           <span
-                            id="warehouse-size-wh-1.1"
+                            id="warehouse-size-wh-1-1"
                             class="sf-calc-text033"
                           >
                             <span class="sf-calc-text034">Small</span>
@@ -1526,7 +1566,7 @@
                             <br />
                           </span>
                           <span
-                            id="bezettingspercentage-wh-1.1"
+                            id="bezettingspercentage-wh-1-1"
                             class="sf-calc-text046"
                           >
                             <span class="sf-calc-text047">100</span>
@@ -1539,21 +1579,21 @@
                         </div>
                       </div>
                       <div
-                        id="wrapper-div-scenario-warehouse-example-1.1"
-                        class="sf-calc-wrapper-div-scenario-warehouse-example-11"
+                        id="wrapper-div-scenario-warehouse-example-1-1"
+                        class="sf-calc-wrapper-div-scenario-warehouse-example-1-1"
                       >
                         <div
                           id="wrapper-image-div-scenario-warehouse-example-1.1"
                           class="sf-calc-wrapper-image-div-scenario-warehouse-example-1"
                         >
                           <img
-                            id="image-scenario-1.1"
+                            id="image-scenario-1-1"
                             alt="image"
                             src="https://play.teleporthq.io/static/svg/default-img.svg"
                             class="sf-calc-image"
                           />
                           <svg
-                            id="question-mark-scenario-warehouse-example-1.1"
+                            id="question-mark-scenario-warehouse-example-1-1"
                             viewBox="0 0 877.7142857142857 1024"
                             class="questionmarkWarehouseExample"
                           >
@@ -1567,7 +1607,7 @@
                           class="sf-calc-wrapper-title-div-scenario-warehouse-example-1"
                         >
                           <h1
-                            id="heading-scenario-warehouse-1.1"
+                            id="heading-scenario-warehouse-1-1"
                             class="sf-calc-heading01"
                           >
                             Warehouse 1
@@ -1579,7 +1619,7 @@
                         class="sf-calc-wrapper-select-days-per-week-scenario-warehouse-example-1"
                       >
                         <select
-                          id="select-days-per-week-scenario-warehouse-example-1.1"
+                          id="select-days-per-week-scenario-warehouse-example-1-1"
                           class="sf-calc-select-days-per-week-scenario-warehouse-example-1"
                         >
                           <option value="Dagen per week" selected>
@@ -1596,7 +1636,7 @@
                         class="sf-calc-wrapper-select-gebruikstijd-scenario-warehouse-example-1"
                       >
                         <select
-                          id="select-gebruikstijd-scenario-warehouse-example-1.1"
+                          id="select-gebruikstijd-scenario-warehouse-example-1-1"
                           size="0.25"
                           class="sf-calc-select-gebruikstijd-scenario-warehouse-example-1"
                         >
@@ -1614,7 +1654,7 @@
                         class="sf-calc-wrapper-select-bezettingspercentage-scenario-warehouse-example-1"
                       >
                         <select
-                          id="select-bezettingspercentage-scenario-warehouse-1.1"
+                          id="select-bezettingspercentage-scenario-warehouse-1-1"
                           size="1"
                           class="sf-calc-select-bezettingspercentage-scenario-warehouse-example-1"
                         >
@@ -1632,7 +1672,7 @@
                         class="sf-calc-wrapper-select-warehouse-size-scenario-warehouse-example-1"
                       >
                         <select
-                          id="select-warehouse-size-scenario-warehouse-example-1.1"
+                          id="select-warehouse-size-scenario-warehouse-example-1-1"
                           class="sf-calc-select-warehouse-size-scenario-warehouse-example-1"
                         >
                           <option value="Warehouse size" selected>
@@ -1655,7 +1695,7 @@
                             <br />
                           </span>
                           <span
-                            id="days-per-week-text-wh1.2"
+                            id="days-per-week-text-wh1-2"
                             display="inline-block"
                             class="sf-calc-text055"
                           >
@@ -1669,7 +1709,7 @@
                             <span>een batch-load van circa </span>
                             <br />
                           </span>
-                          <span id="usage-hours-wh-1.2" class="sf-calc-text062">
+                          <span id="usage-hours-wh-1-2" class="sf-calc-text062">
                             <span class="sf-calc-text063">2.5</span>
                             <br />
                           </span>
@@ -1682,7 +1722,7 @@
                             <br />
                           </span>
                           <span
-                            id="warehouse-size-wh-1.2"
+                            id="warehouse-size-wh-1-2"
                             class="sf-calc-text071"
                           >
                             <span class="sf-calc-text072">Small</span>
@@ -1704,7 +1744,7 @@
                             <br />
                           </span>
                           <span
-                            id="bezettingspercentage-wh-1.2"
+                            id="bezettingspercentage-wh-1-2"
                             class="sf-calc-text084"
                           >
                             <span class="sf-calc-text085">100</span>
@@ -1725,13 +1765,13 @@
                           class="sf-calc-wrapper-image-div-scenario-warehouse-example-2"
                         >
                           <img
-                            id="image-scenario-1.2"
+                            id="image-scenario-1-2"
                             alt="image"
                             src="https://play.teleporthq.io/static/svg/default-img.svg"
                             class="sf-calc-image01"
                           />
                           <svg
-                            id="question-mark-scenario-warehouse-example-1.2"
+                            id="question-mark-scenario-warehouse-example-1-2"
                             viewBox="0 0 877.7142857142857 1024"
                             class="sf-calc-icon002"
                           >
@@ -1745,7 +1785,7 @@
                           class="sf-calc-wrapper-title-div-scenario-warehouse-example-2"
                         >
                           <h1
-                            id="heading-scenario-warehouse-1.2"
+                            id="heading-scenario-warehouse-1-2"
                             class="sf-calc-heading02"
                           >
                             Warehouse 2
@@ -1757,7 +1797,7 @@
                         class="sf-calc-wrapper-select-days-per-week-scenario-warehouse-example-2"
                       >
                         <select
-                          id="select-days-per-week-scenario-warehouse-example-1.2"
+                          id="select-days-per-week-scenario-warehouse-example-1-2"
                           class="sf-calc-select-days-per-week-scenario-warehouse-example-2"
                         >
                           <option value="Dagen per week" selected>
@@ -1774,7 +1814,7 @@
                         class="sf-calc-wrapper-select-gebruikstijd-scenario-warehouse-example-2"
                       >
                         <select
-                          id="select-gebruikstijd-scenario-warehouse-example-1.2"
+                          id="select-gebruikstijd-scenario-warehouse-example-1-2"
                           size="0.25"
                           class="sf-calc-select-gebruikstijd-scenario-warehouse-example-2"
                         >
@@ -1792,7 +1832,7 @@
                         class="sf-calc-wrapper-select-bezettingspercentage-scenario-warehouse-example-11"
                       >
                         <select
-                          id="select-bezettingspercentage-scenario-warehouse-1.2"
+                          id="select-bezettingspercentage-scenario-warehouse-1-2"
                           size="1"
                           class="sf-calc-select-bezettingspercentage-scenario-warehouse-example-11"
                         >
@@ -1810,7 +1850,7 @@
                         class="sf-calc-wrapper-select-warehouse-size-scenario-warehouse-example-2"
                       >
                         <select
-                          id="select-warehouse-size-scenario-warehouse-example-1.2"
+                          id="select-warehouse-size-scenario-warehouse-example-1-2"
                           class="sf-calc-select-warehouse-size-scenario-warehouse-example-2"
                         >
                           <option value="Warehouse size" selected>
@@ -1833,7 +1873,7 @@
                             <br />
                           </span>
                           <span
-                            id="tb-storage-st-1.3"
+                            id="tb-storage-st-1-3"
                             display="inline-block"
                             class="sf-calc-text093"
                           >
@@ -1856,7 +1896,7 @@
                             <br />
                           </span>
                           <span
-                            id="storage-type-st-1.3"
+                            id="storage-type-st-1-3"
                             class="sf-calc-text106"
                           >
                             <span class="sf-calc-text107"
@@ -1885,7 +1925,7 @@
                             class="sf-calc-image02"
                           />
                           <svg
-                            id="question-mark-scenario-storage-example-1.3"
+                            id="question-mark-scenario-storage-example-1-3"
                             viewBox="0 0 877.7142857142857 1024"
                             class="sf-calc-icon004"
                           >
@@ -1899,7 +1939,7 @@
                           class="sf-calc-wrapper-title-div-scenario-storage-example"
                         >
                           <h1
-                            id="heading-scenario-warehouse-1.3"
+                            id="heading-scenario-warehouse-1-3"
                             class="sf-calc-heading03"
                           >
                             Opslagvereisten
@@ -1911,7 +1951,7 @@
                         class="sf-calc-wrapper-select-storage-scenario-storage-example"
                       >
                         <select
-                          id="select-storage-scenario-storage-example-1.3"
+                          id="select-storage-scenario-storage-example-1-3"
                           class="sf-calc-select-storage-scenario-storage-example"
                         >
                           <option value="Opslag (tb's)" selected>
@@ -1928,7 +1968,7 @@
                         class="sf-calc-wrapper-select-storage-type-scenario-storage-example"
                       >
                         <select
-                          id="select-storage-type-example-1.3"
+                          id="select-storage-type-example-1-3"
                           class="sf-calc-select-storage-type-scenario-storage-example"
                         >
                           <option value="Opslagtype" selected>
@@ -1986,7 +2026,7 @@
                             <br />
                           </span>
                           <span
-                            id="days-per-week-text-wh-2.1"
+                            id="days-per-week-text-wh-2-1"
                             display="inline-block"
                             class="sf-calc-text128"
                           >
@@ -2000,7 +2040,7 @@
                             <span>een batch-load van circa </span>
                             <br />
                           </span>
-                          <span id="usage-hours-wh-2.1" class="sf-calc-text135">
+                          <span id="usage-hours-wh-2-1" class="sf-calc-text135">
                             <span class="sf-calc-text136">2.5</span>
                             <br />
                           </span>
@@ -2013,7 +2053,7 @@
                             <br />
                           </span>
                           <span
-                            id="warehouse-size-wh-2.1"
+                            id="warehouse-size-wh-2-1"
                             class="sf-calc-text144"
                           >
                             <span class="sf-calc-text145">Small</span>
@@ -2035,7 +2075,7 @@
                             <br />
                           </span>
                           <span
-                            id="bezettingspercentage-wh-2.1"
+                            id="bezettingspercentage-wh-2-1"
                             class="sf-calc-text157"
                           >
                             <span class="sf-calc-text158">100</span>
@@ -2056,13 +2096,13 @@
                           class="sf-calc-wrapper-image-div-scenario-warehouse-example-11"
                         >
                           <img
-                            id="image-scenario-2.1"
+                            id="image-scenario-2-1"
                             alt="image"
                             src="https://play.teleporthq.io/static/svg/default-img.svg"
                             class="sf-calc-image03"
                           />
                           <svg
-                            id="question-mark-scenario-warehouse-example-2.1"
+                            id="question-mark-scenario-warehouse-example-2-1"
                             viewBox="0 0 877.7142857142857 1024"
                             class="questionmarkWarehouseExample"
                           >
@@ -2076,7 +2116,7 @@
                           class="sf-calc-wrapper-title-div-scenario-warehouse-example-11"
                         >
                           <h1
-                            id="heading-scenario-warehouse-2.1"
+                            id="heading-scenario-warehouse-2-1"
                             class="sf-calc-heading04"
                           >
                             Warehouse 1
@@ -2085,7 +2125,7 @@
                       </div>
                       <div class="select-days-per-week">
                         <select
-                          id="select-days-per-week-scenario-warehouse-example-2.1"
+                          id="select-days-per-week-scenario-warehouse-example-2-1"
                         >
                           <option value="Dagen per week" selected>
                             Dagen per week
@@ -2100,7 +2140,7 @@
                         id="wrapper-select-gebruikstijd-scenario-warehouse-example-2.1"
                       >
                         <select
-                          id="select-gebruikstijd-scenario-warehouse-example-1.1"
+                          id="select-gebruikstijd-scenario-warehouse-example-2-1"
                           size="0.25"
                         >
                           <option value="Gebruikstijd (uren)" selected>
@@ -2117,7 +2157,7 @@
                         class="sf-calc-wrapper-select-bezettingspercentage-scenario-warehouse-example-21"
                       >
                         <select
-                          id="select-bezettingspercentage-scenario-warehouse-2.1"
+                          id="select-bezettingspercentage-scenario-warehouse-2-1"
                           size="1"
                           class="sf-calc-select-bezettingspercentage-scenario-warehouse-example-21"
                         >
@@ -2134,7 +2174,7 @@
                         id="wrapper-select-warehouse-size-scenario-warehouse-example-1"
                       >
                         <select
-                          id="select-warehouse-size-scenario-warehouse-example-2.1"
+                          id="select-warehouse-size-scenario-warehouse-example-2-1"
                           class="sf-calc-select-warehouse-size-scenario-warehouse-example-21"
                         >
                           <option value="Warehouse size" selected>
@@ -2157,7 +2197,7 @@
                             <br />
                           </span>
                           <span
-                            id="days-per-week-text-wh-2.2"
+                            id="days-per-week-text-wh-2-2"
                             display="inline-block"
                             class="sf-calc-text166"
                           >
@@ -2171,7 +2211,7 @@
                             <span>een batch-load van circa </span>
                             <br />
                           </span>
-                          <span id="usage-hours-wh-2.2" class="sf-calc-text173">
+                          <span id="usage-hours-wh-2-2" class="sf-calc-text173">
                             <span class="sf-calc-text174">2.5</span>
                             <br />
                           </span>
@@ -2184,7 +2224,7 @@
                             <br />
                           </span>
                           <span
-                            id="warehouse-size-wh-2.2"
+                            id="warehouse-size-wh-2-2"
                             class="sf-calc-text182"
                           >
                             <span class="sf-calc-text183">Small</span>
@@ -2206,7 +2246,7 @@
                             <br />
                           </span>
                           <span
-                            id="bezettingspercentage-wh-2.2"
+                            id="bezettingspercentage-wh-2-2"
                             class="sf-calc-text195"
                           >
                             <span class="sf-calc-text196">100</span>
@@ -2227,13 +2267,13 @@
                           class="sf-calc-wrapper-image-div-scenario-warehouse-example-22"
                         >
                           <img
-                            id="image-scenario-2.2"
+                            id="image-scenario-2-2"
                             alt="image"
                             src="https://play.teleporthq.io/static/svg/default-img.svg"
                             class="sf-calc-image04"
                           />
                           <svg
-                            id="question-mark-scenario-warehouse-example-2.2"
+                            id="question-mark-scenario-warehouse-example-2-2"
                             viewBox="0 0 877.7142857142857 1024"
                             class="sf-calc-icon008"
                           >
@@ -2247,7 +2287,7 @@
                           class="sf-calc-wrapper-title-div-scenario-warehouse-example-22"
                         >
                           <h1
-                            id="heading-scenario-warehouse-2.2"
+                            id="heading-scenario-warehouse-2-2"
                             class="sf-calc-heading05"
                           >
                             Warehouse 2
@@ -2259,7 +2299,7 @@
                         class="sf-calc-wrapper-select-days-per-week-scenario-warehouse-example-21"
                       >
                         <select
-                          id="select-days-per-week-scenario-warehouse-example-2.2"
+                          id="select-days-per-week-scenario-warehouse-example-2-2"
                           class="sf-calc-select-days-per-week-scenario-warehouse-example-21"
                         >
                           <option value="Dagen per week" selected>
@@ -2276,7 +2316,7 @@
                         class="sf-calc-wrapper-select-gebruikstijd-scenario-warehouse-example-21"
                       >
                         <select
-                          id="select-gebruikstijd-scenario-warehouse-example-2.2"
+                          id="select-gebruikstijd-scenario-warehouse-example-2-2"
                           size="0.25"
                           class="sf-calc-select-gebruikstijd-scenario-warehouse-example-21"
                         >
@@ -2294,7 +2334,7 @@
                         class="sf-calc-wrapper-select-bezettingspercentage-scenario-warehouse-example-12"
                       >
                         <select
-                          id="select-bezettingspercentage-scenario-warehouse-2.2"
+                          id="select-bezettingspercentage-scenario-warehouse-2-2"
                           size="1"
                           class="sf-calc-select-bezettingspercentage-scenario-warehouse-example-22"
                         >
@@ -2312,7 +2352,7 @@
                         class="sf-calc-wrapper-select-warehouse-size-scenario-warehouse-example-21"
                       >
                         <select
-                          id="select-warehouse-size-scenario-warehouse-example-2.2"
+                          id="select-warehouse-size-scenario-warehouse-example-2-2"
                           class="sf-calc-select-warehouse-size-scenario-warehouse-example-22"
                         >
                           <option value="Warehouse size" selected>
@@ -2335,7 +2375,7 @@
                             <br />
                           </span>
                           <span
-                            id="days-per-week-text-wh-2.3"
+                            id="days-per-week-text-wh-2-3"
                             display="inline-block"
                             class="sf-calc-text204"
                           >
@@ -2349,7 +2389,7 @@
                             <span>een batch-load van circa </span>
                             <br />
                           </span>
-                          <span id="usage-hours-wh-2.3" class="sf-calc-text211">
+                          <span id="usage-hours-wh-2-3" class="sf-calc-text211">
                             <span class="sf-calc-text212">2.5</span>
                             <br />
                           </span>
@@ -2362,7 +2402,7 @@
                             <br />
                           </span>
                           <span
-                            id="warehouse-size-wh-2.3"
+                            id="warehouse-size-wh-2-3"
                             class="sf-calc-text220"
                           >
                             <span class="sf-calc-text221">Small</span>
@@ -2384,7 +2424,7 @@
                             <br />
                           </span>
                           <span
-                            id="bezettingspercentage-wh-2.3"
+                            id="bezettingspercentage-wh-2-3"
                             class="sf-calc-text233"
                           >
                             <span class="sf-calc-text234">100</span>
@@ -2405,13 +2445,13 @@
                           class="sf-calc-wrapper-image-div-scenario-warehouse-example-221"
                         >
                           <img
-                            id="image-scenario-2.3"
+                            id="image-scenario-2-3"
                             alt="image"
                             src="https://play.teleporthq.io/static/svg/default-img.svg"
                             class="sf-calc-image05"
                           />
                           <svg
-                            id="question-mark-scenario-warehouse-example-2.3"
+                            id="question-mark-scenario-warehouse-example-2-3"
                             viewBox="0 0 877.7142857142857 1024"
                             class="sf-calc-icon010"
                           >
@@ -2425,7 +2465,7 @@
                           class="sf-calc-wrapper-title-div-scenario-warehouse-example-221"
                         >
                           <h1
-                            id="heading-scenario-warehouse-2.3"
+                            id="heading-scenario-warehouse-2-3"
                             class="sf-calc-heading06"
                           >
                             Warehouse 3
@@ -2437,7 +2477,7 @@
                         class="sf-calc-wrapper-select-days-per-week-scenario-warehouse-example-22"
                       >
                         <select
-                          id="select-days-per-week-scenario-warehouse-example-2.3"
+                          id="select-days-per-week-scenario-warehouse-example-2-3"
                           class="sf-calc-select-days-per-week-scenario-warehouse-example-22"
                         >
                           <option value="Dagen per week" selected>
@@ -2454,7 +2494,7 @@
                         class="sf-calc-wrapper-select-gebruikstijd-scenario-warehouse-example-22"
                       >
                         <select
-                          id="select-gebruikstijd-scenario-warehouse-example-2.3"
+                          id="select-gebruikstijd-scenario-warehouse-example-2-3"
                           size="0.25"
                           class="sf-calc-select-gebruikstijd-scenario-warehouse-example-22"
                         >
@@ -2472,7 +2512,7 @@
                         class="sf-calc-wrapper-select-bezettingspercentage-scenario-warehouse-example-13"
                       >
                         <select
-                          id="select-bezettingspercentage-scenario-warehouse-2.3"
+                          id="select-bezettingspercentage-scenario-warehouse-2-3"
                           size="1"
                           class="sf-calc-select-bezettingspercentage-scenario-warehouse-example-221"
                         >
@@ -2490,7 +2530,7 @@
                         class="sf-calc-wrapper-select-warehouse-size-scenario-warehouse-example-22"
                       >
                         <select
-                          id="select-warehouse-size-scenario-warehouse-example-2.3"
+                          id="select-warehouse-size-scenario-warehouse-example-2-3"
                           class="sf-calc-select-warehouse-size-scenario-warehouse-example-221"
                         >
                           <option value="Warehouse size" selected>
@@ -2513,7 +2553,7 @@
                             <br />
                           </span>
                           <span
-                            id="days-per-week-text-wh-2.4"
+                            id="days-per-week-text-wh-2-4"
                             display="inline-block"
                             class="sf-calc-text242"
                           >
@@ -2527,7 +2567,7 @@
                             <span>een batch-load van circa </span>
                             <br />
                           </span>
-                          <span id="usage-hours-wh-2.4" class="sf-calc-text249">
+                          <span id="usage-hours-wh-2-4" class="sf-calc-text249">
                             <span class="sf-calc-text250">2.5</span>
                             <br />
                           </span>
@@ -2540,7 +2580,7 @@
                             <br />
                           </span>
                           <span
-                            id="warehouse-size-wh-2.4"
+                            id="warehouse-size-wh-2-4"
                             class="sf-calc-text258"
                           >
                             <span class="sf-calc-text259">Small</span>
@@ -2562,7 +2602,7 @@
                             <br />
                           </span>
                           <span
-                            id="bezettingspercentage-wh-2.4"
+                            id="bezettingspercentage-wh-2-4"
                             class="sf-calc-text271"
                           >
                             <span class="sf-calc-text272">100</span>
@@ -2589,7 +2629,7 @@
                             class="sf-calc-image06"
                           />
                           <svg
-                            id="question-mark-scenario-warehouse-example-2.4"
+                            id="question-mark-scenario-warehouse-example-2-4"
                             viewBox="0 0 877.7142857142857 1024"
                             class="sf-calc-icon012"
                           >
@@ -2603,7 +2643,7 @@
                           class="sf-calc-wrapper-title-div-scenario-warehouse-example"
                         >
                           <h1
-                            id="heading-scenario-warehouse-2.4"
+                            id="heading-scenario-warehouse-2-4"
                             class="sf-calc-heading07"
                           >
                             Warehouse 4
@@ -2615,7 +2655,7 @@
                         class="sf-calc-wrapper-select-days-per-week-scenario-warehouse-example"
                       >
                         <select
-                          id="select-days-per-week-scenario-warehouse-example-2.4"
+                          id="select-days-per-week-scenario-warehouse-example-2-4"
                           class="sf-calc-select-days-per-week-scenario-warehouse-example"
                         >
                           <option value="Dagen per week" selected>
@@ -2632,7 +2672,7 @@
                         class="sf-calc-wrapper-select-gebruikstijd-scenario-warehouse-example"
                       >
                         <select
-                          id="select-gebruikstijd-scenario-warehouse-example-2.4"
+                          id="select-gebruikstijd-scenario-warehouse-example-2-4"
                           size="0.25"
                           class="sf-calc-select-gebruikstijd-scenario-warehouse-example"
                         >
@@ -2650,7 +2690,7 @@
                         class="sf-calc-wrapper-select-bezettingspercentage-scenario-warehouse-example"
                       >
                         <select
-                          id="select-bezettingspercentage-scenario-warehouse-2.4"
+                          id="select-bezettingspercentage-scenario-warehouse-2-4"
                           size="1"
                           class="sf-calc-select-bezettingspercentage-scenario-warehouse-example"
                         >
@@ -2668,7 +2708,7 @@
                         class="sf-calc-wrapper-select-warehouse-size-scenario-warehouse-example"
                       >
                         <select
-                          id="select-warehouse-size-scenario-warehouse-example-2.4"
+                          id="select-warehouse-size-scenario-warehouse-example-2-4"
                           class="sf-calc-select-warehouse-size-scenario-warehouse-example"
                         >
                           <option value="Warehouse size" selected>
@@ -2761,13 +2801,13 @@
                           class="sf-calc-wrapper-image-div-scenario-warehouse-example1"
                         >
                           <img
-                            id="image-scenario-2.5"
+                            id="image-scenario-2-5"
                             alt="image"
                             src="https://play.teleporthq.io/static/svg/default-img.svg"
                             class="sf-calc-image07"
                           />
                           <svg
-                            id="question-mark-scenario-warehouse-example-2.5"
+                            id="question-mark-scenario-warehouse-example-2-5"
                             viewBox="0 0 877.7142857142857 1024"
                             class="sf-calc-icon014"
                           >
@@ -2781,7 +2821,7 @@
                           class="sf-calc-wrapper-title-div-scenario-warehouse-example1"
                         >
                           <h1
-                            id="heading-scenario-warehouse-2.5"
+                            id="heading-scenario-warehouse-2-5"
                             class="sf-calc-heading08"
                           >
                             Warehouse 5
@@ -2793,7 +2833,7 @@
                         class="sf-calc-wrapper-select-days-per-week-scenario-warehouse-example1"
                       >
                         <select
-                          id="select-days-per-week-scenario-warehouse-example-2.5"
+                          id="select-days-per-week-scenario-warehouse-example-2-5"
                           class="sf-calc-select-days-per-week-scenario-warehouse-example1"
                         >
                           <option value="Dagen per week" selected>
@@ -2810,7 +2850,7 @@
                         class="sf-calc-wrapper-select-gebruikstijd-scenario-warehouse-example1"
                       >
                         <select
-                          id="select-gebruikstijd-scenario-warehouse-example-2.5"
+                          id="select-gebruikstijd-scenario-warehouse-example-2-5"
                           size="0.25"
                           class="sf-calc-select-gebruikstijd-scenario-warehouse-example1"
                         >
@@ -2828,7 +2868,7 @@
                         class="sf-calc-wrapper-select-bezettingspercentage-scenario-warehouse-example1"
                       >
                         <select
-                          id="select-bezettingspercentage-scenario-warehouse-2.5"
+                          id="select-bezettingspercentage-scenario-warehouse-2-5"
                           size="1"
                           class="sf-calc-select-bezettingspercentage-scenario-warehouse-example1"
                         >
@@ -2846,7 +2886,7 @@
                         class="sf-calc-wrapper-select-warehouse-size-scenario-warehouse-example1"
                       >
                         <select
-                          id="select-warehouse-size-scenario-warehouse-example-2.5"
+                          id="select-warehouse-size-scenario-warehouse-example-2-5"
                           class="sf-calc-select-warehouse-size-scenario-warehouse-example1"
                         >
                           <option value="Warehouse size" selected>
@@ -2915,13 +2955,13 @@
                           class="sf-calc-wrapper-image-div-scenario-storage-example1"
                         >
                           <img
-                            id="image-scenario-2.6"
+                            id="image-scenario-2-6"
                             alt="image"
                             src="https://play.teleporthq.io/static/svg/default-img.svg"
                             class="sf-calc-image08"
                           />
                           <svg
-                            id="question-mark-scenario-storage-example-2.6"
+                            id="question-mark-scenario-storage-example-2-6"
                             viewBox="0 0 877.7142857142857 1024"
                             class="sf-calc-icon016"
                           >
@@ -2935,7 +2975,7 @@
                           class="sf-calc-wrapper-title-div-scenario-storage-example1"
                         >
                           <h1
-                            id="heading-scenario-warehouse-2.6"
+                            id="heading-scenario-warehouse-2-6"
                             class="sf-calc-heading09"
                           >
                             Opslagvereisten
@@ -2947,7 +2987,7 @@
                         class="sf-calc-wrapper-select-storage-scenario-storage-example1"
                       >
                         <select
-                          id="select-storage-scenario-storage-example-2.6"
+                          id="select-storage-scenario-storage-example-2-6"
                           class="sf-calc-select-storage-scenario-storage-example1"
                         >
                           <option value="Opslag (tb's)" selected>
@@ -2964,7 +3004,7 @@
                         class="sf-calc-wrapper-select-storage-type-scenario-storage-example1"
                       >
                         <select
-                          id="select-storage-type-example-2.6"
+                          id="select-storage-type-example-2-6"
                           class="sf-calc-select-storage-type-scenario-storage-example1"
                         >
                           <option value="Opslagtype" selected>
