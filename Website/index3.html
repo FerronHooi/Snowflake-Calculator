@@ -629,10 +629,10 @@
               ).innerHTML = 2;
                     document.getElementById(
                 "total-hours-1" 
-              ).innerHTML = null;
+              ).innerHTML = "0 uren p/m";
                                   document.getElementById(
                 "total-credits-1" 
-              ).innerHTML = null;
+              ).innerHTML = "0 credits p/m";
                                                 document.getElementById(
                 "input-storage-tb-per-month" 
               ).value = null;
@@ -758,18 +758,10 @@
           var divSchattingKosten = document.getElementById(
             "inside-2-wrapper-schatting-verbruikskosten-div"
           );
-          var allFieldsToRefresh = []
-          var allButtonsInWHdiv = divSchattingKosten.getElementsByClassName("button")
-          for (var i = 0; i < allButtonsInWHdiv.length; i++) {
-            allFieldsToRefresh.push(allButtonsInWHdiv.item(i).id)
-          }
+          var allFieldsToRefresh = divSchattingKosten.querySelectorAll(".button, input")
 
-          var allInputFieldsInWHdiv = divSchattingKosten.getElementsByClassName("input")
-                   for (var i = 0; i < allInputFieldsInWHdiv.length; i++) {
-            allFieldsToRefresh.push(allInputFieldsInWHdiv.item(i).id)
-          }
-
-          //HEEEEEEREEEE
+         allFieldsToRefresh.forEach(function(elem) {
+    elem.addEventListener("change", function() {
 
             // Als een platform, regio, valuta, aantal tb/s, button of editie wordt geselecteerd dan veranderd de rest mee. Let op: vrijwel alle code hieronder valt hier binnen.
 
@@ -874,6 +866,10 @@
               //     platforms[currentPlatform][currentRegion]["tier"][edition][
               //       currentCurrency
               //     ];
+
+                  });
+});
+              // END REFRESH HERE
 
             var standardPrice = (document.getElementById(
               "inputfieldstandard"
