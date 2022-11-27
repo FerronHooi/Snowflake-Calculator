@@ -762,6 +762,7 @@
               var currentPlatform = document.getElementById(
                 "select-cloudplatform"
               ).value;
+
               // Hudige aantal geselecteerde TBs
               var currentStorageTBs = document.getElementById(
                 "input-storage-tb-per-month"
@@ -770,20 +771,6 @@
               console.log(document.getElementById("select-region").value);
               var currentRegion =
                 document.getElementById("select-region").value;
-
-              // Past de platform aan in de tekst bij de scenario's op basis van de selectie
-
-              document.getElementById(
-                "cloudplatform-text-scenario-2"
-              ).innerHTML = document.getElementById(
-                "select-cloudplatform"
-              ).value;
-
-              document.getElementById(
-                "cloudplatform-text-scenario-1"
-              ).innerHTML = document.getElementById(
-                "select-cloudplatform"
-              ).value;
 
               // Past de regio aan in de tekst bij de scenario's op basis van de selectie
               document.getElementById("regio-text-scenario-1").innerHTML =
@@ -798,21 +785,70 @@
 
               // Aantal dagen * Aantal uren
 
-              var calculateTotalHours =
-                (document.getElementById("number-of-days-select-1").value *
-                  document.getElementById("number-of-hours-day-select-1")
+              var allActiveWarehouses = document.querySelectorAll(
+                "[id^=warehouse-button-]"
+              );
+
+              var activeWarehouseNumbers = [];
+
+              allActiveWarehouses.forEach((warehouse) => {
+                activeWarehouseNumbers.push(
+                  warehouse.id.slice(warehouse.id.length - 1)
+                );
+              });
+
+              var totalHours = []
+
+              activeWarehouseNumbers.forEach((number) => {
+                 var hours = (document.getElementById("number-of-days-select-" + number).value *
+                  document.getElementById("number-of-hours-day-select-" + number)
                     .value *
-                  document.getElementById("percentage-bezetting-1").value) /
+                  document.getElementById("percentage-bezetting-" + number).value) /
                 100;
+                totalHours.push(hours)
+              });
+                              
+              var calculateTotalHours = totalHours.reduce((a, b) => a + b, 0)
 
               // Dit is het gedeelte "X uren p/m". Hier wordt dus alleen aan calculatetotalHours de string " uren p/m" toegevoegd en wordt dan getoond in div met id "total-hours"
               document.getElementById("total-hours-1").innerHTML =
                 Math.round(calculateTotalHours * 10) / 10 + " uren p/m";
 
               // Hier wordt een variabele aangemaakt met daarin de huidige waarde van de geselecteerde warehouse credits (dit gebeurd dus door de buttons te gebruiken)
-              var creditsPerHour = document.getElementById(
-                "warehouse-size-number-1"
-              ).innerHTML;
+              var totalCredits = []  
+              
+              activeWarehouseNumbers.forEach((number) => {
+                 var credits = document.getElementById("warehouse-size-number-" + number).innerHTML
+                 console.log(credits.trim())
+                totalCredits.push(Number(credits.trim()))
+                })
+              console.log(totalCredits)
+              var creditsPerHour = totalCredits.reduce((a, b) => a + b, 0)
+              console.log(creditsPerHour)
+
+              //
+              var calculateTotalPerWarehouse = []
+
+              totalHours = []
+              totalCredits = []
+              
+               activeWarehouseNumbers.forEach((number) => {
+                 var hours = (document.getElementById("number-of-days-select-" + number).value *
+                  document.getElementById("number-of-hours-day-select-" + number)
+                    .value *
+                  document.getElementById("percentage-bezetting-" + number).value) /
+                100;
+                totalHours.push(hours)
+               
+                var credits = document.getElementById("warehouse-size-number-" + number).innerHTML
+
+                totalCredits.push(hours * Number(credits.trim()))
+                })
+              
+
+              var calculateTotalHours = totalHours.reduce((a, b) => a + b, 0)
+
+              var creditsTotal = totalCredits.reduce((a, b) => a + b, 0)
 
               // Hierdoor wordt "X credits /uur" getoond
               //var creditsPerHourString = (document.getElementById(
@@ -820,13 +856,12 @@
               // ).innerHTML = creditsPerHour + " Credit(s)/uur");
 
               // Totale uren * totale credits
-              var creditsTotal = calculateTotalHours * creditsPerHour;
 
               // Hierdoor wordt "X credits p/m" getoond in de div met id "total-credits"
               var creditsTotalString = (document.getElementById(
                 "total-credits-1"
               ).innerHTML =
-                Math.round(calculateTotalHours * creditsPerHour * 10) / 10 +
+                Math.round(creditsTotal * 10) / 10 +
                 " Credits p/m");
 
               // Hierdoor wordt "X TB p/m" getoond in de div met id "total-storage"
@@ -856,7 +891,7 @@
               "inputfieldstandard"
             ).value =
               platforms[currentPlatform][currentRegion]["tier"]["standard"][
-                currentCurrency
+                "currentCurrency"
               ]);
             var enterprisePrice = (document.getElementById(
               "inputfieldenterprise"
@@ -864,6 +899,7 @@
               platforms[currentPlatform][currentRegion]["tier"]["enterprise"][
                 currentCurrency
               ]);
+
             var businessCritcalPrice = (document.getElementById(
               "inputfieldbusinesscritical"
             ).value =
@@ -1635,9 +1671,7 @@
                       id="cloudplatform-text-scenario-2"
                       display="inline-block"
                       class="cloudplatform-text"
-                    >
-                      Amazon Web Services
-                    </span>
+                    >Amazon Web Services</span>
                     <span display="inline-block" class="sf-calc-text005">
                       <span> cloudplatform, regio </span>
                       <br />
@@ -2133,9 +2167,7 @@
                       id="cloudplatform-text-scenario-2"
                       display="inline-block"
                       class="cloudplatform-text"
-                    >
-                      Amazon Web Services
-                    </span>
+                    >Amazon Web Services</span>
                     <span display="inline-block" class="sf-calc-text116">
                       <span> cloudplatform, regio </span>
                       <br />
