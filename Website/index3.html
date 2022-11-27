@@ -66,6 +66,36 @@
             "4X-Large": 128,
           };
 
+          //TODO: Finish, should create a new div and select that div
+
+$("#btn").click(function () {
+                      var allWarehouseButtons = document.querySelectorAll(
+              "[id^=warehouse-button-]"
+            );
+
+            var buttonsCount = []
+allWarehouseButtons.forEach((button) => {
+  var buttonId = button.id.split("-")[2]
+  buttonsCount.push(Number((button.id).slice(-1)))
+})
+
+console.log(typeof(buttonsCount))
+var maxNumber = Object.values(buttonsCount)
+var test = Math.max(...maxNumber)
+console.log(test)
+
+  let p = document.getElementById("warehouse-button-5");
+  console.log("fer")
+var clone = p.cloneNode(true)
+clone.id = "warehouse-button-" + (test + 1)
+document.getElementById("button-list").appendChild(clone);
+
+
+});
+
+
+
+
           var warehouseSizes = Object.keys(warehouse);
 
           // Huidige geselecteerde div's
@@ -3247,7 +3277,7 @@ editable.addEventListener('input', (e) => {
                     id="inside-wrapper-select-warehouse-1"
                     class="sf-calc-inside-wrapper-select-warehouse-1"
                   >
-                    <ul class="sf-calc-ul1 list">
+                    <ul class="sf-calc-ul1 list" id="button-list">
                       <li class="sf-calc-li2 list-item">
                         <button
                           id="warehouse-button-1"
@@ -3286,6 +3316,13 @@ editable.addEventListener('input', (e) => {
                           class="button sf-calc-button09"
                         >
                           Warehouse 5
+                        </button>
+                      </li>
+                                            <li class="sf-calc-li7 list-item">
+                        <button
+                          id="btn"
+                        >
+                          Add
                         </button>
                       </li>
                     </ul>
