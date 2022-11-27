@@ -148,7 +148,7 @@
 
           //hide scenario div on list click
           var allScenarioButtons = document.querySelectorAll(
-            "[id*=scenario-button-]"
+            "[id^=scenario-button-]"
           );
 
           allScenarioButtons.forEach((button) => {
@@ -222,7 +222,7 @@
           // Gebruikstijden (uren) selector
 
           var allUsageHoursSelector = document.querySelectorAll(
-            "[id*=select-gebruikstijd-scenario-warehouse-example-]"
+            "[id^=select-gebruikstijd-scenario-warehouse-example-]"
           );
 
           allUsageHoursSelector.forEach((usageHoursSelector) => {
@@ -239,7 +239,7 @@
           // Bezettingspercentage selector
 
           var allBezettingspercentageSelector = document.querySelectorAll(
-            "[id*=select-bezettingspercentage-scenario-warehouse-]"
+            "[id^=select-bezettingspercentage-scenario-warehouse-]"
           );
 
           allBezettingspercentageSelector.forEach(
@@ -258,7 +258,7 @@
           // Warehousesizes selector
 
           var allWarehouseSizeSelectors = document.querySelectorAll(
-            "[id*=select-warehouse-size-scenario-warehouse-example-]"
+            "[id^=select-warehouse-size-scenario-warehouse-example-]"
           );
 
           allWarehouseSizeSelectors.forEach((warehouseSizeSelector) => {
@@ -275,7 +275,7 @@
           // Alles wat in de tekst van scenario 1 example 1 staat in de input velden zetten
           $(document).ready(function () {
             var allDeleteButtons = document.querySelectorAll(
-              "[id*=delete-warehouse-]"
+              "[id^=delete-warehouse-]"
             );
             console.log(allDeleteButtons);
 
