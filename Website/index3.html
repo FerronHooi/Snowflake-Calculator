@@ -867,15 +867,13 @@
               //       currentCurrency
               //     ];
 
-                  });
-});
               // END REFRESH HERE
 
             var standardPrice = (document.getElementById(
               "inputfieldstandard"
             ).value =
               platforms[currentPlatform][currentRegion]["tier"]["standard"][
-                "currentCurrency"
+                currentCurrency
               ]);
             var enterprisePrice = (document.getElementById(
               "inputfieldenterprise"
@@ -1106,14 +1104,17 @@
               $("#totale-kosten-div, #contact-button-div").show();
             });
 
+            
+
             // Deze hieronder worden gebruikt om "X uren p/m", "X credits p/m" en "X TB p/m" te weergeven.
             document.getElementById("total-hours-edition").innerHTML =
-              calculateTotalHours + " uren p/m";
+              Math.round(calculateTotalHours * 10) / 10 + " uren p/m";
             document.getElementById("total-credits-edition").innerHTML =
-              calculateTotalHours * creditsPerHour + " Credits p/m";
+              creditsTotalString
             document.getElementById("total-storage-edition").innerHTML =
               document.getElementById("input-storage-tb-per-month").value +
               " tb opslag p/m";
+
 
             // Hieronder wordt een variabele met daarin de geselecteerde editie gemaakt. Deze wordt vervolgens naar UPPERCASE gedaan omdat dit mooier weergeven is onder het totale bedrag
 
@@ -1290,6 +1291,8 @@
               "(" + selectedEditionUpper + " EDITIE)";
           });
 
+                                          });
+});
           /* EINDE CODE CALCULATOR */
 
           /* START CODE DESIGN */
