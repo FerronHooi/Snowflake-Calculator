@@ -579,6 +579,7 @@
 
           });
 
+        
 
                     $("#make-calculation-button").on("click", function (e) {
 
@@ -599,6 +600,47 @@
                 Math.round(document.getElementById("select-storage-scenario-storage-example-1-" + selectorNumber).value);
             
             });
+
+
+          var allDeleteButtons = document.querySelectorAll(
+            "[id*=delete-warehouse-]"
+          );
+
+          //on click clear all button delete all warehouse information
+          allDeleteButtons.forEach((button) => {
+            $("#schatting-opslag-verbruikskosten-delete, #clear-all-button").on("click", function (e) {
+              // find all divs with id starting with "warehouse-button" and hide them
+              var currentNumber = String(button.id).slice(-1);
+              document.getElementById(
+                "number-of-days-select-" + currentNumber
+              ).value = null;
+              document.getElementById(
+                "number-of-hours-day-select-" + currentNumber
+              ).value = null;
+              document.getElementById(
+                "percentage-bezetting-" + currentNumber
+              ).value = null;
+              document.getElementById(
+                "warehouse-type-" + currentNumber
+              ).innerHTML = "Small";
+              document.getElementById(
+                "warehouse-size-number-" + currentNumber
+              ).innerHTML = 2;
+                    document.getElementById(
+                "total-hours-1" 
+              ).innerHTML = null;
+                                  document.getElementById(
+                "total-credits-1" 
+              ).innerHTML = null;
+                                                document.getElementById(
+                "input-storage-tb-per-month" 
+              ).value = null;
+
+            });
+          });
+
+
+
 
           // Verbergt de voorbeelden wanneer er een wijziging wordt gedaan in de dropdowns bij de schatting maandelijks opslag & verbruikskosten
 
