@@ -744,12 +744,10 @@ editable.addEventListener('input', (e) => {
               "[id^=cloudplatform-text-scenario-]"
             );
 
-            console.log(allCloudplatformText)
-
             allCloudplatformText.forEach((text) => {
               document.getElementById(text.id).innerHTML = document.getElementById("select-cloudplatform").value;
             });
-
+            
             removeOptions(document.getElementById("select-region"));
 
             var currentPlatform = $(this).val();
@@ -770,6 +768,14 @@ editable.addEventListener('input', (e) => {
               $("#select-currency-text").show();
               $("#currentregionselection").show();
               $("#select-calculator-version").show();
+
+                var allRegionText = document.querySelectorAll(
+              "[id^=regio-text-scenario-]"
+            );
+
+            allRegionText.forEach((text) => {
+              document.getElementById(text.id).innerHTML = document.getElementById("select-region").value;
+            });
 
 
             });
