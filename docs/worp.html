@@ -127,21 +127,10 @@
           // on document load hide select region text, select currency text and all other main divs + dividers
           $("#select-region-text").hide();
 
-          var allWarehouseTitles = document.querySelectorAll(
-            "[id^=warehouse-title-]"
-          );
-
-          var allWarehouseCount = [];
-          allWarehouseTitles.forEach((title) => {
-            allWarehouseCount.push(Number(title.id.slice(-1)));
-          });
-
-          allWarehouseCount.forEach((number) => {
-            var editable = document.getElementById("warehouse-title-" + number);
-            editable.addEventListener("input", (e) => {
-              document.getElementById("warehouse-button-" + number).innerHTML =
-                e.target.innerText.trim();
-            });
+          var editable = document.getElementById("warehouse-title-1");
+          editable.addEventListener("input", (e) => {
+            document.getElementById("warehouse-button-1").innerHTML =
+              e.target.innerText.trim();
           });
 
           // on document load hide the cloudplatform and region header
@@ -742,21 +731,7 @@
 
           allWarehouseButtons.forEach((button) => {
             $(`#${button.id}`).on("click", function (e) {
-              $(`#${button.id}`).css({
-                "background-color": "rgb(54, 0, 0)",
-                color: "white",
-              });
-
-              document
-                .querySelectorAll("[id*=warehouse-button-]")
-                .forEach((b) => {
-                  if (b.id !== button.id) {
-                    $(`#${b.id}`).css({
-                      "background-color": "white",
-                      color: "black",
-                    });
-                  }
-                });
+              $(`#${button.id}`).css("background-color", "edf0f4");
 
               // find all divs with id starting with "warehouse-button" and hide them
               document
@@ -2045,50 +2020,33 @@
                         id="wrapper-select-gebruikstijd-scenario-warehouse-example-1"
                         class="sf-calc-wrapper-select-gebruikstijd-scenario-warehouse-example-1"
                       >
-                        <input
-                          type="range"
-                          class="sf-calc-select-gebruikstijd-scenario-warehouse-example-1"
+                        <select
                           id="select-gebruikstijd-scenario-warehouse-example-1-1"
                           size="0.25"
-                          min="0"
-                          max="24"
-                          value="24"
-                          step="0.5"
-                          oninput='rangeValueGebr11.innerText = this.value + " uren / gebruikstijd" '
-                                                    class="slidersScenarios"
-
-                        />
-                        <p id="rangeValueGebr11" class="sliderText">
-                          2 uren / gebruikstijd
-                        </p>
-
+                          class="sf-calc-select-gebruikstijd-scenario-warehouse-example-1"
+                        >
+                          <option value="Gebruikstijd (uren)" selected>
+                            Gebruikstijd (uren)
+                          </option>
+                        </select>
                         <div
                           id="line-divider-gebruikstijd-scenario-warehouse-example-1"
                           class="sf-calc-line-divider-div02"
                         ></div>
-                      </div> 
+                      </div>
                       <div
                         id="wrapper-select-bezettingspercentage-scenario-warehouse-example-1"
                         class="sf-calc-wrapper-select-bezettingspercentage-scenario-warehouse-example-1"
                       >
-        
-                        </select>
-                           <input
-                          type="range"
-                          class="sf-calc-select-bezettingspercentage-scenario-warehouse-example-1"
+                        <select
                           id="select-bezettingspercentage-scenario-warehouse-1-1"
                           size="1"
-                          min="1"
-                          max="100"
-                          value="100"
-                          step="5"
-                          oninput='rangeValueBezet11.innerText = this.value + " % / bezettingspercentage" '
-                          class="slidersScenarios"
-                        />
-                        <p id="rangeValueBezet11" class="sliderText">
-                          100% / bezettingspercentage
-                        </p>
-
+                          class="sf-calc-select-bezettingspercentage-scenario-warehouse-example-1"
+                        >
+                          <option value="Bezettings %" selected>
+                            Bezettings %
+                          </option>
+                        </select>
                         <div
                           id="line-divider-bezettingspercentage-scenario-warehouse-example-1"
                           class="sf-calc-line-divider-div03"
@@ -2246,22 +2204,15 @@
                         id="wrapper-select-gebruikstijd-scenario-warehouse-example-2"
                         class="sf-calc-wrapper-select-gebruikstijd-scenario-warehouse-example-2"
                       >
-              
-                         <input
-                          type="range"
-                          class="sf-calc-select-gebruikstijd-scenario-warehouse-example-2"
+                        <select
                           id="select-gebruikstijd-scenario-warehouse-example-1-2"
-                          size="1"
-                          min="1"
-                          max="24"
-                          value="7"
-                          step="0.5"
-                          oninput='rangeValueGebr12.innerText = this.value + " / uren gebruikstijd per dag" '
-                          class="slidersScenarios"
-                        />
-                        <p id="rangeValueGebr12" class="sliderText">
-                          4 uren / gebruikstijd per dag
-                        </p>
+                          size="0.25"
+                          class="sf-calc-select-gebruikstijd-scenario-warehouse-example-2"
+                        >
+                          <option value="Gebruikstijd (uren)" selected>
+                            Gebruikstijd (uren)
+                          </option>
+                        </select>
                         <div
                           id="line-divider-gebruikstijd-scenario-warehouse-example-2"
                           class="sf-calc-line-divider-div05"
@@ -2271,22 +2222,15 @@
                         id="wrapper-select-bezettingspercentage-scenario-warehouse-example-2"
                         class="sf-calc-wrapper-select-bezettingspercentage-scenario-warehouse-example-2"
                       >
-                     
-                                       <input
-                          type="range"
-                          class="sf-calc-select-bezettingspercentage-scenario-warehouse-example-11"
+                        <select
                           id="select-bezettingspercentage-scenario-warehouse-1-2"
                           size="1"
-                          min="1"
-                          max="100"
-                          value="100"
-                          step="5"
-                          oninput='rangeValueBezet12.innerText = this.value + "% / bezettingspercentage" '
-                          class="slidersScenarios"
-                        />
-                        <p id="rangeValueBezet12" class="sliderText">
-                          100% / bezettingspercentage
-                        </p>
+                          class="sf-calc-select-bezettingspercentage-scenario-warehouse-example-11"
+                        >
+                          <option value="Bezettings %" selected>
+                            Bezettings %
+                          </option>
+                        </select>
                         <div
                           id="line-divider-bezettingspercentage-scenario-warehouse-example-2"
                           class="sf-calc-line-divider-div06"
@@ -2397,23 +2341,14 @@
                         id="wrapper-select-days-per-week-scenario-storage-example-1.3"
                         class="sf-calc-wrapper-select-storage-scenario-storage-example"
                       >
-
-
-                         <input
-                          type="range"
-                          class="sf-calc-select-storage-scenario-storage-example"
+                        <select
                           id="select-storage-scenario-storage-example-1-1"
-                          size="1"
-                          min="1"
-                          max="100"
-                          value="4"
-                          step="1"
-                          oninput='rangeValueStTb11.innerText = this.value + " TB / gecomprimeerde data" '
-                          class="slidersScenarios"
-                        />
-                        <p id="rangeValueStTb11" class="sliderText">
-                          4 TB / gecomprimeerde data
-                        </p>
+                          class="sf-calc-select-storage-scenario-storage-example"
+                        >
+                          <option value="Opslag (tb's)" selected>
+                            Opslag (tb&apos;s)
+                          </option>
+                        </select>
                         <div
                           id="line-divider-select-weeks-per-day-scenario-storage-example-1.3"
                           class="sf-calc-line-divider-div07"
@@ -3649,14 +3584,8 @@
                       id="wrapper-warehouse-title-edit-delete"
                       class="sf-calc-wrapper-warehouse-title-edit-delete"
                     >
-                      <h1
-                        id="warehouse-title-1"
-                        class="sf-calc-heading12"
-                        contenteditable="true"
-                        class="editable"
-                        maxlength="15"
-                      >
-                        Datawarehouse 1
+                      <h1 id="warehouse-title-1" class="sf-calc-heading12">
+                        Datawarehouse
                       </h1>
                       <svg
                         id="edit-warehouse-1"
@@ -3816,14 +3745,8 @@
                       id="wrapper-warehouse-title-edit-delete"
                       class="sf-calc-wrapper-warehouse-title-edit-delete1"
                     >
-                      <h1
-                        id="warehouse-title-2"
-                        class="sf-calc-heading14"
-                        contenteditable="true"
-                        class="editable"
-                        maxlength="15"
-                      >
-                        Datawarehouse 2
+                      <h1 id="warehouse-title-2" class="sf-calc-heading14">
+                        Datawarehouse
                       </h1>
                       <svg
                         id="edit-warehouse-2"
@@ -3983,14 +3906,8 @@
                       id="wrapper-warehouse-title-edit-delete"
                       class="sf-calc-wrapper-warehouse-title-edit-delete2"
                     >
-                      <h1
-                        id="warehouse-title-3"
-                        class="sf-calc-heading16"
-                        contenteditable="true"
-                        class="editable"
-                        maxlength="15"
-                      >
-                        Datawarehouse 3
+                      <h1 id="warehouse-title-3" class="sf-calc-heading16">
+                        Datawarehouse
                       </h1>
                       <svg
                         id="edit-warehouse-3"
@@ -4150,14 +4067,8 @@
                       id="wrapper-warehouse-title-edit-delete"
                       class="sf-calc-wrapper-warehouse-title-edit-delete3"
                     >
-                      <h1
-                        id="warehouse-title-4"
-                        class="sf-calc-heading18"
-                        contenteditable="true"
-                        class="editable"
-                        maxlength="15"
-                      >
-                        Datawarehouse 4
+                      <h1 id="warehouse-title-4" class="sf-calc-heading18">
+                        Datawarehouse
                       </h1>
                       <svg
                         id="edit-warehouse-4"
@@ -4317,14 +4228,8 @@
                       id="wrapper-warehouse-title-edit-delete"
                       class="sf-calc-wrapper-warehouse-title-edit-delete4"
                     >
-                      <h1
-                        id="warehouse-title-5"
-                        class="sf-calc-heading20"
-                        contenteditable="true"
-                        class="editable"
-                        maxlength="15"
-                      >
-                        Datawarehouse 5
+                      <h1 id="warehouse-title-5" class="sf-calc-heading20">
+                        Datawarehouse
                       </h1>
                       <svg
                         id="edit-warehouse-5"

@@ -13,10 +13,23 @@ text-align: center;
 margin-top:-10px;
 }
 
+[contenteditable] {
+  outline: 0px solid transparent;
+}
+
+
+[contenteditable]:hover {
+  background-color: #edf0f4;
+  outline: 0px solid transparent;
+  padding:5px;
+  text-decoration: underline;
+}
 
 .editable[contenteditable="true"]:hover {
   background-color: rgba(217, 245, 255, 0.5);
   text-decoration: underline;
+    outline: 0px solid transparent;
+
 }
 
 .editable[contenteditable="false"]:hover {
@@ -422,7 +435,7 @@ margin-top:-10px;
   width: 15px;
   height: 24px;
   align-self: center;
-  margin-left: 30px;
+  margin-left: 5px;
 }
 .button:hover {
   clip: white;
