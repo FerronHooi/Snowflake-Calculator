@@ -1,5 +1,18 @@
 /* CUSTOM ADDED */
 
+input[type="range"]  {
+
+    background-color: red;
+    accent-color: #eef1f5;
+
+}
+
+.sliderText {
+font-size: 12px;
+text-align: center;
+margin-top:-10px;
+}
+
 [contenteditable] {
   outline: 0px solid transparent;
 }
@@ -2975,7 +2988,7 @@
   margin-right: 20px;
 }
 .sf-calc-text339 {
-  width: 250px;
+  width: 150px;
   font-size: 14px;
   margin-top: 0px;
   text-align: left;
@@ -3004,7 +3017,7 @@
   margin-right: 20px;
 }
 .sf-calc-text340 {
-  width: 250px;
+  width: 150px;
   font-size: 14px;
   margin-top: 0px;
   text-align: left;
@@ -3034,7 +3047,7 @@
   margin-right: 20px;
 }
 .sf-calc-text341 {
-  width: 250px;
+  width: 150px;
   font-size: 14px;
   margin-top: 0px;
   text-align: left;
@@ -4007,7 +4020,7 @@
   margin-right: 20px;
 }
 .sf-calc-text359 {
-  width: 250px;
+  width: 150px;
   font-size: 14px;
   margin-top: 0px;
   text-align: left;
@@ -4036,7 +4049,7 @@
   margin-right: 20px;
 }
 .sf-calc-text360 {
-  width: 250px;
+  width: 150px;
   font-size: 14px;
   margin-top: 0px;
   text-align: left;
@@ -4066,7 +4079,7 @@
   margin-right: 20px;
 }
 .sf-calc-text361 {
-  width: 250px;
+  width: 150px;
   font-size: 14px;
   margin-top: 0px;
   text-align: left;
