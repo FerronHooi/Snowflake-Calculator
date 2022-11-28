@@ -127,10 +127,21 @@
           // on document load hide select region text, select currency text and all other main divs + dividers
           $("#select-region-text").hide();
 
-          var editable = document.getElementById("warehouse-title-1");
-          editable.addEventListener("input", (e) => {
-            document.getElementById("warehouse-button-1").innerHTML =
-              e.target.innerText.trim();
+          var allWarehouseTitles = document.querySelectorAll(
+            "[id^=warehouse-title-]"
+          );
+
+          var allWarehouseCount = [];
+          allWarehouseTitles.forEach((title) => {
+            allWarehouseCount.push(Number(title.id.slice(-1)));
+          });
+
+          allWarehouseCount.forEach((number) => {
+            var editable = document.getElementById("warehouse-title-" + number);
+            editable.addEventListener("input", (e) => {
+              document.getElementById("warehouse-button-" + number).innerHTML =
+                e.target.innerText.trim();
+            });
           });
 
           // on document load hide the cloudplatform and region header
