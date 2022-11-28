@@ -114,6 +114,10 @@
           // on document load hide select region as first cloud platform has to be selected
           $("#select-region").hide();
 
+          $(
+            "#wrapper-calculation-examples-container, .line_divider, #wrapper-calculation-examples-div, #line-divider-voorkeur-schatting, #wrapper-schatting-opslag-div, #schatting-per-editie-div, #storage-costs-div, #totale-kosten-div, #contact-button-div "
+          ).hide();
+
           // on document load hide scenario 2 of the calculator examples
           $("#wrapper-scenario-2").hide();
 
@@ -128,8 +132,6 @@
             document.getElementById("warehouse-button-1").innerHTML =
               e.target.innerText.trim();
           });
-
-          $("#select-calculator-version").hide();
 
           // on document load hide the cloudplatform and region header
           $("#currentregionselection").hide();
@@ -405,6 +407,62 @@
                 document.getElementById(
                   "warehouse-size-number-" + selectorNumber
                 ).innerHTML = warehouse[warehouseSize];
+
+                //HIER TOEVOEGEN
+
+                /* CALCULATIONS */
+
+                var allActiveWarehouses = document.querySelectorAll(
+                  "[id^=warehouse-button-]"
+                );
+
+                var activeWarehouseNumbers = [];
+
+                allActiveWarehouses.forEach((warehouse) => {
+                  activeWarehouseNumbers.push(
+                    warehouse.id.slice(warehouse.id.length - 1)
+                  );
+                });
+
+                var totalHours = [];
+                var totalCredits = [];
+
+                activeWarehouseNumbers.forEach((number) => {
+                  var hours =
+                    (document.getElementById("number-of-days-select-" + number)
+                      .value *
+                      document.getElementById(
+                        "number-of-hours-day-select-" + number
+                      ).value *
+                      document.getElementById("percentage-bezetting-" + number)
+                        .value) /
+                    100;
+                  totalHours.push(hours);
+
+                  var credits = document.getElementById(
+                    "warehouse-size-number-" + number
+                  ).innerHTML;
+
+                  totalCredits.push(hours * Number(credits.trim()));
+                });
+
+                var calculateTotalHours = totalHours.reduce((a, b) => a + b, 0);
+
+                var creditsTotal = totalCredits.reduce((a, b) => a + b, 0);
+
+                document.getElementById("total-hours-1").innerHTML =
+                  Math.round(calculateTotalHours * 10) / 10 + " uren p/m";
+
+                var creditsTotalString = (document.getElementById(
+                  "total-credits-1"
+                ).innerHTML =
+                  Math.round(creditsTotal * 10) / 10 + " Credits p/m");
+
+                var currentCloudplatformAndRegion = (document.getElementById(
+                  "currentregionselection"
+                ).innerHTML = currentPlatform + " - " + currentRegion);
+
+                //EINDE
               });
             });
 
@@ -527,16 +585,6 @@
             }
           });
 
-          // Hier worden de versies uit de calculatorVersions array gehaald en in de dropdowns gezet
-          $.each(calculatorVersions, function (k, v) {
-            $("#select-calculator-version").append(
-              $("<option>", {
-                value: v,
-                text: v,
-              })
-            );
-          });
-
           var scenarioDivs = document.querySelectorAll(
             "[id^=wrapper-scenario-examples-div-]"
           );
@@ -623,7 +671,6 @@
                 }
               );
             }
-
             //console.log("Warehouses" + numberOfWH);
             //console.log("Storages" + numberOfST);
           }
@@ -851,7 +898,9 @@
               $("#select-currency").show();
               $("#select-currency-text").show();
               $("#currentregionselection").show();
-              $("#select-calculator-version").show();
+              $(
+                ".line_divider, #wrapper-calculation-examples-div, #line-divider-voorkeur-schatting, #wrapper-schatting-opslag-div, #schatting-per-editie-div"
+              ).show();
 
               var allRegionText = document.querySelectorAll(
                 "[id^=regio-text-scenario-]"
@@ -861,16 +910,6 @@
                 document.getElementById(text.id).innerHTML =
                   document.getElementById("select-region").value;
               });
-            });
-
-            // Als een versie wordt geselecteerd dan worden de voorbeelden wel/niet getoond
-            $("#select-calculator-version").on("change", function (e) {
-              var currentVersion = $(this).val();
-              if (currentVersion == "Zonder voorbeelden") {
-                $("#wrapper-calculation-examples-container").hide();
-              } else {
-                $("#wrapper-calculation-examples-container").show();
-              }
             });
 
             // Als een valuta wordt geselecteerd dan worden alle divs getoond
@@ -1512,14 +1551,14 @@
               $("#enterprise-logo-div").css("border", "none");
               $("#business-critical-logo-div").css("border", "none");
 
-              $("#totale-kosten-div").show();
-
               var selectedEdition =
                 document.getElementById("select-edition").value;
               var selectedEditionUpper = selectedEdition.toUpperCase();
 
               document.getElementById("selected-edition").innerHTML =
                 "(" + selectedEditionUpper + " EDITIE)";
+
+              $("#storage-costs-div").show();
             }
           );
 
@@ -1567,7 +1606,6 @@
               ).css("box-shadow", "0 0 0 0px #e0e0e0");
               $("#standard-logo-div").css("border", "none");
               $("#business-critical-logo-div").css("border", "none");
-              $("#totale-kosten-div").show();
 
               var selectedEdition =
                 document.getElementById("select-edition").value;
@@ -1575,6 +1613,8 @@
 
               document.getElementById("selected-edition").innerHTML =
                 "(" + selectedEditionUpper + " EDITIE)";
+
+              $("#storage-costs-div").show();
             }
           );
 
@@ -1629,14 +1669,14 @@
               $("#enterprise-logo-div").css("border", "none");
               $("#standard-logo-div").css("border", "none");
 
-              $("#totale-kosten-div").show();
-
               var selectedEdition =
                 document.getElementById("select-edition").value;
               var selectedEditionUpper = selectedEdition.toUpperCase();
 
               document.getElementById("selected-edition").innerHTML =
                 "(" + selectedEditionUpper + " EDITIE)";
+
+              $("#storage-costs-div").show();
             }
           );
 
@@ -1670,7 +1710,7 @@
               );
               $("#capacity-storage-div").css("box-shadow", "0 0 0 0px #e0e0e0");
 
-              $("#totale-kosten-div").show();
+              $("#totale-kosten-div, #contact-button-div").show();
 
               var selectedEdition =
                 document.getElementById("select-edition").value;
@@ -1714,7 +1754,7 @@
                 "0 0 0 0px #e0e0e0"
               );
 
-              $("#totale-kosten-div").show();
+              $("#totale-kosten-div, #contact-button-div").show();
 
               var selectedEdition =
                 document.getElementById("select-edition").value;
@@ -1750,12 +1790,6 @@
               <select id="select-region" class="sf-calc-select-region">
                 <option value="Regio" selected>Regio</option>
               </select>
-              <select
-                id="select-calculator-version"
-                class="sf-calc-select-calculator-version"
-              >
-                <option value="Versie" selected>Versie</option>
-              </select>
             </div>
           </div>
           <div
@@ -1771,7 +1805,7 @@
             </div>
             <div id="hide-div" class="sf-calc-hide-div">
               <button id="hide-examples-button" class="sf-calc-button button">
-                Hide examples
+                Show/hide examples
               </button>
             </div>
             <div
