@@ -79,13 +79,10 @@ allWarehouseButtons.forEach((button) => {
   buttonsCount.push(Number((button.id).slice(-1)))
 })
 
-console.log(typeof(buttonsCount))
 var maxNumber = Object.values(buttonsCount)
 var test = Math.max(...maxNumber)
-console.log(test)
 
   let p = document.getElementById("warehouse-button-5");
-  console.log("fer")
 var clone = p.cloneNode(true)
 clone.id = "warehouse-button-" + (test + 1)
 clone.innerText = "Warehouse " + (test + 1)
@@ -132,7 +129,6 @@ document.getElementById("button-list").appendChild(clone);
 
           var editable = document.getElementById('warehouse-title-1');
 editable.addEventListener('input', (e) => {
-    console.log(e.target.innerText);
     document.getElementById('warehouse-button-1').innerHTML = e.target.innerText.trim();
 });
 
@@ -183,14 +179,31 @@ editable.addEventListener('input', (e) => {
             );
           });
 
-          //hide scenario div on list click
           var allScenarioButtons = document.querySelectorAll(
             "[id^=scenario-button-]"
           );
 
           allScenarioButtons.forEach((button) => {
             $(`#${button.id}`).on("click", function (e) {
-              console.log(button.id);
+
+   var allRegionText = document.querySelectorAll(
+              "[id^=regio-text-scenario-]"
+            );
+
+            allRegionText.forEach((text) => {
+              document.getElementById(text.id).innerHTML = document.getElementById("select-region").value;
+            });
+
+            var allCloudplatformText = document.querySelectorAll(
+              "[id^=cloudplatform-text-scenario-]"
+            );
+
+            allCloudplatformText.forEach((text) => {
+              document.getElementById(text.id).innerHTML = document.getElementById("select-cloudplatform").value;
+            });
+
+
+
               // find all divs with id starting with "warehouse-button" and hide them
               document
                 .querySelectorAll("[id*=wrapper-scenario-]")
@@ -321,7 +334,6 @@ editable.addEventListener('input', (e) => {
             var allDeleteButtons = document.querySelectorAll(
               "[id^=delete-warehouse-]"
             );
-            console.log(allDeleteButtons);
 
             allDeleteButtons.forEach((button) => {
               $(`#${button.id}`).on("click", function (e) {
@@ -353,6 +365,8 @@ editable.addEventListener('input', (e) => {
                 String(dayPerWeekSelector.id).slice(-3)
               );
             });
+
+        
 
             listOfSelectorNumbers.forEach((selectorNumber) => {
               $(
@@ -391,26 +405,6 @@ editable.addEventListener('input', (e) => {
                   .innerHTML.trim()
               );
             });
-
-            $("#select-days-per-week-scenario-warehouse-example-1-1").val(
-              document
-                .getElementById("days-per-week-text-wh-1-1")
-                .innerHTML.trim()
-            );
-
-            $("#select-gebruikstijd-scenario-warehouse-example-1-1").val(
-              document.getElementById("usage-hours-wh-1-1").innerHTML.trim()
-            );
-
-            $("#select-bezettingspercentage-scenario-warehouse-1-1").val(
-              document
-                .getElementById("bezettingspercentage-wh-1-1")
-                .innerHTML.trim()
-            );
-
-            $("#select-warehouse-size-scenario-warehouse-example-1-1").val(
-              document.getElementById("warehouse-size-wh-1-1").innerHTML.trim()
-            );
           });
 
           var listOfStorageSelectorNumbers = [];
@@ -460,6 +454,38 @@ editable.addEventListener('input', (e) => {
               })
             );
           });
+
+          var scenarioDivs = document.querySelectorAll(
+            "[id^=wrapper-scenario-examples-div-]"
+          );
+          var numberOfScenarios = scenarioDivs.length;
+
+            var numberOfWH = document.querySelectorAll(
+              "[id^=wrapper-scenario-example-1], [id^=wrapper-storage-scenario-example-3]"
+            );
+
+            console.log(numberOfWH);
+
+//loop through all scenarios and add the correct number of storage examples
+          for (let i = 1; i <= numberOfScenarios; i++) {
+            
+                        var numberOfWH = document.querySelectorAll(
+              "[id^=wrapper-scenario-example-1], [id^=wrapper-storage-scenario-example-3]"
+            ).length;
+
+                        var numberOfST = document.querySelectorAll(
+             "[id^=wrapper-storage-scenario-example-" + i + "]"
+            ).length;
+
+            console.log("Warehouses" + numberOfWH);
+            console.log("Storages" + numberOfST);
+
+
+
+            
+          }
+
+
 
           $("#select-days-per-week-scenario-warehouse-example-1-1").on(
             "change, click",
@@ -535,7 +561,6 @@ editable.addEventListener('input', (e) => {
 
           allScenarioButtons.forEach((button) => {
             $(`#${button.id}`).on("click", function (e) {
-              console.log(button.id);
               // find all divs with id starting with "warehouse-button" and hide them
               document
                 .querySelectorAll("[id*=wrapper-scenario-]")
@@ -572,7 +597,6 @@ editable.addEventListener('input', (e) => {
 
           allWarehouseButtons.forEach((button) => {
             $(`#${button.id}`).on("click", function (e) {
-              console.log(button.id);
               $(`#${button.id}`).css("background-color", "edf0f4");
 
               // find all divs with id starting with "warehouse-button" and hide them
@@ -602,7 +626,6 @@ editable.addEventListener('input', (e) => {
             );
           });
 
-          console.log(listOfCalculationSelectorNumbers)
 
           var allExampleDivs = document.querySelectorAll(
                         "[id^=wrapper-scenario-div]"
@@ -615,11 +638,8 @@ editable.addEventListener('input', (e) => {
             );
           });
 
-          console.log(listOfExampleDivsNumbers)
 
           allExampleDivs.forEach((div) => {
-            console.log(div)
-            console.log(div.querySelector('.child'))
 
           });
 
@@ -711,7 +731,6 @@ editable.addEventListener('input', (e) => {
           var allDeleteButtons = document.querySelectorAll(
             "[id*=delete-warehouse-]"
           );
-          console.log(allDeleteButtons);
 
           allDeleteButtons.forEach((button) => {
             $(`#${button.id}`).on("click", function (e) {
@@ -735,6 +754,7 @@ editable.addEventListener('input', (e) => {
             });
           });
 
+          // #TODO: 1 Als je de cloudplatform veranderd naar een andere, veranderd de regio niet mee
           // Hier wordt de data (regios) uit de json file gehaald en worden ze getoond op basis van de selectie van het cloudplatform
           $("#select-cloudplatform").on("change", function (e) {
             $("#select-region").show();
@@ -746,6 +766,14 @@ editable.addEventListener('input', (e) => {
 
             allCloudplatformText.forEach((text) => {
               document.getElementById(text.id).innerHTML = document.getElementById("select-cloudplatform").value;
+            });
+
+               var allRegionText = document.querySelectorAll(
+              "[id^=regio-text-scenario-]"
+            );
+
+            allRegionText.forEach((text) => {
+              document.getElementById(text.id).innerHTML = document.getElementById("select-region").value;
             });
             
             removeOptions(document.getElementById("select-region"));
@@ -836,7 +864,6 @@ editable.addEventListener('input', (e) => {
                 "input-storage-tb-per-month"
               ).value;
               // Huidige geselecteerde regio
-              console.log(document.getElementById("select-region").value);
               var currentRegion =
                 document.getElementById("select-region").value;
 
@@ -1741,7 +1768,7 @@ editable.addEventListener('input', (e) => {
                     class="sf-calc-wrapper-scenario-examples-div scenario-example-warehouse"
                   >
                     <div
-                      id="wrapper-scenario-example-1.1"
+                      id="wrapper-scenario-example-1-1"
                       class="scenario-example-warehouses sf-calc-wrapper-scenario-example"
                     >
                       <div
@@ -1911,7 +1938,7 @@ editable.addEventListener('input', (e) => {
                       </div>
                     </div>
                     <div
-                      id="wrapper-scenario-example-1.2"
+                      id="wrapper-scenario-example-1-2"
                       class="scenario-example-warehouses sf-calc-wrapper-scenario-example1"
                     >
                       <div
@@ -1927,9 +1954,7 @@ editable.addEventListener('input', (e) => {
                             id="days-per-week-text-wh-1-2"
                             display="inline-block"
                             class="sf-calc-text055"
-                          >
-                            7
-                          </span>
+                          >7</span>
                           <span display="inline-block" class="sf-calc-text056">
                             <span> dagen per week</span>
                             <br />
@@ -2086,7 +2111,7 @@ editable.addEventListener('input', (e) => {
                       </div>
                     </div>
                     <div
-                      id="wrapper-storage-scenario-example-2-6"
+                      id="wrapper-storage-scenario-example-3"
                       class="scenario-example-storages sf-calc-wrapper-scenario-example2"
                     >
                       <div
@@ -2231,7 +2256,7 @@ editable.addEventListener('input', (e) => {
                     class="sf-calc-wrapper-scenario-examples-div1 scenario-example-warehouse"
                   >
                     <div
-                      id="wrapper-scenario-example-2.1"
+                      id="wrapper-scenario-example-2-1"
                       class="scenario-example-warehouses sf-calc-wrapper-scenario-example3"
                     >
                       <div
@@ -2402,7 +2427,7 @@ editable.addEventListener('input', (e) => {
                       </div>
                     </div>
                     <div
-                      id="wrapper-scenario-example-1.2"
+                      id="wrapper-scenario-example-2-2"
                       class="scenario-example-warehouses sf-calc-wrapper-scenario-example4"
                     >
                       <div
@@ -2580,11 +2605,11 @@ editable.addEventListener('input', (e) => {
                       </div>
                     </div>
                     <div
-                      id="wrapper-scenario-example-1.2"
+                      id="wrapper-scenario-example-2-3"
                       class="scenario-example-warehouses sf-calc-wrapper-scenario-example5"
                     >
                       <div
-                        id="wrapper-div-scenario-warehouse-example-toelichting-2.1"
+                        id="wrapper-div-scenario-warehouse-example-toelichting-2-3"
                         class="sf-calc-wrapper-div-scenario-warehouse-example-toelichting-211"
                       >
                         <div class="sf-calc-container08">
@@ -2753,7 +2778,7 @@ editable.addEventListener('input', (e) => {
                       </div>
                     </div>
                     <div
-                      id="wrapper-scenario-example-2.4"
+                      id="wrapper-scenario-example-2-4"
                       class="scenario-example-warehouses sf-calc-wrapper-scenario-example6"
                     >
                       <div
