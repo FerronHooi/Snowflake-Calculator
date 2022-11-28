@@ -28,6 +28,10 @@
   font-family: "Open Sans", sans-serif;
 }
 
+#show-examples-button {
+  margin-bottom:30px;
+}
+
 #warehouse-button-1, #warehouse-button-2, #warehouse-button-3, #warehouse-button-4, #warehouse-button-5, #scenario-button-1, #scenario-button-2 {
     background-color: rgb(237, 240, 244);
     border-bottom: 0px;
@@ -591,7 +595,6 @@
   font-style: normal;
   transition: 0.3s;
   font-weight: 700;
-  text-decoration: underline;
 }
 .sf-calc-button:hover {
   color: grey;
@@ -2683,7 +2686,6 @@
   font-size: 12px;
   font-style: normal;
   font-weight: 700;
-  text-decoration: underline;
 }
 .sf-calc-icon020 {
   fill: var(--dl-color-danger-300);
@@ -5271,7 +5273,6 @@
     font-style: normal;
     font-weight: 700;
     border-width: 0px;
-    text-decoration: underline;
   }
   .sf-calc-wrapper-calculation-examples-container {
     flex-direction: column;
