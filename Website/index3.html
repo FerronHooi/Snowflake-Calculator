@@ -354,50 +354,95 @@
 
             //days per week (vul hetgene van de text in het selectie menu)
 
-            var listOfSelectorNumbers = [];
-            allDaysPerWeekSelector.forEach((dayPerWeekSelector) => {
-              listOfSelectorNumbers.push(
-                String(dayPerWeekSelector.id).slice(-3)
-              );
-            });
+            // HIER TOEVOEGEN!! #TODO
 
-            listOfSelectorNumbers.forEach((selectorNumber) => {
-              $(
-                "#select-days-per-week-scenario-warehouse-example-" +
-                  selectorNumber
-              ).val(
-                document
-                  .getElementById("days-per-week-text-wh-" + selectorNumber)
-                  .innerHTML.trim()
-              );
-              //
-              $(
-                "#select-gebruikstijd-scenario-warehouse-example-" +
-                  selectorNumber
-              ).val(
-                document
-                  .getElementById("usage-hours-wh-" + selectorNumber)
-                  .innerHTML.trim()
-              );
-              //
-              $(
-                "#select-bezettingspercentage-scenario-warehouse-" +
-                  selectorNumber
-              ).val(
-                document
-                  .getElementById("bezettingspercentage-wh-" + selectorNumber)
-                  .innerHTML.trim()
-              );
-              //
-              $(
-                "#select-warehouse-size-scenario-warehouse-example-" +
-                  selectorNumber
-              ).val(
-                document
-                  .getElementById("warehouse-size-wh-" + selectorNumber)
-                  .innerHTML.trim()
-              );
-            });
+            var scenarioDivs = document.querySelectorAll(
+              "[id^=wrapper-scenario-examples-div-]"
+            );
+            var numberOfScenarios = scenarioDivs.length;
+
+            for (let i = 1; i <= numberOfScenarios; i++) {
+              var numberOfWH = document.querySelectorAll(
+                "[id^=wrapper-scenario-warehouse-example-" + i + "-]"
+              ).length;
+
+              //WAREHOUSES
+              for (let nrWhs = 1; nrWhs <= numberOfWH; nrWhs++) {
+                $(
+                  "#select-days-per-week-scenario-warehouse-example-" +
+                    i +
+                    "-" +
+                    nrWhs
+                ).val(
+                  document
+                    .getElementById("days-per-week-text-wh-" + i + "-" + nrWhs)
+                    .innerHTML.trim()
+                );
+                //
+                $(
+                  "#select-gebruikstijd-scenario-warehouse-example-" +
+                    i +
+                    "-" +
+                    nrWhs
+                ).val(
+                  document
+                    .getElementById("usage-hours-wh-" + i + "-" + nrWhs)
+                    .innerHTML.trim()
+                );
+                // next here
+
+                $(
+                  "#select-bezettingspercentage-scenario-warehouse-" +
+                    i +
+                    "-" +
+                    nrWhs
+                ).val(
+                  document
+                    .getElementById(
+                      "bezettingspercentage-wh-" + i + "-" + nrWhs
+                    )
+                    .innerHTML.trim()
+                );
+                //
+                $(
+                  "#select-warehouse-size-scenario-warehouse-example-" +
+                    i +
+                    "-" +
+                    nrWhs
+                ).val(
+                  document
+                    .getElementById("warehouse-size-wh-" + i + "-" + nrWhs)
+                    .innerHTML.trim()
+                );
+              }
+
+              var numberOfST = document.querySelectorAll(
+                "[id^=wrapper-storage-scenario-example-" + i + "]"
+              ).length;
+
+              //STORAGES
+              for (let nrStrs = 1; nrStrs <= numberOfST; nrStrs++) {
+                console.log("scenario: " + i + " storage: " + nrStrs);
+
+                $(
+                  "#select-storage-scenario-storage-example-" + i + "-" + nrStrs
+                ).val(
+                  document
+                    .getElementById("tb-storage-st-" + i + "-" + nrStrs)
+                    .innerHTML.trim()
+                );
+                //
+
+                $("#select-storage-type-example-" + i + "-" + nrStrs).val(
+                  document
+                    .getElementById("storage-type-st-" + i + "-" + nrStrs)
+                    .innerHTML.trim()
+                );
+              }
+
+              //console.log("Warehouses" + numberOfWH);
+              //console.log("Storages" + numberOfST);
+            }
           });
 
           // Hier worden de versies uit de calculatorVersions array gehaald en in de dropdowns gezet
