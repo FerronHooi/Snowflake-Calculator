@@ -400,37 +400,6 @@
             });
           });
 
-          var listOfStorageSelectorNumbers = [];
-          allStorageTypeSelectors.forEach((storageSelector) => {
-            listOfStorageSelectorNumbers.push(
-              String(storageSelector.id).slice(-3)
-            );
-          });
-
-          listOfStorageSelectorNumbers.forEach((selectorNumber) => {
-            $("#select-storage-scenario-storage-example-" + selectorNumber).val(
-              document
-                .getElementById("tb-storage-st-" + selectorNumber)
-                .innerHTML.trim()
-            );
-            //
-            $("#select-storage-type-example-" + selectorNumber).val(
-              document
-                .getElementById("storage-type-st-" + selectorNumber)
-                .innerHTML.trim()
-            );
-          });
-
-          // Alles wat in de tekst van scenario 1 storage example 1 staat in de input velden zetten
-          $(document).ready(function () {
-            $("#select-storage-scenario-storage-example-1-3").val(
-              document.getElementById("tb-storage-st-1-3").innerHTML
-            );
-            $("#select-storage-type-example-1.3").val(
-              document.getElementById("storage-type-st-1-3").innerHTML
-            );
-          });
-
           // Hier worden de versies uit de calculatorVersions array gehaald en in de dropdowns gezet
           $.each(calculatorVersions, function (k, v) {
             $("#select-calculator-version").append(
@@ -446,80 +415,105 @@
           );
           var numberOfScenarios = scenarioDivs.length;
 
-          var numberOfWH = document.querySelectorAll(
-            "[id^=wrapper-scenario-example-1], [id^=wrapper-storage-scenario-example-3]"
-          );
-
-          console.log(numberOfWH);
-
-          //loop through all scenarios and add the correct number of storage examples
           for (let i = 1; i <= numberOfScenarios; i++) {
             var numberOfWH = document.querySelectorAll(
-              "[id^=wrapper-scenario-example-1], [id^=wrapper-storage-scenario-example-3]"
+              "[id^=wrapper-scenario-warehouse-example-" + i + "-]"
             ).length;
+
+            //WAREHOUSES
+            for (let nrWhs = 1; nrWhs <= numberOfWH; nrWhs++) {
+              $(
+                "#select-days-per-week-scenario-warehouse-example-" +
+                  i +
+                  "-" +
+                  nrWhs
+              ).on("change, click", function (e) {
+                document.getElementById(
+                  "days-per-week-text-wh-" + i + "-" + nrWhs
+                ).innerHTML = this.value;
+
+                document.getElementById(
+                  "number-of-days-select-" + nrWhs
+                ).value = Math.round(this.value * (52 / 12));
+              });
+
+              $(
+                "#select-gebruikstijd-scenario-warehouse-example-" +
+                  i +
+                  "-" +
+                  nrWhs
+              ).on("change, click", function (e) {
+                document.getElementById(
+                  "usage-hours-wh-" + i + "-" + nrWhs
+                ).innerHTML = this.value;
+
+                document.getElementById(
+                  "number-of-hours-day-select-" + nrWhs
+                ).value = this.value;
+              });
+              // next here
+
+              $(
+                "#select-bezettingspercentage-scenario-warehouse-" +
+                  i +
+                  "-" +
+                  nrWhs
+              ).on("change, click", function (e) {
+                document.getElementById(
+                  "bezettingspercentage-wh-" + i + "-" + nrWhs
+                ).innerHTML = this.value;
+
+                document.getElementById("percentage-bezetting-" + nrWhs).value =
+                  this.value;
+              });
+              //
+              $(
+                "#select-warehouse-size-scenario-warehouse-example-" +
+                  i +
+                  "-" +
+                  nrWhs
+              ).on("change, click", function (e) {
+                console.log("change");
+                document.getElementById(
+                  "warehouse-size-wh-" + i + "-" + nrWhs
+                ).innerHTML = this.value;
+
+                document.getElementById("warehouse-type-" + nrWhs).value =
+                  this.value;
+              });
+            }
 
             var numberOfST = document.querySelectorAll(
               "[id^=wrapper-storage-scenario-example-" + i + "]"
             ).length;
 
-            console.log("Warehouses" + numberOfWH);
-            console.log("Storages" + numberOfST);
+            //STORAGES
+            for (let nrStrs = 1; nrStrs <= numberOfST; nrStrs++) {
+              console.log("scenario: " + i + " storage: " + nrStrs);
+
+              $(
+                "#select-storage-scenario-storage-example-" + i + "-" + nrStrs
+              ).on("change, click", function (e) {
+                console.log("storage scenario: " + i + " storage: " + nrStrs);
+                document.getElementById(
+                  "tb-storage-st-" + i + "-" + nrStrs
+                ).innerHTML = this.value;
+              });
+              //
+
+              $("#select-storage-type-example-" + i + "-" + nrStrs).on(
+                "change, click",
+                function (e) {
+                  document.getElementById(
+                    "storage-type-st-" + i + "-" + nrStrs
+                  ).innerHTML = this.value;
+                }
+              );
+            }
+
+            //console.log("Warehouses" + numberOfWH);
+            //console.log("Storages" + numberOfST);
           }
-
-          $("#select-days-per-week-scenario-warehouse-example-1-1").on(
-            "change, click",
-            function (e) {
-              document.getElementById("days-per-week-text-wh-1-1").innerHTML =
-                this.value;
-
-              document.getElementById("number-of-days-select-1").value =
-                Math.round(this.value * (52 / 12));
-            }
-          );
-
-          $("#select-gebruikstijd-scenario-warehouse-example-1-1").on(
-            "change, click",
-            function (e) {
-              document.getElementById("usage-hours-wh-1-1").innerHTML =
-                this.value;
-
-              document.getElementById("number-of-hours-day-select-1").value =
-                this.value;
-            }
-          );
-
-          $("#select-gebruikstijd-scenario-warehouse-example-1-2").on(
-            "change, click",
-            function (e) {
-              document.getElementById("usage-hours-wh-1-2").innerHTML =
-                this.value;
-
-              document.getElementById("number-of-hours-day-select-2").value =
-                this.value;
-            }
-          );
-
-          $("#select-bezettingspercentage-scenario-warehouse-1-1").on(
-            "change, click",
-            function (e) {
-              document.getElementById("bezettingspercentage-wh-1-1").innerHTML =
-                this.value;
-
-              document.getElementById("percentage-bezetting-1").value =
-                this.value;
-            }
-          );
-
-          $("#select-bezettingspercentage-scenario-warehouse-1-2").on(
-            "change, click",
-            function (e) {
-              document.getElementById("bezettingspercentage-wh-1-2").innerHTML =
-                this.value;
-
-              document.getElementById("percentage-bezetting-2").value =
-                this.value;
-            }
-          );
 
           //on document load hide all scenario div except for the first one
           document
@@ -2135,7 +2129,7 @@
                       </div>
                     </div>
                     <div
-                      id="wrapper-storage-scenario-example-1-3"
+                      id="wrapper-storage-scenario-example-1-1"
                       class="scenario-example-storages sf-calc-wrapper-scenario-example"
                     >
                       <div
@@ -2148,7 +2142,7 @@
                             <br />
                           </span>
                           <span
-                            id="tb-storage-st-1-3"
+                            id="tb-storage-st-1-1"
                             display="inline-block"
                             class="sf-calc-text093"
                           >
@@ -2171,7 +2165,7 @@
                             <br />
                           </span>
                           <span
-                            id="storage-type-st-1-3"
+                            id="storage-type-st-1-1"
                             class="sf-calc-text106"
                           >
                             <span class="sf-calc-text107"
@@ -2226,7 +2220,7 @@
                         class="sf-calc-wrapper-select-storage-scenario-storage-example"
                       >
                         <select
-                          id="select-storage-scenario-storage-example-1-3"
+                          id="select-storage-scenario-storage-example-1-1"
                           class="sf-calc-select-storage-scenario-storage-example"
                         >
                           <option value="Opslag (tb's)" selected>
@@ -2243,7 +2237,7 @@
                         class="sf-calc-wrapper-select-storage-type-scenario-storage-example"
                       >
                         <select
-                          id="select-storage-type-example-1-3"
+                          id="select-storage-type-example-1-1"
                           class="sf-calc-select-storage-type-scenario-storage-example"
                         >
                           <option value="Opslagtype" selected>
@@ -3187,7 +3181,7 @@
                             <br />
                           </span>
                           <span
-                            id="tb-storage-st-2-6"
+                            id="tb-storage-st-2-1"
                             display="inline-block"
                             class="sf-calc-text318"
                           >
@@ -3210,7 +3204,7 @@
                             <br />
                           </span>
                           <span
-                            id="storage-type-st-2-6"
+                            id="storage-type-st-2-1"
                             class="sf-calc-text331"
                           >
                             <span class="sf-calc-text332"
@@ -3265,7 +3259,7 @@
                         class="sf-calc-wrapper-select-storage-scenario-storage-example1"
                       >
                         <select
-                          id="select-storage-scenario-storage-example-2-6"
+                          id="select-storage-scenario-storage-example-2-1"
                           class="sf-calc-select-storage-scenario-storage-example1"
                         >
                           <option value="Opslag (tb's)" selected>
@@ -3282,7 +3276,7 @@
                         class="sf-calc-wrapper-select-storage-type-scenario-storage-example1"
                       >
                         <select
-                          id="select-storage-type-example-2-6"
+                          id="select-storage-type-example-2-1"
                           class="sf-calc-select-storage-type-scenario-storage-example1"
                         >
                           <option value="Opslagtype" selected>
