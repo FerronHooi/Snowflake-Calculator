@@ -24,6 +24,7 @@
           // Data die benodigd is voor de dropdowns. Als je hier bijv "GBP" toevoegt krijg je "GBP" te zien in de dropdown.
           var storageTypes = ["On-Demand storage", "Capacity storage"];
           var calculatorVersions = ["Met voorbeelden", "Zonder voorbeelden"];
+          var currentScenario = "scenario-button-1";
           var currencyOptions = ["EUR", "USD"];
           var editions = ["Standard", "Enterprise", "Business Critical"];
           var daysPerWeek = ["7", "5", "4", "3", "2", "1"];
@@ -578,6 +579,8 @@
 
           allScenarioButtons.forEach((button) => {
             $(`#${button.id}`).on("click", function (e) {
+              currentScenario = button.id;
+              console.log(currentScenario);
               // find all divs with id starting with "warehouse-button" and hide them
               document
                 .querySelectorAll("[id^=wrapper-scenario-examples-div-]")
@@ -655,12 +658,16 @@
           allExampleDivs.forEach((div) => {});
 
           $("#make-calculation-button").on("click", function (e) {
+            var currentScenarioNumber = currentScenario.slice(-1);
+            console.log(currentScenarioNumber);
             listOfCalculationSelectorNumbers.forEach((selectorNumber) => {
               document.getElementById(
                 "number-of-days-select-" + selectorNumber
               ).value = Math.round(
                 document.getElementById(
-                  "select-days-per-week-scenario-warehouse-example-1-" +
+                  "select-days-per-week-scenario-warehouse-example-" +
+                    currentScenarioNumber +
+                    "-" +
                     selectorNumber
                 ).value *
                   (52 / 12)
@@ -670,7 +677,9 @@
                 "number-of-hours-day-select-" + selectorNumber
               ).value = Math.round(
                 document.getElementById(
-                  "select-gebruikstijd-scenario-warehouse-example-1-" +
+                  "select-gebruikstijd-scenario-warehouse-example-" +
+                    currentScenarioNumber +
+                    "-" +
                     selectorNumber
                 ).value
               );
@@ -679,7 +688,9 @@
                 "percentage-bezetting-" + selectorNumber
               ).value = Math.round(
                 document.getElementById(
-                  "select-bezettingspercentage-scenario-warehouse-1-" +
+                  "select-bezettingspercentage-scenario-warehouse-" +
+                    currentScenarioNumber +
+                    "-" +
                     selectorNumber
                 ).value
               );
@@ -690,7 +701,10 @@
             document.getElementById("input-storage-tb-per-month").value =
               Math.round(
                 document.getElementById(
-                  "select-storage-scenario-storage-example-1-" + selectorNumber
+                  "select-storage-scenario-storage-example-" +
+                    +currentScenarioNumber +
+                    "-" +
+                    selectorNumber
                 ).value
               );
           });
