@@ -731,7 +731,21 @@
 
           allWarehouseButtons.forEach((button) => {
             $(`#${button.id}`).on("click", function (e) {
-              $(`#${button.id}`).css("background-color", "edf0f4");
+              $(`#${button.id}`).css({
+                "background-color": "rgb(54, 0, 0)",
+                color: "white",
+              });
+
+              document
+                .querySelectorAll("[id*=warehouse-button-]")
+                .forEach((b) => {
+                  if (b.id !== button.id) {
+                    $(`#${b.id}`).css({
+                      "background-color": "white",
+                      color: "black",
+                    });
+                  }
+                });
 
               // find all divs with id starting with "warehouse-button" and hide them
               document
@@ -3584,8 +3598,14 @@
                       id="wrapper-warehouse-title-edit-delete"
                       class="sf-calc-wrapper-warehouse-title-edit-delete"
                     >
-                      <h1 id="warehouse-title-1" class="sf-calc-heading12">
-                        Datawarehouse
+                      <h1
+                        id="warehouse-title-1"
+                        class="sf-calc-heading12"
+                        contenteditable="true"
+                        class="editable"
+                        maxlength="15"
+                      >
+                        Datawarehouse 1
                       </h1>
                       <svg
                         id="edit-warehouse-1"
@@ -3745,8 +3765,14 @@
                       id="wrapper-warehouse-title-edit-delete"
                       class="sf-calc-wrapper-warehouse-title-edit-delete1"
                     >
-                      <h1 id="warehouse-title-2" class="sf-calc-heading14">
-                        Datawarehouse
+                      <h1
+                        id="warehouse-title-2"
+                        class="sf-calc-heading14"
+                        contenteditable="true"
+                        class="editable"
+                        maxlength="15"
+                      >
+                        Datawarehouse 2
                       </h1>
                       <svg
                         id="edit-warehouse-2"
@@ -3906,8 +3932,14 @@
                       id="wrapper-warehouse-title-edit-delete"
                       class="sf-calc-wrapper-warehouse-title-edit-delete2"
                     >
-                      <h1 id="warehouse-title-3" class="sf-calc-heading16">
-                        Datawarehouse
+                      <h1
+                        id="warehouse-title-3"
+                        class="sf-calc-heading16"
+                        contenteditable="true"
+                        class="editable"
+                        maxlength="15"
+                      >
+                        Datawarehouse 3
                       </h1>
                       <svg
                         id="edit-warehouse-3"
@@ -4067,8 +4099,14 @@
                       id="wrapper-warehouse-title-edit-delete"
                       class="sf-calc-wrapper-warehouse-title-edit-delete3"
                     >
-                      <h1 id="warehouse-title-4" class="sf-calc-heading18">
-                        Datawarehouse
+                      <h1
+                        id="warehouse-title-4"
+                        class="sf-calc-heading18"
+                        contenteditable="true"
+                        class="editable"
+                        maxlength="15"
+                      >
+                        Datawarehouse 4
                       </h1>
                       <svg
                         id="edit-warehouse-4"
@@ -4228,8 +4266,14 @@
                       id="wrapper-warehouse-title-edit-delete"
                       class="sf-calc-wrapper-warehouse-title-edit-delete4"
                     >
-                      <h1 id="warehouse-title-5" class="sf-calc-heading20">
-                        Datawarehouse
+                      <h1
+                        id="warehouse-title-5"
+                        class="sf-calc-heading20"
+                        contenteditable="true"
+                        class="editable"
+                        maxlength="15"
+                      >
+                        Datawarehouse 5
                       </h1>
                       <svg
                         id="edit-warehouse-5"
