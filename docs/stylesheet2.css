@@ -1,5 +1,19 @@
 /* CUSTOM ADDED */
 
+input[type="range"]  {
+
+    background-color: red;
+    accent-color: #eef1f5;
+
+}
+
+.sliderText {
+font-size: 12px;
+text-align: center;
+margin-top:-10px;
+}
+
+
 .editable[contenteditable="true"]:hover {
   background-color: rgba(217, 245, 255, 0.5);
   text-decoration: underline;
