@@ -200,7 +200,7 @@
               });
 
               document
-                .querySelectorAll("[id^=wrapper-scenario-]")
+                .querySelectorAll("[id^=wrapper-scenario-div]")
                 .forEach((scenarioWrapper) => {
                   if (
                     String(scenarioWrapper.id).slice(-1) !==
@@ -534,14 +534,14 @@
 
           //hide scenario div on list click
           var allScenarioButtons = document.querySelectorAll(
-            "[id*=scenario-button-]"
+            "[id^=scenario-button-]"
           );
 
           allScenarioButtons.forEach((button) => {
             $(`#${button.id}`).on("click", function (e) {
               // find all divs with id starting with "warehouse-button" and hide them
               document
-                .querySelectorAll("[id*=wrapper-scenario-]")
+                .querySelectorAll("[id^=wrapper-scenario-examples-div-]")
                 .forEach((scenarioWrapper) => {
                   if (
                     String(scenarioWrapper.id).slice(-1) !==
@@ -559,7 +559,7 @@
 
           //on document load hide all scenario div except for the first one
           document
-            .querySelectorAll("[id*=wrapper-warehouse-info-filler-]")
+            .querySelectorAll("[id^=wrapper-warehouse-info-filler-]")
             .forEach((warehouseButtonWrapper) => {
               if (String(warehouseButtonWrapper.id).slice(-1) !== String(1)) {
                 $(`#${warehouseButtonWrapper.id}`).hide();
@@ -579,7 +579,7 @@
 
               // find all divs with id starting with "warehouse-button" and hide them
               document
-                .querySelectorAll("[id*=wrapper-warehouse-info-filler-]")
+                .querySelectorAll("[id^=wrapper-warehouse-info-filler-]")
                 .forEach((warehouseButtonWrapper) => {
                   if (
                     String(warehouseButtonWrapper.id).slice(-1) !==
