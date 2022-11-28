@@ -325,22 +325,34 @@
             });
           });
 
-          // Alles wat in de tekst van scenario 1 example 1 staat in de input velden zetten
           $(document).ready(function () {
             $("#make-calculation-button").on("click", function (e) {
               var currentScenarioNumber = currentScenario.slice(-1);
 
               listOfCalculationSelectorNumbers.forEach((selectorNumber) => {
                 document.getElementById(
-                  "number-of-days-select-" + selectorNumber
+                  "number-of-days-select-" + selectorNumber //1 //2 //3
                 ).value = Math.round(
                   document.getElementById(
                     "select-days-per-week-scenario-warehouse-example-" +
-                      currentScenarioNumber +
+                      currentScenarioNumber + //1 //1 //1
                       "-" +
-                      selectorNumber
+                      selectorNumber //1 //2 //3
                   ).value *
                     (52 / 12)
+                );
+
+                console.log(
+                  document.getElementById("number-of-hours-day-select-4").value
+                );
+
+                console.log(
+                  document.getElementById(
+                    "select-gebruikstijd-scenario-warehouse-example-" +
+                      2 +
+                      "-" +
+                      4
+                  ).value
                 );
 
                 document.getElementById(
@@ -365,17 +377,18 @@
                   ).value
                 );
 
-                //TODO: ^ voor storage
+                var storage = document.querySelectorAll(
+                  "[id^=select-storage-scenario-storage-example-" +
+                    currentScenarioNumber +
+                    "-]"
+                );
+
+                var rightStorage = storage[0].id;
+
+                console.log(rightStorage);
 
                 document.getElementById("input-storage-tb-per-month").value =
-                  Math.round(
-                    document.getElementById(
-                      "select-storage-scenario-storage-example-" +
-                        +currentScenarioNumber +
-                        "-" +
-                        selectorNumber
-                    ).value
-                  );
+                  document.getElementById(rightStorage).value;
 
                 document.getElementById(
                   "warehouse-type-" + selectorNumber
