@@ -127,21 +127,10 @@
           // on document load hide select region text, select currency text and all other main divs + dividers
           $("#select-region-text").hide();
 
-          var allWarehouseTitles = document.querySelectorAll(
-            "[id^=warehouse-title-]"
-          );
-
-          var allWarehouseCount = [];
-          allWarehouseTitles.forEach((title) => {
-            allWarehouseCount.push(Number(title.id.slice(-1)));
-          });
-
-          allWarehouseCount.forEach((number) => {
-            var editable = document.getElementById("warehouse-title-" + number);
-            editable.addEventListener("input", (e) => {
-              document.getElementById("warehouse-button-" + number).innerHTML =
-                e.target.innerText.trim();
-            });
+          var editable = document.getElementById("warehouse-title-1");
+          editable.addEventListener("input", (e) => {
+            document.getElementById("warehouse-button-1").innerHTML =
+              e.target.innerText.trim();
           });
 
           // on document load hide the cloudplatform and region header
@@ -742,21 +731,7 @@
 
           allWarehouseButtons.forEach((button) => {
             $(`#${button.id}`).on("click", function (e) {
-              $(`#${button.id}`).css({
-                "background-color": "rgb(54, 0, 0)",
-                color: "white",
-              });
-
-              document
-                .querySelectorAll("[id*=warehouse-button-]")
-                .forEach((b) => {
-                  if (b.id !== button.id) {
-                    $(`#${b.id}`).css({
-                      "background-color": "white",
-                      color: "black",
-                    });
-                  }
-                });
+              $(`#${button.id}`).css("background-color", "edf0f4");
 
               // find all divs with id starting with "warehouse-button" and hide them
               document
@@ -1915,18 +1890,15 @@
                       >
                         <div class="sf-calc-container02">
                           <span class="sf-calc-text014">
-                            <span class="editable" contenteditable="true"
-                              >Draait </span
-                            >
+                            <span>Draait </span>
                             <br />
                           </span>
                           <span
                             id="days-per-week-text-wh-1-1"
                             display="inline-block"
                             class="sf-calc-text017"
-                            class="editable"
-                            contenteditable="false"
-                            >7
+                          >
+                            7
                           </span>
                           <span display="inline-block" class="sf-calc-text018">
                             <span> dagen per week</span>
@@ -1936,13 +1908,9 @@
                             <span>een batch-load van circa </span>
                             <br />
                           </span>
-                          <span
-                            id="usage-hours-wh-1-1"
-                            class="sf-calc-text024"
-                            class="editable"
-                            contenteditable="false"
-                          >
-                            2
+                          <span id="usage-hours-wh-1-1" class="sf-calc-text024">
+                            <span class="sf-calc-text025">2</span>
+                            <br />
                           </span>
                           <span class="sf-calc-text027">
                             <span> uur, waarbij hij gebruik</span>
@@ -1955,10 +1923,9 @@
                           <span
                             id="warehouse-size-wh-1-1"
                             class="sf-calc-text033"
-                            class="editable"
-                            contenteditable="false"
                           >
-                            Medium
+                            <span class="sf-calc-text034">Small</span>
+                            <br />
                           </span>
                           <span class="sf-calc-text036">
                             <span> virtual</span>
@@ -1978,10 +1945,10 @@
                           <span
                             id="bezettingspercentage-wh-1-1"
                             class="sf-calc-text046"
-                            class="editable"
-                            contenteditable="false"
-                            >100</span
                           >
+                            <span class="sf-calc-text047">100</span>
+                            <br />
+                          </span>
                           <span class="sf-calc-text049">
                             <span>% van de tijd.</span>
                             <br />
@@ -1999,7 +1966,7 @@
                           <img
                             id="image-scenario-1-1"
                             alt="image"
-                            src="images/warehouse.png"
+                            src="https://play.teleporthq.io/static/svg/default-img.svg"
                             class="sf-calc-image"
                           />
                           <svg
@@ -2108,8 +2075,6 @@
                             id="days-per-week-text-wh-1-2"
                             display="inline-block"
                             class="sf-calc-text055"
-                            class="editable"
-                            contenteditable="false"
                           >
                             7
                           </span>
@@ -2121,13 +2086,9 @@
                             <span>een batch-load van circa </span>
                             <br />
                           </span>
-                          <span
-                            id="usage-hours-wh-1-2"
-                            class="sf-calc-text062"
-                            class="editable"
-                            contenteditable="false"
-                          >
-                            4
+                          <span id="usage-hours-wh-1-2" class="sf-calc-text062">
+                            <span class="sf-calc-text063">4</span>
+                            <br />
                           </span>
                           <span class="sf-calc-text065">
                             <span> uur, waarbij hij gebruik</span>
@@ -2140,9 +2101,9 @@
                           <span
                             id="warehouse-size-wh-1-2"
                             class="sf-calc-text071"
-                            class="editable"
-                            contenteditable="false"
-                            >Medium
+                          >
+                            <span class="sf-calc-text072">Small</span>
+                            <br />
                           </span>
                           <span class="sf-calc-text074">
                             <span> virtual</span>
@@ -2162,9 +2123,9 @@
                           <span
                             id="bezettingspercentage-wh-1-2"
                             class="sf-calc-text084"
-                            class="editable"
-                            contenteditable="false"
-                            >100
+                          >
+                            <span class="sf-calc-text085">100</span>
+                            <br />
                           </span>
                           <span class="sf-calc-text087">
                             <span>% van de tijd.</span>
@@ -2183,7 +2144,7 @@
                           <img
                             id="image-scenario-1-2"
                             alt="image"
-                            src="images/warehouse.png"
+                            src="https://play.teleporthq.io/static/svg/default-img.svg"
                             class="sf-calc-image01"
                           />
                           <svg
@@ -2292,8 +2253,6 @@
                             id="tb-storage-st-1-1"
                             display="inline-block"
                             class="sf-calc-text093"
-                            class="editable"
-                            contenteditable="false"
                           >
                             4
                           </span>
@@ -2316,9 +2275,11 @@
                           <span
                             id="storage-type-st-1-1"
                             class="sf-calc-text106"
-                            class="editable"
-                            contenteditable="false"
-                            >On-Demand storage
+                          >
+                            <span class="sf-calc-text107"
+                              >on-demand storage</span
+                            >
+                            <br />
                           </span>
                           <span class="sf-calc-text109">
                             <span>.</span>
@@ -2337,7 +2298,7 @@
                           <img
                             id="image-scenario-1.3"
                             alt="image"
-                            src="images/database-storage.png"
+                            src="https://play.teleporthq.io/static/svg/default-img.svg"
                             class="sf-calc-image02"
                           />
                           <svg
@@ -3609,14 +3570,8 @@
                       id="wrapper-warehouse-title-edit-delete"
                       class="sf-calc-wrapper-warehouse-title-edit-delete"
                     >
-                      <h1
-                        id="warehouse-title-1"
-                        class="sf-calc-heading12"
-                        contenteditable="true"
-                        class="editable"
-                        maxlength="15"
-                      >
-                        Datawarehouse 1
+                      <h1 id="warehouse-title-1" class="sf-calc-heading12">
+                        Datawarehouse
                       </h1>
                       <svg
                         id="edit-warehouse-1"
@@ -3776,14 +3731,8 @@
                       id="wrapper-warehouse-title-edit-delete"
                       class="sf-calc-wrapper-warehouse-title-edit-delete1"
                     >
-                      <h1
-                        id="warehouse-title-2"
-                        class="sf-calc-heading14"
-                        contenteditable="true"
-                        class="editable"
-                        maxlength="15"
-                      >
-                        Datawarehouse 2
+                      <h1 id="warehouse-title-2" class="sf-calc-heading14">
+                        Datawarehouse
                       </h1>
                       <svg
                         id="edit-warehouse-2"
@@ -3943,14 +3892,8 @@
                       id="wrapper-warehouse-title-edit-delete"
                       class="sf-calc-wrapper-warehouse-title-edit-delete2"
                     >
-                      <h1
-                        id="warehouse-title-3"
-                        class="sf-calc-heading16"
-                        contenteditable="true"
-                        class="editable"
-                        maxlength="15"
-                      >
-                        Datawarehouse 3
+                      <h1 id="warehouse-title-3" class="sf-calc-heading16">
+                        Datawarehouse
                       </h1>
                       <svg
                         id="edit-warehouse-3"
@@ -4110,14 +4053,8 @@
                       id="wrapper-warehouse-title-edit-delete"
                       class="sf-calc-wrapper-warehouse-title-edit-delete3"
                     >
-                      <h1
-                        id="warehouse-title-4"
-                        class="sf-calc-heading18"
-                        contenteditable="true"
-                        class="editable"
-                        maxlength="15"
-                      >
-                        Datawarehouse 4
+                      <h1 id="warehouse-title-4" class="sf-calc-heading18">
+                        Datawarehouse
                       </h1>
                       <svg
                         id="edit-warehouse-4"
@@ -4277,14 +4214,8 @@
                       id="wrapper-warehouse-title-edit-delete"
                       class="sf-calc-wrapper-warehouse-title-edit-delete4"
                     >
-                      <h1
-                        id="warehouse-title-5"
-                        class="sf-calc-heading20"
-                        contenteditable="true"
-                        class="editable"
-                        maxlength="15"
-                      >
-                        Datawarehouse 5
+                      <h1 id="warehouse-title-5" class="sf-calc-heading20">
+                        Datawarehouse
                       </h1>
                       <svg
                         id="edit-warehouse-5"
@@ -4386,7 +4317,7 @@
                   </div>
                 </div>
                 <div
-                  id="wrapper-total-hours-credits-hours"
+                  id="wrapper total-hours-credits-hours"
                   class="sf-calc-wrapper-total-hours-credits-hours"
                 >
                   <div
