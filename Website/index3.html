@@ -88,6 +88,7 @@ console.log(test)
   console.log("fer")
 var clone = p.cloneNode(true)
 clone.id = "warehouse-button-" + (test + 1)
+clone.innerText = "Warehouse " + (test + 1)
 document.getElementById("button-list").appendChild(clone);
 
 
@@ -419,7 +420,6 @@ editable.addEventListener('input', (e) => {
             );
           });
 
-          console.log(listOfStorageSelectorNumbers)
 
                     listOfStorageSelectorNumbers.forEach((selectorNumber) => {
               $(
@@ -740,6 +740,16 @@ editable.addEventListener('input', (e) => {
             $("#select-region").show();
             $("#select-region-text").show();
 
+            var allCloudplatformText = document.querySelectorAll(
+              "[id^=cloudplatform-text-scenario-]"
+            );
+
+            console.log(allCloudplatformText)
+
+            allCloudplatformText.forEach((text) => {
+              document.getElementById(text.id).innerHTML = document.getElementById("select-cloudplatform").value;
+            });
+
             removeOptions(document.getElementById("select-region"));
 
             var currentPlatform = $(this).val();
@@ -760,6 +770,8 @@ editable.addEventListener('input', (e) => {
               $("#select-currency-text").show();
               $("#currentregionselection").show();
               $("#select-calculator-version").show();
+
+
             });
 
             // Als een versie wordt geselecteerd dan worden de voorbeelden wel/niet getoond
@@ -1698,7 +1710,7 @@ editable.addEventListener('input', (e) => {
                       <br />
                     </span>
                     <span
-                      id="cloudplatform-text-scenario-2"
+                      id="cloudplatform-text-scenario-1"
                       display="inline-block"
                       class="cloudplatform-text"
                     >Amazon Web Services</span>
