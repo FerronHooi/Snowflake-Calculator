@@ -389,7 +389,6 @@
 
                 document.getElementById("input-storage-tb-per-month").value =
                   document.getElementById(rightStorage).value;
-
                 document.getElementById(
                   "warehouse-type-" + selectorNumber
                 ).innerHTML = document.getElementById(
@@ -398,6 +397,14 @@
                     "-" +
                     selectorNumber
                 ).value;
+
+                var warehouseSizes = Object.keys(warehouse);
+                var warehouseSize = document.getElementById(
+                  "warehouse-type-" + selectorNumber
+                ).innerHTML;
+                document.getElementById(
+                  "warehouse-size-number-" + selectorNumber
+                ).innerHTML = warehouse[warehouseSize];
               });
             });
 
