@@ -67,6 +67,18 @@
             "4X-Large": 128,
           };
 
+           var allWarehouseButtons = document.querySelectorAll(
+              "[id^=warehouse-button-]"
+            );
+
+            var buttonsCount = [];
+            allWarehouseButtons.forEach((button) => {
+              var buttonId = button.id.split("-")[2];
+              buttonsCount.push(Number(button.id.slice(-1)));
+            });
+
+            console.log(buttonsCount);
+
                   $(
               "#warehouse-size-button-left-1, #warehouse-size-button-right-1"
             ).click(function () {
