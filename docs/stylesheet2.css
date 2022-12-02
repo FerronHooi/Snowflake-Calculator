@@ -1451,6 +1451,16 @@ margin-top:-10px;
   border-color: #c9d3dd;
   border-width: 1px;
 }
+
+#wrapper-scenario-div-2 {
+  border: 1px solid;
+    border-color: #c9d3dd;
+}
+
+.sf-calc-wrapper-scenario2 {
+  border-color: #c9d3dd;
+  border-width: 1px;
+}
 .sf-calc-container05 {
   flex: 0 0 auto;
   width: 100%;
