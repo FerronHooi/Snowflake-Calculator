@@ -96,8 +96,7 @@
                 warehouse[warehouseSize];
             });
           });
-                  
-                             
+                                               
 
           //TODO: Finish, should create a new div and select that div
 
@@ -858,6 +857,7 @@
            
                 // find all divs with id starting with "warehouse-button" and hide them
                 var currentNumber = String(button.id).slice(-1);
+
                 document.getElementById(
                   "number-of-days-select-" + currentNumber
                 ).value = null;
@@ -895,6 +895,11 @@
                   ).value *
                     (52 / 12)
                 );
+
+                document.getElementById('warehouse-button-' + selectorNumber).innerHTML = document.getElementById('heading-scenario-warehouse-' + currentScenarioNumber + "-" + selectorNumber).innerHTML;
+
+                document.getElementById('warehouse-title-' + selectorNumber).innerHTML = document.getElementById('heading-scenario-warehouse-' + currentScenarioNumber + "-" + selectorNumber).innerHTML;
+
 
                 console.log(
                   document.getElementById("number-of-hours-day-select-4").value
@@ -1930,7 +1935,7 @@
                         >
                           <h1
                             id="heading-scenario-warehouse-1-1"
-                            class="sf-calc-heading01"
+                            class="sf-calc-heading01" contenteditable="true" class="editable"
                           >
                             Warehouse 1
                           </h1>
@@ -2083,7 +2088,7 @@
                         >
                           <h1
                             id="heading-scenario-warehouse-1-2"
-                            class="sf-calc-heading02"
+                            class="sf-calc-heading02"  contenteditable="true" class="editable"
                           >
                             Warehouse 2
                           </h1>
@@ -2337,7 +2342,7 @@
                         >
                           <h1
                             id="heading-scenario-warehouse-2-1"
-                            class="sf-calc-heading04"
+                            class="sf-calc-heading04"  contenteditable="true" class="editable"
                           >
                             Warehouse 1
                           </h1>
@@ -2462,7 +2467,7 @@
                         >
                           <h1
                             id="heading-scenario-warehouse-2-2"
-                            class="sf-calc-heading05"
+                            class="sf-calc-heading05"  contenteditable="true" class="editable"
                           >
                             Warehouse 2
                           </h1>
@@ -2593,7 +2598,7 @@
                         >
                           <h1
                             id="heading-scenario-warehouse-2-3"
-                            class="sf-calc-heading06"
+                            class="sf-calc-heading06"  contenteditable="true" class="editable"
                           >
                             Warehouse 3
                           </h1>
@@ -2724,7 +2729,7 @@
                         >
                           <h1
                             id="heading-scenario-warehouse-2-4"
-                            class="sf-calc-heading07"
+                            class="sf-calc-heading07"  contenteditable="true" class="editable"
                           >
                             Warehouse 4
                           </h1>
@@ -2855,7 +2860,7 @@
                         >
                           <h1
                             id="heading-scenario-warehouse-2-5"
-                            class="sf-calc-heading08"
+                            class="sf-calc-heading08"  contenteditable="true" class="editable"
                           >
                             Warehouse 5
                           </h1>
@@ -3297,8 +3302,8 @@
                       <input
                         type="number"
                         id="number-of-hours-day-select-1"
-                        max="31"
-                        min="1"
+                        max="24"
+                        min="0"
                         step="1"
                         class="sf-calc-input01 input"
                       />
@@ -3498,7 +3503,7 @@
                       <input
                         type="number"
                         id="number-of-hours-day-select-2"
-                        max="31"
+                        max="24"
                         min="1"
                         step="1"
                         class="sf-calc-input04 input"
@@ -3700,7 +3705,7 @@
                       <input
                         type="number"
                         id="number-of-hours-day-select-3"
-                        max="31"
+                        max="24"
                         min="1"
                         step="1"
                         class="sf-calc-input07 input"
@@ -3903,7 +3908,7 @@
                       <input
                         type="number"
                         id="number-of-hours-day-select-4"
-                        max="31"
+                        max="24"
                         min="1"
                         step="1"
                         class="sf-calc-input10 input"
@@ -4103,7 +4108,7 @@
                       <input
                         type="number"
                         id="number-of-hours-day-select-5"
-                        max="31"
+                        max="24"
                         min="1"
                         step="1"
                         class="sf-calc-input13 input"
