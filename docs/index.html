@@ -2035,10 +2035,10 @@
                       >
                         <div>
                                                     <p class="toelichting">
- <span class="editable" contenteditable="true">Zorgt ervoor dat acht gebruikers </span><span id="days-per-week-text-wh-1-2" display="inline-block" class="editable" contenteditable="false">7</span> <span class="editable" contenteditable="true">dagen per week van 10:00 tot 18:00 <span
+ <span class="editable" contenteditable="true">Zorgt ervoor dat acht gebruikers </span><span id="days-per-week-text-wh-1-2" display="inline-block" class="editable" contenteditable="false">7</span> <span class="editable" contenteditable="true">dagen per week van 10:00 tot 18:00</span> <span
                             id="usage-hours-wh-1-2"
                             class="editable"
-                            contenteditable="false"
+                            contenteditable="false" id="time-range"
                           >4
                           </span> kunnen werken, waarbij gebruik gemaakt wordt van een </span><span
                             id="warehouse-size-wh-1-2"
@@ -2113,8 +2113,16 @@
                       </div>
                       <div
                         id="wrapper-select-gebruikstijd-scenario-warehouse-example-2"
-                        class="sf-calc-wrapper-select-gebruikstijd-scenario-warehouse-example-2"
+                         id="time-range"
                       >
+
+    </p>
+    <div class="sliders_step1">
+        <div id="slider-range" class="ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all"><div class="ui-slider-range ui-widget-header ui-corner-all" style="left: 37.5%; width: 38.5417%;"></div><span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0" style="left: 37.5%;"></span><span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0" style="left: 76.0417%;"></span></div>
+    
+        <p>Time Range: <span class="slider-time">9:00 AM</span> - <span class="slider-time2">6:15 PM</span>
+
+      </div>
               
                          <input
                           type="range"
@@ -2131,6 +2139,7 @@
                         <p id="rangeValueGebr12" class="sliderText">
                           8 uren / gebruikstijd per dag
                         </p>
+                        
                         <div
                           id="line-divider-gebruikstijd-scenario-warehouse-example-2"
                           class="sf-calc-line-divider-div05"
@@ -4896,6 +4905,7 @@
             </button>
           </div>
         </div>
+        
       </div>
     </body>
   </head>
