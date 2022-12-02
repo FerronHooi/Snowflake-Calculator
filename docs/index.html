@@ -982,18 +982,6 @@
             /* De code hieronder wordt gebruik om de buttons op de juiste manier te laten werken (bij warehouse size). Belangrijk! Er staat nog een stuk Javascript code onderaan deze pagina die de buttons op de juiste manier laat werken.
                             Deze kun je vinden door te zoeken naar de button met id="warehouse-size-button-left" */
 
-            $(
-              "#warehouse-size-button-left-1, #warehouse-size-button-right-1"
-            ).click(function () {
-              var warehouseSizes = Object.keys(warehouse);
-              var warehouseSize =
-                document.getElementById("warehouse-type-1").innerHTML;
-
-              document.getElementById("warehouse-type-1").innerHTML =
-                warehouseSize;
-              document.getElementById("warehouse-size-number-1").innerHTML =
-                warehouse[warehouseSize];
-            });
 
             var divSchattingKosten = document.getElementById(
               "inside-2-wrapper-schatting-verbruikskosten-div"
@@ -1001,8 +989,15 @@
             var allFieldsToRefresh =
               divSchattingKosten.querySelectorAll(".button, input");
 
+            console.log(allFieldsToRefresh);
+
+            var events = ["change", "click"];
+
+
+
             allFieldsToRefresh.forEach(function (elem) {
-              elem.addEventListener("change", function () {
+              events.forEach(function (event) {
+              elem.addEventListener(event, function () {
                 // Als een platform, regio, valuta, aantal tb/s, button of editie wordt geselecteerd dan veranderd de rest mee. Let op: vrijwel alle code hieronder valt hier binnen.
 
                 // Huidige geselecteerde platform
@@ -1550,6 +1545,7 @@
                   "(" + selectedEditionUpper + " EDITIE)";
               });
             });
+          });
           });
           /* EINDE CODE CALCULATOR */
 
