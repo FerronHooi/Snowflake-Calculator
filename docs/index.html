@@ -67,6 +67,76 @@
             "4X-Large": 128,
           };
 
+                  $(
+              "#warehouse-size-button-left-1, #warehouse-size-button-right-1"
+            ).click(function () {
+              console.log("oke")
+              var warehouseSizes = Object.keys(warehouse);
+              var warehouseSize =
+                document.getElementById("warehouse-type-1").innerHTML;
+
+              document.getElementById("warehouse-type-1").innerHTML =
+                warehouseSize;
+              document.getElementById("warehouse-size-number-1").innerHTML =
+                warehouse[warehouseSize];
+            });
+
+                              $(
+              "#warehouse-size-button-left-2, #warehouse-size-button-right-2"
+            ).click(function () {
+              console.log("oke")
+              var warehouseSizes = Object.keys(warehouse);
+              var warehouseSize =
+                document.getElementById("warehouse-type-2").innerHTML;
+
+              document.getElementById("warehouse-type-2").innerHTML =
+                warehouseSize;
+              document.getElementById("warehouse-size-number-2").innerHTML =
+                warehouse[warehouseSize];
+            });
+
+                              $(
+              "#warehouse-size-button-left-3, #warehouse-size-button-right-3"
+            ).click(function () {
+              console.log("oke")
+              var warehouseSizes = Object.keys(warehouse);
+              var warehouseSize =
+                document.getElementById("warehouse-type-3").innerHTML;
+
+              document.getElementById("warehouse-type-3").innerHTML =
+                warehouseSize;
+              document.getElementById("warehouse-size-number-3").innerHTML =
+                warehouse[warehouseSize];
+            });
+
+                              $(
+              "#warehouse-size-button-left-4, #warehouse-size-button-right-4"
+            ).click(function () {
+              console.log("oke")
+              var warehouseSizes = Object.keys(warehouse);
+              var warehouseSize =
+                document.getElementById("warehouse-type-4").innerHTML;
+
+              document.getElementById("warehouse-type-4").innerHTML =
+                warehouseSize;
+              document.getElementById("warehouse-size-number-4").innerHTML =
+                warehouse[warehouseSize];
+            });
+
+                              $(
+              "#warehouse-size-button-left-5, #warehouse-size-button-right-5"
+            ).click(function () {
+              console.log("oke")
+              var warehouseSizes = Object.keys(warehouse);
+              var warehouseSize =
+                document.getElementById("warehouse-type-5").innerHTML;
+
+              document.getElementById("warehouse-type-5").innerHTML =
+                warehouseSize;
+              document.getElementById("warehouse-size-number-5").innerHTML =
+                warehouse[warehouseSize];
+            });
+
           //TODO: Finish, should create a new div and select that div
 
           $("#btn").click(function () {
@@ -1995,7 +2065,7 @@
                           class="sf-calc-select-bezettingspercentage-scenario-warehouse-example-1"
                           id="select-bezettingspercentage-scenario-warehouse-1-1"
                           size="1"
-                          min="1"
+                          min="0"
                           max="100"
                           value="100"
                           step="5"
@@ -2146,7 +2216,7 @@
                           class="sf-calc-select-bezettingspercentage-scenario-warehouse-example-11"
                           id="select-bezettingspercentage-scenario-warehouse-1-2"
                           size="1"
-                          min="1"
+                          min="0"
                           max="100"
                           value="40"
                           step="5"
@@ -2241,7 +2311,7 @@
                           class="sf-calc-select-storage-scenario-storage-example"
                           id="select-storage-scenario-storage-example-1-1"
                           size="1"
-                          min="1"
+                          min="0"
                           max="100"
                           value="4"
                           step="1"
@@ -3435,7 +3505,42 @@
                         <button
                           id="warehouse-size-button-left-1"
                           class="sf-calc-left-button button"
+                          onclick="move(-1)"
                         >
+                         <script>
+                            var warehouse = {
+                              "X-Small": 1,
+                              Small: 2,
+                              Medium: 4,
+                              Large: 8,
+                              "X-Large": 16,
+                              "2X-Large": 32,
+                              "3X-Large": 64,
+                              "4X-Large": 128,
+                            };
+
+                            warehouseSizes = Object.keys(warehouse);
+
+                            let currentWH1 = 0;
+                            let backWH1 = document.getElementById(
+                              "warehouse-size-button-left-1"
+                            );
+
+                            document.getElementById(
+                              "warehouse-type-1"
+                            ).innerHTML = Object.keys(warehouse)[0];
+
+                            function move(dir) {
+                              currentWH1 += dir;
+                              if (currentWH1 < 0)
+                                currentWH1 = warehouseSizes.length - 1;
+                              if (currentWH1 === warehouseSizes.length)
+                                currentWH1 = 0;
+                              document.getElementById(
+                                "warehouse-type-1"
+                              ).innerHTML = Object.keys(warehouse)[currentWH1];
+                            }
+                          </script>
                           &lt;
                         </button>
                         <span
@@ -3446,7 +3551,7 @@
                         </span>
                         <button
                           id="warehouse-size-button-right-1"
-                          class="sf-calc-right-button button"
+                          class="sf-calc-right-button button" onclick="move(1)"
                         >
                           &gt;
                         </button>
@@ -3601,20 +3706,54 @@
                       <div class="sf-calc-size-selection-div1">
                         <button
                           id="warehouse-size-button-left-2"
-                          class="sf-calc-left-button1 button"
+                          class="sf-calc-left-button1 button" onclick="move2(-1)"
                         >
+            <script>
+                            var warehouse = {
+                              "X-Small": 1,
+                              Small: 2,
+                              Medium: 4,
+                              Large: 8,
+                              "X-Large": 16,
+                              "2X-Large": 32,
+                              "3X-Large": 64,
+                              "4X-Large": 128,
+                            };
+
+                            warehouseSizes = Object.keys(warehouse);
+
+                            let currentWH2 = 0;
+                            let backWH2 = document.getElementById(
+                              "warehouse-size-button-left-2"
+                            );
+
+                            document.getElementById(
+                              "warehouse-type-2"
+                            ).innerHTML = Object.keys(warehouse)[0];
+
+                            function move2(dir2) {
+                              currentWH2 += dir2;
+                              if (currentWH2 < 0)
+                                currentWH2 = warehouseSizes.length - 1;
+                              if (currentWH2 === warehouseSizes.length)
+                                currentWH2 = 0;
+                              document.getElementById(
+                                "warehouse-type-2"
+                              ).innerHTML = Object.keys(warehouse)[currentWH2];
+                            }
+                          </script>
                           &lt;
                         </button>
                         <span
                           id="warehouse-size-number-2"
-                          class="sf-calc-size-number1"
+                          class="sf-calc-size-number1" 
                         >
                           1
                         </span>
                         <button
                           id="warehouse-size-button-right-2"
-                          class="sf-calc-right-button1 button"
-                        >
+                          class="sf-calc-right-button1 button" onclick="move2(1)">
+                        
                           &gt;
                         </button>
                       </div>
@@ -3768,8 +3907,43 @@
                       <div class="sf-calc-size-selection-div2">
                         <button
                           id="warehouse-size-button-left-3"
-                          class="sf-calc-left-button2 button"
+                          class="sf-calc-left-button2 button" onclick="move3(-1)"
                         >
+                            <script>
+                            var warehouse = {
+                              "X-Small": 1,
+                              Small: 2,
+                              Medium: 4,
+                              Large: 8,
+                              "X-Large": 16,
+                              "2X-Large": 32,
+                              "3X-Large": 64,
+                              "4X-Large": 128,
+                            };
+
+                            warehouseSizes = Object.keys(warehouse);
+
+                            let currentWH3 = 0;
+                            let backWH3 = document.getElementById(
+                              "warehouse-size-button-left-3"
+                            );
+
+                            document.getElementById(
+                              "warehouse-type-3"
+                            ).innerHTML = Object.keys(warehouse)[0];
+
+                            function move3(dir3) {
+                              currentWH3 += dir3;
+                              if (currentWH3 < 0)
+                                currentWH3 = warehouseSizes.length - 1;
+                              if (currentWH3 === warehouseSizes.length)
+                                currentWH3 = 0;
+                              document.getElementById(
+                                "warehouse-type-3"
+                              ).innerHTML = Object.keys(warehouse)[currentWH3];
+                            }
+                          </script>
+                                                       
                           &lt;
                         </button>
                         <span
@@ -3780,7 +3954,7 @@
                         </span>
                         <button
                           id="warehouse-size-button-right-3"
-                          class="sf-calc-right-button2 button"
+                          class="sf-calc-right-button2 button" onclick="move3(1)"
                         >
                           &gt;
                         </button>
@@ -3935,8 +4109,44 @@
                       <div class="sf-calc-size-selection-div3">
                         <button
                           id="warehouse-size-button-left-4"
-                          class="sf-calc-left-button3 button"
+                          class="sf-calc-left-button3 button" onclick="move4(-1)"
+                
                         >
+                         <script>
+                            var warehouse = {
+                              "X-Small": 1,
+                              Small: 2,
+                              Medium: 4,
+                              Large: 8,
+                              "X-Large": 16,
+                              "2X-Large": 32,
+                              "3X-Large": 64,
+                              "4X-Large": 128,
+                            };
+
+                            warehouseSizes = Object.keys(warehouse);
+
+                            let currentWH4 = 0;
+                            let backWH4 = document.getElementById(
+                              "warehouse-size-button-left-4"
+                            );
+
+                            document.getElementById(
+                              "warehouse-type-4"
+                            ).innerHTML = Object.keys(warehouse)[0];
+
+                            function move4(dir4) {
+                              currentWH4 += dir4;
+                              if (currentWH4 < 0)
+                                currentWH4 = warehouseSizes.length - 1;
+                              if (currentWH4 === warehouseSizes.length)
+                                currentWH4 = 0;
+                              document.getElementById(
+                                "warehouse-type-4"
+                              ).innerHTML = Object.keys(warehouse)[currentWH4];
+                            }
+                          </script>
+                      
                           &lt;
                         </button>
                         <span
@@ -3947,7 +4157,7 @@
                         </span>
                         <button
                           id="warehouse-size-button-right-4"
-                          class="sf-calc-right-button3 button"
+                          class="sf-calc-right-button3 button" onclick="move4(1)"
                         >
                           &gt;
                         </button>
@@ -4102,8 +4312,41 @@
                       <div class="sf-calc-size-selection-div4">
                         <button
                           id="warehouse-size-button-left-5"
-                          class="sf-calc-left-button4 button"
-                        >
+                          class="sf-calc-left-button4 button" onclick="move5(-1)"
+                        > <script>
+                            var warehouse = {
+                              "X-Small": 1,
+                              Small: 2,
+                              Medium: 4,
+                              Large: 8,
+                              "X-Large": 16,
+                              "2X-Large": 32,
+                              "3X-Large": 64,
+                              "4X-Large": 128,
+                            };
+
+                            warehouseSizes = Object.keys(warehouse);
+
+                            let currentWH5 = 0;
+                            let backWH5 = document.getElementById(
+                              "warehouse-size-button-left-5"
+                            );
+
+                            document.getElementById(
+                              "warehouse-type-5"
+                            ).innerHTML = Object.keys(warehouse)[0];
+
+                            function move5(dir5) {
+                              currentWH5 += dir5;
+                              if (currentWH5 < 0)
+                                currentWH5 = warehouseSizes.length - 1;
+                              if (currentWH5 === warehouseSizes.length)
+                                currentWH5 = 0;
+                              document.getElementById(
+                                "warehouse-type-5"
+                              ).innerHTML = Object.keys(warehouse)[currentWH5];
+                            }
+                          </script>
                           &lt;
                         </button>
                         <span
@@ -4113,7 +4356,7 @@
                           1
                         </span>
                         <button
-                          id="warehouse-size-button-right-5"
+                          id="warehouse-size-button-right-5" onclick="move5(1)"
                           class="sf-calc-right-button4 button"
                         >
                           &gt;
