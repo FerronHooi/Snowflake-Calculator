@@ -79,75 +79,25 @@
 
             console.log(buttonsCount);
 
+            buttonsCount.forEach((button) => {
+              console.log(button);
+              
                   $(
-              "#warehouse-size-button-left-1, #warehouse-size-button-right-1"
+              "#warehouse-size-button-left-" + button + ", #warehouse-size-button-right-" + button
             ).click(function () {
               console.log("oke")
               var warehouseSizes = Object.keys(warehouse);
               var warehouseSize =
-                document.getElementById("warehouse-type-1").innerHTML;
+                document.getElementById("warehouse-type-" + button).innerHTML;
 
-              document.getElementById("warehouse-type-1").innerHTML =
+              document.getElementById("warehouse-type-" + button).innerHTML =
                 warehouseSize;
-              document.getElementById("warehouse-size-number-1").innerHTML =
+              document.getElementById("warehouse-size-number-" + button).innerHTML =
                 warehouse[warehouseSize];
             });
-
-                              $(
-              "#warehouse-size-button-left-2, #warehouse-size-button-right-2"
-            ).click(function () {
-              console.log("oke")
-              var warehouseSizes = Object.keys(warehouse);
-              var warehouseSize =
-                document.getElementById("warehouse-type-2").innerHTML;
-
-              document.getElementById("warehouse-type-2").innerHTML =
-                warehouseSize;
-              document.getElementById("warehouse-size-number-2").innerHTML =
-                warehouse[warehouseSize];
-            });
-
-                              $(
-              "#warehouse-size-button-left-3, #warehouse-size-button-right-3"
-            ).click(function () {
-              console.log("oke")
-              var warehouseSizes = Object.keys(warehouse);
-              var warehouseSize =
-                document.getElementById("warehouse-type-3").innerHTML;
-
-              document.getElementById("warehouse-type-3").innerHTML =
-                warehouseSize;
-              document.getElementById("warehouse-size-number-3").innerHTML =
-                warehouse[warehouseSize];
-            });
-
-                              $(
-              "#warehouse-size-button-left-4, #warehouse-size-button-right-4"
-            ).click(function () {
-              console.log("oke")
-              var warehouseSizes = Object.keys(warehouse);
-              var warehouseSize =
-                document.getElementById("warehouse-type-4").innerHTML;
-
-              document.getElementById("warehouse-type-4").innerHTML =
-                warehouseSize;
-              document.getElementById("warehouse-size-number-4").innerHTML =
-                warehouse[warehouseSize];
-            });
-
-                              $(
-              "#warehouse-size-button-left-5, #warehouse-size-button-right-5"
-            ).click(function () {
-              console.log("oke")
-              var warehouseSizes = Object.keys(warehouse);
-              var warehouseSize =
-                document.getElementById("warehouse-type-5").innerHTML;
-
-              document.getElementById("warehouse-type-5").innerHTML =
-                warehouseSize;
-              document.getElementById("warehouse-size-number-5").innerHTML =
-                warehouse[warehouseSize];
-            });
+          });
+                  
+                             
 
           //TODO: Finish, should create a new div and select that div
 
