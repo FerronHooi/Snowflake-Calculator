@@ -896,6 +896,9 @@
                     (52 / 12)
                 );
 
+                document.getElementById('rangeValueBezetInput' + selectorNumber).innerText = document.getElementById('select-bezettingspercentage-scenario-warehouse-' + currentScenarioNumber + "-" + selectorNumber).value + "%";
+
+
                 document.getElementById('warehouse-button-' + selectorNumber).innerHTML = document.getElementById('heading-scenario-warehouse-' + currentScenarioNumber + "-" + selectorNumber).innerHTML;
 
                 document.getElementById('warehouse-title-' + selectorNumber).innerHTML = document.getElementById('heading-scenario-warehouse-' + currentScenarioNumber + "-" + selectorNumber).innerHTML;
@@ -3327,14 +3330,22 @@
                         Bezettingspercentage (gebruik)
                       </span>
                       <input
-                        type="number"
+                        type="range"
+                                                class="sf-calc-input02 input"
                         id="percentage-bezetting-1"
-                        max="100"
-                        min="1"
-                        step="5"
-                        class="sf-calc-input02 input"
+               size="0.25"
+                          min="0"
+                          max="100"
+                          value="100"
+                          step="1"
+                          oninput='rangeValueBezetInput1.innerText = this.value + "%" '
+                          class="slidersScenarios"
                       />
+                        <p id="rangeValueBezetInput1" class="sliderTextInput">
+                          %
+                        </p>
                     </div>
+                    
                   </div>
                 </div>
                 <div
@@ -3528,13 +3539,20 @@
                         Bezettingspercentage (gebruik)
                       </span>
                       <input
-                        type="number"
+                        type="range"
                         id="percentage-bezetting-2"
-                        max="100"
-                        min="1"
-                        step="5"
                         class="sf-calc-input05 input"
+                         size="0.25"
+                          min="0"
+                          max="100"
+                          value="100"
+                          step="1"
+                          oninput='rangeValueBezetInput2.innerText = this.value + "%" '
+                          class="slidersScenarios"
                       />
+                        <p id="rangeValueBezetInput2" class="sliderTextInput">
+                          %
+                        </p>
                     </div>
                   </div>
                 </div>
@@ -3730,13 +3748,18 @@
                         Bezettingspercentage (gebruik)
                       </span>
                       <input
-                        type="number"
+                        type="range"
+                                                class="sf-calc-input08 input"
                         id="percentage-bezetting-3"
-                        max="100"
-                        min="1"
-                        step="5"
-                        class="sf-calc-input08 input"
-                      />
+                          min="0"
+                          max="100"
+                          value="100"
+                          step="1"
+                          oninput='rangeValueBezetInput3.innerText = this.value + "%" '
+                          class="slidersScenarios"
+                        <p id="rangeValueBezetInput3" class="sliderTextInput">
+                          %
+                        </p>
                     </div>
                   </div>
                 </div>
@@ -3933,13 +3956,21 @@
                         Bezettingspercentage (gebruik)
                       </span>
                       <input
-                        type="number"
+                        type="range"
+                                                class="sf-calc-input11 input"
                         id="percentage-bezetting-4"
                         max="100"
                         min="1"
                         step="5"
-                        class="sf-calc-input11 input"
-                      />
+                             min="0"
+                          max="100"
+                          value="100"
+                          step="1"
+                          oninput='rangeValueBezetInput4.innerText = this.value + "%" '
+                          class="slidersScenarios"
+                        <p id="rangeValueBezetInput4" class="sliderTextInput">
+                          %
+                        </p>
                     </div>
                   </div>
                 </div>
@@ -4133,14 +4164,23 @@
                         Bezettingspercentage (gebruik)
                       </span>
                       <input
-                        type="number"
+                        type="range"
                         id="percentage-bezetting-5"
+            
+                        class="sf-calc-input14 input"
                         max="100"
                         min="1"
                         step="5"
-                        class="sf-calc-input14 input"
-                      />
-                    </div>
+                             min="0"
+                          max="100"
+                          value="100"
+                          step="1"
+                          oninput='rangeValueBezetInput5.innerText = this.value + "%" '
+                          class="slidersScenarios"
+                        <p id="rangeValueBezetInput5" class="sliderTextInput">
+                          %
+                        </p>
+                                            </div>
                   </div>
                 </div>
                 <div

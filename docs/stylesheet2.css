@@ -145,6 +145,13 @@ text-align: center;
 margin-top:-10px;
 }
 
+.sliderText {
+font-size: 12px;
+text-align: center;
+margin-top:10px;
+margin-left:30px;
+}
+
 [contenteditable] {
   outline: 0px solid transparent;
 }
