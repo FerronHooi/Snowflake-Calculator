@@ -2367,14 +2367,22 @@
                       <div
                         id="wrapper-select-gebruikstijd-scenario-warehouse-example-2.1"
                       >
-                        <select
+                          <input
+                          type="range"
                           id="select-gebruikstijd-scenario-warehouse-example-2-1"
                           size="0.25"
-                        >
-                          <option value="Gebruikstijd (uren)" selected>
-                            Gebruikstijd (uren)
-                          </option>
-                        </select>
+                          min="0"
+                          max="24"
+                          value="2"
+                          step="0.5"
+                          oninput='rangeValueGebr21.innerText = this.value + " uren / gebruikstijd" '
+                                                    class="slidersScenarios"
+
+                        />
+                        <p id="rangeValueGebr21" class="sliderText">
+                          2 uren / gebruikstijd
+                        </p>
+
                         <div
                           id="line-divider-gebruikstijd-scenario-warehouse-example-1"
                           class="sf-calc-line-divider-div09"
@@ -2384,15 +2392,21 @@
                         id="wrapper-select-bezettingspercentage-scenario-warehouse-example-2.1"
                         class="sf-calc-wrapper-select-bezettingspercentage-scenario-warehouse-example-21"
                       >
-                        <select
+                        <input
+                          type="range"
+                          class="sf-calc-select-bezettingspercentage-scenario-warehouse-example-21"
                           id="select-bezettingspercentage-scenario-warehouse-2-1"
                           size="1"
-                          class="sf-calc-select-bezettingspercentage-scenario-warehouse-example-21"
-                        >
-                          <option value="Bezettings %" selected>
-                            Bezettings %
-                          </option>
-                        </select>
+                          min="0"
+                          max="100"
+                          value="100"
+                          step="5"
+                          oninput='rangeValueBezet21.innerText = this.value + " % / bezettingspercentage" '
+                          class="slidersScenarios"
+                        />
+                        <p id="rangeValueBezet21" class="sliderText">
+                          100% / bezettingspercentage
+                        </p>
                         <div
                           id="line-divider-bezettingspercentage-scenario-warehouse-example-1"
                           class="sf-calc-line-divider-div10"
@@ -2497,15 +2511,25 @@
                         id="wrapper-select-gebruikstijd-scenario-warehouse-example-2.2"
                         class="sf-calc-wrapper-select-gebruikstijd-scenario-warehouse-example-21"
                       >
-                        <select
+                       <input
+                          type="range"
                           id="select-gebruikstijd-scenario-warehouse-example-2-2"
                           size="0.25"
-                          class="sf-calc-select-gebruikstijd-scenario-warehouse-example-21"
-                        >
-                          <option value="Gebruikstijd (uren)" selected>
-                            Gebruikstijd (uren)
-                          </option>
-                        </select>
+                                                    class="sf-calc-select-gebruikstijd-scenario-warehouse-example-22"
+
+                          min="0"
+                          max="24"
+                          value="24"
+                          step="0.5"
+                          oninput='rangeValueGebr22.innerText = this.value + " uren / gebruikstijd" '
+                                                    class="slidersScenarios"
+
+                        />
+                        <p id="rangeValueGebr22" class="sliderText">
+                          2 uren / gebruikstijd
+                        </p>
+
+            
                         <div
                           id="line-divider-gebruikstijd-scenario-warehouse-example-2.2"
                           class="sf-calc-line-divider-div12"
@@ -2515,15 +2539,22 @@
                         id="wrapper-select-bezettingspercentage-scenario-warehouse-example-2.2"
                         class="sf-calc-wrapper-select-bezettingspercentage-scenario-warehouse-example-11"
                       >
-                        <select
+                       <input
+                          type="range"
+                          class="sf-calc-select-bezettingspercentage-scenario-warehouse-example-22"
                           id="select-bezettingspercentage-scenario-warehouse-2-2"
                           size="1"
-                          class="sf-calc-select-bezettingspercentage-scenario-warehouse-example-22"
-                        >
-                          <option value="Bezettings %" selected>
-                            Bezettings %
-                          </option>
-                        </select>
+                          min="0"
+                          max="100"
+                          value="100"
+                          step="5"
+                          oninput='rangeValueBezet22.innerText = this.value + " % / bezettingspercentage" '
+                          class="slidersScenarios"
+                        />
+                        <p id="rangeValueBezet22" class="sliderText">
+                          100% / bezettingspercentage
+                        </p>
+                      
                         <div
                           id="line-divider-bezettingspercentage-scenario-warehouse-example-2.2"
                           class="sf-calc-line-divider-div13"
@@ -2628,15 +2659,24 @@
                         id="wrapper-select-gebruikstijd-scenario-warehouse-example-2.3"
                         class="sf-calc-wrapper-select-gebruikstijd-scenario-warehouse-example-22"
                       >
-                        <select
+                       <input
+                          type="range"
+                          class="sf-calc-select-gebruikstijd-scenario-warehouse-example-22"
                           id="select-gebruikstijd-scenario-warehouse-example-2-3"
                           size="0.25"
-                          class="sf-calc-select-gebruikstijd-scenario-warehouse-example-22"
-                        >
-                          <option value="Gebruikstijd (uren)" selected>
-                            Gebruikstijd (uren)
-                          </option>
-                        </select>
+                          min="0"
+                          max="24"
+                          value="24"
+                          step="0.5"
+                          oninput='rangeValueGebr23.innerText = this.value + " uren / gebruikstijd" '
+                                                    class="slidersScenarios"
+
+                        />
+                        <p id="rangeValueGebr23" class="sliderText">
+                          2 uren / gebruikstijd
+                        </p>
+
+                      
                         <div
                           id="line-divider-gebruikstijd-scenario-warehouse-example-2.3"
                           class="sf-calc-line-divider-div15"
@@ -2646,15 +2686,23 @@
                         id="wrapper-select-bezettingspercentage-scenario-warehouse-example-2.3"
                         class="sf-calc-wrapper-select-bezettingspercentage-scenario-warehouse-example-12"
                       >
-                        <select
+                                             <input
+                          type="range"
+                          class="sf-calc-select-bezettingspercentage-scenario-warehouse-example-221"
                           id="select-bezettingspercentage-scenario-warehouse-2-3"
                           size="1"
-                          class="sf-calc-select-bezettingspercentage-scenario-warehouse-example-221"
-                        >
-                          <option value="Bezettings %" selected>
-                            Bezettings %
-                          </option>
-                        </select>
+                          min="0"
+                          max="100"
+                          value="100"
+                          step="5"
+                          oninput='rangeValueBezet23.innerText = this.value + " % / bezettingspercentage" '
+                          class="slidersScenarios"
+                        />
+                        <p id="rangeValueBezet23" class="sliderText">
+                          100% / bezettingspercentage
+                        </p>
+                      
+      
                         <div
                           id="line-divider-bezettingspercentage-scenario-warehouse-example-2.3"
                           class="sf-calc-line-divider-div16"
@@ -2759,15 +2807,24 @@
                         id="wrapper-select-gebruikstijd-scenario-warehouse-example-2.4"
                         class="sf-calc-wrapper-select-gebruikstijd-scenario-warehouse-example"
                       >
-                        <select
+
+                          <input
+                          type="range"
+                          class="sf-calc-select-gebruikstijd-scenario-warehouse-example"
                           id="select-gebruikstijd-scenario-warehouse-example-2-4"
                           size="0.25"
-                          class="sf-calc-select-gebruikstijd-scenario-warehouse-example"
-                        >
-                          <option value="Gebruikstijd (uren)" selected>
-                            Gebruikstijd (uren)
-                          </option>
-                        </select>
+                          min="0"
+                          max="24"
+                          value="24"
+                          step="0.5"
+                          oninput='rangeValueGebr24.innerText = this.value + " uren / gebruikstijd" '
+                                                    class="slidersScenarios"
+
+                        />
+                        <p id="rangeValueGebr24" class="sliderText">
+                          2 uren / gebruikstijd
+                        </p>
+
                         <div
                           id="line-divider-gebruikstijd-scenario-warehouse-example-2.4"
                           class="sf-calc-line-divider-div18"
@@ -2777,15 +2834,23 @@
                         id="wrapper-select-bezettingspercentage-scenario-warehouse-example-2.4"
                         class="sf-calc-wrapper-select-bezettingspercentage-scenario-warehouse-example"
                       >
-                        <select
+                                                             <input
+                          type="range"
+                          class="sf-calc-select-bezettingspercentage-scenario-warehouse-example"
                           id="select-bezettingspercentage-scenario-warehouse-2-4"
                           size="1"
-                          class="sf-calc-select-bezettingspercentage-scenario-warehouse-example"
-                        >
-                          <option value="Bezettings %" selected>
-                            Bezettings %
-                          </option>
-                        </select>
+                          min="0"
+                          max="100"
+                          value="100"
+                          step="5"
+                          oninput='rangeValueBezet24.innerText = this.value + " % / bezettingspercentage" '
+                          class="slidersScenarios"
+                        />
+                        <p id="rangeValueBezet24" class="sliderText">
+                          100% / bezettingspercentage
+                        </p>
+                      
+                       
                         <div
                           id="line-divider-bezettingspercentage-scenario-warehouse-example-2.4"
                           class="sf-calc-line-divider-div19"
@@ -2890,15 +2955,23 @@
                         id="wrapper-select-gebruikstijd-scenario-warehouse-example-2.5"
                         class="sf-calc-wrapper-select-gebruikstijd-scenario-warehouse-example1"
                       >
-                        <select
-                          id="select-gebruikstijd-scenario-warehouse-example-2-5"
-                          size="0.25"
+  <input
+                          type="range"
                           class="sf-calc-select-gebruikstijd-scenario-warehouse-example1"
-                        >
-                          <option value="Gebruikstijd (uren)" selected>
-                            Gebruikstijd (uren)
-                          </option>
-                        </select>
+                          id="select-gebruikstijd-scenario-warehouse-example-2-5"                          
+                          size="0.25"
+                          min="0"
+                          max="24"
+                          value="24"
+                          step="0.5"
+                          oninput='rangeValueGebr25.innerText = this.value + " uren / gebruikstijd" '
+                                                    class="slidersScenarios"
+
+                        />
+                        <p id="rangeValueGebr25" class="sliderText">
+                          2 uren / gebruikstijd
+                        </p>
+                        
                         <div
                           id="line-divider-gebruikstijd-scenario-warehouse-example-2.5"
                           class="sf-calc-line-divider-div21"
@@ -2908,15 +2981,22 @@
                         id="wrapper-select-bezettingspercentage-scenario-warehouse-example-2.5"
                         class="sf-calc-wrapper-select-bezettingspercentage-scenario-warehouse-example1"
                       >
-                        <select
+                                                                                   <input
+                          type="range"
+                          class="sf-calc-select-bezettingspercentage-scenario-warehouse-example"
                           id="select-bezettingspercentage-scenario-warehouse-2-5"
                           size="1"
-                          class="sf-calc-select-bezettingspercentage-scenario-warehouse-example1"
-                        >
-                          <option value="Bezettings %" selected>
-                            Bezettings %
-                          </option>
-                        </select>
+                          min="0"
+                          max="100"
+                          value="100"
+                          step="5"
+                          oninput='rangeValueBezet25.innerText = this.value + " % / bezettingspercentage" '
+                        />
+                        <p id="rangeValueBezet25" class="sliderText">
+                          100% / bezettingspercentage
+                        </p>
+                      
+                       
                         <div
                           id="line-divider-bezettingspercentage-scenario-warehouse-example-2.5"
                           class="sf-calc-line-divider-div22"
