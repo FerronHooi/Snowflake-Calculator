@@ -1373,6 +1373,24 @@
 
                 document.getElementById("warehouse-button-" + currentNumber).innerHTML = "Warehouse " + currentNumber;
                 document.getElementById("warehouse-title-" + currentNumber).innerHTML = "Warehouse " + currentNumber;
+                makeCalculations();
+
+                 $(
+                "#standard-edition-container, #enterprise-edition-container, #business-critical-edition-container, #on-demand-storage-div, #capacity-storage-div"
+              ).css("border", "1px solid rgba(120, 120, 120, 0.4)");
+                               $(
+                "#standard-edition-container, #enterprise-edition-container, #business-critical-edition-container, #on-demand-storage-div, #capacity-storage-div"
+              ).css("background-color", "white");
+              $(
+                "#standard-edition-container, #enterprise-edition-container, #business-critical-edition-container, #on-demand-storage-div, #capacity-storage-div"
+              ).css("box-shadow", "0 0 0 0px #e0e0e0");
+              $("#enterprise-logo-div").css("border", "none");
+              $("#business-critical-logo-div").css("border", "none");
+              $("#standard-logo-div").css("border", "none");
+
+              $("#storage-costs-div").hide();
+              $("#totale-kosten-div").hide();
+              $("#contact-button-div").hide();
 
   
                   document
@@ -1440,6 +1458,8 @@
 
                 document.getElementById("warehouse-button-" + currentNumber).innerHTML = "Warehouse " + currentNumber;
                 document.getElementById("warehouse-title-" + currentNumber).innerHTML = "Warehouse " + currentNumber;
+               makeCalculations();
+
 
   
             });
