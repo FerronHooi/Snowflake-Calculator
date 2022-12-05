@@ -929,13 +929,23 @@
                     (52 / 12)
                 );
 
+                 document
+            .querySelectorAll("[id^=wrapper-warehouse-info-filler-]")
+            .forEach((warehouseButtonWrapper) => {
+              if (String(warehouseButtonWrapper.id).slice(-1) !== String(selectorNumber)) {
+                $(`#${warehouseButtonWrapper.id}`).hide();
+              } else {
+                $("#wrapper-warehouse-info-filler-1").show();
+
+              }
+            });
+
                document.getElementById('rangeValueBezetInput' + selectorNumber).innerText = document.getElementById('select-bezettingspercentage-scenario-warehouse-' + currentScenarioNumber + "-" + selectorNumber).value + "%";
 
                 document.getElementById('warehouse-button-' + selectorNumber).innerHTML = document.getElementById('heading-scenario-warehouse-' + currentScenarioNumber + "-" + selectorNumber).innerHTML;
 
                 document.getElementById('warehouse-title-' + selectorNumber).innerHTML = document.getElementById('heading-scenario-warehouse-' + currentScenarioNumber + "-" + selectorNumber).innerHTML;
                 
-                console.log("This is the current scenario number: " + selectorNumber);
                 $("#wh-button-" + selectorNumber).css("display", "block");
 
                 document.getElementById(
