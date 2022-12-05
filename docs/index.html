@@ -5024,7 +5024,7 @@
             </div>
           </div>
           <div id="contact-button-div" class="sf-calc-contact-button-div">
-<script src="https://unpkg.com/jspdf-invoice-template@1.4.0/dist/index.js"></script>
+<script src="https://unpkg.com/jspdf-invoice-template@latest/dist/index.js"></script>
          <SCRIPT>
 
              function generatePDF() {
@@ -5151,7 +5151,7 @@
                                 ])),
                             additionalRows: [{
                                     col1: 'Total:',
-                                    col2: '145,250.50',
+                                    col2: document.getElementById("total-amount-selected-edition").innerText + " $",
                                     col3: 'ALL',
                                     style: {
                                         fontSize: 14 //optional, default 12
