@@ -5030,7 +5030,7 @@
              function generatePDF() {
               const outputType = jsPDFInvoiceTemplate.OutputType;
               const jsPDF = jsPDFInvoiceTemplate.jsPDF();
-
+              
                     var allWarehousesButtons = document.querySelectorAll(
           "[id^=wh-button-]"
           );
@@ -5057,16 +5057,20 @@
 
             var SelectedWarehouseBezet = document.getElementById("percentage-bezetting-" + nrOfWarehouses[i]).value.trim()
 
-            var totalHoursWarehouse = SelectedWarehouseDays * SelectedWarehouseHours
-            var totalCreditsWarehouse = SelectedWarehouseNumber * totalHoursWarehouse * (SelectedWarehouseBezet/100)
+            var totalHoursWarehouse =  Math.round(SelectedWarehouseDays * SelectedWarehouseHours * (SelectedWarehouseBezet/100))
+            var totalCreditsWarehouse = Math.round(SelectedWarehouseNumber * totalHoursWarehouse * (SelectedWarehouseBezet/100))
 
             <!-- TODO: based on the selected edition, get the price per credit -->
-            var totalCostWarehouse = (SelectedWarehouseDays * SelectedWarehouseHours * SelectedWarehouseNumber * (SelectedWarehouseBezet/100)) * document.getElementById("inputfieldstandard").value
+            var totalCostWarehouse = Math.round((SelectedWarehouseDays * SelectedWarehouseHours * SelectedWarehouseNumber * (SelectedWarehouseBezet/100)) * document.getElementById("inputfieldstandard").value);
             emptyArray.push([SelectedWarehouseTitle, SelectedWarehouseType, SelectedWarehouseDays, SelectedWarehouseHours, SelectedWarehouseBezet, totalHoursWarehouse, totalCreditsWarehouse, totalCostWarehouse]);
 
           }
 
-          console.log(emptyArray);
+           var totalStorageCost = document.getElementById("on-demand-storage-amount").innerText;
+                        currentSelectedStorageType = "On Demand Storage";
+
+          
+           console.log(emptyArray);
 
               var props =   {
                             outputType: "save",
@@ -5083,16 +5087,6 @@
                                     left: 0 //negative or positive num, from the current position
                                 }
                             },
-                            stamp: {
-                                inAllPages: true,
-                                src: "https://raw.githubusercontent.com/edisonneza/jspdf-invoice-template/demo/images/qr_code.jpg",
-                                width: 20, //aspect ratio = width/height
-                                height: 20,
-                                margin: {
-                                    top: 0, //negative or positive num, from the current position
-                                    left: 0 //negative or positive num, from the current position
-                                }
-                            },
                             business: {
                                 name: "Inergy Analytics B.V.",
                                 address: "Nederland, Pelmolenlaan 2, 3447 GW Woerden",
@@ -5103,8 +5097,8 @@
                             },
                             contact: {
                                 label: null,
-                                name: null,
-                                address:null,
+                                name: document.getElementById("select-cloudplatform").value,
+                                address: document.getElementById("select-region").value,
                                 phone: null,
                                 email: null,
                                 otherInfo: null
@@ -5130,13 +5124,13 @@
                                     title: "Warehouse type"
                                 }, 
                                 { 
-                                    title: "Active days"
+                                    title: "Active days /month"
                                 }, 
                                 { title: "Active hours /day"},
-                                { title: "Occupation %"},
-                                { title: "Total hours"},
-                                { title: "Total credits"},
-                                { title: "Total ($)"}
+                                { title: "Occupation /%"},
+                                { title: "Total hours /month"},
+                                { title: "Total credits /month"},
+                                { title: "Total ($) /month"}
                                 ],
                                 table: Array.from(emptyArray, (item, index)=>([
                                     index + 1,
@@ -5149,30 +5143,33 @@
                                     item[6],
                                     item[7]
                                 ])),
+                                
                             additionalRows: [{
-                                    col1: 'Total:',
-                                    col2: document.getElementById("total-amount-selected-edition").innerText + " $",
+                                    col1: 'Total compute:',
+                                    col2: document.getElementById("standardeditionamount").innerText + " $",
                                     col3: 'ALL',
                                     style: {
                                         fontSize: 14 //optional, default 12
                                     }
-                                },
+                                       },
                                 {
-                                    col1: 'VAT:',
-                                    col2: '20',
-                                    col3: '%',
+                                    col1: 'Total storage (' + currentSelectedStorageType + ', ' + document.getElementById("input-storage-tb-per-month").value + " TB/s month" + '):',
+                                    col2: String(totalStorageCost),
+                                    col3: 'ALL',
                                     style: {
                                         fontSize: 10 //optional, default 12
                                     }
                                 },
                                 {
                                     col1: 'SubTotal:',
-                                    col2: '116,199.90',
+                                    col2: document.getElementById("total-amount-selected-edition").innerText + " $",
                                     col3: 'ALL',
                                     style: {
                                         fontSize: 10 //optional, default 12
                                     }
+                              
                                 }],
+
                                 
                                 invDescLabel: "Invoice Note",
                                 invDesc: "There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary.",
@@ -5186,7 +5183,6 @@
 
 var pdfCreated = jsPDFInvoiceTemplate.default(props);
 
-pdfCreated.jsPDFDocObject.save('Test.pdf'); 
              }</SCRIPT>
 
             <button onclick="generatePDF()" id="export-pdf" class="sf-calc-button10 button">
