@@ -1370,6 +1370,24 @@
                   "0 credits p/m";
                 document.getElementById("input-storage-tb-per-month").value =
                   null;
+
+                document.getElementById("warehouse-button-" + currentNumber).innerHTML = "Warehouse " + currentNumber;
+                document.getElementById("warehouse-title-" + currentNumber).innerHTML = "Warehouse " + currentNumber;
+
+  
+                  document
+                    .querySelectorAll("[id^=wrapper-warehouse-info-filler-]")
+                    .forEach((warehouseButtonWrapper) => {
+                      if (
+                        String(warehouseButtonWrapper.id).slice(-1) !==
+                        String(button.id).slice(-1)
+                      ) {
+                        $(`#${warehouseButtonWrapper.id}`).hide();
+                      } else {
+                        $(`#${warehouseButtonWrapper.id}`).show();
+                      }
+                    });
+
               }
             );
           });
@@ -1419,6 +1437,11 @@
               document.getElementById(
                 "warehouse-size-number-" + currentNumber
               ).innerHTML = 2;
+
+                document.getElementById("warehouse-button-" + currentNumber).innerHTML = "Warehouse " + currentNumber;
+                document.getElementById("warehouse-title-" + currentNumber).innerHTML = "Warehouse " + currentNumber;
+
+  
             });
           });
 
@@ -3311,7 +3334,7 @@
                         class="editable"
                         maxlength="15"
                       >
-                        Datawarehouse 1
+                        Warehouse 1
                       </h1>
                       <svg
                         id="edit-warehouse-1"
@@ -3520,7 +3543,7 @@
                         class="editable"
                         maxlength="15"
                       >
-                        Datawarehouse 2
+                        Warehouse 2
                       </h1>
                       <svg
                         id="edit-warehouse-2"
@@ -3729,7 +3752,7 @@
                         class="editable"
                         maxlength="15"
                       >
-                        Datawarehouse 3
+                        Warehouse 3
                       </h1>
                       <svg
                         id="edit-warehouse-3"
@@ -3937,7 +3960,7 @@
                         class="editable"
                         maxlength="15"
                       >
-                        Datawarehouse 4
+                        Warehouse 4
                       </h1>
                       <svg
                         id="edit-warehouse-4"
@@ -4145,7 +4168,7 @@
                         class="editable"
                         maxlength="15"
                       >
-                        Datawarehouse 5
+                       Warehouse 5
                       </h1>
                       <svg
                         id="edit-warehouse-5"
