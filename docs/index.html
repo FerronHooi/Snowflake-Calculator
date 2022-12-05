@@ -5031,17 +5031,52 @@
               const outputType = jsPDFInvoiceTemplate.OutputType;
               const jsPDF = jsPDFInvoiceTemplate.jsPDF();
 
+                    var allWarehousesButtons = document.querySelectorAll(
+          "[id^=wh-button-]"
+          );
 
+          var currentActiveWarehouseButtons = document.querySelectorAll('li:not([style*="display: none;"])[id^="wh-button-"]');
+
+          var nrOfWarehouses = [];
+          currentActiveWarehouseButtons.forEach(function (element) {
+            nrOfWarehouses.push(Number(element.id.slice(-1)));
+            console.log(element.id);
+          });
+
+          var emptyArray = [];
+
+
+                for (var i = 0; i < nrOfWarehouses.length; i++) {
+            var SelectedWarehouseTitle = document.getElementById("warehouse-title-" + nrOfWarehouses[i]).innerText.trim()
+            var SelectedWarehouseType = document.getElementById("warehouse-type-" + nrOfWarehouses[i]).innerText.trim() 
+
+            var SelectedWarehouseNumber = document.getElementById("warehouse-size-number-" + nrOfWarehouses[i]).innerText.trim()
+
+            var SelectedWarehouseDays = document.getElementById("number-of-days-select-" + nrOfWarehouses[i]).value.trim()
+            var SelectedWarehouseHours = document.getElementById("number-of-hours-day-select-" + nrOfWarehouses[i]).value.trim()
+
+            var SelectedWarehouseBezet = document.getElementById("percentage-bezetting-" + nrOfWarehouses[i]).value.trim()
+
+            var totalHoursWarehouse = SelectedWarehouseDays * SelectedWarehouseHours
+            var totalCreditsWarehouse = SelectedWarehouseNumber * totalHoursWarehouse * (SelectedWarehouseBezet/100)
+
+            <!-- TODO: based on the selected edition, get the price per credit -->
+            var totalCostWarehouse = (SelectedWarehouseDays * SelectedWarehouseHours * SelectedWarehouseNumber * (SelectedWarehouseBezet/100)) * document.getElementById("inputfieldstandard").value
+            emptyArray.push([SelectedWarehouseTitle, SelectedWarehouseType, SelectedWarehouseDays, SelectedWarehouseHours, SelectedWarehouseBezet, totalHoursWarehouse, totalCreditsWarehouse, totalCostWarehouse]);
+
+          }
+
+          console.log(emptyArray);
 
               var props =   {
                             outputType: "save",
                             returnJsPDFDocObject: true,
-                            fileName: "Invoice 2022",
-                            orientationLandscape: false,
+                            fileName: "Snowflake price estimation",
+                            orientationLandscape: true,
                             compress: true,
                             logo: {
-                                src: "https://raw.githubusercontent.com/edisonneza/jspdf-invoice-template/demo/images/logo.png",
-                                width: 53.33, //aspect ratio = width/height
+                                src: "images/logo.png",
+                                width: 100, //aspect ratio = width/height
                                 height: 26.66,
                                 margin: {
                                     top: 0, //negative or positive num, from the current position
@@ -5059,60 +5094,60 @@
                                 }
                             },
                             business: {
-                                name: "Business Name",
-                                address: "Albania, Tirane ish-Dogana, Durres 2001",
-                                phone: "(+355) 069 11 11 111",
-                                email: "email@example.com",
-                                email_1: "info@example.al",
-                                website: "www.example.al",
+                                name: "Inergy Analytics B.V.",
+                                address: "Nederland, Pelmolenlaan 2, 3447 GW Woerden",
+                                phone: "0348 457 666",
+                                email: "info@inergy.nl",
+                                email_1: null,
+                                website: "www.inergy.nl",
                             },
                             contact: {
-                                label: "Invoice issued for:",
-                                name: "Client Name",
-                                address: "Albania, Tirane, Astir",
-                                phone: "(+355) 069 22 22 222",
-                                email: "client@website.al",
-                                otherInfo: "www.website.al",
+                                label: null,
+                                name: null,
+                                address:null,
+                                phone: null,
+                                email: null,
+                                otherInfo: null
                             },
                             invoice: {
-                                label: "Invoice #: ",
-                                num: 19,
-                                invDate: "Payment Date: 01/01/2021 18:12",
-                                invGenDate: "Invoice Date: 02/02/2021 10:17",
+                                label: "Calculatie #: ",
+                                num: null,
+                                invDate: null,
+                                invGenDate: "Calculation Date: " + Date().toLocaleString(),
                                 headerBorder: true,
                                 tableBodyBorder: true,
                                 header: [
-                                {
+                                  {
                                     title: "#", 
                                     style: { 
                                     width: 10 
                                     } 
                                 }, 
-                                { 
-                                    title: "Title",
-                                    style: {
-                                    width: 30
-                                    } 
+                                  { 
+                                    title: "Warehouse name"
                                 }, 
                                 { 
-                                    title: "Description",
-                                    style: {
-                                    width: 80
-                                    } 
+                                    title: "Warehouse type"
                                 }, 
-                                { title: "Price"},
-                                { title: "Quantity"},
-                                { title: "Unit"},
-                                { title: "Total"}
+                                { 
+                                    title: "Active days"
+                                }, 
+                                { title: "Active hours /day"},
+                                { title: "Occupation %"},
+                                { title: "Total hours"},
+                                { title: "Total credits"},
+                                { title: "Total ($)"}
                                 ],
-                                table: Array.from(Array(15), (item, index)=>([
+                                table: Array.from(emptyArray, (item, index)=>([
                                     index + 1,
-                                    "There are many variations ",
-                                    "Lorem Ipsum is simply dummy text dummy text ",
-                                    200.5,
-                                    4.5,
-                                    "m2",
-                                    400.5
+                                    item[0],
+                                    item[1],
+                                    item[2],
+                                    item[3],
+                                    item[4],
+                                    item[5],
+                                    item[6],
+                                    item[7]
                                 ])),
                             additionalRows: [{
                                     col1: 'Total:',
@@ -5145,13 +5180,11 @@
                             footer: {
                                 text: "The invoice is created on a computer and is valid without the signature and stamp.",
                             },
-                            pageEnable: true,
+                            pageEnable: false,
                             pageLabel: "Page ",
                         };
 
 var pdfCreated = jsPDFInvoiceTemplate.default(props);
-
-pdfCreated.jsPDFDocObject.text("Test text", 10, 50);
 
 pdfCreated.jsPDFDocObject.save('Test.pdf'); 
              }</SCRIPT>
