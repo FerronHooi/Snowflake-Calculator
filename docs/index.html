@@ -934,12 +934,9 @@
                 document.getElementById('warehouse-button-' + selectorNumber).innerHTML = document.getElementById('heading-scenario-warehouse-' + currentScenarioNumber + "-" + selectorNumber).innerHTML;
 
                 document.getElementById('warehouse-title-' + selectorNumber).innerHTML = document.getElementById('heading-scenario-warehouse-' + currentScenarioNumber + "-" + selectorNumber).innerHTML;
-
-
-                console.log(
-                  document.getElementById("number-of-hours-day-select-4").value
-                );
-
+                
+                console.log("This is the current scenario number: " + selectorNumber);
+                $("#wh-button-" + selectorNumber).css("display", "block");
 
                 document.getElementById(
                   "number-of-hours-day-select-" + selectorNumber
@@ -970,8 +967,6 @@
                 );
 
                 var rightStorage = storage[0].id;
-
-                console.log(rightStorage);
 
                 document.getElementById("input-storage-tb-per-month").value =
                   document.getElementById(rightStorage).value;
@@ -1140,6 +1135,8 @@
                     .innerHTML.trim()
                 );
               }
+
+              
 
               var numberOfST = document.querySelectorAll(
                 "[id^=wrapper-storage-scenario-example-" + i + "]"
