@@ -125,6 +125,9 @@
             "#wrapper-calculation-examples-container, .line_divider, #wrapper-calculation-examples-div, #line-divider-voorkeur-schatting, #wrapper-schatting-opslag-div, #schatting-per-editie-div, #storage-costs-div, #totale-kosten-div, #contact-button-div"
           ).hide();
 
+              $("#warehouse-button-1").css("background-color", "rgb(54, 0, 0)");
+             $("#warehouse-button-1").css("color", "white");
+
           var allWarehouseButtons = document.querySelectorAll(
             "[id^=wh-button-]"
           );
@@ -649,7 +652,6 @@
           // on document load hide the two divs (on-demand storage and capacity)
           $("#snowflake-calculator-container-storage-cost").hide();
 
-          // TODO: Disabled
           $("#add-warehouse-button").on("click", function (e) {
             var allWarehousesButtons = document.querySelectorAll(
           "[id^=wh-button-]"
@@ -1324,7 +1326,7 @@
                 .forEach((b) => {
                   if (b.id !== button.id) {
                     $(`#${b.id}`).css({
-                      "background-color": "white",
+                      "background-color": "#edf0f4",
                       color: "black",
                     });
                   }
@@ -1411,10 +1413,13 @@
 
           //TODO: Make this button red 'Selected' on document load
 
+                
+
           allWarehouseButtons.forEach((button) => {
             console.log(button.id);
             if (button.id == "wh-button-1") {
             $("#" + button.id).css("display", "block");
+
             } else {
               $("#" + button.id).css("display", "none");
             }
@@ -1450,8 +1455,14 @@
                         warehouseButtonWrapper.id == "wrapper-warehouse-info-filler-1"
                       ) {
                         $(`#${warehouseButtonWrapper.id}`).show();
+                        $("#warehouse-button-1").css("background-color", "rgb(54, 0, 0)");
+                        $("#warehouse-button-1").css("color", "white");
+
                       } else {
+                        var currentNumber = String(warehouseButtonWrapper.id).slice(-1);
                         $(`#${warehouseButtonWrapper.id}`).hide();
+                        $("#warehouse-button-" + currentNumber).css("background-color", "#edf0f4");
+                        $("#warehouse-button-" + currentNumber).css("color", "black");
                       }
                     });
 
