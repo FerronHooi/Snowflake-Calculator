@@ -97,30 +97,6 @@
             });
           });
                                                
-
-          //TODO: Finish, should create a new div and select that div
-
-          $("#btn").click(function () {
-            var allWarehouseButtons = document.querySelectorAll(
-              "[id^=warehouse-button-]"
-            );
-
-            var buttonsCount = [];
-            allWarehouseButtons.forEach((button) => {
-              var buttonId = button.id.split("-")[2];
-              buttonsCount.push(Number(button.id.slice(-1)));
-            });
-
-            var maxNumber = Object.values(buttonsCount);
-            var test = Math.max(...maxNumber);
-
-            let p = document.getElementById("warehouse-button-5");
-            var clone = p.cloneNode(true);
-            clone.id = "warehouse-button-" + (test + 1);
-            clone.innerText = "Warehouse " + (test + 1);
-            document.getElementById("button-list").appendChild(clone);
-          });
-
           var warehouseSizes = Object.keys(warehouse);
 
           // Huidige geselecteerde div's
@@ -146,8 +122,20 @@
           $("#select-region").hide();
 
           $(
-            "#wrapper-calculation-examples-container, .line_divider, #wrapper-calculation-examples-div, #line-divider-voorkeur-schatting, #wrapper-schatting-opslag-div, #schatting-per-editie-div, #storage-costs-div, #totale-kosten-div, #contact-button-div "
+            "#wrapper-calculation-examples-container, .line_divider, #wrapper-calculation-examples-div, #line-divider-voorkeur-schatting, #wrapper-schatting-opslag-div, #schatting-per-editie-div, #storage-costs-div, #totale-kosten-div, #contact-button-div"
           ).hide();
+
+          var allWarehouseButtons = document.querySelectorAll(
+            "[id^=wh-button-]"
+          );
+
+          allWarehouseButtons.forEach((button) => {
+            console.log(button.id);
+            if (button.id != "wh-button-1") {
+            $("#" + button.id).hide();
+            }
+          });
+
 
           // on document load hide scenario 2 of the calculator examples
           $("#wrapper-scenario-2").hide();
@@ -658,17 +646,26 @@
           $("#snowflake-calculator-container-storage-cost").hide();
 
           // TODO: Disabled
-          $("#add-warehouse-button-1").on("click", function (e) {
-            var warehouseButton = document.querySelector(
-              "#warehouse-button-1-1"
-            );
-            var clone = warehouseButton.cloneNode(true);
-            clone.id = "warehouse-button-1-2";
-            warehouseButton.after(clone);
-            document.getElementById("warehouse-button-1-2").innerHTML =
-              "Warehouse 2";
-            $("#warehouse-button-1-2").css("background-color", "#edf0f4");
-          });
+          //$("#add-warehouse-button").on("click", function (e) {
+          //  var allActiveWarehouses = document.querySelectorAll(
+           // "[id^=warehouse-button-]"
+          //);
+
+          //var nrOfWarehouses = []
+          //for (var i = 0; i < allActiveWarehouses.length; i++) {
+          //  nrOfWarehouses.push(Number(allActiveWarehouses[i].id.split("-")[2]));
+          //}
+
+          //var newWarehouseNumber = Math.max(...nrOfWarehouses) + 1;
+
+          //const node = document.getElementById("warehouse-button-1");
+          //const clone = node.cloneNode(true);
+          //document.getElementById("wh-button-list").appendChild(clone);
+
+          //document.getElementById("warehouse-button-" ).innerHTML =
+          //    "Warehouse " + newWarehouseNumber;
+          //  $("#warehouse-button-1-2").css("background-color", "#edf0f4");
+          //});
 
           // Deze kun je uitcommentarieren als je alle divs wilt zien (en dus niet elke keer eerst een platform, regio en valuta wil selecteren voor het testen)
 
@@ -1465,7 +1462,6 @@
             });
           });
 
-          // #TODO: 1 Als je de cloudplatform veranderd naar een andere, veranderd de regio niet mee
           // Hier wordt de data (regios) uit de json file gehaald en worden ze getoond op basis van de selectie van het cloudplatform
           $("#select-cloudplatform").on("change", function (e) {
             $("#select-region").show();
@@ -3213,7 +3209,7 @@
                     class="sf-calc-inside-wrapper-select-warehouse-1"
                   >
                     <ul class="sf-calc-ul1 list">
-                      <li class="sf-calc-li2 list-item">
+                      <li class="sf-calc-li2 list-item" id="wh-button-1">
                         <button
                           id="warehouse-button-1"
                           class="button sf-calc-button05"
@@ -3221,7 +3217,7 @@
                           Warehouse 1
                         </button>
                       </li>
-                      <li class="sf-calc-li3 list-item">
+                      <li class="sf-calc-li3 list-item" id="wh-button-2">
                         <button
                           id="warehouse-button-2"
                           class="button sf-calc-button06"
@@ -3229,7 +3225,7 @@
                           Warehouse 2
                         </button>
                       </li>
-                      <li class="sf-calc-li4 list-item">
+                      <li class="sf-calc-li4 list-item" id="wh-button-3">
                         <button
                           id="warehouse-button-3"
                           class="button sf-calc-button07"
@@ -3237,7 +3233,7 @@
                           Warehouse 3
                         </button>
                       </li>
-                      <li class="sf-calc-li5 list-item">
+                      <li class="sf-calc-li5 list-item" id="wh-button-4">
                         <button
                           id="warehouse-button-4"
                           class="button sf-calc-button08"
@@ -3245,13 +3241,14 @@
                           Warehouse 4
                         </button>
                       </li>
-                      <li class="sf-calc-li6 list-item">
+                      <li class="sf-calc-li6 list-item" id="wh-button-5">
                         <button
                           id="warehouse-button-5"
                           class="button sf-calc-button09"
                         >
                           Warehouse 5
                         </button>
+                                               
                       </li>
                     </ul>
                   </div>
