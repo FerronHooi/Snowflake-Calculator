@@ -124,9 +124,9 @@
           // on document load hide select region as first cloud platform has to be selected
           $("#select-region").hide();
 
-          //$(
-          //  "#wrapper-calculation-examples-container, .line_divider, #wrapper-calculation-examples-div, #line-divider-voorkeur-schatting, #wrapper-schatting-opslag-div, #schatting-per-editie-div, #storage-costs-div, #totale-kosten-div, #contact-button-div"
-          //).hide();
+          $(
+           "#wrapper-calculation-examples-container, .line_divider, #wrapper-calculation-examples-div, #line-divider-voorkeur-schatting, #wrapper-schatting-opslag-div, #schatting-per-editie-div, #storage-costs-div, #totale-kosten-div, #contact-button-div"
+          ).hide();
 
               $("#warehouse-button-1").css("background-color", "rgb(54, 0, 0)");
              $("#warehouse-button-1").css("color", "white");
@@ -4153,8 +4153,8 @@
                                                 class="sf-calc-input11 input"
                         id="percentage-bezetting-4"
                         max="100"
-                        min="1"
-                        step="5"
+                        min="0"
+                        step="1"
                              min="0"
                           max="100"
                           value="100"
@@ -4363,8 +4363,8 @@
             
                         class="sf-calc-input14 input"
                         max="100"
-                        min="1"
-                        step="5"
+                        min="0"
+                        step="1"
                              min="0"
                           max="100"
                           value="100"
@@ -5153,10 +5153,10 @@
                             },
                             contact: {
                                 label: null,
-                                name: selectedCloudplatform,
-                                address: selectedRegion,
-                                phone: selectedEdition,
-                                email: null,
+                                name: "Snowflake costs estimation",
+                                address: selectedCloudplatform,
+                                phone: selectedRegion,
+                                email: selectedEdition,
                                 otherInfo: null
                             },
                             invoice: {
