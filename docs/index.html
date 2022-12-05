@@ -1500,7 +1500,9 @@
                   value: k,
                   text: k,
                 })
-              );
+                          );
+              makeCalculations();
+
             });
 
             // Als een regio wordt geselecteerd dan wordt de valuta dropdown getoond
@@ -1511,6 +1513,7 @@
               $(
                 ".line_divider, #wrapper-calculation-examples-div, #line-divider-voorkeur-schatting, #wrapper-schatting-opslag-div, #schatting-per-editie-div"
               ).show();
+              makeCalculations();
 
               var allRegionText = document.querySelectorAll(
                 "[id^=regio-text-scenario-]"
