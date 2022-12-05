@@ -129,10 +129,14 @@
             "[id^=wh-button-]"
           );
 
+          //TODO: Make this button red 'Selected' on document load
+
           allWarehouseButtons.forEach((button) => {
             console.log(button.id);
-            if (button.id != "wh-button-1") {
-            $("#" + button.id).hide();
+            if (button.id == "wh-button-1") {
+            $("#" + button.id).css("display", "block");
+            } else {
+              $("#" + button.id).css("display", "none");
             }
           });
 
@@ -646,26 +650,55 @@
           $("#snowflake-calculator-container-storage-cost").hide();
 
           // TODO: Disabled
-          //$("#add-warehouse-button").on("click", function (e) {
-          //  var allActiveWarehouses = document.querySelectorAll(
-           // "[id^=warehouse-button-]"
-          //);
+          $("#add-warehouse-button").on("click", function (e) {
+            var allWarehousesButtons = document.querySelectorAll(
+          "[id^=wh-button-]"
+          );
+
+          var currentActiveWarehouseButtons = document.querySelectorAll('li:not([style*="display: none;"])[id^="wh-button-"]');
+
+          var nrOfWarehouses = [];
+          currentActiveWarehouseButtons.forEach(function (element) {
+            nrOfWarehouses.push(Number(element.id.slice(-1)));
+            console.log(element.id);
+          });
+
+          console.log(nrOfWarehouses);
+
+          var maxWarehouse = Math.max(...nrOfWarehouses);
+
+          if (maxWarehouse == 5) {
+            alert("You can only add 5 warehouses");
+          } else {
+            var nextWarehouse = maxWarehouse + 1;
+            console.log(nextWarehouse);
+            document.getElementById("wh-button-" + nextWarehouse).style.display =
+              "block";
+          }
+          //$("#wh-button-" + (maxWarehouse + 1)).css("display", "block");
+
+          //allWarehousesButtons.forEach(function (button) {
+            //if ($("#" + button.id).css('display') == 'none') {
+           //   $("#" + button.id).show();
+          //  }
+           // console.log(button);
+         // });
 
           //var nrOfWarehouses = []
           //for (var i = 0; i < allActiveWarehouses.length; i++) {
-          //  nrOfWarehouses.push(Number(allActiveWarehouses[i].id.split("-")[2]));
+          // nrOfWarehouses.push(Number(allActiveWarehouses[i].id.split("-")[2]));
           //}
 
           //var newWarehouseNumber = Math.max(...nrOfWarehouses) + 1;
 
           //const node = document.getElementById("warehouse-button-1");
           //const clone = node.cloneNode(true);
-          //document.getElementById("wh-button-list").appendChild(clone);
+         // document.getElementById("wh-button-list").appendChild(clone);
 
           //document.getElementById("warehouse-button-" ).innerHTML =
-          //    "Warehouse " + newWarehouseNumber;
-          //  $("#warehouse-button-1-2").css("background-color", "#edf0f4");
-          //});
+           //  "Warehouse " + newWarehouseNumber;
+           // $("#warehouse-button-1-2").css("background-color", "#edf0f4");
+          });
 
           // Deze kun je uitcommentarieren als je alle divs wilt zien (en dus niet elke keer eerst een platform, regio en valuta wil selecteren voor het testen)
 
