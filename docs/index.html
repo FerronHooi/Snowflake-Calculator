@@ -5043,6 +5043,61 @@
             console.log(element.id);
           });
 
+          var selectedCloudplatform = document.getElementById("select-cloudplatform").value
+          var selectedRegion = document.getElementById("select-region").value
+
+          var selectedEditionIds = ["standard-edition-container", "enterprise-edition-container", "business-critical-edition-container"]
+          var selectedEdition = [];
+          var selectedEditionForCalc = [];
+          var selectedEditionForCalcTotal = [];
+
+          selectedEditionIds.forEach(function (element) {
+              if (document.getElementById(element).style.backgroundColor == "rgb(245, 245, 245)") {
+                switch (element) {
+                  case "standard-edition-container":
+                    selectedEdition = "Standard Edition";
+                     selectedEditionForCalc = "inputfieldstandard";
+                     selectedEditionForCalcTotal = "standardeditionamount";
+                    break;
+                  case "enterprise-edition-container":
+                    selectedEdition = "Enterprise Edition";
+                    selectedEditionForCalc = "inputfieldenterprise";
+                    selectedEditionForCalcTotal = "enterpriseeditionamount";
+                    break;
+                  case "business-critical-edition-container":
+                    selectedEdition = "Business Critical Edition";
+                    selectedEditionForCalc = "inputfieldbusinesscritical";
+                    selectedEditionForCalcTotal = "businesscriticaleditionamount";
+                    break;
+                }
+              }
+            }
+          );
+
+
+          var selectedStorageIds = ["on-demand-storage-div", "capacity-storage-div"]
+          var selectedStorage = [];
+          var selectedStorageForCalc = [];
+
+          console.log(selectedStorageIds)
+          selectedStorageIds.forEach(function (element) {
+              if (document.getElementById(element).style.backgroundColor == "rgb(245, 245, 245)") {
+                switch (element) {
+                  case "on-demand-storage-div":
+                    selectedStorage = "On-demand";
+                    selectedStorageForCalc = "on-demand-storage-amount"
+                    break;
+                  case "capacity-storage-div":
+                    selectedStorage = "Capacity storage";
+                    selectedStorageForCalc = "capacity-storage-amount"
+                    break;
+                }
+              }
+            }
+          );
+          
+
+
           var emptyArray = [];
 
 
@@ -5060,14 +5115,15 @@
             var totalHoursWarehouse =  Math.round(SelectedWarehouseDays * SelectedWarehouseHours * (SelectedWarehouseBezet/100))
             var totalCreditsWarehouse = Math.round(SelectedWarehouseNumber * totalHoursWarehouse * (SelectedWarehouseBezet/100))
 
-            <!-- TODO: based on the selected edition, get the price per credit -->
-            var totalCostWarehouse = Math.round((SelectedWarehouseDays * SelectedWarehouseHours * SelectedWarehouseNumber * (SelectedWarehouseBezet/100)) * document.getElementById("inputfieldstandard").value);
-            emptyArray.push([SelectedWarehouseTitle, SelectedWarehouseType, SelectedWarehouseDays, SelectedWarehouseHours, SelectedWarehouseBezet, totalHoursWarehouse, totalCreditsWarehouse, totalCostWarehouse]);
+            var warehouseDescription = "placeholder"
+
+            var totalCostWarehouse = Math.round((SelectedWarehouseDays * SelectedWarehouseHours * SelectedWarehouseNumber * (SelectedWarehouseBezet/100)) * document.getElementById(selectedEditionForCalc).value);
+            emptyArray.push([SelectedWarehouseTitle, warehouseDescription, SelectedWarehouseType, SelectedWarehouseDays, SelectedWarehouseHours, SelectedWarehouseBezet, totalHoursWarehouse, totalCreditsWarehouse, totalCostWarehouse]);
 
           }
 
-           var totalStorageCost = document.getElementById("on-demand-storage-amount").innerText;
-                        currentSelectedStorageType = "On Demand Storage";
+           var totalStorageCost = document.getElementById(selectedStorageForCalc).innerText;
+           var totalCompute =  document.getElementById(selectedEditionForCalcTotal).innerText
 
           
            console.log(emptyArray);
@@ -5097,9 +5153,9 @@
                             },
                             contact: {
                                 label: null,
-                                name: document.getElementById("select-cloudplatform").value,
-                                address: document.getElementById("select-region").value,
-                                phone: null,
+                                name: selectedCloudplatform,
+                                address: selectedRegion,
+                                phone: selectedEdition,
                                 email: null,
                                 otherInfo: null
                             },
@@ -5120,8 +5176,14 @@
                                   { 
                                     title: "Warehouse name"
                                 }, 
+                               { 
+                                    title: "Description"
+                                }, 
                                 { 
-                                    title: "Warehouse type"
+                                    title: "Size",
+                                     style: { 
+                                    width: 17 
+                                    } 
                                 }, 
                                 { 
                                     title: "Active days /month"
@@ -5141,20 +5203,21 @@
                                     item[4],
                                     item[5],
                                     item[6],
-                                    item[7]
+                                    item[7],
+                                    item[8]
                                 ])),
                                 
                             additionalRows: [{
                                     col1: 'Total compute:',
-                                    col2: document.getElementById("standardeditionamount").innerText + " $",
+                                    col2: totalCompute + " $",
                                     col3: 'ALL',
                                     style: {
                                         fontSize: 14 //optional, default 12
                                     }
                                        },
                                 {
-                                    col1: 'Total storage (' + currentSelectedStorageType + ', ' + document.getElementById("input-storage-tb-per-month").value + " TB/s month" + '):',
-                                    col2: String(totalStorageCost),
+                                    col1: 'Total storage (' + selectedStorage + ', ' + document.getElementById("input-storage-tb-per-month").value + " TB/s month" + '):',
+                                    col2: String(totalStorageCost)  + " $",
                                     col3: 'ALL',
                                     style: {
                                         fontSize: 10 //optional, default 12
@@ -5162,7 +5225,7 @@
                                 },
                                 {
                                     col1: 'SubTotal:',
-                                    col2: document.getElementById("total-amount-selected-edition").innerText + " $",
+                                    col2: String(Number(totalCompute) + Number(totalStorageCost)) + " $",
                                     col3: 'ALL',
                                     style: {
                                         fontSize: 10 //optional, default 12
