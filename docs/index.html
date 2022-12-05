@@ -668,7 +668,7 @@
           var maxWarehouse = Math.max(...nrOfWarehouses);
 
           if (maxWarehouse == 5) {
-            alert("You can only add 5 warehouses");
+            alert("Maximaal 5 warehouses toegestaan");
           } else {
             var nextWarehouse = maxWarehouse + 1;
             console.log(nextWarehouse);
@@ -1405,6 +1405,25 @@
                 document.getElementById("warehouse-title-" + currentNumber).innerHTML = "Warehouse " + currentNumber;
                 makeCalculations();
 
+                  var allWarehouseButtons = document.querySelectorAll(
+            "[id^=wh-button-]"
+          );
+
+          //TODO: Make this button red 'Selected' on document load
+
+          allWarehouseButtons.forEach((button) => {
+            console.log(button.id);
+            if (button.id == "wh-button-1") {
+            $("#" + button.id).css("display", "block");
+            } else {
+              $("#" + button.id).css("display", "none");
+            }
+          });
+
+         
+
+
+           
                  $(
                 "#standard-edition-container, #enterprise-edition-container, #business-critical-edition-container, #on-demand-storage-div, #capacity-storage-div"
               ).css("border", "1px solid rgba(120, 120, 120, 0.4)");
@@ -1423,16 +1442,16 @@
               $("#contact-button-div").hide();
 
   
-                  document
+                   document
                     .querySelectorAll("[id^=wrapper-warehouse-info-filler-]")
                     .forEach((warehouseButtonWrapper) => {
+                      console.log(warehouseButtonWrapper.id);
                       if (
-                        String(warehouseButtonWrapper.id).slice(-1) !==
-                        String(button.id).slice(-1)
+                        warehouseButtonWrapper.id == "wrapper-warehouse-info-filler-1"
                       ) {
-                        $(`#${warehouseButtonWrapper.id}`).hide();
-                      } else {
                         $(`#${warehouseButtonWrapper.id}`).show();
+                      } else {
+                        $(`#${warehouseButtonWrapper.id}`).hide();
                       }
                     });
 
