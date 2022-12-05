@@ -5042,6 +5042,31 @@
                  var totalAmount = pdf.text(document.getElementById("total-amount-selected-edition").innerText, 20, 70);
                  var selectedEdition = pdf.text(document.getElementById("selected-edition").innerText, 20, 80);
                  <!-- var currentSelectedStorageType = pdf.text(document.getElementById("current-selected-storage-type").innerText, 20, 90); -->
+          
+                      var allWarehousesButtons = document.querySelectorAll(
+          "[id^=wh-button-]"
+          );
+
+          var currentActiveWarehouseButtons = document.querySelectorAll('li:not([style*="display: none;"])[id^="wh-button-"]');
+
+          var nrOfWarehouses = [];
+          currentActiveWarehouseButtons.forEach(function (element) {
+            nrOfWarehouses.push(Number(element.id.slice(-1)));
+            console.log(element.id);
+          });
+
+                 
+          for (var i = 0; i < nrOfWarehouses.length; i++) {
+            console.log(nrOfWarehouses[i]);
+            pdf.text(document.getElementById("warehouse-title-" + nrOfWarehouses[i]).innerText, 20, 90 + (i * 10));
+            pdf.text(document.getElementById("warehouse-type-" + nrOfWarehouses[i]).innerText, 20, 100 + (i * 10));
+            pdf.text(document.getElementById("warehouse-size-number-" + nrOfWarehouses[i]).innerText, 20, 110 + (i * 10));
+            pdf.text(document.getElementById("number-of-days-select-" + nrOfWarehouses[i]).value, 20, 120 + (i * 10));
+            pdf.text(document.getElementById("number-of-hours-day-select-" + nrOfWarehouses[i]).value, 20, 130 + (i * 10));
+            pdf.text(document.getElementById("percentage-bezetting-" + nrOfWarehouses[i]).value, 20, 140 + (i * 10));
+
+          }
+
                  pdf.addPage();
                  pdf.text(20, 20, 'The second page');
                  pdf.save('jsPDF_2Pages.pdf');
