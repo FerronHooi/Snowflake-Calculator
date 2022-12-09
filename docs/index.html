@@ -1617,6 +1617,53 @@
               events.forEach(function (event) {
               elem.addEventListener(event, function (calculations) {
                makeCalculations();
+
+               var totaleKostenDiv = document.getElementById('totale-kosten-div');
+
+               if (totaleKostenDiv.offsetWidth > 0 || totaleKostenDiv.offsetHeight > 0) {
+
+                // Deze hieronder worden gebruikt om "X uren p/m", "X credits p/m" en "X TB p/m" te weergeven.
+  document.getElementById("total-hours-edition").innerHTML =
+    Math.round(calculateTotalHours * 10) / 10 + " uren p/m";
+  document.getElementById("total-credits-edition").innerHTML =
+    creditsTotalString;
+  document.getElementById("total-storage-edition").innerHTML =
+    document.getElementById("input-storage-tb-per-month").value +
+    " tb opslag p/m";
+
+  // Hieronder wordt een variabele met daarin de geselecteerde editie gemaakt. Deze wordt vervolgens naar UPPERCASE gedaan omdat dit mooier weergeven is onder het totale bedrag
+
+  var selectedEdition = document.getElementById("select-edition").value;
+  var selectedEditionUpper = selectedEdition.toUpperCase();
+
+  // Hieronder worden de berekeningen gedaan voor de totale kosten van de verschillende editie's (de berekening is totale kosten geselecteerde editie + geselecteerde storage type)
+  var totalCostStorCreditsStandard =
+    Number(document.getElementById("standardeditionamount").innerHTML) +
+    Number(document.getElementById(currentSelectedStorageType).innerHTML);
+  var totalCostStorCreditsEnterprise =
+    Number(document.getElementById("enterpriseeditionamount").innerHTML) +
+    Number(document.getElementById(currentSelectedStorageType).innerHTML);
+  var totalCostStorCreditsBusinesscritical =
+    Number(document.getElementById("businesscriticaleditionamount").innerHTML) +
+    Number(document.getElementById(currentSelectedStorageType).innerHTML);
+
+  // Hierdoor worden de totaal bedrag weergeven in de div met id "total-amount-selected-edition"
+  if (selectedEdition == "Standard") {
+    document.getElementById("total-amount-selected-edition").innerHTML = (
+      Math.round(Number(totalCostStorCreditsStandard) * 100) / 100
+    ).toFixed(2);
+  } else if (selectedEdition == "Enterprise") {
+    document.getElementById("total-amount-selected-edition").innerHTML = (
+      Math.round(Number(totalCostStorCreditsEnterprise) * 100) / 100
+    ).toFixed(2);
+  } else if (selectedEdition == "Business Critical") {
+    document.getElementById("total-amount-selected-edition").innerHTML = (
+      Math.round(Number(totalCostStorCreditsBusinesscritical) * 100) / 100
+    ).toFixed(2);
+  } else {
+  }
+
+}
               });
             });
           });
