@@ -2034,7 +2034,7 @@
                       <div
                         
                       >
-                          <p class="toelichting">
+                          <p class="toelichting" id="toelichting-text-wh-1-1">
  <span class="editable" contenteditable="true">Draait </span><span id="days-per-week-text-wh-1-1" display="inline-block" class="editable" contenteditable="false">7</span> <span class="editable" contenteditable="true">dagen per week een batch-load van circa </span> <span
                             id="usage-hours-wh-1-1"
                             class="editable"
@@ -2185,7 +2185,7 @@
                         class="sf-calc-wrapper-div-scenario-warehouse-example-toelichting-2"
                       >
                         <div>
-                                                    <p class="toelichting">
+                                                    <p class="toelichting" id="toelichting-text-wh-1-2">
  <span class="editable" contenteditable="true">Zorgt ervoor dat acht gebruikers </span><span id="days-per-week-text-wh-1-2" display="inline-block" class="editable" contenteditable="false">7</span> <span class="editable" contenteditable="true">dagen per week</span> <span
                             id="usage-hours-wh-1-2"
                             class="editable"
@@ -2336,7 +2336,7 @@
                       >
                         <div>
 
-                              <p class="toelichting">
+                              <p class="toelichting" id="toelichting-text-st-1-1">
  <span class="editable" contenteditable="true">Slaat gemiddeld </span><span id="tb-storage-st-1-1" display="inline-block" class="editable" contenteditable="false">4</span> <span class="editable" contenteditable="false"> TB</span><span class="editable" contenteditable="true"> aan gecomprimeerde data op, hierbij maakt hij gebruik van het opslagtype: </span>  <span
                             id="storage-type-st-1-1"
                             class="editable"
@@ -2442,7 +2442,7 @@
                         id="wrapper-div-scenario-warehouse-example-toelichting-2-1"
                         class="sf-calc-wrapper-div-scenario-warehouse-example-toelichting-11"
                       >
-                           <p class="toelichting">
+                           <p class="toelichting" id="toelichting-text-wh-2-1">
  <span class="editable" contenteditable="true">Draait </span><span id="days-per-week-text-wh-2-1" display="inline-block" class="editable" contenteditable="false">7</span> <span class="editable" contenteditable="true">dagen per week een batch-load van circa </span> <span
                             id="usage-hours-wh-2-1"
                             class="editable"
@@ -2581,7 +2581,7 @@
                         id="wrapper-div-scenario-warehouse-example-toelichting-2.1"
                         class="sf-calc-wrapper-div-scenario-warehouse-example-toelichting-21"
                       >
-                           <p class="toelichting">
+                           <p class="toelichting" id="toelichting-text-wh-2-2">
  <span class="editable" contenteditable="true">Draait </span><span id="days-per-week-text-wh-2-2" display="inline-block" class="editable" contenteditable="false">7</span> <span class="editable" contenteditable="true">dagen per week een batch-load van circa </span> <span
                             id="usage-hours-wh-2-2"
                             class="editable"
@@ -2730,7 +2730,7 @@
                         id="wrapper-div-scenario-warehouse-example-toelichting-2.3"
                         class="sf-calc-wrapper-div-scenario-warehouse-example-toelichting-211"
                       >
-                          <p class="toelichting">
+                          <p class="toelichting" id="toelichting-text-wh-2-3">
  <span class="editable" contenteditable="true">Draait </span><span id="days-per-week-text-wh-2-3" display="inline-block" class="editable" contenteditable="false">7</span> <span class="editable" contenteditable="true">dagen per week een batch-load van circa </span> <span
                             id="usage-hours-wh-2-3"
                             class="editable"
@@ -2878,7 +2878,7 @@
                         id="wrapper-div-scenario-warehouse-example-toelichting-2.4"
                         class="sf-calc-wrapper-div-scenario-warehouse-example-toelichting1"
                       >
-                           <p class="toelichting">
+                           <p class="toelichting" id="toelichting-text-wh-2-4">
  <span class="editable" contenteditable="true">Draait </span><span id="days-per-week-text-wh-2-4" display="inline-block" class="editable" contenteditable="false">7</span> <span class="editable" contenteditable="true">dagen per week een batch-load van circa </span> <span
                             id="usage-hours-wh-2-4"
                             class="editable"
@@ -3026,7 +3026,7 @@
                         id="wrapper-div-scenario-warehouse-example-toelichting-2.5"
                         class="sf-calc-wrapper-div-scenario-warehouse-example-toelichting2"
                       >
-                           <p class="toelichting">
+                           <p class="toelichting" id="toelichting-text-wh-2-5">
  <span class="editable" contenteditable="true">Draait </span><span id="days-per-week-text-wh-2-5" display="inline-block" class="editable" contenteditable="false">7</span> <span class="editable" contenteditable="true">dagen per week een batch-load van circa </span> <span
                             id="usage-hours-wh-2-5"
                             class="editable"
@@ -5077,7 +5077,9 @@
              function generatePDF() {
               const outputType = jsPDFInvoiceTemplate.OutputType;
               const jsPDF = jsPDFInvoiceTemplate.jsPDF();
-              
+
+        
+
                     var allWarehousesButtons = document.querySelectorAll(
           "[id^=wh-button-]"
           );
@@ -5085,9 +5087,12 @@
           var currentActiveWarehouseButtons = document.querySelectorAll('li:not([style*="display: none;"])[id^="wh-button-"]');
 
           var nrOfWarehouses = [];
+
           currentActiveWarehouseButtons.forEach(function (element) {
-            nrOfWarehouses.push(Number(element.id.slice(-1)));
-            console.log(element.id);
+          nr = Number(element.id.slice(-1));
+          console.log(nr);
+          nrOfWarehouses.push(nr);
+          
           });
 
           var selectedCloudplatform = document.getElementById("select-cloudplatform").value
@@ -5126,7 +5131,6 @@
           var selectedStorage = [];
           var selectedStorageForCalc = [];
 
-          console.log(selectedStorageIds)
           selectedStorageIds.forEach(function (element) {
               if (document.getElementById(element).style.backgroundColor == "rgb(245, 245, 245)") {
                 switch (element) {
@@ -5162,7 +5166,19 @@
             var totalHoursWarehouse =  Math.round(SelectedWarehouseDays * SelectedWarehouseHours * (SelectedWarehouseBezet/100))
             var totalCreditsWarehouse = Math.round(SelectedWarehouseNumber * totalHoursWarehouse * (SelectedWarehouseBezet/100))
 
-            var warehouseDescription = "placeholder"
+             const scenarioButtons = document.querySelectorAll('[id^="scenario-button-"]');
+              const scenarioButtonsArray = Array.from(scenarioButtons);
+
+              const activeButton = scenarioButtonsArray.find(button => {
+                return button.style.backgroundColor === 'rgb(54, 0, 0)';
+              });
+
+              const activeButtonNr = activeButton.id.slice(-1);
+
+              console.log(activeButtonNr)
+
+var warehouseDescription = "placeholder" 
+            <!-- var warehouseDescription = document.getElementById("toelichting-text-wh-" + "activeButtonNr" + "-" + nrOfWarehouses[i]).innerText.trim() -->
 
             var totalCostWarehouse = Math.round((SelectedWarehouseDays * SelectedWarehouseHours * SelectedWarehouseNumber * (SelectedWarehouseBezet/100)) * document.getElementById(selectedEditionForCalc).value);
             emptyArray.push([SelectedWarehouseTitle, warehouseDescription, SelectedWarehouseType, SelectedWarehouseDays, SelectedWarehouseHours, SelectedWarehouseBezet, totalHoursWarehouse, totalCreditsWarehouse, totalCostWarehouse]);
@@ -5175,7 +5191,16 @@
           
            console.log(emptyArray);
 
-              var props =   {
+                         const calcExamplesDiv = document.getElementById("inside-wrapper-calculation-examples-div-1");
+
+              if (calcExamplesDiv.offsetWidth > 0 || calcExamplesDiv.offsetHeight > 0) {
+
+                // Display a confirm dialog box with the message "Do you want to continue?"
+                var result = confirm("Do you want to also include the warehouse descriptions in your PDF?");
+
+                if (result) {
+                  
+                var props =   {
                             outputType: "save",
                             returnJsPDFDocObject: true,
                             fileName: "Snowflake price estimation",
@@ -5290,6 +5315,235 @@
                             pageEnable: false,
                             pageLabel: "Page ",
                         };
+                } else {
+                 var props =   {
+                            outputType: "save",
+                            returnJsPDFDocObject: true,
+                            fileName: "Snowflake price estimation",
+                            orientationLandscape: true,
+                            compress: true,
+                            logo: {
+                                src: "images/logo.png",
+                                width: 100, //aspect ratio = width/height
+                                height: 26.66,
+                                margin: {
+                                    top: 0, //negative or positive num, from the current position
+                                    left: 0 //negative or positive num, from the current position
+                                }
+                            },
+                            business: {
+                                name: "Inergy Analytics B.V.",
+                                address: "Nederland, Pelmolenlaan 2, 3447 GW Woerden",
+                                phone: "0348 457 666",
+                                email: "info@inergy.nl",
+                                email_1: null,
+                                website: "www.inergy.nl",
+                            },
+                            contact: {
+                                label: null,
+                                name: "Snowflake costs estimation",
+                                address: selectedCloudplatform,
+                                phone: selectedRegion,
+                                email: selectedEdition,
+                                otherInfo: null
+                            },
+                            invoice: {
+                                label: "Calculatie #: ",
+                                num: null,
+                                invDate: null,
+                                invGenDate: "Calculation Date: " + Date().toLocaleString(),
+                                headerBorder: true,
+                                tableBodyBorder: true,
+                                header: [
+                                  {
+                                    title: "#", 
+                                    style: { 
+                                    width: 10 
+                                    } 
+                                }, 
+                                  { 
+                                    title: "Warehouse name"
+                                }, 
+                                { 
+                                    title: "Size",
+                                     style: { 
+                                    width: 17 
+                                    } 
+                                }, 
+                                { 
+                                    title: "Active days /month"
+                                }, 
+                                { title: "Active hours /day"},
+                                { title: "Occupation /%"},
+                                { title: "Total hours /month"},
+                                { title: "Total credits /month"},
+                                { title: "Total ($) /month"}
+                                ],
+                                table: Array.from(emptyArray, (item, index)=>([
+                                    index + 1,
+                                    item[0],
+                                    item[2],
+                                    item[3],
+                                    item[4],
+                                    item[5],
+                                    item[6],
+                                    item[7],
+                                    item[8]
+                                ])),
+                                
+                            additionalRows: [{
+                                    col1: 'Total compute:',
+                                    col2: totalCompute + " $",
+                                    col3: 'ALL',
+                                    style: {
+                                        fontSize: 14 //optional, default 12
+                                    }
+                                       },
+                                {
+                                    col1: 'Total storage (' + selectedStorage + ', ' + document.getElementById("input-storage-tb-per-month").value + " TB/s month" + '):',
+                                    col2: String(totalStorageCost)  + " $",
+                                    col3: 'ALL',
+                                    style: {
+                                        fontSize: 10 //optional, default 12
+                                    }
+                                },
+                                {
+                                    col1: 'SubTotal:',
+                                    col2: String(Number(totalCompute) + Number(totalStorageCost)) + " $",
+                                    col3: 'ALL',
+                                    style: {
+                                        fontSize: 10 //optional, default 12
+                                    }
+                              
+                                }],
+
+                                
+                                invDescLabel: "Invoice Note",
+                                invDesc: "There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary.",
+                            },
+                            footer: {
+                                text: "The invoice is created on a computer and is valid without the signature and stamp.",
+                            },
+                            pageEnable: false,
+                            pageLabel: "Page ",
+                        };
+                }
+  
+              } else {
+                var props =   {
+                            outputType: "save",
+                            returnJsPDFDocObject: true,
+                            fileName: "Snowflake price estimation",
+                            orientationLandscape: true,
+                            compress: true,
+                            logo: {
+                                src: "images/logo.png",
+                                width: 100, //aspect ratio = width/height
+                                height: 26.66,
+                                margin: {
+                                    top: 0, //negative or positive num, from the current position
+                                    left: 0 //negative or positive num, from the current position
+                                }
+                            },
+                            business: {
+                                name: "Inergy Analytics B.V.",
+                                address: "Nederland, Pelmolenlaan 2, 3447 GW Woerden",
+                                phone: "0348 457 666",
+                                email: "info@inergy.nl",
+                                email_1: null,
+                                website: "www.inergy.nl",
+                            },
+                            contact: {
+                                label: null,
+                                name: "Snowflake costs estimation",
+                                address: selectedCloudplatform,
+                                phone: selectedRegion,
+                                email: selectedEdition,
+                                otherInfo: null
+                            },
+                            invoice: {
+                                label: "Calculatie #: ",
+                                num: null,
+                                invDate: null,
+                                invGenDate: "Calculation Date: " + Date().toLocaleString(),
+                                headerBorder: true,
+                                tableBodyBorder: true,
+                                header: [
+                                  {
+                                    title: "#", 
+                                    style: { 
+                                    width: 10 
+                                    } 
+                                }, 
+                                  { 
+                                    title: "Warehouse name"
+                                }, 
+                                { 
+                                    title: "Size",
+                                     style: { 
+                                    width: 17 
+                                    } 
+                                }, 
+                                { 
+                                    title: "Active days /month"
+                                }, 
+                                { title: "Active hours /day"},
+                                { title: "Occupation /%"},
+                                { title: "Total hours /month"},
+                                { title: "Total credits /month"},
+                                { title: "Total ($) /month"}
+                                ],
+                                table: Array.from(emptyArray, (item, index)=>([
+                                    index + 1,
+                                    item[0],
+                                    item[2],
+                                    item[3],
+                                    item[4],
+                                    item[5],
+                                    item[6],
+                                    item[7],
+                                    item[8]
+                                ])),
+                                
+                            additionalRows: [{
+                                    col1: 'Total compute:',
+                                    col2: totalCompute + " $",
+                                    col3: 'ALL',
+                                    style: {
+                                        fontSize: 14 //optional, default 12
+                                    }
+                                       },
+                                {
+                                    col1: 'Total storage (' + selectedStorage + ', ' + document.getElementById("input-storage-tb-per-month").value + " TB/s month" + '):',
+                                    col2: String(totalStorageCost)  + " $",
+                                    col3: 'ALL',
+                                    style: {
+                                        fontSize: 10 //optional, default 12
+                                    }
+                                },
+                                {
+                                    col1: 'SubTotal:',
+                                    col2: String(Number(totalCompute) + Number(totalStorageCost)) + " $",
+                                    col3: 'ALL',
+                                    style: {
+                                        fontSize: 10 //optional, default 12
+                                    }
+                              
+                                }],
+
+                                
+                                invDescLabel: "Invoice Note",
+                                invDesc: "There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary.",
+                            },
+                            footer: {
+                                text: "The invoice is created on a computer and is valid without the signature and stamp.",
+                            },
+                            pageEnable: false,
+                            pageLabel: "Page ",
+                        };
+              }
+
+              
 
 var pdfCreated = jsPDFInvoiceTemplate.default(props);
 
