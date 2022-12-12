@@ -1524,6 +1524,13 @@
                 document.getElementById("warehouse-title-" + currentNumber).innerHTML = "Warehouse " + currentNumber;
                makeCalculations();
 
+               var deleteButtonNr = button.id.slice(-1);
+
+               if (deleteButtonNr != 1) {
+                $("#" + "wh-button-" + deleteButtonNr).css("display", "none");
+                $("#wrapper-warehouse-info-filler-" + deleteButtonNr).hide();
+                $("#wrapper-warehouse-info-filler-" + String(Number(deleteButtonNr)-1)).show();
+               }
 
   
             });
@@ -5086,6 +5093,8 @@
 
           var currentActiveWarehouseButtons = document.querySelectorAll('li:not([style*="display: none;"])[id^="wh-button-"]');
 
+          console.log(currentActiveWarehouseButtons)
+
           var nrOfWarehouses = [];
 
           currentActiveWarehouseButtons.forEach(function (element) {
@@ -5199,7 +5208,7 @@ var warehouseDescription = "placeholder"
                 var result = confirm("Do you want to also include the warehouse descriptions in your PDF?");
 
                 if (result) {
-                  
+
                 var props =   {
                             outputType: "save",
                             returnJsPDFDocObject: true,
