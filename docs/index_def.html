@@ -1033,34 +1033,32 @@
                       );
                     }
 
-                        //
-                        // var numberOfST = document.querySelectorAll(
-                        //     "[id^=wrapper-storage-scenario-example-" + i + "]"
-                        // ).length;
-                        //
-                        // //STORAGES
-                        // for (let nrStrs = 1; nrStrs <= numberOfST; nrStrs++) {
-                        //     console.log("scenario: " + i + " storage: " + nrStrs);
-                        //
-                        //     $(
-                        //         "#select-storage-scenario-storage-example-" + i + "-" + nrStrs
-                        //     ).val(
-                        //         document
-                        //             .getElementById("tb-storage-st-" + i + "-" + nrStrs)
-                        //             .innerHTML.trim()
-                        //     );
-                        //     //
-                        //
-                        //     $("#select-storage-type-example-" + i + "-" + nrStrs).val(
-                        //         document
-                        //             .getElementById("storage-type-st-" + i + "-" + nrStrs)
-                        //             .innerHTML.trim()
-                        //     );
-                        // }
 
-                        //console.log("Warehouses" + numberOfWH);
-                        //console.log("Storages" + numberOfST);
-                //     }
+                        var numberOfST = document.querySelectorAll(
+                            "[id^=wrapper-scenario-opslag-example]"
+                        ).length;
+
+                      console.log(numberOfST);
+
+                        //STORAGES
+                        for (let nrStrs = 1; nrStrs <= numberOfST; nrStrs++) {
+
+                            $(
+                                "#range-tb-storage-example"
+                            ).val(
+                                document
+                                    .getElementById("tb-storage-st-" + nrStrs)
+                                    .innerHTML.trim()
+                            );
+                            //
+
+                            $("#select-storage-type-scenario-storage-example").val(
+                                document
+                                    .getElementById("storage-type-st-" + nrStrs)
+                                    .innerHTML.trim()
+                            );
+                        }
+
                 });
 
                 var scenarioDivs = document.querySelectorAll(
