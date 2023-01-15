@@ -108,7 +108,6 @@
   width: 400px;
 }
 
-
 input[type="range"]  {
 
     background-color: red;
@@ -116,30 +115,6 @@ input[type="range"]  {
 
 }
 
-select {
-   border:0px;
-   outline:0px;
-}
-
-.toelichting {
-  padding:10px 10px 10px 10px;
-  height:210px;
-  text-align: center;
-}
-
-.toelichtingMain {
-  padding:10px 10px 10px 10px;
-  height:100%;
-  text-align: center;
-}
-
-#wrapper-div-scenario-warehouse-example-toelichting-1 {
-
-  margin:10px;
-  width: 100%;
-  flex-direction: column;
-
-}
 .sliderText {
 font-size: 12px;
 text-align: center;
@@ -179,48 +154,17 @@ margin-left:30px;
   color: red;
 }
 
-#wrapper-scenario-div-1 {
-  border: 1px solid #c9d3dd;
-}
-
-#make-calculation-button, #show-examples-button {
-  background-color: rgb(237, 240, 244);
-  border: 1px solid #c9d3dd;
-}
-
 #make-calculation-button:hover,  #show-examples-button:hover {
   background-color: rgb(54, 0, 0);
   color:white;
   border: 1px solid black;
 }
 
-.span, h1, h2, h3, p, li, a, button, input, select, textarea, .editable {
-  font-family: "Open Sans", sans-serif;
-}
+/*.span, h1, h2, h3, p, li, a, button, input, select, textarea, .editable {*/
+/*  font-family: "Arial", sans-serif;*/
+/*}*/
 
-#show-examples-button {
-  margin-bottom:30px;
-}
-
-#warehouse-button-1, #warehouse-button-2, #warehouse-button-3, #warehouse-button-4, #warehouse-button-5, #scenario-button-1, #scenario-button-2 {
-    background-color: rgb(237, 240, 244);
-    border-bottom: 0px;
-    border-bottom-left-radius: 0%;
-        border-bottom-right-radius: 0%;
-
-    border-right: 1px solid #c9d3dd;
-        border-left: 1px solid #c9d3dd;
-    border-top: 1px solid #c9d3dd;
-
-}
-
-#wrapper-warehouse-info-filler-1, #wrapper-warehouse-info-filler-2, #wrapper-warehouse-info-filler-3, #wrapper-warehouse-info-filler-4, #wrapper-warehouse-info-filler-5,#wrapper-total-hours-credits-hours {
-  background-color: white;
-  border: 1px solid #c9d3dd;
-}
-
-
-#warehouse-button-1:hover, #warehouse-button-2:hover, #warehouse-button-3:hover, #warehouse-button-4:hover, #warehouse-button-5:hover, #scenario-button-1:hover, #scenario-button-2:hover {
+#warehouse-button-1:hover, #warehouse-button-2:hover, #warehouse-button-3:hover, #warehouse-button-4:hover, #warehouse-button-5:hover {
  background-color: rgb(54, 0, 0);
   color:white;
   border: 1px solid black;
@@ -953,6 +897,7 @@ margin-left:30px;
 .sf-calc2-snowflake-explanation-div {
   width: 50%;
   height: 100%;
+    border: 0.5px solid #707070;
   display: flex;
   flex-wrap: wrap;
   align-self: center;
@@ -4305,7 +4250,7 @@ margin-left:30px;
     height: auto;
     flex-wrap: wrap;
     margin-top: 20px;
-    border-width: 0.5px;
+      border: 0.5px solid #c9d3dd;
   }
   .sf-calc2-container07 {
     width: 100%;
@@ -4320,6 +4265,7 @@ margin-left:30px;
     flex-wrap: wrap;
     flex-direction: column;
     background-color: transparent;
+      border-right: 0.5px solid #c9d3dd;
   }
   .sf-calc2-wrapper-title-div-scenario-warehouse-example-1 {
     margin-top: 0px;
@@ -6232,3 +6178,4 @@ margin-left:30px;
   .sf-calc2-totale-kosten-container-div {
     width: 682px;
   }
+

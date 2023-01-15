@@ -190,11 +190,9 @@
                     var currentRegion = document.getElementById("select-region").value;
 
                     // Past de regio aan in de tekst bij de scenario's op basis van de selectie
-                    document.getElementById("regio-text-scenario-1").innerHTML =
+                    document.getElementById("regio-text").innerHTML =
                         document.getElementById("select-region").value;
 
-                    document.getElementById("regio-text-scenario-2").innerHTML =
-                        document.getElementById("select-region").value;
 
                     /* CALCULATIONS */
 
@@ -789,170 +787,187 @@
                 $(document).ready(function () {
                     $("#make-calculation-button").on("click", function (e) {
 
-                        var allDeleteButtons = document.querySelectorAll(
-                            "[id*=delete-warehouse-]"
-                        );
+                      var allDeleteButtons = document.querySelectorAll(
+                              "[id*=delete-warehouse-]"
+                      );
 
-                        //on click clear all button delete all warehouse information
-                        allDeleteButtons.forEach((button) => {
+                      //on click clear all button delete all warehouse information
+                      allDeleteButtons.forEach((button) => {
 
                                 // find all divs with id starting with "warehouse-button" and hide them
                                 var currentNumber = String(button.id).slice(-1);
 
                                 document.getElementById(
-                                    "number-of-days-select-" + currentNumber
+                                        "number-of-days-select-" + currentNumber
                                 ).value = null;
                                 document.getElementById(
-                                    "number-of-hours-day-select-" + currentNumber
+                                        "number-of-hours-day-select-" + currentNumber
                                 ).value = null;
                                 document.getElementById(
-                                    "percentage-bezetting-" + currentNumber
+                                        "percentage-bezetting-" + currentNumber
                                 ).value = null;
                                 document.getElementById(
-                                    "warehouse-type-" + currentNumber
+                                        "warehouse-type-" + currentNumber
                                 ).innerHTML = "Small";
                                 document.getElementById(
-                                    "warehouse-size-number-" + currentNumber
+                                        "warehouse-size-number-" + currentNumber
                                 ).innerHTML = 2;
                                 document.getElementById("total-hours-1").innerHTML =
-                                    "0 uren p/m";
+                                        "0 uren p/m";
                                 document.getElementById("total-credits-1").innerHTML =
-                                    "0 credits p/m";
+                                        "0 credits p/m";
                                 document.getElementById("input-storage-tb-per-month").value =
-                                    null;
-                            }
-                        );
+                                        null;
+                              }
+                      );
 
-                        var currentScenario = "wrapper-scenario-examples-div-1"
-                        var currentScenarioNumber = currentScenario.slice(-1);
+                      // var currentScenario = "wrapper-scenario-examples-div-2"
+                      // var currentScenarioNumber = currentScenario.slice(-1);
+                      //
+                      // console.log(listOfCalculationSelectorNumbers)
 
-                        listOfCalculationSelectorNumbers.forEach((selectorNumber) => {
-                            document.getElementById(
-                                "number-of-days-select-" + currentScenarioNumber //1 //2 //3
-                            ).value = Math.round(
+
+                      // let activeScenarios = document.querySelectorAll('li:not([style*="display: none;"])[id^="wrapper-scenario-examples-div-"]');
+                      let activeScenarios = document.querySelectorAll("div[id^='wrapper-scenario-examples-div-']");
+                      let activeScenarioNumbers = [];
+                      activeScenarios.forEach((scenario) => {
+                        activeScenarioNumbers.push(scenario.id.slice(-1));
+                      });
+                      console.log(activeScenarios)
+                      console.log(activeScenarioNumbers)
+
+                      for (let scenarioNumber = 1; scenarioNumber < activeScenarioNumbers.length+1; scenarioNumber++) {
+
+
+                        document.getElementById(
+                                "number-of-days-select-" + scenarioNumber
+                        ).value = Math.round(
                                 document.getElementById(
-                                    "select-days-per-week-scenario-warehouse-example-" +
-                                    currentScenarioNumber
+                                        "select-days-per-week-scenario-warehouse-example-" +
+                                        scenarioNumber
                                 ).value *
                                 (52 / 12)
-                            );
+                        );
 
-                            document
+                        // // # TODO: Button moet een kleur krijgen
+                        document
                                 .querySelectorAll("[id^=wrapper-warehouse-info-filler-]")
                                 .forEach((warehouseButtonWrapper) => {
-                                    if (String(warehouseButtonWrapper.id).slice(-1) !== String(currentScenarioNumber)) {
-                                        $(`#${warehouseButtonWrapper.id}`).hide();
-                                    } else {
-                                        $("#wrapper-warehouse-info-filler-1").show();
+                                  if (String(warehouseButtonWrapper.id).slice(-1) !== String(1)) {
+                                    $(`#${warehouseButtonWrapper.id}`).hide();
+                                  } else {
+                                    $("#wrapper-warehouse-info-filler-1").show();
 
-                                    }
+                                  }
                                 });
 
-                            document.getElementById('percentage-bezetting-' + currentScenarioNumber).innerText = document.getElementById('select-bezettingspercentage-scenario-warehouse-' + currentScenarioNumber).value + "%";
 
-                            document.getElementById('warehouse-button-' + currentScenarioNumber).innerHTML = document.getElementById('heading-scenario-warehouse-' + currentScenarioNumber).innerHTML;
+                        document.getElementById('percentage-bezetting-' + 1).innerText = document.getElementById('select-bezettingspercentage-scenario-warehouse-' + 1).value + "%";
 
-                            document.getElementById('warehouse-title-' + currentScenarioNumber).innerHTML = document.getElementById('heading-scenario-warehouse-' + currentScenarioNumber).innerHTML;
+                        document.getElementById('warehouse-button-' + scenarioNumber).innerHTML = document.getElementById('heading-scenario-warehouse-' + scenarioNumber).innerHTML;
 
-                            $("#wh-button-" + currentScenarioNumber).css("display", "block");
+                        document.getElementById('warehouse-title-' + scenarioNumber).innerHTML = document.getElementById('heading-scenario-warehouse-' + scenarioNumber).innerHTML;
 
-                            document.getElementById(
-                                "number-of-hours-day-select-" + currentScenarioNumber
-                            ).value = Math.round(
+                        $("#wh-button-" + scenarioNumber).css("display", "block");
+
+                        document.getElementById(
+                                "number-of-hours-day-select-" + scenarioNumber
+                        ).value = Math.round(
                                 document.getElementById(
-                                    "range-gebruik-scenario-warehouse-example-" +
-                                    currentScenarioNumber
+                                        "range-gebruik-scenario-warehouse-example-" +
+                                        scenarioNumber
                                 ).value
-                            );
+                        );
 
-                            document.getElementById(
-                                "percentage-bezetting-" + currentScenarioNumber
-                            ).value = Math.round(
+                        document.getElementById(
+                                "percentage-bezetting-" + scenarioNumber
+                        ).value = Math.round(
                                 document.getElementById(
-                                    "select-bezettingspercentage-scenario-warehouse-" +
-                                    currentScenarioNumber
+                                        "select-bezettingspercentage-scenario-warehouse-" +
+                                        scenarioNumber
                                 ).value
-                            );
+                        );
 
-                            var storage = document.querySelectorAll(
+                        var storage = document.querySelectorAll(
                                 "[id^=select-storage-scenario-storage-example-" +
-                                currentScenarioNumber +
+                                scenarioNumber +
                                 "-]"
-                            );
+                        );
 
-                            document.getElementById("input-storage-tb-per-month").value =
+                        document.getElementById("input-storage-tb-per-month").value =
                                 document.getElementById("range-tb-storage-example").value;
-                            document.getElementById(
-                                "warehouse-type-" + currentScenarioNumber
-                            ).innerHTML = document.getElementById(
-                                "select-warehouse-size-scenario-warehouse-example-" + currentScenarioNumber
-                            ).value;
+                        document.getElementById(
+                                "warehouse-type-" + scenarioNumber
+                        ).innerHTML = document.getElementById(
+                                "select-warehouse-size-scenario-warehouse-example-" + scenarioNumber
+                        ).value;
 
-                            var warehouseSizes = Object.keys(warehouse);
-                            var warehouseSize = document.getElementById(
-                                "warehouse-type-" + currentScenarioNumber
-                            ).innerHTML;
-                            document.getElementById(
-                                "warehouse-size-number-" + currentScenarioNumber
-                            ).innerHTML = warehouse[warehouseSize];
+                        var warehouseSizes = Object.keys(warehouse);
+                        var warehouseSize = document.getElementById(
+                                "warehouse-type-" + scenarioNumber
+                        ).innerHTML;
+                        document.getElementById(
+                                "warehouse-size-number-" + scenarioNumber
+                        ).innerHTML = warehouse[warehouseSize];
+                      }
 
-                            //HIER TOEVOEGEN
+                        //HIER TOEVOEGEN
 
-                            /* CALCULATIONS */
+                        /* CALCULATIONS */
 
-                            var allActiveWarehouses = document.querySelectorAll(
+                        var allActiveWarehouses = document.querySelectorAll(
                                 "[id^=warehouse-button-]"
-                            );
+                        );
 
-                            var activeWarehouseNumbers = [];
+                        var activeWarehouseNumbers = [];
 
-                            allActiveWarehouses.forEach((warehouse) => {
-                                activeWarehouseNumbers.push(
-                                    warehouse.id.slice(warehouse.id.length - 1)
-                                );
-                            });
+                        allActiveWarehouses.forEach((warehouse) => {
+                          activeWarehouseNumbers.push(
+                                  warehouse.id.slice(warehouse.id.length - 1)
+                          );
+                        });
 
-                            var totalHours = [];
-                            var totalCredits = [];
+                        var totalHours = [];
+                        var totalCredits = [];
 
-                            activeWarehouseNumbers.forEach((number) => {
-                                var hours =
-                                    (document.getElementById("number-of-days-select-" + number)
-                                            .value *
-                                        document.getElementById(
-                                            "number-of-hours-day-select-" + number
-                                        ).value *
-                                        document.getElementById("percentage-bezetting-" + number)
-                                            .value) /
-                                    100;
-                                totalHours.push(hours);
+                        activeWarehouseNumbers.forEach((number) => {
+                          var hours =
+                                  (document.getElementById("number-of-days-select-" + number)
+                                                  .value *
+                                          document.getElementById(
+                                                  "number-of-hours-day-select-" + number
+                                          ).value *
+                                          document.getElementById("percentage-bezetting-" + number)
+                                                  .value) /
+                                  100;
+                          totalHours.push(hours);
 
-                                var credits = document.getElementById(
-                                    "warehouse-size-number-" + number
-                                ).innerHTML;
+                          var credits = document.getElementById(
+                                  "warehouse-size-number-" + number
+                          ).innerHTML;
 
-                                totalCredits.push(hours * Number(credits.trim()));
-                            });
+                          totalCredits.push(hours * Number(credits.trim()));
+                        });
 
-                            var calculateTotalHours = totalHours.reduce((a, b) => a + b, 0);
+                        var calculateTotalHours = totalHours.reduce((a, b) => a + b, 0);
 
-                            var creditsTotal = totalCredits.reduce((a, b) => a + b, 0);
+                        var creditsTotal = totalCredits.reduce((a, b) => a + b, 0);
 
-                            document.getElementById("total-hours-1").innerHTML =
+                        document.getElementById("total-hours-1").innerHTML =
                                 Math.round(calculateTotalHours * 10) / 10 + " uren p/m";
 
-                            var creditsTotalString = (document.getElementById(
+                        var creditsTotalString = (document.getElementById(
                                 "total-credits-1"
-                            ).innerHTML =
+                        ).innerHTML =
                                 Math.round(creditsTotal * 10) / 10 + " Credits p/m");
 
-                            var currentCloudplatformAndRegion = (document.getElementById(
+                        var currentCloudplatformAndRegion = (document.getElementById(
                                 "currentregionselection"
-                            ).innerHTML = currentPlatform + " - " + currentRegion);
+                        ).innerHTML = currentPlatform + " - " + currentRegion);
 
-                            //EINDE
-                            makeCalculations();
-                        });
+                        //EINDE
+                        makeCalculations();
+
                     });
 
                     var allDeleteButtons = document.querySelectorAll(
@@ -2478,7 +2493,7 @@
             class="sf-calc2-wrapper-scenario3"
           >
             <div
-              id="wrapper-scenario-examples-div-opslag"
+              id="wrapper-scenario-examples-div_opslag"
               class="sf-calc2-wrapper-scenario-examples-div3 scenario-example-warehouse"
             >
               <div
@@ -2486,7 +2501,7 @@
                 class="scenario-example-warehouses sf-calc2-wrapper-scenario-example-opslag"
               >
                 <div class="sf-calc2-container17">
-                  <div
+                  <divwrapper-scenario-examples-div-opslag
                     id="wrapper-div-scenario-opslag-example-toelichting"
                     class="sf-calc2-wrapper-div-scenario-opslag-example-toelichting"
                   >
@@ -2506,7 +2521,7 @@
                         <span>.</span>
                       </span>
                     </div>
-                  </div>
+                  </divwrapper-scenario-examples-div-opslag>
                   <div
                     id="wrapper-div-scenario-storage-example-toelichting"
                     class="sf-calc2-wrapper-div-scenario-storage-example-toelichting"
