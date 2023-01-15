@@ -736,11 +736,46 @@
 
                 // Deze kun je uitcommentarieren als je alle divs wilt zien (en dus niet elke keer eerst een platform, regio en valuta wil selecteren voor het testen)
 
-                //$(
-                //  "#line-divider-voorkeur-schatting, #schatting-opslag-div, #line-divider-schatting-schatting, #line-divider-schatting-kosten, #schatting-per-editie-div,  #totale-kosten-div, #contact-button-div, #total-cost-title, #total-cost-icon, #select-edition, #totale-kosten-title-div, #select-storage-type"
-                //).hide();
 
-                // Hier wordt de data (cloudplatforms) uit de json file gehaald en in de dropdowns gezet
+
+                $(
+                 "#line-divider-1, #wrapper-bekend-prijsberekening-snowflake, #line-divider-2, #wrapper-calculation-examples-div, #line-divider-3, #wrapper-schatting-opslag-div," +
+                        "#line-divider-4, #line-divider-5, #schatting-opslag-div, #line-divider-schatting-schatting, #line-divider-schatting-kosten, #schatting-per-editie-div, " +
+                        " #totale-kosten-div, #contact-button-div, #total-cost-title, #total-cost-icon, #select-edition, #totale-kosten-title-div, #select-storage-type, " +
+                "#inside-wrapper-calculation-examples-div-1, #buttons-examples-1, "
+                        + "#inside-wrapper-calculation-examples-div-2, #buttons-example-2, #inside-wrapper-calculation-examples-div-storage, #inside-wrapper-calculation-examples-div-3, #buttons-example-final, #make-calculation-button-div"
+
+                ).hide();
+
+                // on click on the show-me-a-example-button
+
+
+                 $("#show-me-a-example-button").on("click", function (e) {
+                                      $("#show-me-a-example-button").hide();
+                   $("#inside-wrapper-calculation-examples-div-1, #buttons-examples-1").show();
+                 });
+
+                                  $("#show-me-example-2").on("click", function (e) {
+                   $("#inside-wrapper-calculation-examples-div-2, #buttons-example-2").show();
+                   $("#buttons-examples-1").hide();
+                 });
+
+                                  $("#show-me-example-3").on("click", function (e) {
+                   $("#inside-wrapper-calculation-examples-div-3, #buttons-example-final").show();
+                   $("#buttons-example-2").hide();
+                 });
+
+              $("#show-me-opslagvereisten-1, #show-me-opslagvereisten-2, #show-me-opslagvereisten-3").on("click", function (e) {
+                   $("#inside-wrapper-calculation-examples-div-storage, #make-calculation-button-div").show();
+                                   $("#buttons-examples-1, #buttons-example-2, #buttons-examples-final").hide();
+
+                 });
+
+                                                                                                                                        $("#make-calculation-button").on("click", function (e) {
+                   $("#line-divider-3, #wrapper-schatting-opslag-div, #line-divider-4, #schatting-per-editie-div").show();
+                 });
+
+
                 $.each(platforms, function (k, v) {
                     $("#select-cloudplatform").append(
                         $("<option>", {
@@ -1512,7 +1547,7 @@
                         $("#select-currency-text").show();
                         $("#currentregionselection").show();
                         $(
-                            ".line_divider, #wrapper-calculation-examples-div, #line-divider-voorkeur-schatting, #wrapper-schatting-opslag-div, #schatting-per-editie-div"
+                            "#line-divider-1, #wrapper-bekend-prijsberekening-snowflake"
                         ).show();
                         makeCalculations();
 
@@ -1524,6 +1559,32 @@
                             document.getElementById(text.id).innerHTML =
                                 document.getElementById("select-region").value;
                         });
+                    });
+
+                    // Get the radio buttons and the div
+                    const radioJa = document.getElementById("radio-button-ja");
+                    const radioNee = document.getElementById("radio-button-nee");
+                    const calcExamplesDiv = document.getElementById("wrapper-calculation-examples-div");
+
+                    // Listen for a change event on the radio buttons
+                    radioJa.addEventListener("change", function() {
+                      if (this.checked) {
+                        // Show the div if the "ja" radio button is selected
+                        calcExamplesDiv.style.display = "block";
+                      } else {
+                        // Hide the div if the "nee" radio button is selected
+                        calcExamplesDiv.style.display = "none";
+                      }
+                    });
+
+                    radioNee.addEventListener("change", function() {
+                      if (this.checked) {
+                        // Hide the div if the "nee" radio button is selected
+                        calcExamplesDiv.style.display = "none";
+                      } else {
+                        // Show the div if the "ja" radio button is selected
+                        calcExamplesDiv.style.display = "block";
+                      }
                     });
 
                     // Als een valuta wordt geselecteerd dan worden alle divs getoond
@@ -1924,7 +1985,7 @@
           <span class="sf-calc2-ja">Ja</span>
           <input
             type="radio"
-            id="radio-button-ja"
+            id="radio-button-nee"
             name="radio"
             class="sf-calc2-radio1"
           />
@@ -2221,11 +2282,11 @@
             </div>
           </div>
         </div>
-        <div class="sf-calc2-show-me-a-example-div-1">
+        <div class="sf-calc2-show-me-a-example-div-1" id="buttons-examples-1">
           <button id="show-me-example-2" class="sf-calc2-button02 button">
             Geef nog een voorbeeld
           </button>
-          <button id="show-me-opslagvereisten" class="sf-calc2-button03 button">
+          <button id="show-me-opslagvereisten-1" class="sf-calc2-button03 button">
             Ik snap het, laat mij een voorbeeld zien van de opslagvereisten
           </button>
         </div>
@@ -2373,11 +2434,11 @@
             </div>
           </div>
         </div>
-        <div class="sf-calc2-show-me-a-example-div-2">
+        <div class="sf-calc2-show-me-a-example-div-2" id="buttons-example-2">
           <button id="show-me-example-3" class="sf-calc2-button04 button">
             Geef nog een voorbeeld
           </button>
-          <button id="show-me-opslagvereisten" class="sf-calc2-button05 button">
+          <button id="show-me-opslagvereisten-2" class="sf-calc2-button05 button">
             Ik snap het, laat mij een voorbeeld zien van de opslagvereisten
           </button>
         </div>
@@ -2523,13 +2584,13 @@
             </div>
           </div>
         </div>
-        <div class="sf-calc2-show-me-a-example-div-21">
-          <button id="show-me-opslagvereisten" class="sf-calc2-button06 button">
+        <div class="sf-calc2-show-me-a-example-div-21" id="buttons-example-final">
+          <button id="show-me-opslagvereisten-3" class="sf-calc2-button06 button">
             Ik snap het, laat mij een voorbeeld zien van de opslagvereisten
           </button>
         </div>
         <div
-          id="inside-wrapper-calculation-examples-div-2"
+          id="inside-wrapper-calculation-examples-div-storage"
           class="sf-calc2-inside-wrapper-calculation-examples-div-opslag"
         >
           <div
@@ -2634,7 +2695,7 @@
             </div>
           </div>
         </div>
-        <div class="sf-calc2-calculate-button-wrapper">
+        <div class="sf-calc2-calculate-button-wrapper" id="make-calculation-button-div">
           <div class="sf-calc2-calculate-button-div">
             <button
               id="make-calculation-button"
