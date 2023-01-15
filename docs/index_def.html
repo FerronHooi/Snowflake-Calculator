@@ -676,11 +676,26 @@
 
                     var currentActiveWarehouseButtons = document.querySelectorAll('li:not([style*="display: none;"])[id^="wh-button-"]');
 
+
                     var nrOfWarehouses = [];
                     currentActiveWarehouseButtons.forEach(function (element) {
                         nrOfWarehouses.push(Number(element.id.slice(-1)));
                         console.log(element.id);
                     });
+
+                                        var notCurrentActiveWarehouseButtons = document.querySelectorAll('li[style*="display: none;"][id^="wh-button-"]');
+                    var nrOfWarehousesNotActive = [];
+                    notCurrentActiveWarehouseButtons.forEach(function (element) {
+                        nrOfWarehousesNotActive.push(Number(element.id.slice(-1)));
+                        console.log(element.id);
+                    });
+
+                    // nrOfWarehousesNotActive.forEach(function (element) {
+                    //
+                    //       document.getElementById("wh-button-" + element).style.backgroundColor = "green";
+                    //   document.getElementById("wh-button-" + element).style.backgroundColor = "green";
+                    //
+                    // });
 
                     console.log(nrOfWarehouses);
 
@@ -849,8 +864,6 @@
                       activeScenarios.forEach((scenario) => {
                         activeScenarioNumbers.push(scenario.id.slice(-1));
                       });
-                      console.log(activeScenarios)
-                      console.log(activeScenarioNumbers)
 
                       for (let scenarioNumber = 1; scenarioNumber < activeScenarioNumbers.length+1; scenarioNumber++) {
 
@@ -865,7 +878,6 @@
                                 (52 / 12)
                         );
 
-                        // // # TODO: Button moet een kleur krijgen
                         document
                                 .querySelectorAll("[id^=wrapper-warehouse-info-filler-]")
                                 .forEach((warehouseButtonWrapper) => {
@@ -1009,6 +1021,7 @@
                             document.getElementById(
                                 "warehouse-size-number-" + currentNumber
                             ).innerHTML = 2;
+
                         });
                     });
 
@@ -1283,67 +1296,77 @@
                 });
 
                 var allDeleteButtons = document.querySelectorAll(
-                    "[id*=warehouse-button]"
+                    "[id*=warehouse-button-]"
                 );
-
-                //on click clear all button delete all warehouse information
+                var nrOfWarehouses = [];
                 allDeleteButtons.forEach((button) => {
-                    $("#schatting-opslag-verbruikskosten-delete, #clear-all-button").on(
-                        "click",
-                        function (e) {
+                    nrOfWarehouses.push(String(button.id).slice(-1));
+                });
+
+                // console.log(nrOfWarehouses);
+                //
+                // console.log(allDeleteButtons)
+
+               for (button = 1; button < nrOfWarehouses.length; i++) {
+                //on click clear all button delete all warehouse information
+                // nrOfWarehouses.forEach((button) => {
+                 console.log(button + 'rrr')
+                  $("#schatting-opslag-verbruikskosten-delete, #clear-all-button").on(
+                          "click",
+                          function (e) {
                             // find all divs with id starting with "warehouse-button" and hide them
-                          console.log(button)
+                            console.log("Hello" + button)
                             var currentNumber = String(button.id).slice(-1);
                             document.getElementById(
-                                "number-of-days-select-" + currentNumber
+                                    "number-of-days-select-" + currentNumber
                             ).value = null;
                             document.getElementById(
-                                "number-of-hours-day-select-" + currentNumber
+                                    "number-of-hours-day-select-" + currentNumber
                             ).value = null;
                             document.getElementById(
-                                "percentage-bezetting-" + currentNumber
+                                    "percentage-bezetting-" + currentNumber
                             ).value = null;
                             document.getElementById(
-                                "warehouse-type-" + currentNumber
+                                    "warehouse-type-" + currentNumber
                             ).innerHTML = "Small";
                             document.getElementById(
-                                "warehouse-size-number-" + currentNumber
+                                    "warehouse-size-number-" + currentNumber
                             ).innerHTML = 2;
                             document.getElementById("total-hours-1").innerHTML =
-                                "0 uren p/m";
+                                    "0 uren p/m";
                             document.getElementById("total-credits-1").innerHTML =
-                                "0 credits p/m";
+                                    "0 credits p/m";
                             document.getElementById("input-storage-tb-per-month").value =
-                                null;
+                                    null;
 
                             document.getElementById("warehouse-button-" + currentNumber).innerHTML = "Warehouse " + currentNumber;
                             document.getElementById("warehouse-title-" + currentNumber).innerHTML = "Datawarehouse " + currentNumber;
                             makeCalculations();
 
                             var allWarehouseButtons = document.querySelectorAll(
-                                "[id^=wh-button-]"
+                                    "[id^=wh-button-]"
                             );
 
 
                             allWarehouseButtons.forEach((button) => {
-                                console.log(button.id);
-                                if (button.id == "wh-button-1") {
-                                    $("#" + button.id).css("display", "block");
+                              console.log(button.id);
+                              if (button.id == "wh-button-1") {
+                                $("#" + button.id).css("display", "block");
 
-                                } else {
-                                    $("#" + button.id).css("display", "none");
-                                }
+                              } else {
+                                $("#" + button.id).css("display", "none");
+                              }
                             });
 
 
                             $(
-                                "#standard-edition-container, #enterprise-edition-container, #business-critical-edition-container, #on-demand-storage-div, #capacity-storage-div"
+                                    "#standard-edition-container, #enterprise-edition-container, #business-critical-edition-container, #on-demand-storage-div, #capacity-storage-div"
                             ).css("border", "1px solid rgba(120, 120, 120, 0.4)");
                             $(
-                                "#standard-edition-container, #enterprise-edition-container, #business-critical-edition-container, #on-demand-storage-div, #capacity-storage-div"
+                                    "#standard-edition-container, #enterprise-edition-container, #business-critical-edition-container, #on-demand-storage-div, #capacity-storage-div"
                             ).css("background-color", "white");
                             $(
-                                "#standard-edition-container, #enterprise-edition-container, #business-critical-edition-container, #on-demand-storage-div, #capacity-storage-div"
+                                    "#standard-edition-container, #enterprise-edition-container, #business-critical-edition-container, #on-demand-storage-div, #capacity-storage-div"
                             ).css("box-shadow", "0 0 0 0px #e0e0e0");
                             $("#enterprise-logo-div").css("border", "none");
                             $("#business-critical-logo-div").css("border", "none");
@@ -1355,27 +1378,28 @@
 
 
                             document
-                                .querySelectorAll("[id^=wrapper-warehouse-info-filler-]")
-                                .forEach((warehouseButtonWrapper) => {
-                                    console.log(warehouseButtonWrapper.id);
-                                    if (
-                                        warehouseButtonWrapper.id == "wrapper-warehouse-info-filler-1"
-                                    ) {
+                                    .querySelectorAll("[id^=wrapper-warehouse-info-filler-]")
+                                    .forEach((warehouseButtonWrapper) => {
+                                      console.log(warehouseButtonWrapper.id);
+                                      if (
+                                              warehouseButtonWrapper.id == "wrapper-warehouse-info-filler-1"
+                                      ) {
                                         $(`#${warehouseButtonWrapper.id}`).show();
                                         $("#warehouse-button-1").css("background-color", "#a52025");
                                         $("#warehouse-button-1").css("color", "white");
 
-                                    } else {
+                                      } else {
                                         var currentNumber = String(warehouseButtonWrapper.id).slice(-1);
                                         $(`#${warehouseButtonWrapper.id}`).hide();
                                         $("#warehouse-button-" + currentNumber).css("background-color", "#edf0f4");
                                         $("#warehouse-button-" + currentNumber).css("color", "black");
-                                    }
-                                });
+                                      }
+                                    });
 
-                        }
-                    );
-                });
+                          }
+                  );
+                };
+                // });
 
                 // Verbergt de voorbeelden wanneer er een wijziging wordt gedaan in de dropdowns bij de schatting maandelijks opslag & verbruikskosten
 
@@ -1424,16 +1448,23 @@
                         ).innerHTML = 2;
 
                         document.getElementById("warehouse-button-" + currentNumber).innerHTML = "Warehouse " + currentNumber;
-                        document.getElementById("warehouse-title-" + currentNumber).innerHTML = "Warehouse " + currentNumber;
-                        makeCalculations();
+                        document.getElementById("warehouse-title-" + currentNumber).innerHTML = "Datawarehouse " + currentNumber;
+
+                                               console.log(currentNumber)
 
                         var deleteButtonNr = button.id.slice(-1);
 
-                        if (deleteButtonNr != 1) {
-                            $("#" + "wh-button-" + deleteButtonNr).css("display", "none");
-                            $("#wrapper-warehouse-info-filler-" + deleteButtonNr).hide();
-                            $("#wrapper-warehouse-info-filler-" + String(Number(deleteButtonNr) - 1)).show();
+                        if (currentNumber != 1) {
+                            $("#wh-button-" + currentNumber).css("display", "none");
+                            $("#wrapper-warehouse-info-filler-" + currentNumber).hide();
+                            $("#wrapper-warehouse-info-filler-" + String(Number(currentNumber) - 1)).show();
+                            $("#warehouse-button-" + String(Number(currentNumber) - 1)).css("background-color", "#a52025");
+                            $("#warehouse-button-" + String(Number(currentNumber) - 1)).css("color", "white");
                         }
+
+                        makeCalculations();
+
+
 
 
                     });
@@ -2777,7 +2808,7 @@
 
                                             warehouseSizes = Object.keys(warehouse);
 
-                                            let currentWH2 = 0;
+                                            let currentWH1 = 0;
                                             let backWH1 = document.getElementById(
                                                 "warehouse-size-button-left-1"
                                             );
@@ -2787,14 +2818,14 @@
                                             ).innerHTML = Object.keys(warehouse)[0];
 
                                             function move1(dir2) {
-                                                currentWH2 += dir2;
-                                                if (currentWH2 < 0)
-                                                    currentWH2 = warehouseSizes.length - 1;
-                                                if (currentWH2 === warehouseSizes.length)
-                                                    currentWH2 = 0;
+                                                currentWH1 += dir2;
+                                                if (currentWH1 < 0)
+                                                    currentWH1 = warehouseSizes.length - 1;
+                                                if (currentWH1 === warehouseSizes.length)
+                                                    currentWH1 = 0;
                                                 document.getElementById(
                                                     "warehouse-type-1"
-                                                ).innerHTML = Object.keys(warehouse)[currentWH2];
+                                                ).innerHTML = Object.keys(warehouse)[currentWH1];
                                             }
                                         </script>
                     &lt;
