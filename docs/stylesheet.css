@@ -160,9 +160,9 @@ margin-left:30px;
   border: 1px solid black;
 }
 
-/*.span, h1, h2, h3, p, li, a, button, input, select, textarea, .editable {*/
-/*  font-family: "Arial", sans-serif;*/
-/*}*/
+h1, h2, h3, p, li, a, button, input, select, textarea, .editable, span {
+  font-family: Calibri, Candara, Segoe, "Segoe UI", Optima, Arial, sans-serif;
+}
 
 #warehouse-button-1:hover, #warehouse-button-2:hover, #warehouse-button-3:hover, #warehouse-button-4:hover, #warehouse-button-5:hover {
  background-color: rgb(54, 0, 0);
@@ -1336,6 +1336,8 @@ margin-left:30px;
   align-items: center;
   justify-content: center;
   background-color: #edf0f4;
+    border: 0.5px solid #c9d3dd;
+
 }
 .sf-calc2-wrapper-title-div-scenario-warehouse-example-11 {
   flex: 0 0 auto;
@@ -2907,9 +2909,10 @@ margin-left:30px;
   display: flex;
   flex-wrap: wrap;
   align-items: flex-start;
-  border-color: #c9d3dd;
-  border-width: 1px;
-  border-top-width: 0px;
+border-right: 0.5px solid #c9d3dd;
+    border-left: 0.5px solid #c9d3dd;
+border-bottom: 0.5px solid #c9d3dd;
+
 }
 .sf-calc2-wrapper-hours-per-month {
   flex: 1;
@@ -4471,7 +4474,7 @@ margin-left:30px;
     height: auto;
     flex-wrap: wrap;
     margin-top: 20px;
-    border-width: 0.5px;
+    border: 0.5px solid #c9d3dd;
   }
   .sf-calc2-container11 {
     width: 100%;
@@ -4518,6 +4521,7 @@ margin-left:30px;
     flex-wrap: wrap;
     flex-direction: column;
     background-color: transparent;
+      border: 0.5px solid #c9d3dd;
   }
   .sf-calc2-wrapper-title-div-scenario-warehouse-example-2 {
     margin-top: 0px;
@@ -4676,7 +4680,7 @@ margin-left:30px;
     height: auto;
     flex-wrap: wrap;
     margin-top: 20px;
-    border-width: 0.5px;
+    border: 0.5px solid #c9d3dd;
   }
   .sf-calc2-container14 {
     width: 100%;
@@ -4854,7 +4858,6 @@ margin-left:30px;
   .sf-calc2-wrapper-scenario3 {
     width: 100%;
     align-self: center;
-    border-width: 0px;
   }
   .sf-calc2-wrapper-scenario-examples-div3 {
     width: 100%;
@@ -4868,7 +4871,7 @@ margin-left:30px;
     height: auto;
     flex-wrap: wrap;
     margin-top: 20px;
-    border-width: 0.5px;
+    border: 0.5px solid #c9d3dd;
   }
   .sf-calc2-container17 {
     width: 100%;
@@ -4906,6 +4909,7 @@ margin-left:30px;
     flex-wrap: wrap;
     flex-direction: column;
     background-color: transparent;
+      border-left: 0.5px solid #c9d3dd;
   }
   .sf-calc2-wrapper-title-div-scenario-storage-example {
     margin-top: 0px;
@@ -5167,8 +5171,7 @@ margin-left:30px;
   }
   .sf-calc2-wrapper-warehouse-info-filler {
     position: relative;
-    border-color: #c9d3dd;
-    border-width: 0.5px;
+border: 0.5px solid #c9d3dd;
   }
   .sf-calc2-container20 {
     top: 1px;
@@ -5342,8 +5345,7 @@ margin-left:30px;
   }
   .sf-calc2-wrapper-warehouse-info-filler1 {
     position: relative;
-    border-color: #c9d3dd;
-    border-width: 0.5px;
+    border: 0.5px solid #c9d3dd;
   }
   .sf-calc2-wrapper-warehouse-size-logo-question-mark1 {
     flex: 0;
@@ -5485,8 +5487,7 @@ margin-left:30px;
   }
   .sf-calc2-wrapper-warehouse-info-filler2 {
     position: relative;
-    border-color: #c9d3dd;
-    border-width: 0.5px;
+      border: 0.5px solid #c9d3dd;
   }
   .sf-calc2-wrapper-warehouse-size-logo-question-mark2 {
     flex: 0;
@@ -5628,8 +5629,7 @@ margin-left:30px;
   }
   .sf-calc2-wrapper-warehouse-info-filler3 {
     position: relative;
-    border-color: #c9d3dd;
-    border-width: 0.5px;
+    border: 0.5px solid #c9d3dd;
   }
   .sf-calc2-wrapper-warehouse-size-logo-question-mark3 {
     flex: 0;
@@ -5771,8 +5771,7 @@ margin-left:30px;
   }
   .sf-calc2-wrapper-warehouse-info-filler4 {
     position: relative;
-    border-color: #c9d3dd;
-    border-width: 0.5px;
+    border: 0.5px solid #c9d3dd;
   }
   .sf-calc2-wrapper-warehouse-size-logo-question-mark4 {
     flex: 0;
