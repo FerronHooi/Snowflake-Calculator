@@ -653,6 +653,22 @@
                 // on document load hide the two divs (on-demand storage and capacity)
                 $("#snowflake-calculator-container-storage-cost").hide();
 
+                 var allWarehousesButtons = document.querySelectorAll(
+                        "[id^=wh-button-]"
+                    );
+
+                 var nrOfWarehouses = [];
+                 nrOfWarehouses.push(allWarehousesButtons);
+
+
+                // Hide all compute button except for the first on load, so add display: none to all except the first
+                for (var i = 1; i < nrOfWarehouses.length; i++) {
+                  if (i != 1) {
+                    document.getElementById("wh-button-" + i).style.display = "none";
+                  }
+                }
+
+
                 $("#add-warehouse-button").on("click", function (e) {
                     var allWarehousesButtons = document.querySelectorAll(
                         "[id^=wh-button-]"
@@ -1267,7 +1283,7 @@
                 });
 
                 var allDeleteButtons = document.querySelectorAll(
-                    "[id*=delete-warehouse-]"
+                    "[id*=warehouse-button]"
                 );
 
                 //on click clear all button delete all warehouse information
@@ -1276,6 +1292,7 @@
                         "click",
                         function (e) {
                             // find all divs with id starting with "warehouse-button" and hide them
+                          console.log(button)
                             var currentNumber = String(button.id).slice(-1);
                             document.getElementById(
                                 "number-of-days-select-" + currentNumber
@@ -1300,7 +1317,7 @@
                                 null;
 
                             document.getElementById("warehouse-button-" + currentNumber).innerHTML = "Warehouse " + currentNumber;
-                            document.getElementById("warehouse-title-" + currentNumber).innerHTML = "Warehouse " + currentNumber;
+                            document.getElementById("warehouse-title-" + currentNumber).innerHTML = "Datawarehouse " + currentNumber;
                             makeCalculations();
 
                             var allWarehouseButtons = document.querySelectorAll(
@@ -2658,7 +2675,7 @@
                     Warehouse 1
                   </button>
                 </li>
-                <li class="sf-calc2-li08 list-item">
+                <li class="sf-calc2-li08 list-item" id="wh-button-2">
                   <button
                     id="warehouse-button-2"
                     class="unselected-warehouse-button select-warehouse-button button"
@@ -2666,7 +2683,7 @@
                     Warehouse 2
                   </button>
                 </li>
-                <li class="sf-calc2-li09 list-item">
+                <li class="sf-calc2-li09 list-item"  id="wh-button-3">
                   <button
                     id="warehouse-button-3"
                     class="select-warehouse-button button sf-calc2-button11"
@@ -2674,7 +2691,7 @@
                     Warehouse 3
                   </button>
                 </li>
-                <li class="sf-calc2-li10 list-item">
+                <li class="sf-calc2-li10 list-item"  id="wh-button-4">
                   <button
                     id="warehouse-button-4"
                     class="select-warehouse-button button sf-calc2-button12"
@@ -2682,7 +2699,7 @@
                     Warehouse 4
                   </button>
                 </li>
-                <li class="sf-calc2-li11 list-item">
+                <li class="sf-calc2-li11 list-item"  id="wh-button-5">
                   <button
                     id="warehouse-button-5"
                     class="select-warehouse-button button sf-calc2-button13"
