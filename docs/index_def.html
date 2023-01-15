@@ -1061,6 +1061,7 @@
 
                 });
 
+
                 var scenarioDivs = document.querySelectorAll(
                     "[id^=wrapper-scenario-examples-div-]"
                 );
@@ -1072,77 +1073,65 @@
                     ).length;
 
                     //WAREHOUSES
-                    for (let nrWhs = 1; nrWhs <= numberOfWH; nrWhs++) {
                         $(
-                            "#select-days-per-week-scenario-warehouse-example-" +
-                            i +
-                            "-" +
-                            nrWhs
+                              "#select-days-per-week-scenario-warehouse-example-" +
+                              i
                         ).on("change, click", function (e) {
                             document.getElementById(
-                                "days-per-week-text-wh-" + i + "-" + nrWhs
+                                "days-per-week-text-wh-" + i
                             ).innerHTML = this.value;
                         });
 
                         $(
-                            "#select-gebruikstijd-scenario-warehouse-example-" +
-                            i +
-                            "-" +
-                            nrWhs
+                          "#range-gebruik-scenario-warehouse-example-" +
+                          i
                         ).on("change, click", function (e) {
                             document.getElementById(
-                                "usage-hours-wh-" + i + "-" + nrWhs
+                                "usage-hours-wh-" + i
                             ).innerHTML = this.value;
                         });
                         // next here
 
                         $(
                             "#select-bezettingspercentage-scenario-warehouse-" +
-                            i +
-                            "-" +
-                            nrWhs
+                            i
                         ).on("change, click", function (e) {
                             document.getElementById(
-                                "bezettingspercentage-wh-" + i + "-" + nrWhs
+                                "bezettingspercentage-wh-" + i
                             ).innerHTML = this.value;
                         });
                         //
                         $(
                             "#select-warehouse-size-scenario-warehouse-example-" +
-                            i +
-                            "-" +
-                            nrWhs
+                            i
                         ).on("change, click", function (e) {
                             console.log("change");
                             document.getElementById(
-                                "warehouse-size-wh-" + i + "-" + nrWhs
+                                "warehouse-size-wh-" + i
                             ).innerHTML = this.value;
                         });
-                    }
 
-                    var numberOfST = document.querySelectorAll(
-                        "[id^=wrapper-storage-scenario-example-" + i + "]"
-                    ).length;
+                      var numberOfST = document.querySelectorAll(
+                          "[id^=wrapper-scenario-opslag-example]"
+                      ).length;
 
                     //STORAGES
                     for (let nrStrs = 1; nrStrs <= numberOfST; nrStrs++) {
-                        console.log("scenario: " + i + " storage: " + nrStrs);
 
                         $(
-                            "#select-storage-scenario-storage-example-" + i + "-" + nrStrs
+                            "#range-tb-storage-example"
                         ).on("change, click", function (e) {
-                            console.log("storage scenario: " + i + " storage: " + nrStrs);
                             document.getElementById(
-                                "tb-storage-st-" + i + "-" + nrStrs
+                                "tb-storage-st-" + nrStrs
                             ).innerHTML = this.value;
                         });
                         //
 
-                        $("#select-storage-type-example-" + i + "-" + nrStrs).on(
+                        $("#select-storage-type-scenario-storage-example").on(
                             "change, click",
                             function (e) {
                                 document.getElementById(
-                                    "storage-type-st-" + i + "-" + nrStrs
+                                    "storage-type-st-" + nrStrs
                                 ).innerHTML = this.value;
                             }
                         );
