@@ -1569,21 +1569,24 @@
                     // Listen for a change event on the radio buttons
                     radioJa.addEventListener("change", function() {
                       if (this.checked) {
-                        // Show the div if the "ja" radio button is selected
-                        calcExamplesDiv.style.display = "block";
-                      } else {
-                        // Hide the div if the "nee" radio button is selected
+                        // Hide the div if the "ja" radio button is selected
                         calcExamplesDiv.style.display = "none";
+                                 $(
+                 "#line-divider-3, #wrapper-schatting-opslag-div, #line-divider-4, #schatting-per-editie-div"
+                ).show();
+                      } else {
+                        // Show the div if the "nee" radio button is selected
+                        calcExamplesDiv.style.display = "block";
                       }
                     });
 
                     radioNee.addEventListener("change", function() {
                       if (this.checked) {
-                        // Hide the div if the "nee" radio button is selected
-                        calcExamplesDiv.style.display = "none";
-                      } else {
-                        // Show the div if the "ja" radio button is selected
+                        // Show the div if the "nee" radio button is selected
                         calcExamplesDiv.style.display = "block";
+                      } else {
+                        // Hide the div if the "ja" radio button is selected
+                        calcExamplesDiv.style.display = "none";
                       }
                     });
 
@@ -1981,7 +1984,7 @@
         class="sf-calc2-wrapper-select-bekend-ja-nee"
       >
         <div class="sf-calc2-container01">
-          <input type="radio" id="radio-button-ja" name="radio" checked />
+          <input type="radio" id="radio-button-ja" name="radio" />
           <span class="sf-calc2-ja">Ja</span>
           <input
             type="radio"
