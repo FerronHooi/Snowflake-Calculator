@@ -450,12 +450,13 @@ h1, h2, h3, p, li, a, button, input, select, textarea, .editable, span {
   border-bottom-width: 0px;
 }
 .line_divider {
-  width: 752px;
+  width: 800px;
   height: 9px;
   display: flex;
   align-self: center;
-  margin-top: 20px;
-  align-items: flex-start;
+    margin:auto;
+  /*margin-top: 20px;*/
+  align-items: center;
   border-color: rgba(120, 120, 120, 0.4);
   border-style: solid;
   border-width: 1px;
@@ -3029,13 +3030,12 @@ border-bottom: 0.5px solid #c9d3dd;
 .sf-calc2-line-divider-div3 {
   width: 752px;
   height: 9px;
-  align-self: center;
   margin-top: 30px;
-  align-items: flex-start;
   border-color: rgba(120, 120, 120, 0.4);
   border-style: solid;
   border-width: 1px;
   margin-bottom: 20px;
+
   border-left-width: 0px;
   border-right-width: 0px;
   border-bottom-width: 0px;
@@ -3777,6 +3777,7 @@ border-bottom: 0.5px solid #c9d3dd;
   flex-wrap: wrap;
   align-items: flex-start;
 }
+
 .sf-calc2-container39 {
   flex: 1;
   width: auto;
@@ -3979,6 +3980,7 @@ border-bottom: 0.5px solid #c9d3dd;
   width: 100%;
   height: 100%;
   display: flex;
+    margin: auto;
   align-items: center;
   margin-bottom: 20px;
   justify-content: center;
@@ -4004,6 +4006,8 @@ border-bottom: 0.5px solid #c9d3dd;
 }
 .sf-calc2-text386 {
   align-self: center;
+    text-align: center;
+    margin: auto;
 }
 .sf-calc2-icon44 {
   width: 24px;

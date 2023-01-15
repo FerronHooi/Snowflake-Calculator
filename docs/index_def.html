@@ -1303,14 +1303,11 @@
                     nrOfWarehouses.push(String(button.id).slice(-1));
                 });
 
-                // console.log(nrOfWarehouses);
-                //
-                // console.log(allDeleteButtons)
 
-               for (button = 1; button < nrOfWarehouses.length; i++) {
+               for (let button = 1; button < nrOfWarehouses.length+1; button++) {
                 //on click clear all button delete all warehouse information
                 // nrOfWarehouses.forEach((button) => {
-                 console.log(button + 'rrr')
+                //  console.log(button + 'rrr')
                   $("#schatting-opslag-verbruikskosten-delete, #clear-all-button").on(
                           "click",
                           function (e) {
