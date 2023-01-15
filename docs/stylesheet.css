@@ -165,9 +165,7 @@ h1, h2, h3, p, li, a, button, input, select, textarea, .editable, span {
 }
 
 #warehouse-button-1:hover, #warehouse-button-2:hover, #warehouse-button-3:hover, #warehouse-button-4:hover, #warehouse-button-5:hover {
- background-color: rgb(54, 0, 0);
-  color:white;
-  border: 1px solid black;
+ background-color: #dfdfdf;
 }
 
 /* CUSTOM ADDED */
@@ -486,8 +484,8 @@ h1, h2, h3, p, li, a, button, input, select, textarea, .editable, span {
   border-bottom-left-radius: 0;
   border-bottom-right-radius: 0;
 }
-.add-warehouse-button:hover {
-  background-color: var(--dl-color-success-700);
+#add-warehouse-button:hover {
+  background-color: #44af5b;
 }
 .select-warehouse-button {
   flex: 0.3;
@@ -501,14 +499,9 @@ h1, h2, h3, p, li, a, button, input, select, textarea, .editable, span {
   flex-direction: row;
   justify-content: center;
   background-color: #b2b2b1;
-  border-top-left-radius: var(--dl-radius-radius-radius8);
-  border-top-right-radius: var(--dl-radius-radius-radius8);
-  border-bottom-left-radius: 0;
-  border-bottom-right-radius: 0;
+
 }
-.select-warehouse-button:hover {
-  background-color: #edf0f4;
-}
+
 .delete-warehouse {
   top: 12px;
   fill: var(--dl-color-danger-300);
