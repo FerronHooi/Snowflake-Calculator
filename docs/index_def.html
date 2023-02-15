@@ -109,13 +109,6 @@
                     }
                 }
 
-                // !!!!!!!!! VOORKEURS CLOUDPLATFORM EN REGION !!!!!!!!!
-
-                /* De code hieronder heeft betrekking op het selecteren van de cloudplatform, regio en valuta. Door deze code wordt alleen de select dropdown voor de cloudplatform getoond.
-                            Nadat een gebruiker een cloudplatform heeft geselecteerd, wordt de regio dropdown getoond. Nadat een gebruiker een regio heeft geselecteerd, wordt de valuta dropdown getoond.
-                            Het verbergen gebeurt door de .hide(), het tonen begint later in de code d.m.v. de .show() */
-
-                // on document load hide select region as first cloud platform has to be selected
                 $("#select-region").hide();
 
                 $(
@@ -132,8 +125,6 @@
                     "[id^=wh-button-]"
                 );
 
-                //TODO: Make this button red 'Selected' on document load
-
                 allWarehouseButtons.forEach((button) => {
                     if (button.id == "wh-button-1") {
                         $("#" + button.id).css("display", "block");
@@ -141,7 +132,6 @@
                         $("#" + button.id).css("display", "none");
                     }
                 });
-
 
                 // on document load hide scenario 2 of the calculator examples
                 $("#wrapper-scenario-2").hide();
@@ -192,10 +182,6 @@
 
                     /* CALCULATIONS */
 
-                    // Berekeningen die gebruikt worden bij 'schatting opslag & verbruikskosten'
-
-                    // Aantal dagen * Aantal uren
-
                     var allActiveWarehouses = document.querySelectorAll(
                         "[id^=warehouse-button-]"
                     );
@@ -232,24 +218,10 @@
                     document.getElementById("total-hours-1").innerHTML =
                         Math.round(calculateTotalHours * 10) / 10 + " uren p/m";
 
-                    // Hierdoor wordt "X credits /uur" getoond
-                    //var creditsPerHourString = (document.getElementById(
-                    //  "total-credits-per-hour-1"
-                    // ).innerHTML = creditsPerHour + " Credit(s)/uur");
-
-                    // Totale uren * totale credits
-
                     // Hierdoor wordt "X credits p/m" getoond in de div met id "total-credits"
                     var creditsTotalString = (document.getElementById(
                         "total-credits-1"
                     ).innerHTML = Math.round(creditsTotal * 10) / 10 + " Credits p/m");
-
-                    // Hierdoor wordt "X TB p/m" getoond in de div met id "total-storage"
-                    //var storagetbTotal = (document.getElementById(
-                    //  "total-storage"
-                    //).innerHTML =
-                    //  document.getElementById("input-storage-tb-per-month").value +
-                    //  " tb opslag p/m");
 
                     // !!!! SCHATTING PER EDITIE !!!!!
 
@@ -259,12 +231,6 @@
                     ).innerHTML = currentPlatform + " - " + currentRegion);
 
                     // Hierdoor worden de prijzen (per credit) weergeven van de huidige geselecteerde cloudplatform + regio (van standard, enterprise, business critical)
-
-                    // editions.forEach(function (edition) {
-                    //   document.getElementById("inputfield" + edition).value =
-                    //     platforms[currentPlatform][currentRegion]["tier"][edition][
-                    //       currentCurrency
-                    //     ];
 
                     // END REFRESH HERE
 
