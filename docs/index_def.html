@@ -4479,16 +4479,16 @@
                         var totalHoursWarehouse = Math.round(SelectedWarehouseDays * SelectedWarehouseHours * (SelectedWarehouseBezet / 100))
                         var totalCreditsWarehouse = Math.round(SelectedWarehouseNumber * totalHoursWarehouse * (SelectedWarehouseBezet / 100))
 
-                        const scenarioButtons = document.querySelectorAll('[id^="scenario-button-"]');
-                        const scenarioButtonsArray = Array.from(scenarioButtons);
-
-                        const activeButton = scenarioButtonsArray.find(button => {
-                            return button.style.backgroundColor === '#a52025';
-                        });
-
-                        const activeButtonNr = activeButton.id.slice(-1);
-
-                        console.log(activeButtonNr)
+                        // const scenarioButtons = document.querySelectorAll('[id^="wrapper-scenario-warehouse-example-"]');
+                        // const scenarioButtonsArray = Array.from(scenarioButtons);
+                        //
+                        // const activeButton = scenarioButtonsArray.find(button => {
+                        //     return button.style.backgroundColor === '#a52025';
+                        // });
+                        //
+                        // const activeButtonNr = activeButton.id.slice(-1);
+                        //
+                        // console.log(activeButtonNr)
 
                         var warehouseDescription = "placeholder"
                         <!-- var warehouseDescription = document.getElementById("toelichting-text-wh-" + "activeButtonNr" + "-" + nrOfWarehouses[i]).innerText.trim() -->
