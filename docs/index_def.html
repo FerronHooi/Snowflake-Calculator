@@ -76,15 +76,10 @@
                     buttonsCount.push(Number(button.id.slice(-1)));
                 });
 
-                console.log(buttonsCount);
-
                 buttonsCount.forEach((button) => {
-                    console.log(button);
-
                     $(
                         "#warehouse-size-button-left-" + button + ", #warehouse-size-button-right-" + button
                     ).click(function () {
-                        console.log("oke")
                         var warehouseSizes = Object.keys(warehouse);
                         var warehouseSize =
                             document.getElementById("warehouse-type-" + button).innerHTML;
@@ -140,7 +135,6 @@
                 //TODO: Make this button red 'Selected' on document load
 
                 allWarehouseButtons.forEach((button) => {
-                    console.log(button.id);
                     if (button.id == "wh-button-1") {
                         $("#" + button.id).css("display", "block");
                     } else {
@@ -682,14 +676,12 @@
                     var nrOfWarehouses = [];
                     currentActiveWarehouseButtons.forEach(function (element) {
                         nrOfWarehouses.push(Number(element.id.slice(-1)));
-                        console.log(element.id);
                     });
 
                                         var notCurrentActiveWarehouseButtons = document.querySelectorAll('li[style*="display: none;"][id^="wh-button-"]');
                     var nrOfWarehousesNotActive = [];
                     notCurrentActiveWarehouseButtons.forEach(function (element) {
                         nrOfWarehousesNotActive.push(Number(element.id.slice(-1)));
-                        console.log(element.id);
                     });
 
                     // nrOfWarehousesNotActive.forEach(function (element) {
@@ -699,41 +691,15 @@
                     //
                     // });
 
-                    console.log(nrOfWarehouses);
-
                     var maxWarehouse = Math.max(...nrOfWarehouses);
 
                     if (maxWarehouse == 5) {
                         alert("Maximaal 5 warehouses toegestaan");
                     } else {
                         var nextWarehouse = maxWarehouse + 1;
-                        console.log(nextWarehouse);
                         document.getElementById("wh-button-" + nextWarehouse).style.display =
                             "block";
                     }
-                    //$("#wh-button-" + (maxWarehouse + 1)).css("display", "block");
-
-                    //allWarehousesButtons.forEach(function (button) {
-                    //if ($("#" + button.id).css('display') == 'none') {
-                    //   $("#" + button.id).show();
-                    //  }
-                    // console.log(button);
-                    // });
-
-                    //var nrOfWarehouses = []
-                    //for (var i = 0; i < allActiveWarehouses.length; i++) {
-                    // nrOfWarehouses.push(Number(allActiveWarehouses[i].id.split("-")[2]));
-                    //}
-
-                    //var newWarehouseNumber = Math.max(...nrOfWarehouses) + 1;
-
-                    //const node = document.getElementById("warehouse-button-1");
-                    //const clone = node.cloneNode(true);
-                    // document.getElementById("wh-button-list").appendChild(clone);
-
-                    //document.getElementById("warehouse-button-" ).innerHTML =
-                    //  "Warehouse " + newWarehouseNumber;
-                    // $("#warehouse-button-1-2").css("background-color", "#edf0f4");
                 });
 
                 // Deze kun je uitcommentarieren als je alle divs wilt zien (en dus niet elke keer eerst een platform, regio en valuta wil selecteren voor het testen)
@@ -889,13 +855,6 @@
                               }
                       );
 
-                      // var currentScenario = "wrapper-scenario-examples-div-2"
-                      // var currentScenarioNumber = currentScenario.slice(-1);
-                      //
-                      // console.log(listOfCalculationSelectorNumbers)
-
-
-                      // let activeScenarios = document.querySelectorAll('li:not([style*="display: none;"])[id^="wrapper-scenario-examples-div-"]');
                       let activeScenarios = document.querySelectorAll("div[id^='wrapper-scenario-examples-div-']");
                       let activeScenarioNumbers = [];
                       activeScenarios.forEach((scenario) => {
@@ -1118,8 +1077,6 @@
                             "[id^=wrapper-scenario-opslag-example]"
                         ).length;
 
-                      console.log(numberOfST);
-
                         //STORAGES
                         for (let nrStrs = 1; nrStrs <= numberOfST; nrStrs++) {
 
@@ -1185,7 +1142,6 @@
                             "#select-warehouse-size-scenario-warehouse-example-" +
                             i
                         ).on("change, click", function (e) {
-                            console.log("change");
                             document.getElementById(
                                 "warehouse-size-wh-" + i
                             ).innerHTML = this.value;
@@ -1216,21 +1172,7 @@
                             }
                         );
                     }
-                    //console.log("Warehouses" + numberOfWH);
-                    //console.log("Storages" + numberOfST);
                 }
-
-                //on document load hide all scenario div except for the first one
-                // TODO: Enable to hide all scenarios
-                // document
-                //     .querySelectorAll("[id^=wrapper-scenario-div-]")
-                //     .forEach((scenarioWrapper) => {
-                //         if (String(scenarioWrapper.id).slice(-1) !== String(1)) {
-                //             $(`#${scenarioWrapper.id}`).hide();
-                //         } else {
-                //             $(`#${scenarioWrapper.id}`).show();
-                //         }
-                //     });
 
                 //hide scenario div on list click
                 var allScenarioButtons = document.querySelectorAll(
@@ -1241,8 +1183,6 @@
                     $(`#${button.id}`).on("click", function (e) {
                         currentScenario = button.id;
 
-                        console.log(currentScenario);
-                        // find all divs with id starting with "warehouse-button" and hide them
                         document
                             .querySelectorAll("[id^=wrapper-scenario-examples-div-]")
                             .forEach((scenarioWrapper) => {
@@ -1342,14 +1282,9 @@
 
 
                for (let button = 1; button < nrOfWarehouses.length+1; button++) {
-                //on click clear all button delete all warehouse information
-                // nrOfWarehouses.forEach((button) => {
-                //  console.log(button + 'rrr')
                   $("#schatting-opslag-verbruikskosten-delete, #clear-all-button").on(
                           "click",
                           function (e) {
-                            // find all divs with id starting with "warehouse-button" and hide them
-                            console.log("Hello" + button)
                             var currentNumber = String(button.id).slice(-1);
                             document.getElementById(
                                     "number-of-days-select-" + currentNumber
@@ -1383,7 +1318,6 @@
 
 
                             allWarehouseButtons.forEach((button) => {
-                              console.log(button.id);
                               if (button.id == "wh-button-1") {
                                 $("#" + button.id).css("display", "block");
 
@@ -1414,7 +1348,6 @@
                             document
                                     .querySelectorAll("[id^=wrapper-warehouse-info-filler-]")
                                     .forEach((warehouseButtonWrapper) => {
-                                      console.log(warehouseButtonWrapper.id);
                                       if (
                                               warehouseButtonWrapper.id == "wrapper-warehouse-info-filler-1"
                                       ) {
@@ -1483,8 +1416,6 @@
 
                         document.getElementById("warehouse-button-" + currentNumber).innerHTML = "Warehouse " + currentNumber;
                         document.getElementById("warehouse-title-" + currentNumber).innerHTML = "Datawarehouse " + currentNumber;
-
-                                               console.log(currentNumber)
 
                         var deleteButtonNr = button.id.slice(-1);
 
@@ -1612,10 +1543,7 @@
                     var allFieldsToRefresh =
                         divSchattingKosten.querySelectorAll(".button, input");
 
-                    console.log(allFieldsToRefresh);
-
                     var events = ["change", "click"];
-
 
                     allFieldsToRefresh.forEach(function (elem) {
                         events.forEach(function (event) {
@@ -4400,13 +4328,10 @@
 
                     var currentActiveWarehouseButtons = document.querySelectorAll('li:not([style*="display: none;"])[id^="wh-button-"]');
 
-                    console.log(currentActiveWarehouseButtons)
-
                     var nrOfWarehouses = [];
 
                     currentActiveWarehouseButtons.forEach(function (element) {
                         nr = Number(element.id.slice(-1));
-                        console.log(nr);
                         nrOfWarehouses.push(nr);
 
                     });
@@ -4481,17 +4406,6 @@
                         var totalHoursWarehouse = Math.round(SelectedWarehouseDays * SelectedWarehouseHours * (SelectedWarehouseBezet / 100))
                         var totalCreditsWarehouse = Math.round(SelectedWarehouseNumber * totalHoursWarehouse * (SelectedWarehouseBezet / 100))
 
-                        // const scenarioButtons = document.querySelectorAll('[id^="wrapper-scenario-warehouse-example-"]');
-                        // const scenarioButtonsArray = Array.from(scenarioButtons);
-                        //
-                        // const activeButton = scenarioButtonsArray.find(button => {
-                        //     return button.style.backgroundColor === '#a52025';
-                        // });
-                        //
-                        // const activeButtonNr = activeButton.id.slice(-1);
-                        //
-                        // console.log(activeButtonNr)
-
                         var warehouseDescription = "placeholder"
                         <!-- var warehouseDescription = document.getElementById("toelichting-text-wh-" + "activeButtonNr" + "-" + nrOfWarehouses[i]).innerText.trim() -->
 
@@ -4502,9 +4416,6 @@
 
                     var totalStorageCost = document.getElementById(selectedStorageForCalc).innerText;
                     var totalCompute = document.getElementById(selectedEditionForCalcTotal).innerText
-
-
-                    console.log(emptyArray);
 
                     const calcExamplesDiv = document.getElementById("inside-wrapper-calculation-examples-div-1");
 
