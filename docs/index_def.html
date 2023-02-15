@@ -126,6 +126,8 @@
                 $(
                     "#wrapper-calculation-examples-container-full, .line_divider, #wrapper-calculation-examples-div, #line-divider-voorkeur-schatting, #wrapper-schatting-opslag-div, #schatting-per-editie-div, #storage-costs-div, #totale-kosten-div, #contact-button-div"
                 ).show();
+
+                $("#storage-costs-div").hide();
                 //#TODO: Disable later
 
                 $("#warehouse-button-1").css("background-color", "#a52025");
@@ -1887,7 +1889,7 @@
                         );
                         $("#capacity-storage-div").css("box-shadow", "0 0 0 0px #e0e0e0");
 
-                        $("#totale-kosten-div, #contact-button-div").show();
+                        $("#totale-kosten-div, #contact-button-div, #line-divider-5, #totale-kosten-title-div").show();
 
                         var selectedEdition =
                             document.getElementById("select-edition").value;
@@ -2047,7 +2049,7 @@
                   <li class="list-item">
                     <span class="info-text-calculations sf-calc2-text008">
                       <span>
-                        ﻿De grootte van een warehouse (x-small tot 3X-large)
+                        De grootte van een warehouse (x-small tot 3X-large)
                         geeft aan hoeveel rekenmiddelen er beschikbaar zijn.
                       </span>
                       <br class="sf-calc2-text010" />
@@ -4290,7 +4292,7 @@
                 ></path>
               </svg>
               <h2 id="total-credits-edition" class="sf-calc2-text363">
-                <span>0 </span>
+                <span>0</span>
                 <span>credits p/m</span>
               </h2>
             </div>
