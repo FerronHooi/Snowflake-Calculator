@@ -4012,7 +4012,6 @@ border-bottom: 0.5px solid #c9d3dd;
   color: white;
   width: 275px;
   height: 50px;
-  display: flex;
   z-index: 1000;
   align-self: center;
   font-style: normal;
@@ -4024,7 +4023,7 @@ border-bottom: 0.5px solid #c9d3dd;
   background-color: rgb(41, 50, 61);
 }
 .sf-calc2-button16:hover {
-  background-color: var(--dl-color-primary-100);
+  background-color: #e14747;
 }
 .sf-calc2-text387 {
   align-self: center;
