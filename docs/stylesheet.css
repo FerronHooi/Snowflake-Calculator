@@ -132,13 +132,10 @@ margin-left:30px;
   outline: 0px solid transparent;
 }
 
-/*
-[contenteditable]:hover {
-  background-color: #edf0f4;
-  outline: 0px solid transparent;
-  padding:5px;
+
+[contenteditable="true"]:hover {
   text-decoration: underline;
-} */
+}
 
 .editable[contenteditable="false"] {
   font-weight: bold;
@@ -585,10 +582,7 @@ h1, h2, h3, p, li, a, button, input, select, textarea, .editable, span {
 
 .warehouse-title-editable:hover {
   text-decoration: underline;
-  color: lightblue;
 }
-
-
 
 .wh-selection-texts {
   color: #707070;
