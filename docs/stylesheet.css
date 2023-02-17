@@ -582,6 +582,14 @@ h1, h2, h3, p, li, a, button, input, select, textarea, .editable, span {
   padding-right: 0px;
   padding-bottom: 10px;
 }
+
+.warehouse-title-editable:hover {
+  text-decoration: underline;
+  color: lightblue;
+}
+
+
+
 .wh-selection-texts {
   color: #707070;
   width: 200px;
@@ -4978,7 +4986,6 @@ border-bottom: 0.5px solid #c9d3dd;
   .sf-calc2-text107 {
     align-self: center;
     text-align: center;
-    text-transform: uppercase;
     text-decoration: none;
   }
   .sf-calc2-icon02 {
@@ -5217,6 +5224,7 @@ border: 0.5px solid #c9d3dd;
   .sf-calc2-icon06 {
     align-self: center;
     margin-left: 15px;
+      margin-top: -10px;
   }
   .sf-calc2-icon08 {
     top: 0px;
@@ -5359,6 +5367,8 @@ border: 0.5px solid #c9d3dd;
   .sf-calc2-icon10 {
     align-self: center;
     margin-left: 15px;
+            margin-top: -10px;
+
   }
   .sf-calc2-icon12 {
     top: 0px;
@@ -5501,6 +5511,8 @@ border: 0.5px solid #c9d3dd;
   .sf-calc2-icon14 {
     align-self: center;
     margin-left: 15px;
+            margin-top: -10px;
+
   }
   .sf-calc2-icon16 {
     top: 0px;
@@ -5643,6 +5655,8 @@ border: 0.5px solid #c9d3dd;
   .sf-calc2-icon18 {
     align-self: center;
     margin-left: 15px;
+            margin-top: -10px;
+
   }
   .sf-calc2-icon20 {
     top: 0px;
@@ -5785,6 +5799,8 @@ border: 0.5px solid #c9d3dd;
   .sf-calc2-icon22 {
     align-self: center;
     margin-left: 15px;
+            margin-top: -10px;
+
   }
   .sf-calc2-icon24 {
     top: 0px;
