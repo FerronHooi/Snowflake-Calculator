@@ -564,41 +564,31 @@
                 }
 
 
-                $("#add-warehouse-button").on("click", function (e) {
-                    var allWarehousesButtons = document.querySelectorAll(
-                        "[id^=wh-button-]"
-                    );
+                const addWarehouseButton = document.querySelector("#add-warehouse-button");
+                addWarehouseButton.addEventListener("click", function (event) {
+                  const allWarehouseButtons = document.querySelectorAll('[id^="wh-button-"]');
+                  const currentActiveWarehouseButtons = document.querySelectorAll('li:not([style*="display: none;"])[id^="wh-button-"]');
 
-                    var currentActiveWarehouseButtons = document.querySelectorAll('li:not([style*="display: none;"])[id^="wh-button-"]');
+                  const nrOfActiveWarehouses = Array.from(currentActiveWarehouseButtons).map(function (element) {
+                    return Number(element.id.slice(-1));
+                  });
 
+                  const notCurrentActiveWarehouseButtons = document.querySelectorAll('li[style*="display: none;"][id^="wh-button-"]');
+                  const nrOfNotActiveWarehouses = Array.from(notCurrentActiveWarehouseButtons).map(function (element) {
+                    return Number(element.id.slice(-1));
+                  });
 
-                    var nrOfWarehouses = [];
-                    currentActiveWarehouseButtons.forEach(function (element) {
-                        nrOfWarehouses.push(Number(element.id.slice(-1)));
-                    });
+                  // nrOfNotActiveWarehouses.forEach(function (element) {
+                  //   document.getElementById("wh-button-" + element).style.backgroundColor = "green";
+                  // });
 
-                                        var notCurrentActiveWarehouseButtons = document.querySelectorAll('li[style*="display: none;"][id^="wh-button-"]');
-                    var nrOfWarehousesNotActive = [];
-                    notCurrentActiveWarehouseButtons.forEach(function (element) {
-                        nrOfWarehousesNotActive.push(Number(element.id.slice(-1)));
-                    });
-
-                    // nrOfWarehousesNotActive.forEach(function (element) {
-                    //
-                    //       document.getElementById("wh-button-" + element).style.backgroundColor = "green";
-                    //   document.getElementById("wh-button-" + element).style.backgroundColor = "green";
-                    //
-                    // });
-
-                    var maxWarehouse = Math.max(...nrOfWarehouses);
-
-                    if (maxWarehouse == 5) {
-                        alert("Maximaal 5 warehouses toegestaan");
-                    } else {
-                        var nextWarehouse = maxWarehouse + 1;
-                        document.getElementById("wh-button-" + nextWarehouse).style.display =
-                            "block";
-                    }
+                  const maxWarehouse = Math.max(...nrOfActiveWarehouses);
+                  if (maxWarehouse === 5) {
+                    alert("Maximaal 5 warehouses toegestaan");
+                  } else {
+                    const nextWarehouse = maxWarehouse + 1;
+                    document.getElementById("wh-button-" + nextWarehouse).style.display = "block";
+                  }
                 });
 
                 // Deze kun je uitcommentarieren als je alle divs wilt zien (en dus niet elke keer eerst een platform, regio en valuta wil selecteren voor het testen)
