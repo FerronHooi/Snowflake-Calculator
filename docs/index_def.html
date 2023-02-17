@@ -1193,12 +1193,14 @@
                     nrOfWarehouses.push(String(button.id).slice(-1));
                 });
 
+                console.log(nrOfWarehouses);
 
-               for (let button = 1; button < nrOfWarehouses.length+1; button++) {
+
+                  for (let i = 0; i < nrOfWarehouses.length; i++) {
+                      let currentNumber = nrOfWarehouses[i];
                   $("#schatting-opslag-verbruikskosten-delete, #clear-all-button").on(
                           "click",
                           function (e) {
-                            var currentNumber = String(button.id).slice(-1);
                             document.getElementById(
                                     "number-of-days-select-" + currentNumber
                             ).value = null;
