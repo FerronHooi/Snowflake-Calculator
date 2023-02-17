@@ -511,99 +511,32 @@
                             "input-storage-tb-per-month"
                         ).value;
 
-                        if (currentCurrency == "eur") {
-                            var totalOnDemandStorageCost = (document.getElementById(
-                                "on-demand-storage-amount"
-                            ).innerHTML = (
-                                Math.round(
-                                    Number(
-                                        platforms[currentPlatform][currentRegion]["on_demand_price"][
-                                            currentCurrency
-                                            ] * currentStorageTBs
-                                    ) * 100
-                                ) / 100
-                            ).toFixed(2));
-                            var totalCapacityStorageCost = (document.getElementById(
-                                "capacity-storage-amount"
-                            ).innerHTML = (
-                                Math.round(
-                                    Number(
-                                        platforms[currentPlatform][currentRegion]["capacity_storage_price"][
-                                            currentCurrency
-                                            ] * currentStorageTBs
-                                    ) * 100
-                                ) / 100
-                            ).toFixed(2));
-                        } else if (currentCurrency == "usd") {
-                            var totalOnDemandStorageCost = (document.getElementById(
-                                "on-demand-storage-amount"
-                            ).innerHTML = (
-                                Math.round(
-                                    Number(
-                                        platforms[currentPlatform][currentRegion]["on_demand_price"][
-                                            currentCurrency
-                                            ] * currentStorageTBs
-                                    ) * 100
-                                ) / 100
-                            ).toFixed(2));
-                            var totalCapacityStorageCost = (document.getElementById(
-                                "capacity-storage-amount"
-                            ).innerHTML = (
-                                Math.round(
-                                    Number(
-                                        platforms[currentPlatform][currentRegion]["capacity_storage_price"][
-                                            currentCurrency
-                                            ] * currentStorageTBs
-                                    ) * 100
-                                ) / 100
-                            ).toFixed(2));
-                        } else if (currentCurrency == "gbp") {
-                            var totalOnDemandStorageCost = (document.getElementById(
-                                "on-demand-storage-amount"
-                            ).innerHTML = (
-                                Math.round(
-                                    Number(
-                                        platforms[currentPlatform][currentRegion]["on_demand_price"][
-                                            currentCurrency
-                                            ] * currentStorageTBs
-                                    ) * 100
-                                ) / 100
-                            ).toFixed(2));
-                            var totalCapacityStorageCost = (document.getElementById(
-                                "capacity-storage-amount"
-                            ).innerHTML = (
-                                Math.round(
-                                    Number(
-                                        platforms[currentPlatform][currentRegion]["capacity_storage_price"][
-                                            currentCurrency
-                                            ] * currentStorageTBs
-                                    ) * 100
-                                ) / 100
-                            ).toFixed(2));
-                        } else {
-                            var totalOnDemandStorageCost = (document.getElementById(
-                                "on-demand-storage-amount"
-                            ).innerHTML = (
-                                Math.round(
-                                    Number(
-                                        platforms[currentPlatform][currentRegion]["on_demand_price"][
-                                            currentCurrency
-                                            ] * currentStorageTBs
-                                    ) * 100
-                                ) / 100
-                            ).toFixed(2));
-                            var totalCapacityStorageCost = (document.getElementById(
-                                "capacity-storage-amount"
-                            ).innerHTML = (
-                                Math.round(
-                                    Number(
-                                        platforms[currentPlatform][currentRegion]["capacity_storage_price"][
-                                            currentCurrency
-                                            ] * currentStorageTBs
-                                    ) * 100
-                                ) / 100
-                            ).toFixed(2));
-                        }
+                        var currencies = ["eur", "usd", "gbp"];
+
+                    if (currencies.includes(currentCurrency)) {
+                      var totalOnDemandStorageCost = (document.getElementById("on-demand-storage-amount").innerHTML = (
+                        Math.round(
+                          Number(platforms[currentPlatform][currentRegion]["on_demand_price"][currentCurrency] * currentStorageTBs) * 100
+                        ) / 100
+                      ).toFixed(2));
+                      var totalCapacityStorageCost = (document.getElementById("capacity-storage-amount").innerHTML = (
+                        Math.round(
+                          Number(platforms[currentPlatform][currentRegion]["capacity_storage_price"][currentCurrency] * currentStorageTBs) * 100
+                        ) / 100
+                      ).toFixed(2));
+                    } else {
+                      var totalOnDemandStorageCost = (document.getElementById("on-demand-storage-amount").innerHTML = (
+                        Math.round(
+                          Number(platforms[currentPlatform][currentRegion]["on_demand_price"][currentCurrency] * currentStorageTBs) * 100
+                        ) / 100
+                      ).toFixed(2));
+                      var totalCapacityStorageCost = (document.getElementById("capacity-storage-amount").innerHTML = (
+                        Math.round(
+                          Number(platforms[currentPlatform][currentRegion]["capacity_storage_price"][currentCurrency] * currentStorageTBs) * 100
+                        ) / 100
+                      ).toFixed(2));
+                    }
+
                     });
 
                     // Hierdoor wordt "X EDITIE" weergeven in de div met id "selected-edition"
