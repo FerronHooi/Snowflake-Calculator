@@ -545,6 +545,7 @@
                 }
 
 
+
                 // on document load hide the two divs (on-demand storage and capacity)
                 $("#snowflake-calculator-container-storage-cost").hide();
 
@@ -1705,6 +1706,7 @@
 
                     function () {
                         currentSelectedStorageType = "on-demand-storage-amount";
+                          document.getElementById("selected-storage").innerHTML = "(ON DEMAND STORAGE)";
                         var totalCostStorCreditsStandard =
                             Number(
                                 document.getElementById(currentSelectedEditon).innerHTML
@@ -1746,6 +1748,7 @@
 
                     function () {
                         currentSelectedStorageType = "capacity-storage-amount";
+                      document.getElementById("selected-storage").innerHTML = "(CAPACITY STORAGE)";
                         var totalCostStorCreditsStandard =
                             Number(
                                 document.getElementById(currentSelectedEditon).innerHTML
@@ -4211,7 +4214,7 @@
                 class="sf-calc2-toelichting-tekst-div"
               >
                 <span class="sf-calc2-text380">
-                  <span>Samenvatting van de berekening die is gemaakt.</span>
+                  <span>Klik voor meer informatie over hoe de berekening tot stand is gekomen op de 'Exporteer naar PDF' knop hieronder.</span>
                   <br />
                   <br />
                   <span>
