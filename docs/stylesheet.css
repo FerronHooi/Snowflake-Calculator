@@ -564,7 +564,7 @@ h1, h2, h3, p, li, a, button, input, select, textarea, .editable, span {
 
 .warehouse-wrapper {
   flex: 0 0 auto;
-  width: 100%;
+  width: 99.8%;
   height: 250px;
   display: flex;
   flex-wrap: wrap;
