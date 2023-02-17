@@ -2970,6 +2970,7 @@ border-bottom: 0.5px solid #c9d3dd;
   align-items: center;
   flex-direction: column;
   justify-content: flex-start;
+    border: 0.5px solid #c9d3dd;
 }
 .sf-calc2-wrapper-title-opslagvereisten {
   flex: 0 0 auto;
@@ -2990,17 +2991,12 @@ border-bottom: 0.5px solid #c9d3dd;
   overflow: hidden;
   position: relative;
   align-self: center;
-  border-top: 1px solid rgba(120, 120, 120, 0.4);
   align-items: flex-start;
-  border-color: #edf0f4;
-  border-width: 1px;
-  border-bottom: 1px solid rgba(120, 120, 120, 0.4);;
   justify-content: center;
   background-color: #edf0f4;
 }
 .sf-calc2-inside-wrapper-geschatte-opslag-div {
   flex: 0 0 auto;
-  width: 100%;
   height: 45px;
   display: flex;
   align-items: flex-start;
@@ -3150,8 +3146,8 @@ border-bottom: 0.5px solid #c9d3dd;
   flex-direction: column;
 }
 .sf-calc2-standard-edition-container:hover {
-  border-color: var(--dl-color-gray-black);
-  background-color: #edf0f4;
+  border-color: #c9d3dd;
+  background-color: #f6f6f6;
 }
 .sf-calc2-container22 {
   flex: 0 0 auto;
@@ -3274,8 +3270,8 @@ border-bottom: 0.5px solid #c9d3dd;
   flex-direction: column;
 }
 .sf-calc2-enterprise-edition-container:hover {
-  border-color: var(--dl-color-gray-black);
-  background-color: #edf0f4;
+  border-color: #c9d3dd;
+  background-color: #f6f6f6;
 }
 .sf-calc2-container26 {
   flex: 0 0 auto;
@@ -3399,8 +3395,8 @@ border-bottom: 0.5px solid #c9d3dd;
   flex-direction: column;
 }
 .sf-calc2-business-critical-edition-container:hover {
-  border-color: black;
-  background-color: #edf0f4;
+  border-color: #c9d3dd;
+  background-color: #f6f6f6;
 }
 .sf-calc2-container30 {
   flex: 0 0 auto;
@@ -3561,8 +3557,8 @@ border-bottom: 0.5px solid #c9d3dd;
   flex-direction: column;
 }
 .sf-calc2-on-demand-storage-div:hover {
-  border-color: black;
-  background-color: #edf0f4;
+  border-color: #c9d3dd;
+  background-color: #f6f6f6;
 }
 .sf-calc2-container35 {
   flex: 0 0 auto;
@@ -3627,8 +3623,8 @@ border-bottom: 0.5px solid #c9d3dd;
   flex-direction: column;
 }
 .sf-calc2-capacity-storage-div:hover {
-  background: #edf0f4;
-  border-color: black;
+  border-color: #c9d3dd;
+  background-color: #f6f6f6;
 }
 .sf-calc2-container37 {
   flex: 0 0 auto;
@@ -5904,11 +5900,7 @@ border: 0.5px solid #c9d3dd;
     font-size: 16px;
   }
   .sf-calc2-wrapper-geschatte-opslag-div {
-    border-color: #c9d3dd;
-    border-width: 1px;
-    margin-bottom: 56px;
     background-color: #f4f6f8;
-    border-top-width: 0px;
   }
   .sf-calc2-inside-wrapper-geschatte-opslag-div {
     height: 50px;
