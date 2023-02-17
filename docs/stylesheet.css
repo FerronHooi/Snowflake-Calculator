@@ -701,11 +701,11 @@ h1, h2, h3, p, li, a, button, input, select, textarea, .editable, span {
   .subtext-select {
     color: #707070;
     width: 100%;
-    font-size: 9px;
+    font-size: 11px;
     text-align: center;
   }
   .sliders {
-    width: 150px;
+    width: 100px;
     align-self: center;
   }
   .selected-warehouse-button {
@@ -1327,7 +1327,7 @@ h1, h2, h3, p, li, a, button, input, select, textarea, .editable, span {
   align-items: center;
   justify-content: center;
   background-color: #edf0f4;
-    border: 0.5px solid #c9d3dd;
+    border-right: 0.5px solid #c9d3dd;
 
 }
 .sf-calc2-wrapper-title-div-scenario-warehouse-example-11 {
@@ -4324,7 +4324,7 @@ border-bottom: 0.5px solid #c9d3dd;
   }
   .sf-calc2-text048 {
     width: 100%;
-    font-size: 9px;
+    font-size: 11px;
     text-align: center;
   }
   .sf-calc2-wrapper-select-bezettingspercentage-scenario-warehouse-example-11 {
@@ -4339,11 +4339,11 @@ border-bottom: 0.5px solid #c9d3dd;
   }
   .sf-calc2-text050 {
     width: 100%;
-    font-size: 9px;
+    font-size: 11px;
     text-align: center;
   }
   .sf-calc2-input01 {
-    width: 150px;
+    width: 100px;
     align-self: center;
   }
   .sf-calc2-wrapper-select-warehouse-size-scenario-warehouse-example-1 {
@@ -4358,7 +4358,7 @@ border-bottom: 0.5px solid #c9d3dd;
   }
   .sf-calc2-text052 {
     width: 100%;
-    font-size: 9px;
+    font-size: 11px;
     text-align: center;
   }
   .sf-calc2-select-warehouse-size-scenario-warehouse-example-1 {
@@ -4488,7 +4488,7 @@ border-bottom: 0.5px solid #c9d3dd;
     flex-wrap: wrap;
     flex-direction: column;
     background-color: transparent;
-      border: 0.5px solid #c9d3dd;
+      border-left: 0.5px solid #c9d3dd;
   }
   .sf-calc2-wrapper-title-div-scenario-warehouse-example-2 {
     margin-top: 0px;
@@ -4538,11 +4538,9 @@ border-bottom: 0.5px solid #c9d3dd;
   }
   .sf-calc2-text071 {
     width: 100%;
-    font-size: 7px;
+    font-size: 711x;
     text-align: center;
-    padding-top: 5px;
-    padding-left: 25px;
-    padding-right: 25px;
+    padding-left: 5px;
   }
   .sf-calc2-wrapper-select-bezettingspercentage-scenario-warehouse-example-21 {
     width: 25%;
@@ -4556,14 +4554,12 @@ border-bottom: 0.5px solid #c9d3dd;
   }
   .sf-calc2-text073 {
     width: 100%;
-    font-size: 7px;
+    font-size: 11px;
     text-align: center;
-    padding-top: 5px;
-    padding-left: 25px;
-    padding-right: 25px;
+    padding-left: 5px;
   }
   .sf-calc2-input03 {
-    width: 150px;
+    width: 100px;
     align-self: center;
   }
   .sf-calc2-wrapper-select-warehouse-size-scenario-warehouse-example-2 {
@@ -4578,10 +4574,8 @@ border-bottom: 0.5px solid #c9d3dd;
   }
   .sf-calc2-text075 {
     width: 100%;
-    font-size: 7px;
+    font-size: 11px;
     text-align: center;
-    padding-top: 5px;
-    padding-left: 25px;
     padding-right: 25px;
   }
   .sf-calc2-select-warehouse-size-scenario-warehouse-example-2 {
@@ -4742,11 +4736,8 @@ border-bottom: 0.5px solid #c9d3dd;
   }
   .sf-calc2-text092 {
     width: 100%;
-    font-size: 7px;
+    font-size: 11px;
     text-align: center;
-    padding-top: 5px;
-    padding-left: 25px;
-    padding-right: 25px;
   }
   .sf-calc2-wrapper-select-bezettingspercentage-scenario-warehouse-example-12 {
     width: 25%;
@@ -4760,14 +4751,12 @@ border-bottom: 0.5px solid #c9d3dd;
   }
   .sf-calc2-text094 {
     width: 100%;
-    font-size: 7px;
+    font-size: 11px;
     text-align: center;
-    padding-top: 5px;
-    padding-left: 25px;
-    padding-right: 25px;
+      padding-left:5px;
   }
   .sf-calc2-input05 {
-    width: 150px;
+    width: 100px;
     align-self: center;
   }
   .sf-calc2-wrapper-select-warehouse-size-scenario-warehouse-example-11 {
@@ -4782,11 +4771,9 @@ border-bottom: 0.5px solid #c9d3dd;
   }
   .sf-calc2-text096 {
     width: 100%;
-    font-size: 7px;
+    font-size: 11px;
     text-align: center;
-    padding-top: 5px;
-    padding-left: 25px;
-    padding-right: 25px;
+    padding-left: 5px;
   }
   .sf-calc2-select-warehouse-size-scenario-warehouse-example-11 {
     flex: 0;
@@ -4920,14 +4907,6 @@ border-bottom: 0.5px solid #c9d3dd;
     margin-top: 10px;
     text-align: center;
   }
-  .sf-calc2-text104 {
-    width: 100%;
-    font-size: 7px;
-    text-align: center;
-    padding-top: 5px;
-    padding-left: 25px;
-    padding-right: 25px;
-  }
   .sf-calc2-wrapper-select-storage-type-scenario-storage-example {
     width: 40%;
   }
@@ -4940,11 +4919,8 @@ border-bottom: 0.5px solid #c9d3dd;
   }
   .sf-calc2-text106 {
     width: 100%;
-    font-size: 7px;
+    font-size: 11px;
     text-align: center;
-    padding-top: 5px;
-    padding-left: 25px;
-    padding-right: 25px;
   }
   .sf-calc2-select-warehouse-size-scenario-storage-example {
     flex: 0;
