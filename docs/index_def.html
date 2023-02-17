@@ -593,16 +593,39 @@
 
                 // Deze kun je uitcommentarieren als je alle divs wilt zien (en dus niet elke keer eerst een platform, regio en valuta wil selecteren voor het testen)
 
+                         const hideElements = [
+                    "#line-divider-1",
+                    "#wrapper-bekend-prijsberekening-snowflake",
+                    "#line-divider-2",
+                    "#wrapper-calculation-examples-div",
+                    "#line-divider-3",
+                    "#wrapper-schatting-opslag-div",
+                    "#line-divider-4",
+                    "#line-divider-5",
+                    "#schatting-opslag-div",
+                    "#line-divider-schatting-schatting",
+                    "#line-divider-schatting-kosten",
+                    "#schatting-per-editie-div",
+                    "#totale-kosten-div",
+                    "#contact-button-div",
+                    "#total-cost-title",
+                    "#total-cost-icon",
+                    "#select-edition",
+                    "#totale-kosten-title-div",
+                    "#select-storage-type",
+                    "#inside-wrapper-calculation-examples-div-1",
+                    "#buttons-examples-1",
+                    "#inside-wrapper-calculation-examples-div-2",
+                    "#buttons-example-2",
+                    "#inside-wrapper-calculation-examples-div-storage",
+                    "#inside-wrapper-calculation-examples-div-3",
+                    "#buttons-example-final",
+                    "#make-calculation-button-div"
+                  ];
 
-
-                $(
-                 "#line-divider-1, #wrapper-bekend-prijsberekening-snowflake, #line-divider-2, #wrapper-calculation-examples-div, #line-divider-3, #wrapper-schatting-opslag-div," +
-                        "#line-divider-4, #line-divider-5, #schatting-opslag-div, #line-divider-schatting-schatting, #line-divider-schatting-kosten, #schatting-per-editie-div, " +
-                        " #totale-kosten-div, #contact-button-div, #total-cost-title, #total-cost-icon, #select-edition, #totale-kosten-title-div, #select-storage-type, " +
-                "#inside-wrapper-calculation-examples-div-1, #buttons-examples-1, "
-                        + "#inside-wrapper-calculation-examples-div-2, #buttons-example-2, #inside-wrapper-calculation-examples-div-storage, #inside-wrapper-calculation-examples-div-3, #buttons-example-final, #make-calculation-button-div"
-
-                ).hide();
+                  hideElements.forEach(function(element) {
+                    $(element).hide();
+                  });
 
                 // on click on the show-me-a-example-button
 
