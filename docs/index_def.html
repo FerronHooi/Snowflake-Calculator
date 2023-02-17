@@ -66,6 +66,24 @@
                     "4X-Large": 128,
                 };
 
+                 // Get the slider input element
+  var slider = $("#percentage-bezetting-1");
+
+  // Get the slider value element
+  var sliderValue = $(".slider-value");
+
+  // Update the slider value element when the input value changes
+  slider.on("input", function() {
+    sliderValue.html(this.value + "%");
+  });
+
+  // Update the position of the slider value element
+  slider.on("mousemove", function() {
+    var value = this.value + "%";
+    var position = $(this).position().left + $(this).width() * (this.value / 100);
+    sliderValue.html(value).css("left", position);
+  });
+
 
                 var allWarehouseButtons = document.querySelectorAll(
                     "[id^=warehouse-button-]"
@@ -2476,8 +2494,7 @@
                         </span>
                         <span class="sf-calc2-text099" contenteditable="false" id="tb-storage-st-1">4</span><span contenteditable="false"> TB per maand</span>
                         <span contenteditable="true">
-                          aan gecomprimeerde data die opgeslagen dient te worden
-                          (ongecomprimeerd) is deze data 20 TB). Hierbij betaalt
+                          aan gecomprimeerde data die opgeslagen dient te worden. Hierbij betaalt
                           hij de data op month-to-month basis waarbij hij
                           gebruikt maakt van het opslagtype:
                         </span>
@@ -2854,14 +2871,10 @@
                   <span class="sf-calc2-text134">gebruikt wordt</span>
                   <br />
                 </span>
-                <input
-                  type="range"
-                  id="percentage-bezetting-1"
-                  max="100"
-                  min="1"
-                  step="5"
-                  class="sf-calc2-input09 input"
-                />
+<div class="slider-container">
+  <input type="range" id="percentage-bezetting-1" max="100" min="1" step="5" class="sf-calc2-input09 input" />
+  <div class="slider-value"></div>
+</div>
               </div>
             </div>
           </div>
@@ -3636,6 +3649,8 @@
                   step="5"
                   class="sf-calc2-input21 input"
                 />
+
+
               </div>
             </div>
           </div>
