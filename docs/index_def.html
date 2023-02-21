@@ -93,6 +93,8 @@ sliders.forEach(slider => {
   // Update the text when the slider value changes
   slider.oninput = function() {
     value.innerHTML = this.value;
+    const thumbWidth = getComputedStyle(this).getPropertyValue('--thumb-width');
+    value.style.left = `calc(${this.value}% + (${thumbWidth} / 2))`;
   }
 });
 
@@ -2610,7 +2612,7 @@ sliders.forEach(slider => {
                       min="1"
                       step="1"
                         max="200"
-                    />                  <span class="slider-value"></span>
+                    />                  <span class="slider-value-storage"></span>
 
                   </div>
 
