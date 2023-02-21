@@ -1497,7 +1497,10 @@ slidershours.forEach(sliderhours => {
                         });
                     });
 
-                                        //  populate region dropdown with this platform's regions
+
+                    });
+
+                                                        //  populate region dropdown with this platform's regions
                     $.each(currencyOptions, function (k, v) {
                         $("#select-currency").append(
                             $("<option>", {
@@ -1505,9 +1508,6 @@ slidershours.forEach(sliderhours => {
                                 text: v,
                             })
                         );
-                        makeCalculations();
-
-                    });
 
                     // Als een regio wordt geselecteerd dan wordt de valuta dropdown getoond
                     $("#select-currency").on("change", function (e) {
