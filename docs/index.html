@@ -4492,36 +4492,38 @@ slidershours.forEach(sliderhours => {
                                         item[8]
                                     ])),
 
-                                    additionalRows: [{
+  additionalRows: [{
+                                    col1: 'Total:',
+                                    col2: String(Number(totalCompute) + Number(totalStorageCost)) + " " + currency,
+                                    col3: 'ALL',
+                                    style: {
+                                        fontSize: 14 //optional, default 12
+                                    }
+                                },
+                                    {
                                         col1: 'Total compute:',
                                         col2: totalCompute + " " + currency,
                                         col3: 'ALL',
                                         style: {
-                                            fontSize: 14 //optional, default 12
+                                            fontSize: 10 //optional, default 12
                                         }
                                     },
-                                        {
-                                            col1: 'Total storage (' + selectedStorage + ', ' + document.getElementById("input-storage-tb-per-month").value + " TB/s month" + '):',
-                                            col2: String(totalStorageCost) + " " + currency,
-                                            col3: 'ALL',
-                                            style: {
-                                                fontSize: 10 //optional, default 12
-                                            }
-                                        },
-                                        {
-                                            col1: 'SubTotal:',
-                                            col2: String(Number(totalCompute) + Number(totalStorageCost)) + " " + currency,
-                                            col3: 'ALL',
-                                            style: {
-                                                fontSize: 10 //optional, default 12
-                                            }
+                                    {
+                                        col1: 'Total storage (' + selectedStorage + ', ' + document.getElementById("input-storage-tb-per-month").value + " TB/s month" + '):',
+                                        col2: String(totalStorageCost) + " " + currency,
+                                        col3: 'ALL',
+                                        style: {
+                                            fontSize: 10 //optional, default 12
+                                        }
 
-                                        }],
+                                    }],
 
 
-                                    invDescLabel: "Invoice Note",
+
+      invDescLabel: "Invoice Note",
                                     invDesc: "Let op: deze berekening is slechts een schatting en kan afwijken van de werkelijke kosten. Het is niet bedoeld als bindend aanbod of garantie van de uiteindelijke kosten." +
-                                            "\n\nIn het geval van Inergy komt er bovenop dit bedrag nog een toeslag van circa. 50% van de totale kosten voor de test, acceptatie en productie omgeving.",
+                                            "\n\nIn het geval van Inergy komt er bovenop dit bedrag nog een toeslag van circa. 50% van de totale kosten voor het realiseren van de test, acceptatie en productie omgeving.",
+                                                        },                             "\n\nIn het geval van Inergy komt er bovenop dit bedrag nog een toeslag van circa. 50% van de totale kosten voor het realiseren van de test, acceptatie en productie omgeving.",
                                 },
                                 footer: {
                                     text: "The invoice is created on a computer and is valid without the signature and stamp.",
@@ -4605,37 +4607,38 @@ slidershours.forEach(sliderhours => {
                                         item[8]
                                     ])),
 
-                                    additionalRows: [{
+
+                                additionalRows: [{
+                                    col1: 'Total:',
+                                    col2: String(Number(totalCompute) + Number(totalStorageCost)) + " " + currency,
+                                    col3: 'ALL',
+                                    style: {
+                                        fontSize: 14 //optional, default 12
+                                    }
+                                },
+                                    {
                                         col1: 'Total compute:',
                                         col2: totalCompute + " " + currency,
                                         col3: 'ALL',
                                         style: {
-                                            fontSize: 14 //optional, default 12
+                                            fontSize: 10 //optional, default 12
                                         }
                                     },
-                                        {
-                                            col1: 'Total storage (' + selectedStorage + ', ' + document.getElementById("input-storage-tb-per-month").value + " TB/s month" + '):',
-                                            col2: String(totalStorageCost) + " " + currency,
-                                            col3: 'ALL',
-                                            style: {
-                                                fontSize: 10 //optional, default 12
-                                            }
-                                        },
-                                        {
-                                            col1: 'SubTotal:',
-                                            col2: String(Number(totalCompute) + Number(totalStorageCost)) + " " + currency,
-                                            col3: 'ALL',
-                                            style: {
-                                                fontSize: 10 //optional, default 12
-                                            }
+                                    {
+                                        col1: 'Total storage (' + selectedStorage + ', ' + document.getElementById("input-storage-tb-per-month").value + " TB/s month" + '):',
+                                        col2: String(totalStorageCost) + " " + currency,
+                                        col3: 'ALL',
+                                        style: {
+                                            fontSize: 10 //optional, default 12
+                                        }
 
-                                        }],
+                                    }],
 
 
-                                    invDescLabel: "Invoice Note",
+  invDescLabel: "Invoice Note",
                                     invDesc: "Let op: deze berekening is slechts een schatting en kan afwijken van de werkelijke kosten. Het is niet bedoeld als bindend aanbod of garantie van de uiteindelijke kosten." +
-                                            "\n\nIn het geval van Inergy komt er bovenop dit bedrag nog een toeslag van circa. 50% van de totale kosten voor de test, acceptatie en productie omgeving.",
-                                                            },
+                                            "\n\nIn het geval van Inergy komt er bovenop dit bedrag nog een toeslag van circa. 50% van de totale kosten voor het realiseren van de test, acceptatie en productie omgeving.",
+                                                        },
                                 footer: {
                                     text: "The invoice is created on a computer and is valid without the signature and stamp.",
                                 },
@@ -4721,24 +4724,24 @@ slidershours.forEach(sliderhours => {
                                 ])),
 
                                 additionalRows: [{
-                                    col1: 'Total compute:',
-                                    col2: totalCompute + " " + currency,
+                                    col1: 'Total:',
+                                    col2: String(Number(totalCompute) + Number(totalStorageCost)) + " " + currency,
                                     col3: 'ALL',
                                     style: {
                                         fontSize: 14 //optional, default 12
                                     }
                                 },
                                     {
-                                        col1: 'Total storage (' + selectedStorage + ', ' + document.getElementById("input-storage-tb-per-month").value + " TB/s month" + '):',
-                                        col2: String(totalStorageCost) + " " + currency,
+                                        col1: 'Total compute:',
+                                        col2: totalCompute + " " + currency,
                                         col3: 'ALL',
                                         style: {
                                             fontSize: 10 //optional, default 12
                                         }
                                     },
                                     {
-                                        col1: 'SubTotal:',
-                                        col2: String(Number(totalCompute) + Number(totalStorageCost)) + " " + currency,
+                                        col1: 'Total storage (' + selectedStorage + ', ' + document.getElementById("input-storage-tb-per-month").value + " TB/s month" + '):',
+                                        col2: String(totalStorageCost) + " " + currency,
                                         col3: 'ALL',
                                         style: {
                                             fontSize: 10 //optional, default 12
@@ -4749,7 +4752,7 @@ slidershours.forEach(sliderhours => {
 
                                 invDescLabel: "Invoice Note",
                                     invDesc: "Let op: deze berekening is slechts een schatting en kan afwijken van de werkelijke kosten. Het is niet bedoeld als bindend aanbod of garantie van de uiteindelijke kosten." +
-                                            "\n\nIn het geval van Inergy komt er bovenop dit bedrag nog een toeslag van circa. 50% van de totale kosten voor de test, acceptatie en productie omgeving.",
+                                            "\n\nIn het geval van Inergy komt er bovenop dit bedrag nog een toeslag van circa. 50% van de totale kosten voor het realiseren van de test, acceptatie en productie omgeving.",
                                                         },
                             footer: {
                                 text: "The invoice is created on a computer and is valid without the signature and stamp.",
