@@ -1426,6 +1426,7 @@ h1, h2, h3, p, li, a, button, input, select, textarea, .editable, span {
   align-self: center;
   align-items: center;
   justify-content: center;
+  margin-top:10px;
 }
 .sf-calc2-wrapper-scenario3 {
   border-color: #c9d3dd;
@@ -4774,6 +4775,7 @@ border-bottom: 0.5px solid #c9d3dd;
     flex-wrap: wrap;
     align-items: center;
     justify-content: center;
+      margin-top:10px;
   }
   .sf-calc2-wrapper-scenario3 {
     width: 100%;
@@ -6013,6 +6015,8 @@ border: 0.5px solid #c9d3dd;
   }
   .sf-calc2-inside-wrapper-calculation-examples-div-opslag {
     width: 800px;
+      margin-top:10px;
+
   }
   .sf-calc2-wrapper-warehouse-selection {
     width: 800px;
@@ -6041,6 +6045,8 @@ border: 0.5px solid #c9d3dd;
     width: 800px;
   }
   .sf-calc2-inside-wrapper-calculation-examples-div-opslag {
+      margin-top:10px;
+
     width: 800px;
   }
   .sf-calc2-wrapper-warehouse-selection {
@@ -6076,6 +6082,8 @@ border: 0.5px solid #c9d3dd;
   }
   .sf-calc2-inside-wrapper-calculation-examples-div-opslag {
     width: 717px;
+      margin-top:10px;
+
   }
   .sf-calc2-wrapper-warehouse-selection {
     width: 717px;
