@@ -81,6 +81,9 @@ fetch('https://v6.exchangerate-api.com/v6/0d80c9460c958eeba6b2f2dc/latest/usd')
                // Get the slider input element
 // Get all range sliders
 const sliders = document.querySelectorAll('.slider');
+const sliderspercentages = document.querySelectorAll('.slider-percentage');
+const slidershours = document.querySelectorAll('.slider-hours');
+
 
 // Loop through each slider
 sliders.forEach(slider => {
@@ -91,11 +94,44 @@ sliders.forEach(slider => {
 
   // Update the text when the slider value changes
   slider.oninput = function() {
-    value.innerHTML = this.value;
+    value.innerHTML = this.value + " TB p/m";
     const thumbWidth = getComputedStyle(this).getPropertyValue('--thumb-width');
     value.style.left = `calc(${this.value}% + (${thumbWidth} / 2))`;
   }
 });
+
+// Loop through each slider
+sliderspercentages.forEach(sliderpercentage => {
+  // Get the corresponding slider value element
+  const value = sliderpercentage.nextElementSibling;
+
+  // value.innerHTML = slider.value;
+
+  // Update the text when the slider value changes
+  sliderpercentage.oninput = function() {
+    value.innerHTML = this.value + "%";
+    const thumbWidth = getComputedStyle(this).getPropertyValue('--thumb-width');
+    value.style.left = `calc(${this.value}% + (${thumbWidth} / 2))`;
+  }
+});
+
+
+// Loop through each slider
+slidershours.forEach(sliderhours => {
+  // Get the corresponding slider value element
+  const value = sliderhours.nextElementSibling;
+
+  // value.innerHTML = slider.value;
+
+  // Update the text when the slider value changes
+  sliderhours.oninput = function() {
+    value.innerHTML = this.value + " uur p/dag";
+    const thumbWidth = getComputedStyle(this).getPropertyValue('--thumb-width');
+    value.style.left = `calc(${this.value}% + (${thumbWidth} / 2))`;
+  }
+});
+
+
 
 
 
@@ -2149,12 +2185,12 @@ sliders.forEach(slider => {
                       type="range"
                       id="range-gebruik-scenario-warehouse-example-1"
                       placeholder="placeholder"
-                      class="sliders input slider"
+                      class="sliders input slider-hours"
                         min="0"
                         max="24"
                       value="8"
                     />
-                    <span class="slider-value">8</span>
+                    <span class="slider-value">8 uur p/dag</span>
 
                   </div>
                   <div
@@ -2172,10 +2208,10 @@ sliders.forEach(slider => {
                       type="range"
                       id="select-bezettingspercentage-scenario-warehouse-1"
                       placeholder="placeholder"
-                      class="sliders input sf-calc2-input01 slider"
+                      class="sliders input sf-calc2-input01 slider-percentage"
                       value="10"
                     />
-                    <span class="slider-value">10</span>
+                    <span class="slider-value">10%</span>
                   </div>
                   <div
                     id="wrapper-select-warehouse-size-scenario-warehouse-example-1"
@@ -2321,12 +2357,12 @@ sliders.forEach(slider => {
                       type="range"
                       id="range-gebruik-scenario-warehouse-example-2"
                       placeholder="placeholder"
-                      class="sliders input slider"
+                      class="sliders input slider-hours"
                                       min="0"
                         max="24"
                       value="2.5"
                     />
-                    <span class="slider-value">2.5</span>
+                    <span class="slider-value">2.5 uur p/dag</span>
                   </div>
                   <div
                     id="wrapper-select-bezettingspercentage-scenario-warehouse-example-2"
@@ -2343,7 +2379,7 @@ sliders.forEach(slider => {
                       type="range"
                       id="select-bezettingspercentage-scenario-warehouse-2"
                       placeholder="placeholder"
-                      class="sliders input sf-calc2-input03 slider"
+                      class="sliders input sf-calc2-input03 slider-percentage"
                       value="100"
                     />
                     <span class="slider-value">100%</span>
@@ -2477,12 +2513,12 @@ sliders.forEach(slider => {
                       type="range"
                       id="range-gebruik-scenario-warehouse-example-3"
                       placeholder="placeholder"
-                      class="sliders input slider"
+                      class="sliders input slider-hours"
                                       min="0"
                         max="24"
                       value="8"
                     />
-                                      <span class="slider-value">8 uur </span>
+                                      <span class="slider-value">8 uur p/dag</span>
 
                   </div>
                   <div
@@ -2500,7 +2536,7 @@ sliders.forEach(slider => {
                       type="range"
                       id="select-bezettingspercentage-scenario-warehouse-3"
                       placeholder="placeholder"
-                      class="sliders input sf-calc2-input05 slider"
+                      class="sliders input sf-calc2-input05 slider-percentage"
                       value="10"
                     />
                     <span class="slider-value">10%</span>
@@ -2618,7 +2654,7 @@ sliders.forEach(slider => {
                       step="1"
                         max="200"
                       value="4"
-                    />                  <span class="slider-value-storage">TB p/m</span>
+                    />                  <span class="slider-value-storage">4 TB p/m</span>
 
                   </div>
 
@@ -2943,7 +2979,7 @@ sliders.forEach(slider => {
                   <br />
                 </span>
 <div class="slider-container">
-  <input type="range" id="percentage-bezetting-1" max="100" min="0" step="4" value="50" class="sf-calc2-input09 input slider" />
+  <input type="range" id="percentage-bezetting-1" max="100" min="0" step="4" value="50" class="sf-calc2-input09 input slider-percentage" />
   <div class="slider-value-wh">50%</div>
 </div>
               </div>
@@ -3133,7 +3169,7 @@ sliders.forEach(slider => {
                 </span>
 
 <div class="slider-container">
-  <input type="range" id="percentage-bezetting-2" max="100" min="0" step="4" value="50" class="sf-calc2-input09 input slider" />
+  <input type="range" id="percentage-bezetting-2" max="100" min="0" step="4" value="50" class="sf-calc2-input09 input slider-percentage" />
   <div class="slider-value-wh">50</div>
 </div>
 
@@ -3323,7 +3359,7 @@ sliders.forEach(slider => {
                   <br />
                 </span>
               <div class="slider-container">
-  <input type="range" id="percentage-bezetting-3" max="100" min="0" step="4" value="50%" class="sf-calc2-input09 input slider" />
+  <input type="range" id="percentage-bezetting-3" max="100" min="0" step="4" value="50%" class="sf-calc2-input09 input slider-percentage" />
   <div class="slider-value-wh">50%</div>
 </div>
 
@@ -3515,7 +3551,7 @@ sliders.forEach(slider => {
                   <br />
                 </span>
 <div class="slider-container">
-  <input type="range" id="percentage-bezetting-4" max="100" min="0" step="4" value="50" class="sf-calc2-input09 input slider" />
+  <input type="range" id="percentage-bezetting-4" max="100" min="0" step="4" value="50" class="sf-calc2-input09 input slider-percentage" />
   <div class="slider-value-wh">50%</div>
 </div>
               </div>
@@ -3705,7 +3741,7 @@ sliders.forEach(slider => {
                   <br />
                 </span>
 <div class="slider-container">
-  <input type="range" id="percentage-bezetting-5" max="100" min="0" value="50%" step="4" class="sf-calc2-input09 input slider" />
+  <input type="range" id="percentage-bezetting-5" max="100" min="0" value="50%" step="4" class="sf-calc2-input09 input slider-percentage" />
   <div class="slider-value-wh">50%</div>
 </div>
 

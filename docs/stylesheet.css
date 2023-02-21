@@ -13,7 +13,7 @@
   position: relative;
   top: -15px;
   left: 65px;
-  width: 50px;
+  width: 70px;
   height: 15px;
     /*transform: translateX(+150%);*/
   border-radius: 50%;
@@ -49,8 +49,8 @@
 .slider-value-storage {
   position: relative;
   top: -15px;
-  left: 150px;
-  width: 40px;
+  left: 130px;
+  width: 60px;
   height: 15px;
     /*transform: translateX(+150%);*/
   border-radius: 50%;
