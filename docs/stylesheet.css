@@ -171,7 +171,7 @@ margin-left:30px;
 #make-calculation-button:hover,  #show-examples-button:hover {
   background-color: rgb(54, 0, 0);
   color:white;
-  border: 1px solid black;
+  /*border: 1px solid black;*/
 }
 
 h1, h2, h3, p, li, a, button, input, select, textarea, .editable, span {
@@ -893,6 +893,7 @@ h1, h2, h3, p, li, a, button, input, select, textarea, .editable, span {
   transition: 0.3s;
   font-weight: 700;
   text-decoration: underline;
+
 }
 .sf-calc2-button:hover {
   background-color: var(--dl-color-gray-700);
@@ -4087,14 +4088,14 @@ border-bottom: 0.5px solid #c9d3dd;
     justify-content: center;
   }
   .sf-calc2-button {
-    color: rgb(255, 255, 255);
+    color: grey;
     font-size: 12px;
     font-style: normal;
-    font-weight: 700;
     border-width: 0px;
     margin-bottom: 30px;
     text-decoration: none;
-    background-color: rgb(165, 32, 37);
+      border: 0px solid black;
+    background-color: #f6f6f6;
   }
   .sf-calc2-wrapper-calculation-examples-container {
     flex-direction: column;
