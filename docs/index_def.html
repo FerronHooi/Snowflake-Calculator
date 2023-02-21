@@ -67,8 +67,18 @@
                     "4X-Large": 128,
                 };
 
-  var usd_to_eur = 0.82;
-                 // Get the slider input element
+                var usd_to_eur;
+
+fetch('https://v6.exchangerate-api.com/v6/0d80c9460c958eeba6b2f2dc/latest/usd')
+  .then(res => res.json())
+  .then(data => {
+    usd_to_eur = data["conversion_rates"]["EUR"];
+   })
+  .then(() => {
+    console.log(usd_to_eur);
+   });
+
+               // Get the slider input element
   var slider = $("#percentage-bezetting-1");
 
   // Get the slider value element
