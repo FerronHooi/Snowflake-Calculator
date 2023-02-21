@@ -722,6 +722,7 @@ h1, h2, h3, p, li, a, button, input, select, textarea, .editable, span {
     width: 100%;
     font-size: 11px;
     text-align: center;
+            margin-top:-10px;
   }
   .sliders {
     width: 100px;
@@ -1923,7 +1924,7 @@ h1, h2, h3, p, li, a, button, input, select, textarea, .editable, span {
 }
 .sf-calc2-input07 {
   width: 150px;
-  height: 26px;
+  height:10px;
   align-self: center;
   text-align: center;
 }
@@ -1953,7 +1954,7 @@ h1, h2, h3, p, li, a, button, input, select, textarea, .editable, span {
 }
 .sf-calc2-input08 {
   width: 150px;
-  height: 26px;
+  height:10px;
   align-self: center;
   text-align: center;
 }
@@ -1984,7 +1985,7 @@ h1, h2, h3, p, li, a, button, input, select, textarea, .editable, span {
 }
 .sf-calc2-input09 {
   width: 150px;
-  height: 26px;
+  height:10px;
   align-self: center;
   text-align: center;
 }
@@ -2154,7 +2155,7 @@ h1, h2, h3, p, li, a, button, input, select, textarea, .editable, span {
 }
 .sf-calc2-input10 {
   width: 150px;
-  height: 26px;
+  height:10px;
   align-self: center;
   text-align: center;
 }
@@ -2184,7 +2185,7 @@ h1, h2, h3, p, li, a, button, input, select, textarea, .editable, span {
 }
 .sf-calc2-input11 {
   width: 150px;
-  height: 26px;
+  height:10px;
   align-self: center;
   text-align: center;
 }
@@ -2215,7 +2216,7 @@ h1, h2, h3, p, li, a, button, input, select, textarea, .editable, span {
 }
 .sf-calc2-input12 {
   width: 150px;
-  height: 26px;
+  height:10px;
   align-self: center;
   text-align: center;
 }
@@ -2385,7 +2386,7 @@ h1, h2, h3, p, li, a, button, input, select, textarea, .editable, span {
 }
 .sf-calc2-input13 {
   width: 150px;
-  height: 26px;
+  height:10px;
   align-self: center;
   text-align: center;
 }
@@ -2415,7 +2416,7 @@ h1, h2, h3, p, li, a, button, input, select, textarea, .editable, span {
 }
 .sf-calc2-input14 {
   width: 150px;
-  height: 26px;
+  height:10px;
   align-self: center;
   text-align: center;
 }
@@ -2446,7 +2447,7 @@ h1, h2, h3, p, li, a, button, input, select, textarea, .editable, span {
 }
 .sf-calc2-input15 {
   width: 150px;
-  height: 26px;
+  height:10px;
   align-self: center;
   text-align: center;
 }
@@ -2616,7 +2617,7 @@ h1, h2, h3, p, li, a, button, input, select, textarea, .editable, span {
 }
 .sf-calc2-input16 {
   width: 150px;
-  height: 26px;
+  height:10px;
   align-self: center;
   text-align: center;
 }
@@ -2646,7 +2647,7 @@ h1, h2, h3, p, li, a, button, input, select, textarea, .editable, span {
 }
 .sf-calc2-input17 {
   width: 150px;
-  height: 26px;
+  height:10px;
   align-self: center;
   text-align: center;
 }
@@ -2677,7 +2678,7 @@ h1, h2, h3, p, li, a, button, input, select, textarea, .editable, span {
 }
 .sf-calc2-input18 {
   width: 150px;
-  height: 26px;
+  height:10px;
   align-self: center;
   text-align: center;
 }
@@ -2847,7 +2848,7 @@ h1, h2, h3, p, li, a, button, input, select, textarea, .editable, span {
 }
 .sf-calc2-input19 {
   width: 150px;
-  height: 26px;
+  height:10px;
   align-self: center;
   text-align: center;
 }
@@ -2877,7 +2878,7 @@ h1, h2, h3, p, li, a, button, input, select, textarea, .editable, span {
 }
 .sf-calc2-input20 {
   width: 150px;
-  height: 26px;
+  height:10px;
   align-self: center;
   text-align: center;
 }
@@ -2908,7 +2909,7 @@ h1, h2, h3, p, li, a, button, input, select, textarea, .editable, span {
 }
 .sf-calc2-input21 {
   width: 150px;
-  height: 26px;
+  height:10px;
   align-self: center;
   text-align: center;
 }
@@ -4940,6 +4941,7 @@ border-bottom: 0.5px solid #c9d3dd;
     width: 100%;
     font-size: 11px;
     text-align: center;
+      margin-top:-10px;
   }
   .sf-calc2-select-warehouse-size-scenario-storage-example {
     flex: 0;
