@@ -4340,6 +4340,14 @@
 
                     var totalStorageCost = document.getElementById(selectedStorageForCalc).innerText;
                     var totalCompute = document.getElementById(selectedEditionForCalcTotal).innerText
+                    var currency = document.getElementById("select-currency").value
+                    if (currency == "EUR") {
+                      currency = "€"
+                    } else if (currency == "USD") {
+                      currency = "$"
+                    } else if (currency == "GBP") {
+                      currency = "£"
+                    }
 
                     const calcExamplesDiv = document.getElementById("inside-wrapper-calculation-examples-div-1");
 
@@ -4431,7 +4439,7 @@
 
                                     additionalRows: [{
                                         col1: 'Total compute:',
-                                        col2: totalCompute + " $",
+                                        col2: totalCompute + " " + currency,
                                         col3: 'ALL',
                                         style: {
                                             fontSize: 14 //optional, default 12
@@ -4439,7 +4447,7 @@
                                     },
                                         {
                                             col1: 'Total storage (' + selectedStorage + ', ' + document.getElementById("input-storage-tb-per-month").value + " TB/s month" + '):',
-                                            col2: String(totalStorageCost) + " $",
+                                            col2: String(totalStorageCost) + " " + currency,
                                             col3: 'ALL',
                                             style: {
                                                 fontSize: 10 //optional, default 12
@@ -4447,7 +4455,7 @@
                                         },
                                         {
                                             col1: 'SubTotal:',
-                                            col2: String(Number(totalCompute) + Number(totalStorageCost)) + " $",
+                                            col2: String(Number(totalCompute) + Number(totalStorageCost)) + " " + currency,
                                             col3: 'ALL',
                                             style: {
                                                 fontSize: 10 //optional, default 12
