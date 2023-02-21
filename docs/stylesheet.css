@@ -630,7 +630,7 @@ h1, h2, h3, p, li, a, button, input, select, textarea, .editable, span {
     margin-right: var(--dl-space-space-twounits);
   }
   .tip-text {
-    top: -30px;
+    top: -40px;
     left: -41px;
     color: rgb(112, 112, 112);
     position: absolute;
@@ -3659,7 +3659,7 @@ border-bottom: 0.5px solid #c9d3dd;
   width: 100%;
   height: 100%;
   display: flex;
-  margin-top: 0px;
+  margin-top: 20px;
   align-items: flex-start;
   margin-bottom: 30px;
   justify-content: center;
@@ -5889,7 +5889,6 @@ border: 0.5px solid #c9d3dd;
   }
   .sf-calc2-heading16 {
     font-size: 20px;
-    margin-right: 0px;
   }
   .sf-calc2-text360 {
     font-size: 14px;
