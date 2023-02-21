@@ -67,34 +67,7 @@
                     "4X-Large": 128,
                 };
 
-function fetchCurrencies(amount) {
-  const primary = "USD";
-  const secondary = "EUR"
-  // const amount = 10;
-  // Important: Include your API key below
-  fetch("https://v6.exchangerate-api.com/v6/0d80c9460c958eeba6b2f2dc/latest/" + primary)
-    .then((response) => {
-      if (response.ok) {
-        return response.json();
-      } else {
-        throw new Error("NETWORK RESPONSE ERROR");
-      }
-    })
-    .then((data) => {
-      console.log(data);
-      displayCurrency(data, primary, secondary, amount);
-    })
-    .catch((error) => console.error("FETCH ERROR:", error));
-}
-
-function displayCurrency(data, primary, secondary, amount) {
-  const calculated = amount * data.conversion_rates[secondary];
-    console.log(calculated);
-  // document.getElementById("result").setAttribute("style", "display:block");
-  // document.getElementById("txt-primary").innerText = amount + " " + primary + " = ";
-  // document.getElementById("txt-secondary").innerText = calculated + " " + secondary;
-}
-
+  var usd_to_eur = 0.82;
                  // Get the slider input element
   var slider = $("#percentage-bezetting-1");
 
@@ -283,21 +256,41 @@ function displayCurrency(data, primary, secondary, amount) {
 
                     // END REFRESH HERE
 
-                    var standardPrice = (document.getElementById("inputfieldstandard").value =
+                                      if (currentCurrency == "eur") {
+                                                            var standardPrice = (document.getElementById("inputfieldstandard").value =
                         platforms[currentPlatform][currentRegion]["tier"]["standard"][
-                            currentCurrency
+                            "usd"
+                            ] * usd_to_eur);
+                    var enterprisePrice = (document.getElementById("inputfieldenterprise").value =
+                        platforms[currentPlatform][currentRegion]["tier"]["enterprise"][
+                            "usd"
+                            ] * usd_to_eur);
+
+                    var businessCritcalPrice = (document.getElementById(
+                        "inputfieldbusinesscritical"
+                    ).value =
+                        platforms[currentPlatform][currentRegion]["tier"]["business-critical"][
+                            "usd"
+                            ] * usd_to_eur);
+                                      }
+                                      else if (currentCurrency == "usd") {
+                                                            var standardPrice = (document.getElementById("inputfieldstandard").value =
+                        platforms[currentPlatform][currentRegion]["tier"]["standard"][
+                            "usd"
                             ]);
                     var enterprisePrice = (document.getElementById("inputfieldenterprise").value =
                         platforms[currentPlatform][currentRegion]["tier"]["enterprise"][
-                            currentCurrency
+                            "usd"
                             ]);
 
                     var businessCritcalPrice = (document.getElementById(
                         "inputfieldbusinesscritical"
                     ).value =
                         platforms[currentPlatform][currentRegion]["tier"]["business-critical"][
-                            currentCurrency
+                            "usd"
                             ]);
+                                      }
+
 
                     /* Hieronder worden de totale berekend op basis van de variabelen hierboven. Tevens wordt hier gekeken wat de geselecteerde currency is
                   en op basis daarvan wordt het juiste symbool (euro, usd of gbp) weergeven */
@@ -393,10 +386,10 @@ function displayCurrency(data, primary, secondary, amount) {
                             "on-demand-storage-amount"
                         ).innerHTML = (
                             Math.round(
-                                Number(
+                                  Number(
                                     platforms[currentPlatform][currentRegion]["on_demand_price"][
                                         "usd"
-                                        ] * currentStorageTBs
+                                        ] * usd_to_eur * currentStorageTBs
                                 ) * 100
                             ) / 100
                         ).toFixed(2));
@@ -405,7 +398,7 @@ function displayCurrency(data, primary, secondary, amount) {
                         ).innerHTML = (
                             Math.round(
                                 Number(
-                                    platforms[currentPlatform][currentRegion]["capacity_storage_price"]["usd"] * currentStorageTBs
+                                    platforms[currentPlatform][currentRegion]["capacity_storage_price"]["usd"] * usd_to_eur * currentStorageTBs
                                 ) * 100
                             ) / 100
                         ).toFixed(2));
@@ -566,23 +559,23 @@ function displayCurrency(data, primary, secondary, amount) {
                     if (currencies.includes(currentCurrency)) {
                       var totalOnDemandStorageCost = (document.getElementById("on-demand-storage-amount").innerHTML = (
                         Math.round(
-                          Number(platforms[currentPlatform][currentRegion]["on_demand_price"][currentCurrency] * currentStorageTBs) * 100
+                          Number(platforms[currentPlatform][currentRegion]["on_demand_price"]["usd"] * currentStorageTBs) * 100
                         ) / 100
                       ).toFixed(2));
                       var totalCapacityStorageCost = (document.getElementById("capacity-storage-amount").innerHTML = (
                         Math.round(
-                          Number(platforms[currentPlatform][currentRegion]["capacity_storage_price"][currentCurrency] * currentStorageTBs) * 100
+                          Number(platforms[currentPlatform][currentRegion]["capacity_storage_price"]["usd"] * currentStorageTBs) * 100
                         ) / 100
                       ).toFixed(2));
                     } else {
                       var totalOnDemandStorageCost = (document.getElementById("on-demand-storage-amount").innerHTML = (
                         Math.round(
-                          Number(platforms[currentPlatform][currentRegion]["on_demand_price"][currentCurrency] * currentStorageTBs) * 100
+                          Number(platforms[currentPlatform][currentRegion]["on_demand_price"]["usd"] * currentStorageTBs *  usd_to_eur) * 100
                         ) / 100
                       ).toFixed(2));
                       var totalCapacityStorageCost = (document.getElementById("capacity-storage-amount").innerHTML = (
                         Math.round(
-                          Number(platforms[currentPlatform][currentRegion]["capacity_storage_price"][currentCurrency] * currentStorageTBs) * 100
+                          Number(platforms[currentPlatform][currentRegion]["capacity_storage_price"]["usd"] * currentStorageTBs * usd_to_eur) * 100
                         ) / 100
                       ).toFixed(2));
                     }
