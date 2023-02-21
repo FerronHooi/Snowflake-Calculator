@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <meta charset="utf-8">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script type="module">
         // get json data from the azure function
@@ -11,7 +12,7 @@
                 var platforms = data;
                 var currentPlatform = "";
                 var currentRegion = "";
-                var currentCurrency = "usd";
+                var currentCurrency = "eur";
                 const elements = [
                     "standard-edition",
                     "enterprise-edition",
@@ -193,6 +194,7 @@
                     ).value;
                     // Huidige geselecteerde regio
                     var currentRegion = document.getElementById("select-region").value;
+                    var currentCurrency = document.getElementById("select-currency").value.toLowerCase();
 
                     // Past de regio aan in de tekst bij de scenario's op basis van de selectie
                     document.getElementById("regio-text").innerHTML =
@@ -271,7 +273,9 @@
 
                     /* Hieronder worden de totale berekend op basis van de variabelen hierboven. Tevens wordt hier gekeken wat de geselecteerde currency is
                   en op basis daarvan wordt het juiste symbool (euro, usd of gbp) weergeven */
+                  console.log(currentCurrency)
                     if (currentCurrency == "eur") {
+                      console.log("euro")
                         var totalCostsStandard = (document.getElementById(
                             "standardeditionamount"
                         ).innerHTML = (
@@ -289,6 +293,7 @@
                         ).toFixed(2));
 
                         elements.forEach(function (element) {
+                          console.log(element)
                             document.getElementById("currency-sign-" + element).innerHTML = "€";
                         });
                     } else if (currentCurrency == "usd") {
@@ -530,7 +535,7 @@
                             "input-storage-tb-per-month"
                         ).value;
 
-                        var currencies = ["eur", "usd", "gbp"];
+                        var currencies = ["EUR", "USD"];
 
                     if (currencies.includes(currentCurrency)) {
                       var totalOnDemandStorageCost = (document.getElementById("on-demand-storage-amount").innerHTML = (
@@ -1412,11 +1417,6 @@
                     $("#select-region").on("change", function (e) {
                         $("#select-currency").show();
                         $("#select-currency-text").show();
-                        $("#currentregionselection").show();
-                        $(
-                            "#line-divider-1, #wrapper-bekend-prijsberekening-snowflake"
-                        ).show();
-                        makeCalculations();
 
                         var allRegionText = document.querySelectorAll(
                             "[id^=regio-text-scenario-]"
@@ -1426,6 +1426,27 @@
                             document.getElementById(text.id).innerHTML =
                                 document.getElementById("select-region").value;
                         });
+                    });
+
+                                        //  populate region dropdown with this platform's regions
+                    $.each(currencyOptions, function (k, v) {
+                        $("#select-currency").append(
+                            $("<option>", {
+                                value: v,
+                                text: v,
+                            })
+                        );
+                        makeCalculations();
+
+                    });
+
+                    // Als een regio wordt geselecteerd dan wordt de valuta dropdown getoond
+                    $("#select-currency").on("change", function (e) {
+                        $("#currentregionselection").show();
+                        $(
+                            "#line-divider-1, #wrapper-bekend-prijsberekening-snowflake"
+                        ).show();
+                        makeCalculations();
                     });
 
                     // Get the radio buttons and the div
@@ -1833,6 +1854,9 @@
         </select>
         <select id="select-region" class="sf-calc2-select-region">
           <option value="Regio" selected>Regio</option>
+        </select>
+        <select id="select-currency" class="sf-calc2-select-currency">
+          <option value="Valuta" selected>Valuta</option>
         </select>
       </div>
     </div>

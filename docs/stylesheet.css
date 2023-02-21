@@ -818,6 +818,20 @@ h1, h2, h3, p, li, a, button, input, select, textarea, .editable, span {
   margin-right: 20px;
   background-color: #edf0f4;
 }
+
+.sf-calc2-select-currency {
+  color: #595959;
+  width: var(--dl-size-size-xlarge);
+  border: none;
+  height: 40px;
+  font-size: 14px;
+  align-self: center;
+  text-align: center;
+  font-weight: 500;
+  margin-right: 20px;
+  background-color: #edf0f4;
+}
+
 .sf-calc2-line-divider-div {
   width: 752px;
   height: 9px;
