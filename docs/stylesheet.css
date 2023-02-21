@@ -929,11 +929,13 @@ h1, h2, h3, p, li, a, button, input, select, textarea, .editable, span {
 }
 .sf-calc2-container06 {
   flex: 0 0 auto;
-  width: 100%;
+  width: 75%;
   height: auto;
   display: flex;
   overflow: hidden;
-  align-items: flex-start;
+  margin:auto;
+  font-weight:bold;
+  font-size:18px;
 }
 .sf-calc2-wrapper-scenario-examples-div {
   position: relative;

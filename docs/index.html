@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <meta charset="utf-8">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script type="module">
         // get json data from the azure function
@@ -11,7 +12,7 @@
                 var platforms = data;
                 var currentPlatform = "";
                 var currentRegion = "";
-                var currentCurrency = "usd";
+                var currentCurrency = "eur";
                 const elements = [
                     "standard-edition",
                     "enterprise-edition",
@@ -26,7 +27,7 @@
                 var calculatorVersions = ["Met voorbeelden", "Zonder voorbeelden"];
                 var currencyOptions = ["EUR", "USD"];
                 var editions = ["Standard", "Enterprise", "Business Critical"];
-                var daysPerWeek = ["7", "5", "4", "3", "2", "1"];
+                var daysPerWeek = ["7", "6", "5", "4", "3", "2", "1"];
                 var hoursInADay = [
                     "1",
                     "2",
@@ -66,6 +67,74 @@
                     "4X-Large": 128,
                 };
 
+                var usd_to_eur;
+
+fetch('https://v6.exchangerate-api.com/v6/0d80c9460c958eeba6b2f2dc/latest/usd')
+  .then(res => res.json())
+  .then(data => {
+    usd_to_eur = data["conversion_rates"]["EUR"];
+   })
+  .then(() => {
+    console.log(usd_to_eur);
+   });
+
+               // Get the slider input element
+// Get all range sliders
+const sliders = document.querySelectorAll('.slider');
+const sliderspercentages = document.querySelectorAll('.slider-percentage');
+const slidershours = document.querySelectorAll('.slider-hours');
+
+
+// Loop through each slider
+sliders.forEach(slider => {
+  // Get the corresponding slider value element
+  const value = slider.nextElementSibling;
+
+  // value.innerHTML = slider.value;
+
+  // Update the text when the slider value changes
+  slider.oninput = function() {
+    value.innerHTML = this.value + " TB p/m";
+    const thumbWidth = getComputedStyle(this).getPropertyValue('--thumb-width');
+    value.style.left = `calc(${this.value}% + (${thumbWidth} / 2))`;
+  }
+});
+
+// Loop through each slider
+sliderspercentages.forEach(sliderpercentage => {
+  // Get the corresponding slider value element
+  const value = sliderpercentage.nextElementSibling;
+
+  // value.innerHTML = slider.value;
+
+  // Update the text when the slider value changes
+  sliderpercentage.oninput = function() {
+    value.innerHTML = this.value + "%";
+    const thumbWidth = getComputedStyle(this).getPropertyValue('--thumb-width');
+    value.style.left = `calc(${this.value}% + (${thumbWidth} / 2))`;
+  }
+});
+
+
+// Loop through each slider
+slidershours.forEach(sliderhours => {
+  // Get the corresponding slider value element
+  const value = sliderhours.nextElementSibling;
+
+  // value.innerHTML = slider.value;
+
+  // Update the text when the slider value changes
+  sliderhours.oninput = function() {
+    value.innerHTML = this.value + " uur p/dag";
+    const thumbWidth = getComputedStyle(this).getPropertyValue('--thumb-width');
+    value.style.left = `calc(${this.value}% + (${thumbWidth} / 2))`;
+  }
+});
+
+
+
+
+
                 var allWarehouseButtons = document.querySelectorAll(
                     "[id^=warehouse-button-]"
                 );
@@ -76,15 +145,10 @@
                     buttonsCount.push(Number(button.id.slice(-1)));
                 });
 
-                console.log(buttonsCount);
-
                 buttonsCount.forEach((button) => {
-                    console.log(button);
-
                     $(
                         "#warehouse-size-button-left-" + button + ", #warehouse-size-button-right-" + button
                     ).click(function () {
-                        console.log("oke")
                         var warehouseSizes = Object.keys(warehouse);
                         var warehouseSize =
                             document.getElementById("warehouse-type-" + button).innerHTML;
@@ -114,18 +178,13 @@
                     }
                 }
 
-                // !!!!!!!!! VOORKEURS CLOUDPLATFORM EN REGION !!!!!!!!!
-
-                /* De code hieronder heeft betrekking op het selecteren van de cloudplatform, regio en valuta. Door deze code wordt alleen de select dropdown voor de cloudplatform getoond.
-                            Nadat een gebruiker een cloudplatform heeft geselecteerd, wordt de regio dropdown getoond. Nadat een gebruiker een regio heeft geselecteerd, wordt de valuta dropdown getoond.
-                            Het verbergen gebeurt door de .hide(), het tonen begint later in de code d.m.v. de .show() */
-
-                // on document load hide select region as first cloud platform has to be selected
                 $("#select-region").hide();
 
                 $(
                     "#wrapper-calculation-examples-container-full, .line_divider, #wrapper-calculation-examples-div, #line-divider-voorkeur-schatting, #wrapper-schatting-opslag-div, #schatting-per-editie-div, #storage-costs-div, #totale-kosten-div, #contact-button-div"
                 ).show();
+
+                $("#storage-costs-div").hide();
                 //#TODO: Disable later
 
                 $("#warehouse-button-1").css("background-color", "#a52025");
@@ -135,17 +194,13 @@
                     "[id^=wh-button-]"
                 );
 
-                //TODO: Make this button red 'Selected' on document load
-
                 allWarehouseButtons.forEach((button) => {
-                    console.log(button.id);
                     if (button.id == "wh-button-1") {
                         $("#" + button.id).css("display", "block");
                     } else {
                         $("#" + button.id).css("display", "none");
                     }
                 });
-
 
                 // on document load hide scenario 2 of the calculator examples
                 $("#wrapper-scenario-2").hide();
@@ -188,19 +243,14 @@
                     ).value;
                     // Huidige geselecteerde regio
                     var currentRegion = document.getElementById("select-region").value;
+                    var currentCurrency = document.getElementById("select-currency").value.toLowerCase();
 
                     // Past de regio aan in de tekst bij de scenario's op basis van de selectie
-                    document.getElementById("regio-text-scenario-1").innerHTML =
+                    document.getElementById("regio-text").innerHTML =
                         document.getElementById("select-region").value;
 
-                    document.getElementById("regio-text-scenario-2").innerHTML =
-                        document.getElementById("select-region").value;
 
                     /* CALCULATIONS */
-
-                    // Berekeningen die gebruikt worden bij 'schatting opslag & verbruikskosten'
-
-                    // Aantal dagen * Aantal uren
 
                     var allActiveWarehouses = document.querySelectorAll(
                         "[id^=warehouse-button-]"
@@ -238,24 +288,10 @@
                     document.getElementById("total-hours-1").innerHTML =
                         Math.round(calculateTotalHours * 10) / 10 + " uren p/m";
 
-                    // Hierdoor wordt "X credits /uur" getoond
-                    //var creditsPerHourString = (document.getElementById(
-                    //  "total-credits-per-hour-1"
-                    // ).innerHTML = creditsPerHour + " Credit(s)/uur");
-
-                    // Totale uren * totale credits
-
                     // Hierdoor wordt "X credits p/m" getoond in de div met id "total-credits"
                     var creditsTotalString = (document.getElementById(
                         "total-credits-1"
                     ).innerHTML = Math.round(creditsTotal * 10) / 10 + " Credits p/m");
-
-                    // Hierdoor wordt "X TB p/m" getoond in de div met id "total-storage"
-                    //var storagetbTotal = (document.getElementById(
-                    //  "total-storage"
-                    //).innerHTML =
-                    //  document.getElementById("input-storage-tb-per-month").value +
-                    //  " tb opslag p/m");
 
                     // !!!! SCHATTING PER EDITIE !!!!!
 
@@ -266,33 +302,49 @@
 
                     // Hierdoor worden de prijzen (per credit) weergeven van de huidige geselecteerde cloudplatform + regio (van standard, enterprise, business critical)
 
-                    // editions.forEach(function (edition) {
-                    //   document.getElementById("inputfield" + edition).value =
-                    //     platforms[currentPlatform][currentRegion]["tier"][edition][
-                    //       currentCurrency
-                    //     ];
-
                     // END REFRESH HERE
 
-                    var standardPrice = (document.getElementById("inputfieldstandard").value =
+                                      if (currentCurrency == "eur") {
+                                                            var standardPrice = (document.getElementById("inputfieldstandard").value =
                         platforms[currentPlatform][currentRegion]["tier"]["standard"][
-                            currentCurrency
+                            "usd"
+                            ] * usd_to_eur);
+                    var enterprisePrice = (document.getElementById("inputfieldenterprise").value =
+                        platforms[currentPlatform][currentRegion]["tier"]["enterprise"][
+                            "usd"
+                            ] * usd_to_eur);
+
+                    var businessCritcalPrice = (document.getElementById(
+                        "inputfieldbusinesscritical"
+                    ).value =
+                        platforms[currentPlatform][currentRegion]["tier"]["business-critical"][
+                            "usd"
+                            ] * usd_to_eur);
+                                      }
+                                      else if (currentCurrency == "usd") {
+                                                            var standardPrice = (document.getElementById("inputfieldstandard").value =
+                        platforms[currentPlatform][currentRegion]["tier"]["standard"][
+                            "usd"
                             ]);
                     var enterprisePrice = (document.getElementById("inputfieldenterprise").value =
                         platforms[currentPlatform][currentRegion]["tier"]["enterprise"][
-                            currentCurrency
+                            "usd"
                             ]);
 
                     var businessCritcalPrice = (document.getElementById(
                         "inputfieldbusinesscritical"
                     ).value =
                         platforms[currentPlatform][currentRegion]["tier"]["business-critical"][
-                            currentCurrency
+                            "usd"
                             ]);
+                                      }
+
 
                     /* Hieronder worden de totale berekend op basis van de variabelen hierboven. Tevens wordt hier gekeken wat de geselecteerde currency is
                   en op basis daarvan wordt het juiste symbool (euro, usd of gbp) weergeven */
+                  console.log(currentCurrency)
                     if (currentCurrency == "eur") {
+                      console.log("euro")
                         var totalCostsStandard = (document.getElementById(
                             "standardeditionamount"
                         ).innerHTML = (
@@ -310,6 +362,7 @@
                         ).toFixed(2));
 
                         elements.forEach(function (element) {
+                          console.log(element)
                             document.getElementById("currency-sign-" + element).innerHTML = "€";
                         });
                     } else if (currentCurrency == "usd") {
@@ -381,10 +434,10 @@
                             "on-demand-storage-amount"
                         ).innerHTML = (
                             Math.round(
-                                Number(
+                                  Number(
                                     platforms[currentPlatform][currentRegion]["on_demand_price"][
-                                        currentCurrency
-                                        ] * currentStorageTBs
+                                        "usd"
+                                        ] * usd_to_eur * currentStorageTBs
                                 ) * 100
                             ) / 100
                         ).toFixed(2));
@@ -393,9 +446,7 @@
                         ).innerHTML = (
                             Math.round(
                                 Number(
-                                    platforms[currentPlatform][currentRegion]["capacity_storage_price"][
-                                        currentCurrency
-                                        ] * currentStorageTBs
+                                    platforms[currentPlatform][currentRegion]["capacity_storage_price"]["usd"] * usd_to_eur * currentStorageTBs
                                 ) * 100
                             ) / 100
                         ).toFixed(2));
@@ -551,99 +602,32 @@
                             "input-storage-tb-per-month"
                         ).value;
 
-                        if (currentCurrency == "eur") {
-                            var totalOnDemandStorageCost = (document.getElementById(
-                                "on-demand-storage-amount"
-                            ).innerHTML = (
-                                Math.round(
-                                    Number(
-                                        platforms[currentPlatform][currentRegion]["on_demand_price"][
-                                            currentCurrency
-                                            ] * currentStorageTBs
-                                    ) * 100
-                                ) / 100
-                            ).toFixed(2));
-                            var totalCapacityStorageCost = (document.getElementById(
-                                "capacity-storage-amount"
-                            ).innerHTML = (
-                                Math.round(
-                                    Number(
-                                        platforms[currentPlatform][currentRegion]["capacity_storage_price"][
-                                            currentCurrency
-                                            ] * currentStorageTBs
-                                    ) * 100
-                                ) / 100
-                            ).toFixed(2));
-                        } else if (currentCurrency == "usd") {
-                            var totalOnDemandStorageCost = (document.getElementById(
-                                "on-demand-storage-amount"
-                            ).innerHTML = (
-                                Math.round(
-                                    Number(
-                                        platforms[currentPlatform][currentRegion]["on_demand_price"][
-                                            currentCurrency
-                                            ] * currentStorageTBs
-                                    ) * 100
-                                ) / 100
-                            ).toFixed(2));
-                            var totalCapacityStorageCost = (document.getElementById(
-                                "capacity-storage-amount"
-                            ).innerHTML = (
-                                Math.round(
-                                    Number(
-                                        platforms[currentPlatform][currentRegion]["capacity_storage_price"][
-                                            currentCurrency
-                                            ] * currentStorageTBs
-                                    ) * 100
-                                ) / 100
-                            ).toFixed(2));
-                        } else if (currentCurrency == "gbp") {
-                            var totalOnDemandStorageCost = (document.getElementById(
-                                "on-demand-storage-amount"
-                            ).innerHTML = (
-                                Math.round(
-                                    Number(
-                                        platforms[currentPlatform][currentRegion]["on_demand_price"][
-                                            currentCurrency
-                                            ] * currentStorageTBs
-                                    ) * 100
-                                ) / 100
-                            ).toFixed(2));
-                            var totalCapacityStorageCost = (document.getElementById(
-                                "capacity-storage-amount"
-                            ).innerHTML = (
-                                Math.round(
-                                    Number(
-                                        platforms[currentPlatform][currentRegion]["capacity_storage_price"][
-                                            currentCurrency
-                                            ] * currentStorageTBs
-                                    ) * 100
-                                ) / 100
-                            ).toFixed(2));
-                        } else {
-                            var totalOnDemandStorageCost = (document.getElementById(
-                                "on-demand-storage-amount"
-                            ).innerHTML = (
-                                Math.round(
-                                    Number(
-                                        platforms[currentPlatform][currentRegion]["on_demand_price"][
-                                            currentCurrency
-                                            ] * currentStorageTBs
-                                    ) * 100
-                                ) / 100
-                            ).toFixed(2));
-                            var totalCapacityStorageCost = (document.getElementById(
-                                "capacity-storage-amount"
-                            ).innerHTML = (
-                                Math.round(
-                                    Number(
-                                        platforms[currentPlatform][currentRegion]["capacity_storage_price"][
-                                            currentCurrency
-                                            ] * currentStorageTBs
-                                    ) * 100
-                                ) / 100
-                            ).toFixed(2));
-                        }
+                        var currencies = ["EUR", "USD"];
+
+                    if (currencies.includes(currentCurrency)) {
+                      var totalOnDemandStorageCost = (document.getElementById("on-demand-storage-amount").innerHTML = (
+                        Math.round(
+                          Number(platforms[currentPlatform][currentRegion]["on_demand_price"]["usd"] * currentStorageTBs) * 100
+                        ) / 100
+                      ).toFixed(2));
+                      var totalCapacityStorageCost = (document.getElementById("capacity-storage-amount").innerHTML = (
+                        Math.round(
+                          Number(platforms[currentPlatform][currentRegion]["capacity_storage_price"]["usd"] * currentStorageTBs) * 100
+                        ) / 100
+                      ).toFixed(2));
+                    } else {
+                      var totalOnDemandStorageCost = (document.getElementById("on-demand-storage-amount").innerHTML = (
+                        Math.round(
+                          Number(platforms[currentPlatform][currentRegion]["on_demand_price"]["usd"] * currentStorageTBs *  usd_to_eur) * 100
+                        ) / 100
+                      ).toFixed(2));
+                      var totalCapacityStorageCost = (document.getElementById("capacity-storage-amount").innerHTML = (
+                        Math.round(
+                          Number(platforms[currentPlatform][currentRegion]["capacity_storage_price"]["usd"] * currentStorageTBs * usd_to_eur) * 100
+                        ) / 100
+                      ).toFixed(2));
+                    }
+
                     });
 
                     // Hierdoor wordt "X EDITIE" weergeven in de div met id "selected-edition"
@@ -652,66 +636,118 @@
                 }
 
 
+
                 // on document load hide the two divs (on-demand storage and capacity)
                 $("#snowflake-calculator-container-storage-cost").hide();
 
-                $("#add-warehouse-button").on("click", function (e) {
-                    var allWarehousesButtons = document.querySelectorAll(
+                 var allWarehousesButtons = document.querySelectorAll(
                         "[id^=wh-button-]"
                     );
 
-                    var currentActiveWarehouseButtons = document.querySelectorAll('li:not([style*="display: none;"])[id^="wh-button-"]');
+                 var nrOfWarehouses = [];
+                 nrOfWarehouses.push(allWarehousesButtons);
 
-                    var nrOfWarehouses = [];
-                    currentActiveWarehouseButtons.forEach(function (element) {
-                        nrOfWarehouses.push(Number(element.id.slice(-1)));
-                        console.log(element.id);
-                    });
 
-                    console.log(nrOfWarehouses);
+                // Hide all compute button except for the first on load, so add display: none to all except the first
+                for (var i = 1; i < nrOfWarehouses.length; i++) {
+                  if (i != 1) {
+                    document.getElementById("wh-button-" + i).style.display = "none";
+                  }
+                }
 
-                    var maxWarehouse = Math.max(...nrOfWarehouses);
 
-                    if (maxWarehouse == 5) {
-                        alert("Maximaal 5 warehouses toegestaan");
-                    } else {
-                        var nextWarehouse = maxWarehouse + 1;
-                        console.log(nextWarehouse);
-                        document.getElementById("wh-button-" + nextWarehouse).style.display =
-                            "block";
-                    }
-                    //$("#wh-button-" + (maxWarehouse + 1)).css("display", "block");
+                const addWarehouseButton = document.querySelector("#add-warehouse-button");
+                addWarehouseButton.addEventListener("click", function (event) {
+                  const allWarehouseButtons = document.querySelectorAll('[id^="wh-button-"]');
+                  const currentActiveWarehouseButtons = document.querySelectorAll('li:not([style*="display: none;"])[id^="wh-button-"]');
 
-                    //allWarehousesButtons.forEach(function (button) {
-                    //if ($("#" + button.id).css('display') == 'none') {
-                    //   $("#" + button.id).show();
-                    //  }
-                    // console.log(button);
-                    // });
+                  const nrOfActiveWarehouses = Array.from(currentActiveWarehouseButtons).map(function (element) {
+                    return Number(element.id.slice(-1));
+                  });
 
-                    //var nrOfWarehouses = []
-                    //for (var i = 0; i < allActiveWarehouses.length; i++) {
-                    // nrOfWarehouses.push(Number(allActiveWarehouses[i].id.split("-")[2]));
-                    //}
+                  const notCurrentActiveWarehouseButtons = document.querySelectorAll('li[style*="display: none;"][id^="wh-button-"]');
+                  const nrOfNotActiveWarehouses = Array.from(notCurrentActiveWarehouseButtons).map(function (element) {
+                    return Number(element.id.slice(-1));
+                  });
 
-                    //var newWarehouseNumber = Math.max(...nrOfWarehouses) + 1;
+                  // nrOfNotActiveWarehouses.forEach(function (element) {
+                  //   document.getElementById("wh-button-" + element).style.backgroundColor = "green";
+                  // });
 
-                    //const node = document.getElementById("warehouse-button-1");
-                    //const clone = node.cloneNode(true);
-                    // document.getElementById("wh-button-list").appendChild(clone);
-
-                    //document.getElementById("warehouse-button-" ).innerHTML =
-                    //  "Warehouse " + newWarehouseNumber;
-                    // $("#warehouse-button-1-2").css("background-color", "#edf0f4");
+                  const maxWarehouse = Math.max(...nrOfActiveWarehouses);
+                  if (maxWarehouse === 5) {
+                    alert("Maximaal 5 warehouses toegestaan");
+                  } else {
+                    const nextWarehouse = maxWarehouse + 1;
+                    document.getElementById("wh-button-" + nextWarehouse).style.display = "block";
+                  }
                 });
 
                 // Deze kun je uitcommentarieren als je alle divs wilt zien (en dus niet elke keer eerst een platform, regio en valuta wil selecteren voor het testen)
 
-                //$(
-                //  "#line-divider-voorkeur-schatting, #schatting-opslag-div, #line-divider-schatting-schatting, #line-divider-schatting-kosten, #schatting-per-editie-div,  #totale-kosten-div, #contact-button-div, #total-cost-title, #total-cost-icon, #select-edition, #totale-kosten-title-div, #select-storage-type"
-                //).hide();
+                         const hideElements = [
+                    "#line-divider-1",
+                    "#wrapper-bekend-prijsberekening-snowflake",
+                    "#line-divider-2",
+                    "#wrapper-calculation-examples-div",
+                    "#line-divider-3",
+                    "#wrapper-schatting-opslag-div",
+                    "#line-divider-4",
+                    "#line-divider-5",
+                    "#schatting-opslag-div",
+                    "#line-divider-schatting-schatting",
+                    "#line-divider-schatting-kosten",
+                    "#schatting-per-editie-div",
+                    "#totale-kosten-div",
+                    "#contact-button-div",
+                    "#total-cost-title",
+                    "#total-cost-icon",
+                    "#select-edition",
+                    "#totale-kosten-title-div",
+                    "#select-storage-type",
+                    "#inside-wrapper-calculation-examples-div-1",
+                    "#buttons-examples-1",
+                    "#inside-wrapper-calculation-examples-div-2",
+                    "#buttons-example-2",
+                    "#inside-wrapper-calculation-examples-div-storage",
+                    "#inside-wrapper-calculation-examples-div-3",
+                    "#buttons-example-final",
+                    "#make-calculation-button-div"
+                  ];
 
-                // Hier wordt de data (cloudplatforms) uit de json file gehaald en in de dropdowns gezet
+                  hideElements.forEach(function(element) {
+                    $(element).hide();
+                  });
+
+                // on click on the show-me-a-example-button
+
+
+                 $("#show-me-a-example-button").on("click", function (e) {
+                                      $("#show-me-a-example-button").hide();
+                   $("#inside-wrapper-calculation-examples-div-1, #buttons-examples-1").show();
+                 });
+
+                                  $("#show-me-example-2").on("click", function (e) {
+                   $("#inside-wrapper-calculation-examples-div-2, #buttons-example-2").show();
+                   $("#buttons-examples-1").hide();
+                 });
+
+                                  $("#show-me-example-3").on("click", function (e) {
+                   $("#inside-wrapper-calculation-examples-div-3, #buttons-example-final").show();
+                   $("#buttons-example-2").hide();
+                 });
+
+              $("#show-me-opslagvereisten-1, #show-me-opslagvereisten-2, #show-me-opslagvereisten-3").on("click", function (e) {
+                   $("#inside-wrapper-calculation-examples-div-storage, #make-calculation-button-div").show();
+                                   $("#buttons-examples-1, #buttons-example-2, #buttons-examples-final, #show-me-opslagvereisten-3").hide();
+
+                 });
+
+                                                                                                                                        $("#make-calculation-button").on("click", function (e) {
+                   $("#line-divider-3, #wrapper-schatting-opslag-div, #line-divider-4, #schatting-per-editie-div").show();
+                 });
+
+
                 $.each(platforms, function (k, v) {
                     $("#select-cloudplatform").append(
                         $("<option>", {
@@ -789,170 +825,178 @@
                 $(document).ready(function () {
                     $("#make-calculation-button").on("click", function (e) {
 
-                        var allDeleteButtons = document.querySelectorAll(
-                            "[id*=delete-warehouse-]"
-                        );
+                      var allDeleteButtons = document.querySelectorAll(
+                              "[id*=delete-warehouse-]"
+                      );
 
-                        //on click clear all button delete all warehouse information
-                        allDeleteButtons.forEach((button) => {
+                      //on click clear all button delete all warehouse information
+                      allDeleteButtons.forEach((button) => {
 
                                 // find all divs with id starting with "warehouse-button" and hide them
                                 var currentNumber = String(button.id).slice(-1);
 
                                 document.getElementById(
-                                    "number-of-days-select-" + currentNumber
+                                        "number-of-days-select-" + currentNumber
                                 ).value = null;
                                 document.getElementById(
-                                    "number-of-hours-day-select-" + currentNumber
+                                        "number-of-hours-day-select-" + currentNumber
                                 ).value = null;
                                 document.getElementById(
-                                    "percentage-bezetting-" + currentNumber
+                                        "percentage-bezetting-" + currentNumber
                                 ).value = null;
                                 document.getElementById(
-                                    "warehouse-type-" + currentNumber
+                                        "warehouse-type-" + currentNumber
                                 ).innerHTML = "Small";
                                 document.getElementById(
-                                    "warehouse-size-number-" + currentNumber
+                                        "warehouse-size-number-" + currentNumber
                                 ).innerHTML = 2;
                                 document.getElementById("total-hours-1").innerHTML =
-                                    "0 uren p/m";
+                                        "0 uren p/m";
                                 document.getElementById("total-credits-1").innerHTML =
-                                    "0 credits p/m";
+                                        "0 credits p/m";
                                 document.getElementById("input-storage-tb-per-month").value =
-                                    null;
-                            }
-                        );
+                                        null;
+                              }
+                      );
 
-                        var currentScenario = "wrapper-scenario-examples-div-1"
-                        var currentScenarioNumber = currentScenario.slice(-1);
+                      let activeScenarios = document.querySelectorAll("div[id^='inside-wrapper-calculation-examples-div-']:not([style*='display: none'])");
+                      console.log(activeScenarios);
+                      let activeScenarioNumbers = [];
+                      activeScenarios.forEach((scenario) => {
+                        activeScenarioNumbers.push(scenario.id.slice(-1));
+                      });
 
-                        listOfCalculationSelectorNumbers.forEach((selectorNumber) => {
-                            document.getElementById(
-                                "number-of-days-select-" + currentScenarioNumber //1 //2 //3
-                            ).value = Math.round(
+                      for (let scenarioNumber = 1; scenarioNumber < activeScenarioNumbers.length; scenarioNumber++) {
+
+
+                        document.getElementById(
+                                "number-of-days-select-" + scenarioNumber
+                        ).value = Math.round(
                                 document.getElementById(
-                                    "select-days-per-week-scenario-warehouse-example-" +
-                                    currentScenarioNumber
+                                        "select-days-per-week-scenario-warehouse-example-" +
+                                        scenarioNumber
                                 ).value *
                                 (52 / 12)
-                            );
+                        );
 
-                            document
+                        document
                                 .querySelectorAll("[id^=wrapper-warehouse-info-filler-]")
                                 .forEach((warehouseButtonWrapper) => {
-                                    if (String(warehouseButtonWrapper.id).slice(-1) !== String(currentScenarioNumber)) {
-                                        $(`#${warehouseButtonWrapper.id}`).hide();
-                                    } else {
-                                        $("#wrapper-warehouse-info-filler-1").show();
+                                  if (String(warehouseButtonWrapper.id).slice(-1) !== String(1)) {
+                                    $(`#${warehouseButtonWrapper.id}`).hide();
+                                  } else {
+                                    $("#wrapper-warehouse-info-filler-1").show();
 
-                                    }
+                                  }
                                 });
 
-                            document.getElementById('percentage-bezetting-' + currentScenarioNumber).innerText = document.getElementById('select-bezettingspercentage-scenario-warehouse-' + currentScenarioNumber).value + "%";
 
-                            document.getElementById('warehouse-button-' + currentScenarioNumber).innerHTML = document.getElementById('heading-scenario-warehouse-' + currentScenarioNumber).innerHTML;
+                        document.getElementById('percentage-bezetting-' + 1).innerText = document.getElementById('select-bezettingspercentage-scenario-warehouse-' + 1).value + "%";
 
-                            document.getElementById('warehouse-title-' + currentScenarioNumber).innerHTML = document.getElementById('heading-scenario-warehouse-' + currentScenarioNumber).innerHTML;
+                        document.getElementById('warehouse-button-' + scenarioNumber).innerHTML = document.getElementById('heading-scenario-warehouse-' + scenarioNumber).innerHTML;
 
-                            $("#wh-button-" + currentScenarioNumber).css("display", "block");
+                        document.getElementById('warehouse-title-' + scenarioNumber).innerHTML = document.getElementById('heading-scenario-warehouse-' + scenarioNumber).innerHTML;
 
-                            document.getElementById(
-                                "number-of-hours-day-select-" + currentScenarioNumber
-                            ).value = Math.round(
+                        $("#wh-button-" + scenarioNumber).css("display", "block");
+
+                        document.getElementById(
+                                "number-of-hours-day-select-" + scenarioNumber
+                        ).value = Math.round(
                                 document.getElementById(
-                                    "range-gebruik-scenario-warehouse-example-" +
-                                    currentScenarioNumber
+                                        "range-gebruik-scenario-warehouse-example-" +
+                                        scenarioNumber
                                 ).value
-                            );
+                        );
 
-                            document.getElementById(
-                                "percentage-bezetting-" + currentScenarioNumber
-                            ).value = Math.round(
+                        document.getElementById(
+                                "percentage-bezetting-" + scenarioNumber
+                        ).value = Math.round(
                                 document.getElementById(
-                                    "select-bezettingspercentage-scenario-warehouse-" +
-                                    currentScenarioNumber
+                                        "select-bezettingspercentage-scenario-warehouse-" +
+                                        scenarioNumber
                                 ).value
-                            );
+                        );
 
-                            var storage = document.querySelectorAll(
+                        var storage = document.querySelectorAll(
                                 "[id^=select-storage-scenario-storage-example-" +
-                                currentScenarioNumber +
+                                scenarioNumber +
                                 "-]"
-                            );
+                        );
 
-                            document.getElementById("input-storage-tb-per-month").value =
+                        document.getElementById("input-storage-tb-per-month").value =
                                 document.getElementById("range-tb-storage-example").value;
-                            document.getElementById(
-                                "warehouse-type-" + currentScenarioNumber
-                            ).innerHTML = document.getElementById(
-                                "select-warehouse-size-scenario-warehouse-example-" + currentScenarioNumber
-                            ).value;
+                        document.getElementById(
+                                "warehouse-type-" + scenarioNumber
+                        ).innerHTML = document.getElementById(
+                                "select-warehouse-size-scenario-warehouse-example-" + scenarioNumber
+                        ).value;
 
-                            var warehouseSizes = Object.keys(warehouse);
-                            var warehouseSize = document.getElementById(
-                                "warehouse-type-" + currentScenarioNumber
-                            ).innerHTML;
-                            document.getElementById(
-                                "warehouse-size-number-" + currentScenarioNumber
-                            ).innerHTML = warehouse[warehouseSize];
+                        var warehouseSizes = Object.keys(warehouse);
+                        var warehouseSize = document.getElementById(
+                                "warehouse-type-" + scenarioNumber
+                        ).innerHTML;
+                        document.getElementById(
+                                "warehouse-size-number-" + scenarioNumber
+                        ).innerHTML = warehouse[warehouseSize];
+                      }
 
-                            //HIER TOEVOEGEN
+                        //HIER TOEVOEGEN
 
-                            /* CALCULATIONS */
+                        /* CALCULATIONS */
 
-                            var allActiveWarehouses = document.querySelectorAll(
+                        var allActiveWarehouses = document.querySelectorAll(
                                 "[id^=warehouse-button-]"
-                            );
+                        );
 
-                            var activeWarehouseNumbers = [];
+                        var activeWarehouseNumbers = [];
 
-                            allActiveWarehouses.forEach((warehouse) => {
-                                activeWarehouseNumbers.push(
-                                    warehouse.id.slice(warehouse.id.length - 1)
-                                );
-                            });
+                        allActiveWarehouses.forEach((warehouse) => {
+                          activeWarehouseNumbers.push(
+                                  warehouse.id.slice(warehouse.id.length - 1)
+                          );
+                        });
 
-                            var totalHours = [];
-                            var totalCredits = [];
+                        var totalHours = [];
+                        var totalCredits = [];
 
-                            activeWarehouseNumbers.forEach((number) => {
-                                var hours =
-                                    (document.getElementById("number-of-days-select-" + number)
-                                            .value *
-                                        document.getElementById(
-                                            "number-of-hours-day-select-" + number
-                                        ).value *
-                                        document.getElementById("percentage-bezetting-" + number)
-                                            .value) /
-                                    100;
-                                totalHours.push(hours);
+                        activeWarehouseNumbers.forEach((number) => {
+                          var hours =
+                                  (document.getElementById("number-of-days-select-" + number)
+                                                  .value *
+                                          document.getElementById(
+                                                  "number-of-hours-day-select-" + number
+                                          ).value *
+                                          document.getElementById("percentage-bezetting-" + number)
+                                                  .value) /
+                                  100;
+                          totalHours.push(hours);
 
-                                var credits = document.getElementById(
-                                    "warehouse-size-number-" + number
-                                ).innerHTML;
+                          var credits = document.getElementById(
+                                  "warehouse-size-number-" + number
+                          ).innerHTML;
 
-                                totalCredits.push(hours * Number(credits.trim()));
-                            });
+                          totalCredits.push(hours * Number(credits.trim()));
+                        });
 
-                            var calculateTotalHours = totalHours.reduce((a, b) => a + b, 0);
+                        var calculateTotalHours = totalHours.reduce((a, b) => a + b, 0);
 
-                            var creditsTotal = totalCredits.reduce((a, b) => a + b, 0);
+                        var creditsTotal = totalCredits.reduce((a, b) => a + b, 0);
 
-                            document.getElementById("total-hours-1").innerHTML =
+                        document.getElementById("total-hours-1").innerHTML =
                                 Math.round(calculateTotalHours * 10) / 10 + " uren p/m";
 
-                            var creditsTotalString = (document.getElementById(
+                        var creditsTotalString = (document.getElementById(
                                 "total-credits-1"
-                            ).innerHTML =
+                        ).innerHTML =
                                 Math.round(creditsTotal * 10) / 10 + " Credits p/m");
 
-                            var currentCloudplatformAndRegion = (document.getElementById(
+                        var currentCloudplatformAndRegion = (document.getElementById(
                                 "currentregionselection"
-                            ).innerHTML = currentPlatform + " - " + currentRegion);
+                        ).innerHTML = currentPlatform + " - " + currentRegion);
 
-                            //EINDE
-                            makeCalculations();
-                        });
+                        //EINDE
+                        makeCalculations();
+
                     });
 
                     var allDeleteButtons = document.querySelectorAll(
@@ -978,6 +1022,7 @@
                             document.getElementById(
                                 "warehouse-size-number-" + currentNumber
                             ).innerHTML = 2;
+
                         });
                     });
 
@@ -990,8 +1035,7 @@
                     );
                     var numberOfScenarios = scenarioDivs.length;
 
-                    for (let i = 1; i <= numberOfScenarios-1; i++) {
-                      console.log(i);
+                    for (let i = 1; i <= numberOfScenarios; i++) {
                       //
                       $(
                               "#select-days-per-week-scenario-warehouse-example-" +
@@ -1038,8 +1082,6 @@
                             "[id^=wrapper-scenario-opslag-example]"
                         ).length;
 
-                      console.log(numberOfST);
-
                         //STORAGES
                         for (let nrStrs = 1; nrStrs <= numberOfST; nrStrs++) {
 
@@ -1073,96 +1115,69 @@
                     ).length;
 
                     //WAREHOUSES
-                    for (let nrWhs = 1; nrWhs <= numberOfWH; nrWhs++) {
                         $(
-                            "#select-days-per-week-scenario-warehouse-example-" +
-                            i +
-                            "-" +
-                            nrWhs
+                              "#select-days-per-week-scenario-warehouse-example-" +
+                              i
                         ).on("change, click", function (e) {
                             document.getElementById(
-                                "days-per-week-text-wh-" + i + "-" + nrWhs
+                                "days-per-week-text-wh-" + i
                             ).innerHTML = this.value;
                         });
 
                         $(
-                            "#select-gebruikstijd-scenario-warehouse-example-" +
-                            i +
-                            "-" +
-                            nrWhs
+                          "#range-gebruik-scenario-warehouse-example-" +
+                          i
                         ).on("change, click", function (e) {
                             document.getElementById(
-                                "usage-hours-wh-" + i + "-" + nrWhs
+                                "usage-hours-wh-" + i
                             ).innerHTML = this.value;
                         });
                         // next here
 
                         $(
                             "#select-bezettingspercentage-scenario-warehouse-" +
-                            i +
-                            "-" +
-                            nrWhs
+                            i
                         ).on("change, click", function (e) {
                             document.getElementById(
-                                "bezettingspercentage-wh-" + i + "-" + nrWhs
+                                "bezettingspercentage-wh-" + i
                             ).innerHTML = this.value;
                         });
                         //
                         $(
                             "#select-warehouse-size-scenario-warehouse-example-" +
-                            i +
-                            "-" +
-                            nrWhs
+                            i
                         ).on("change, click", function (e) {
-                            console.log("change");
                             document.getElementById(
-                                "warehouse-size-wh-" + i + "-" + nrWhs
+                                "warehouse-size-wh-" + i
                             ).innerHTML = this.value;
                         });
-                    }
 
-                    var numberOfST = document.querySelectorAll(
-                        "[id^=wrapper-storage-scenario-example-" + i + "]"
-                    ).length;
+                      var numberOfST = document.querySelectorAll(
+                          "[id^=wrapper-scenario-opslag-example]"
+                      ).length;
 
                     //STORAGES
                     for (let nrStrs = 1; nrStrs <= numberOfST; nrStrs++) {
-                        console.log("scenario: " + i + " storage: " + nrStrs);
 
                         $(
-                            "#select-storage-scenario-storage-example-" + i + "-" + nrStrs
+                            "#range-tb-storage-example"
                         ).on("change, click", function (e) {
-                            console.log("storage scenario: " + i + " storage: " + nrStrs);
                             document.getElementById(
-                                "tb-storage-st-" + i + "-" + nrStrs
+                                "tb-storage-st-" + nrStrs
                             ).innerHTML = this.value;
                         });
                         //
 
-                        $("#select-storage-type-example-" + i + "-" + nrStrs).on(
+                        $("#select-storage-type-scenario-storage-example").on(
                             "change, click",
                             function (e) {
                                 document.getElementById(
-                                    "storage-type-st-" + i + "-" + nrStrs
+                                    "storage-type-st-" + nrStrs
                                 ).innerHTML = this.value;
                             }
                         );
                     }
-                    //console.log("Warehouses" + numberOfWH);
-                    //console.log("Storages" + numberOfST);
                 }
-
-                //on document load hide all scenario div except for the first one
-                // TODO: Enable to hide all scenarios
-                // document
-                //     .querySelectorAll("[id^=wrapper-scenario-div-]")
-                //     .forEach((scenarioWrapper) => {
-                //         if (String(scenarioWrapper.id).slice(-1) !== String(1)) {
-                //             $(`#${scenarioWrapper.id}`).hide();
-                //         } else {
-                //             $(`#${scenarioWrapper.id}`).show();
-                //         }
-                //     });
 
                 //hide scenario div on list click
                 var allScenarioButtons = document.querySelectorAll(
@@ -1173,8 +1188,6 @@
                     $(`#${button.id}`).on("click", function (e) {
                         currentScenario = button.id;
 
-                        console.log(currentScenario);
-                        // find all divs with id starting with "warehouse-button" and hide them
                         document
                             .querySelectorAll("[id^=wrapper-scenario-examples-div-]")
                             .forEach((scenarioWrapper) => {
@@ -1265,66 +1278,70 @@
                 });
 
                 var allDeleteButtons = document.querySelectorAll(
-                    "[id*=delete-warehouse-]"
+                    "[id*=warehouse-button-]"
                 );
-
-                //on click clear all button delete all warehouse information
+                var nrOfWarehouses = [];
                 allDeleteButtons.forEach((button) => {
-                    $("#schatting-opslag-verbruikskosten-delete, #clear-all-button").on(
-                        "click",
-                        function (e) {
-                            // find all divs with id starting with "warehouse-button" and hide them
-                            var currentNumber = String(button.id).slice(-1);
+                    nrOfWarehouses.push(String(button.id).slice(-1));
+                });
+
+                console.log(nrOfWarehouses);
+
+
+                  for (let i = 0; i < nrOfWarehouses.length; i++) {
+                      let currentNumber = nrOfWarehouses[i];
+                  $("#schatting-opslag-verbruikskosten-delete, #clear-all-button").on(
+                          "click",
+                          function (e) {
                             document.getElementById(
-                                "number-of-days-select-" + currentNumber
+                                    "number-of-days-select-" + currentNumber
                             ).value = null;
                             document.getElementById(
-                                "number-of-hours-day-select-" + currentNumber
+                                    "number-of-hours-day-select-" + currentNumber
                             ).value = null;
                             document.getElementById(
-                                "percentage-bezetting-" + currentNumber
+                                    "percentage-bezetting-" + currentNumber
                             ).value = null;
                             document.getElementById(
-                                "warehouse-type-" + currentNumber
+                                    "warehouse-type-" + currentNumber
                             ).innerHTML = "Small";
                             document.getElementById(
-                                "warehouse-size-number-" + currentNumber
+                                    "warehouse-size-number-" + currentNumber
                             ).innerHTML = 2;
                             document.getElementById("total-hours-1").innerHTML =
-                                "0 uren p/m";
+                                    "0 uren p/m";
                             document.getElementById("total-credits-1").innerHTML =
-                                "0 credits p/m";
+                                    "0 credits p/m";
                             document.getElementById("input-storage-tb-per-month").value =
-                                null;
+                                    null;
 
                             document.getElementById("warehouse-button-" + currentNumber).innerHTML = "Warehouse " + currentNumber;
-                            document.getElementById("warehouse-title-" + currentNumber).innerHTML = "Warehouse " + currentNumber;
+                            document.getElementById("warehouse-title-" + currentNumber).innerHTML = "Datawarehouse " + currentNumber;
                             makeCalculations();
 
                             var allWarehouseButtons = document.querySelectorAll(
-                                "[id^=wh-button-]"
+                                    "[id^=wh-button-]"
                             );
 
 
                             allWarehouseButtons.forEach((button) => {
-                                console.log(button.id);
-                                if (button.id == "wh-button-1") {
-                                    $("#" + button.id).css("display", "block");
+                              if (button.id == "wh-button-1") {
+                                $("#" + button.id).css("display", "block");
 
-                                } else {
-                                    $("#" + button.id).css("display", "none");
-                                }
+                              } else {
+                                $("#" + button.id).css("display", "none");
+                              }
                             });
 
 
                             $(
-                                "#standard-edition-container, #enterprise-edition-container, #business-critical-edition-container, #on-demand-storage-div, #capacity-storage-div"
+                                    "#standard-edition-container, #enterprise-edition-container, #business-critical-edition-container, #on-demand-storage-div, #capacity-storage-div"
                             ).css("border", "1px solid rgba(120, 120, 120, 0.4)");
                             $(
-                                "#standard-edition-container, #enterprise-edition-container, #business-critical-edition-container, #on-demand-storage-div, #capacity-storage-div"
+                                    "#standard-edition-container, #enterprise-edition-container, #business-critical-edition-container, #on-demand-storage-div, #capacity-storage-div"
                             ).css("background-color", "white");
                             $(
-                                "#standard-edition-container, #enterprise-edition-container, #business-critical-edition-container, #on-demand-storage-div, #capacity-storage-div"
+                                    "#standard-edition-container, #enterprise-edition-container, #business-critical-edition-container, #on-demand-storage-div, #capacity-storage-div"
                             ).css("box-shadow", "0 0 0 0px #e0e0e0");
                             $("#enterprise-logo-div").css("border", "none");
                             $("#business-critical-logo-div").css("border", "none");
@@ -1336,27 +1353,27 @@
 
 
                             document
-                                .querySelectorAll("[id^=wrapper-warehouse-info-filler-]")
-                                .forEach((warehouseButtonWrapper) => {
-                                    console.log(warehouseButtonWrapper.id);
-                                    if (
-                                        warehouseButtonWrapper.id == "wrapper-warehouse-info-filler-1"
-                                    ) {
+                                    .querySelectorAll("[id^=wrapper-warehouse-info-filler-]")
+                                    .forEach((warehouseButtonWrapper) => {
+                                      if (
+                                              warehouseButtonWrapper.id == "wrapper-warehouse-info-filler-1"
+                                      ) {
                                         $(`#${warehouseButtonWrapper.id}`).show();
                                         $("#warehouse-button-1").css("background-color", "#a52025");
                                         $("#warehouse-button-1").css("color", "white");
 
-                                    } else {
+                                      } else {
                                         var currentNumber = String(warehouseButtonWrapper.id).slice(-1);
                                         $(`#${warehouseButtonWrapper.id}`).hide();
                                         $("#warehouse-button-" + currentNumber).css("background-color", "#edf0f4");
                                         $("#warehouse-button-" + currentNumber).css("color", "black");
-                                    }
-                                });
+                                      }
+                                    });
 
-                        }
-                    );
-                });
+                          }
+                  );
+                };
+                // });
 
                 // Verbergt de voorbeelden wanneer er een wijziging wordt gedaan in de dropdowns bij de schatting maandelijks opslag & verbruikskosten
 
@@ -1405,16 +1422,21 @@
                         ).innerHTML = 2;
 
                         document.getElementById("warehouse-button-" + currentNumber).innerHTML = "Warehouse " + currentNumber;
-                        document.getElementById("warehouse-title-" + currentNumber).innerHTML = "Warehouse " + currentNumber;
-                        makeCalculations();
+                        document.getElementById("warehouse-title-" + currentNumber).innerHTML = "Datawarehouse " + currentNumber;
 
                         var deleteButtonNr = button.id.slice(-1);
 
-                        if (deleteButtonNr != 1) {
-                            $("#" + "wh-button-" + deleteButtonNr).css("display", "none");
-                            $("#wrapper-warehouse-info-filler-" + deleteButtonNr).hide();
-                            $("#wrapper-warehouse-info-filler-" + String(Number(deleteButtonNr) - 1)).show();
+                        if (currentNumber != 1) {
+                            $("#wh-button-" + currentNumber).css("display", "none");
+                            $("#wrapper-warehouse-info-filler-" + currentNumber).hide();
+                            $("#wrapper-warehouse-info-filler-" + String(Number(currentNumber) - 1)).show();
+                            $("#warehouse-button-" + String(Number(currentNumber) - 1)).css("background-color", "#a52025");
+                            $("#warehouse-button-" + String(Number(currentNumber) - 1)).css("color", "white");
                         }
+
+                        makeCalculations();
+
+
 
 
                     });
@@ -1426,7 +1448,7 @@
                     $("#select-region-text").show();
 
                     var allCloudplatformText = document.querySelectorAll(
-                        "[id^=cloudplatform-text-scenario-]"
+                        "[id^=cloudplatform-text]"
                     );
 
                     allCloudplatformText.forEach((text) => {
@@ -1463,20 +1485,67 @@
                     $("#select-region").on("change", function (e) {
                         $("#select-currency").show();
                         $("#select-currency-text").show();
-                        $("#currentregionselection").show();
-                        $(
-                            ".line_divider, #wrapper-calculation-examples-div, #line-divider-voorkeur-schatting, #wrapper-schatting-opslag-div, #schatting-per-editie-div"
-                        ).show();
-                        makeCalculations();
 
                         var allRegionText = document.querySelectorAll(
                             "[id^=regio-text-scenario-]"
                         );
+                                                makeCalculations();
+
 
                         allRegionText.forEach((text) => {
                             document.getElementById(text.id).innerHTML =
                                 document.getElementById("select-region").value;
                         });
+                    });
+
+
+                    });
+
+                                                        //  populate region dropdown with this platform's regions
+                    $.each(currencyOptions, function (k, v) {
+                        $("#select-currency").append(
+                            $("<option>", {
+                                value: v,
+                                text: v,
+                            })
+                        );
+
+                    // Als een regio wordt geselecteerd dan wordt de valuta dropdown getoond
+                    $("#select-currency").on("change", function (e) {
+                        $("#currentregionselection").show();
+                        $(
+                            "#line-divider-1, #wrapper-bekend-prijsberekening-snowflake"
+                        ).show();
+                        makeCalculations();
+                    });
+
+                    // Get the radio buttons and the div
+                    const radioJa = document.getElementById("radio-button-ja");
+                    const radioNee = document.getElementById("radio-button-nee");
+                    const calcExamplesDiv = document.getElementById("wrapper-calculation-examples-div");
+
+                    // Listen for a change event on the radio buttons
+                    radioJa.addEventListener("change", function() {
+                      if (this.checked) {
+                        // Hide the div if the "ja" radio button is selected
+                        calcExamplesDiv.style.display = "none";
+                                 $(
+                 "#line-divider-3, #wrapper-schatting-opslag-div, #line-divider-4, #schatting-per-editie-div"
+                ).show();
+                      } else {
+                        // Show the div if the "nee" radio button is selected
+                        calcExamplesDiv.style.display = "block";
+                      }
+                    });
+
+                    radioNee.addEventListener("change", function() {
+                      if (this.checked) {
+                        // Show the div if the "nee" radio button is selected
+                        calcExamplesDiv.style.display = "block";
+                      } else {
+                        // Hide the div if the "ja" radio button is selected
+                        calcExamplesDiv.style.display = "none";
+                      }
                     });
 
                     // Als een valuta wordt geselecteerd dan worden alle divs getoond
@@ -1499,10 +1568,7 @@
                     var allFieldsToRefresh =
                         divSchattingKosten.querySelectorAll(".button, input");
 
-                    console.log(allFieldsToRefresh);
-
                     var events = ["change", "click"];
-
 
                     allFieldsToRefresh.forEach(function (elem) {
                         events.forEach(function (event) {
@@ -1752,6 +1818,7 @@
 
                     function () {
                         currentSelectedStorageType = "on-demand-storage-amount";
+                          document.getElementById("selected-storage").innerHTML = "(ON DEMAND STORAGE)";
                         var totalCostStorCreditsStandard =
                             Number(
                                 document.getElementById(currentSelectedEditon).innerHTML
@@ -1776,7 +1843,7 @@
                         );
                         $("#capacity-storage-div").css("box-shadow", "0 0 0 0px #e0e0e0");
 
-                        $("#totale-kosten-div, #contact-button-div").show();
+                        $("#totale-kosten-div, #contact-button-div, #line-divider-5, #totale-kosten-title-div").show();
 
                         var selectedEdition =
                             document.getElementById("select-edition").value;
@@ -1793,6 +1860,7 @@
 
                     function () {
                         currentSelectedStorageType = "capacity-storage-amount";
+                      document.getElementById("selected-storage").innerHTML = "(CAPACITY STORAGE)";
                         var totalCostStorCreditsStandard =
                             Number(
                                 document.getElementById(currentSelectedEditon).innerHTML
@@ -1808,7 +1876,7 @@
                         $("#capacity-storage-div").css("background-color", "#f5f5f5");
                         $("#capacity-storage-div").css("border", "2px solid black");
                         $("#capacity-storage-div").css("box-shadow", "0 0 0 2px black");
-                        $("#capacity-storage-div").css("border", "none");
+                        $("#capacity-storage-div").css("border", "0.5px solid #c9d3dd");
                         document.getElementById("select-edition").value = "Standard";
                         $("#on-demand-storage-div").css("background-color", "white");
                         $("#on-demand-storage-div").css(
@@ -1820,7 +1888,9 @@
                             "0 0 0 0px #e0e0e0"
                         );
 
-                        $("#totale-kosten-div, #contact-button-div").show();
+                        $("#totale-kosten-div, #contact-button-div, #line-divider-5, #totale-kosten-title-div").show();
+
+
 
                         var selectedEdition =
                             document.getElementById("select-edition").value;
@@ -1850,10 +1920,13 @@
         class="sf-calc2-wrapper-select-platform-regio-versie"
       >
         <select id="select-cloudplatform" class="sf-calc2-select-cloudplatform">
-          <option value="Platform" selected>Platform</option>
+          <option value="Platform" selected>Cloudplatform</option>
         </select>
         <select id="select-region" class="sf-calc2-select-region">
           <option value="Regio" selected>Regio</option>
+        </select>
+        <select id="select-currency" class="sf-calc2-select-currency">
+          <option>Valuta</option>
         </select>
       </div>
     </div>
@@ -1873,11 +1946,11 @@
         class="sf-calc2-wrapper-select-bekend-ja-nee"
       >
         <div class="sf-calc2-container01">
-          <input type="radio" id="radio-button-ja" name="radio" checked />
+          <input type="radio" id="radio-button-ja" name="radio" />
           <span class="sf-calc2-ja">Ja</span>
           <input
             type="radio"
-            id="radio-button-ja"
+            id="radio-button-nee"
             name="radio"
             class="sf-calc2-radio1"
           />
@@ -1936,7 +2009,7 @@
                   <li class="list-item">
                     <span class="info-text-calculations sf-calc2-text008">
                       <span>
-                        ﻿De grootte van een warehouse (x-small tot 3X-large)
+                        De grootte van een warehouse (x-small tot 3X-large)
                         geeft aan hoeveel rekenmiddelen er beschikbaar zijn.
                       </span>
                       <br class="sf-calc2-text010" />
@@ -1961,22 +2034,20 @@
                     <span class="info-text-calculations sf-calc2-text014">
                       <span>
                         Dit bedrag verschilt op basis van het opslagtype:
-                        capacity of on demand.
+                        capacity of on-demand.
                       </span>
                       <br />
                     </span>
                   </li>
                   <li class="list-item">
                     <span class="info-text-calculations sf-calc2-text017">
-                      <span class="sf-calc2-text018">Capacity storage</span>
-                      <span>: betaal vooraf voor wat je gebruikt.</span>
+                      <span class="sf-calc2-text018">Capacity storage</span><span>: betaal vooraf voor wat je gebruikt.</span>
                       <br />
                     </span>
                   </li>
                   <li class="list-item">
                     <span class="info-text-calculations sf-calc2-text021">
-                      <span class="sf-calc2-text022">On-demand storage</span>
-                      <span>: betaal voor gebruik van maand tot maand.</span>
+                      <span class="sf-calc2-text022">On-demand storage</span><span>: betaal voor gebruik van maand tot maand.</span>
                       <br />
                     </span>
                   </li>
@@ -2037,7 +2108,7 @@
                     >
                       <h1
                         id="heading-scenario-warehouse-1"
-                        class="sf-calc2-heading01" contenteditable="true"
+                        class="sf-calc2-heading01" contenteditable="true" class="warehouse-headings"
                       >
                         Warehouse 1
                       </h1>
@@ -2048,7 +2119,7 @@
                         <img
                           id="image-scenario-1"
                           alt="image"
-                          src="/playground_assets/warehouse-200h.png"
+                          src="images/warehouse.png"
                           class="sf-calc2-image"
                         />
                       </div>
@@ -2064,7 +2135,7 @@
                           d="M634 558q92-64 92-174 0-88-63-151t-151-63-151 63-63 151q0 46 27 96t65 78l36 26v98h172v-98zM512 86q124 0 211 87t87 211q0 156-128 244v98q0 18-12 30t-30 12h-256q-18 0-30-12t-12-30v-98q-128-88-128-244 0-124 87-211t211-87zM384 896v-42h256v42q0 18-12 30t-30 12h-172q-18 0-30-12t-12-30z"
                         ></path>
                       </svg>
-                      <span class="info-text-warehouses">
+                      <span class="info-text-warehouses" id="info-text-warehouse-1">
                         <span contenteditable="true">
                           De klant wil ervoor zorgen dat zijn medewerkers
                         </span>
@@ -2077,7 +2148,7 @@
                           van deze tijd gebruik maken van het datawarehouse De
                           klant heeft hierbij gekozen voor een
                         </span>
-                        <span class="sf-calc2-text041" contenteditable="false"  id="warehouse-size-wh-1">medium</span>
+                        <span class="sf-calc2-text041" contenteditable="false"  id="warehouse-size-wh-1">Medium</span>
                         <span contenteditable="true">warehouse.</span>
                       </span>
                     </div>
@@ -2096,9 +2167,7 @@
                       id="select-days-per-week-scenario-warehouse-example-1"
                       class="select"
                     >
-                      <option value="Dagen per week" selected>
-                        Dagen per week
-                      </option>
+
                     </select>
                   </div>
                   <div
@@ -2115,8 +2184,13 @@
                       type="range"
                       id="range-gebruik-scenario-warehouse-example-1"
                       placeholder="placeholder"
-                      class="sliders input"
+                      class="sliders input slider-hours"
+                        min="0"
+                        max="24"
+                      value="8"
                     />
+                    <span class="slider-value">8 uur p/dag</span>
+
                   </div>
                   <div
                     id="wrapper-select-bezettingspercentage-scenario-warehouse-example-1"
@@ -2133,8 +2207,10 @@
                       type="range"
                       id="select-bezettingspercentage-scenario-warehouse-1"
                       placeholder="placeholder"
-                      class="sliders input sf-calc2-input01"
+                      class="sliders input sf-calc2-input01 slider-percentage"
+                      value="10"
                     />
+                    <span class="slider-value">10%</span>
                   </div>
                   <div
                     id="wrapper-select-warehouse-size-scenario-warehouse-example-1"
@@ -2150,35 +2226,31 @@
                       id="select-warehouse-size-scenario-warehouse-example-1"
                       class="sf-calc2-select-warehouse-size-scenario-warehouse-example-1 select"
                     >
-                      <option value="Warehouse size" selected>
-                        Warehouse size
-                      </option>
                     </select>
                   </div>
                 </div>
               </div>
               <img
                 alt="image"
-                src="/playground_assets/hd%20green%20line%20arrow1-200h.png"
+                src="images/arrow_right.png"
                 class="sf-calc2-image01"
               />
               <div class="sf-calc2-container10">
                 <span class="tip-text">
                   <span class="sf-calc2-text054">Tip:</span>
                   <span>
-                    u kunt het verhaaltje ook naar naar eigen wens aanpassen om
-                    dit op uw eigen situatie en organisatie af te stemmen.
+                    wilt u dit op uw eigen situatie afstemmen? Pas het verhaal dan aan door erop te klikken. Exporteer vervolgens uiteindelijk onderaan de pagina het verhaal en de berekening naar een PDF.
                   </span>
                 </span>
               </div>
             </div>
           </div>
         </div>
-        <div class="sf-calc2-show-me-a-example-div-1">
+        <div class="sf-calc2-show-me-a-example-div-1" id="buttons-examples-1">
           <button id="show-me-example-2" class="sf-calc2-button02 button">
             Geef nog een voorbeeld
           </button>
-          <button id="show-me-opslagvereisten" class="sf-calc2-button03 button">
+          <button id="show-me-opslagvereisten-1" class="sf-calc2-button03 button">
             Ik snap het, laat mij een voorbeeld zien van de opslagvereisten
           </button>
         </div>
@@ -2201,7 +2273,7 @@
                     class="sf-calc2-wrapper-div-scenario-warehouse-example-toelichting-2"
                   >
                     <div class="sf-calc2-container12">
-                      <span class="info-text-warehouses">
+                      <span class="info-text-warehouses" id="info-text-warehouse-2">
                         <span contenteditable="true">De klant wil dat het warehouse</span>
                         <span contenteditable="false" id="days-per-week-text-wh-2" class="sf-calc2-text058">7</span>
                         <span contenteditable="true">
@@ -2216,7 +2288,7 @@
                           Virtual Warehouse</span><span contenteditable="true">. Deze load heeft een
                           bezettingspercentage van
                         </span>
-                        <span class="sf-calc2-text066" id="bezettingspercentage-wh-2" contenteditable="false">100%</span>
+                        <span class="sf-calc2-text066" id="bezettingspercentage-wh-2" contenteditable="false">100</span><span contenteditable="false">%</span>
                         <span contenteditable="true">omdat de uren volledig benut worden.</span>
                       </span>
                     </div>
@@ -2231,7 +2303,7 @@
                     >
                       <h1
                         id="heading-scenario-warehouse-2"
-                        class="sf-calc2-heading02" contenteditable="true"
+                        class="sf-calc2-heading02" contenteditable="true" class="warehouse-headings"
                       >
                         Warehouse 2
                       </h1>
@@ -2242,7 +2314,7 @@
                         <img
                           id="image-scenario-2"
                           alt="image"
-                          src="/playground_assets/warehouse-200h.png"
+                          src="images/warehouse.png"
                           class="sf-calc2-image02"
                         />
                       </div>
@@ -2254,7 +2326,7 @@
                     id="wrapper-select-days-per-week-scenario-warehouse-example-2"
                     class="sf-calc2-wrapper-select-days-per-week-scenario-warehouse-example-2"
                   >
-                    <h3 class="heading-select">Actieve dagen</h3>
+                    <h3 class="heading-select">Actieve dagen per week</h3>
                     <span class="subtext-select">
                       Actieve dagen per week waarop het warehouse gebruikt wordt
                     </span>
@@ -2262,9 +2334,6 @@
                       id="select-days-per-week-scenario-warehouse-example-2"
                       class="select"
                     >
-                      <option value="Dagen per week" selected>
-                        Dagen per week
-                      </option>
                     </select>
                   </div>
                   <div
@@ -2281,8 +2350,12 @@
                       type="range"
                       id="range-gebruik-scenario-warehouse-example-2"
                       placeholder="placeholder"
-                      class="sliders input"
+                      class="sliders input slider-hours"
+                                      min="0"
+                        max="24"
+                      value="2.5"
                     />
+                    <span class="slider-value">2.5 uur p/dag</span>
                   </div>
                   <div
                     id="wrapper-select-bezettingspercentage-scenario-warehouse-example-2"
@@ -2299,8 +2372,10 @@
                       type="range"
                       id="select-bezettingspercentage-scenario-warehouse-2"
                       placeholder="placeholder"
-                      class="sliders input sf-calc2-input03"
+                      class="sliders input sf-calc2-input03 slider-percentage"
+                      value="100"
                     />
+                    <span class="slider-value">100%</span>
                   </div>
                   <div
                     id="wrapper-select-warehouse-size-scenario-warehouse-example-2"
@@ -2316,9 +2391,6 @@
                       id="select-warehouse-size-scenario-warehouse-example-2"
                       class="sf-calc2-select-warehouse-size-scenario-warehouse-example-2 select"
                     >
-                      <option value="Warehouse size" selected>
-                        Warehouse size
-                      </option>
                     </select>
                   </div>
                 </div>
@@ -2326,11 +2398,11 @@
             </div>
           </div>
         </div>
-        <div class="sf-calc2-show-me-a-example-div-2">
+        <div class="sf-calc2-show-me-a-example-div-2" id="buttons-example-2">
           <button id="show-me-example-3" class="sf-calc2-button04 button">
             Geef nog een voorbeeld
           </button>
-          <button id="show-me-opslagvereisten" class="sf-calc2-button05 button">
+          <button id="show-me-opslagvereisten-2" class="sf-calc2-button05 button">
             Ik snap het, laat mij een voorbeeld zien van de opslagvereisten
           </button>
         </div>
@@ -2358,7 +2430,7 @@
                     >
                       <h1
                         id="heading-scenario-warehouse-3" contenteditable="true"
-                        class="sf-calc2-heading03"
+                        class="sf-calc2-heading03" class="warehouse-headings"
                       >
                         Warehouse 3
                       </h1>
@@ -2369,7 +2441,7 @@
                         <img
                           id="image-scenario-3"
                           alt="image"
-                          src="/playground_assets/warehouse-200h.png"
+                          src="images/warehouse.png"
                           class="sf-calc2-image03"
                         />
                       </div>
@@ -2380,7 +2452,7 @@
                     class="sf-calc2-wrapper-div-scenario-warehouse-example-toelichting-13"
                   >
                     <div class="sf-calc2-container15">
-                      <span class="info-text-warehouses">
+                      <span class="info-text-warehouses" id="info-text-warehouse-3">
                         <span contenteditable="true">
                           De klant wil ervoor zorgen dat zijn medewerkers
                         </span>
@@ -2393,7 +2465,7 @@
                           van deze tijd gebruik maken van de datawarehouse.De
                           klant heeft hierbij gekozen voor een
                         </span>
-                        <span class="sf-calc2-text085" contenteditable="false" id="warehouse-size-wh-3">medium</span>
+                        <span class="sf-calc2-text085" contenteditable="false" id="warehouse-size-wh-3">Medium</span>
                         <span contenteditable="false">warehouse</span><span contenteditable="true">.</span>
                       </span>
                     </div>
@@ -2404,7 +2476,7 @@
                     id="wrapper-select-days-per-week-scenario-warehouse-example-1"
                     class="sf-calc2-wrapper-select-days-per-week-scenario-warehouse-example-3"
                   >
-                    <h3 class="heading-select">Actieve dagen</h3>
+                    <h3 class="heading-select">Actieve dagen per week</h3>
                     <span class="subtext-select">
                       Actieve dagen per week waarop het warehouse gebruikt wordt
                     </span>
@@ -2412,9 +2484,6 @@
                       id="select-days-per-week-scenario-warehouse-example-3"
                       class="select"
                     >
-                      <option value="Dagen per week" selected>
-                        Dagen per week
-                      </option>
                     </select>
                   </div>
                   <div
@@ -2431,8 +2500,13 @@
                       type="range"
                       id="range-gebruik-scenario-warehouse-example-3"
                       placeholder="placeholder"
-                      class="sliders input"
+                      class="sliders input slider-hours"
+                                      min="0"
+                        max="24"
+                      value="8"
                     />
+                                      <span class="slider-value">8 uur p/dag</span>
+
                   </div>
                   <div
                     id="wrapper-select-bezettingspercentage-scenario-warehouse-example-3"
@@ -2449,8 +2523,10 @@
                       type="range"
                       id="select-bezettingspercentage-scenario-warehouse-3"
                       placeholder="placeholder"
-                      class="sliders input sf-calc2-input05"
+                      class="sliders input sf-calc2-input05 slider-percentage"
+                      value="10"
                     />
+                    <span class="slider-value">10%</span>
                   </div>
                   <div
                     id="wrapper-select-warehouse-size-scenario-warehouse-example-3"
@@ -2466,9 +2542,7 @@
                       id="select-warehouse-size-scenario-warehouse-example-3"
                       class="sf-calc2-select-warehouse-size-scenario-warehouse-example-11 select"
                     >
-                      <option value="Warehouse size" selected>
-                        Warehouse size
-                      </option>
+
                     </select>
                   </div>
                 </div>
@@ -2476,13 +2550,13 @@
             </div>
           </div>
         </div>
-        <div class="sf-calc2-show-me-a-example-div-21">
-          <button id="show-me-opslagvereisten" class="sf-calc2-button06 button">
+        <div class="sf-calc2-show-me-a-example-div-21" id="buttons-example-final">
+          <button id="show-me-opslagvereisten-3" class="sf-calc2-button06 button">
             Ik snap het, laat mij een voorbeeld zien van de opslagvereisten
           </button>
         </div>
         <div
-          id="inside-wrapper-calculation-examples-div-2"
+          id="inside-wrapper-calculation-examples-div-storage"
           class="sf-calc2-inside-wrapper-calculation-examples-div-opslag"
         >
           <div
@@ -2490,7 +2564,7 @@
             class="sf-calc2-wrapper-scenario3"
           >
             <div
-              id="wrapper-scenario-examples-div-opslag"
+              id="wrapper-scenario-examples-div_opslag"
               class="sf-calc2-wrapper-scenario-examples-div3 scenario-example-warehouse"
             >
               <div
@@ -2498,7 +2572,7 @@
                 class="scenario-example-warehouses sf-calc2-wrapper-scenario-example-opslag"
               >
                 <div class="sf-calc2-container17">
-                  <div
+                  <divwrapper-scenario-examples-div-opslag
                     id="wrapper-div-scenario-opslag-example-toelichting"
                     class="sf-calc2-wrapper-div-scenario-opslag-example-toelichting"
                   >
@@ -2509,23 +2583,21 @@
                         </span>
                         <span class="sf-calc2-text099" contenteditable="false" id="tb-storage-st-1">4</span><span contenteditable="false"> TB per maand</span>
                         <span contenteditable="true">
-                          aan gecomprimeerde data die opgeslagen dient te worden
-                          (ongecomprimeerd) is deze data 20 TB). Hierbij betaalt
+                          aan gecomprimeerde data die opgeslagen dient te worden. Hierbij betaalt
                           hij de data op month-to-month basis waarbij hij
                           gebruikt maakt van het opslagtype:
                         </span>
-                        <span class="sf-calc2-text101" id="storage-type-st-1" contenteditable="false">On-Demand storage</span>
-                        <span>.</span>
+                        <span class="sf-calc2-text101" id="storage-type-st-1" contenteditable="false">On-Demand storage</span><span>.</span>
                       </span>
                     </div>
-                  </div>
+                  </divwrapper-scenario-examples-div-opslag>
                   <div
                     id="wrapper-div-scenario-storage-example-toelichting"
                     class="sf-calc2-wrapper-div-scenario-storage-example-toelichting"
                   >
                     <div
                       id="wrapper-title-div-scenario-storage-example"
-                      class="sf-calc2-wrapper-title-div-scenario-storage-example"
+                      class="sf-calc2-wrapper-title-div-scenario-storage-example" class="warehouse-headings"
                     >
                       <h1
                         id="heading-scenario-storage"
@@ -2540,7 +2612,7 @@
                         <img
                           id="image-scenario-storage"
                           alt="image"
-                          src="/playground_assets/database-storage-200h.png"
+                          src="images/database-storage.png"
                           class="sf-calc2-image04"
                         />
                       </div>
@@ -2562,9 +2634,15 @@
                       type="range"
                       id="range-tb-storage-example"
                       placeholder="placeholder"
-                      class="sliders input"
-                    />
+                      class="sliders input slider"
+                      min="1"
+                      step="1"
+                        max="200"
+                      value="4"
+                    />                  <span class="slider-value-storage">4 TB p/m</span>
+
                   </div>
+
                   <div
                     id="wrapper-select-storage-type-scenario-storage-example"
                     class="sf-calc2-wrapper-select-storage-type-scenario-storage-example"
@@ -2577,9 +2655,8 @@
                       id="select-storage-type-scenario-storage-example"
                       class="sf-calc2-select-warehouse-size-scenario-storage-example select"
                     >
-                      <option value="Storage type" selected>
-                        Storage type
-                      </option>
+<!--                      <option value="Storage type" selected>-->
+<!--                      </option>-->
                     </select>
                   </div>
                 </div>
@@ -2587,7 +2664,7 @@
             </div>
           </div>
         </div>
-        <div class="sf-calc2-calculate-button-wrapper">
+        <div class="sf-calc2-calculate-button-wrapper" id="make-calculation-button-div">
           <div class="sf-calc2-calculate-button-div">
             <button
               id="make-calculation-button"
@@ -2656,7 +2733,7 @@
                     Warehouse 1
                   </button>
                 </li>
-                <li class="sf-calc2-li08 list-item">
+                <li class="sf-calc2-li08 list-item" id="wh-button-2">
                   <button
                     id="warehouse-button-2"
                     class="unselected-warehouse-button select-warehouse-button button"
@@ -2664,7 +2741,7 @@
                     Warehouse 2
                   </button>
                 </li>
-                <li class="sf-calc2-li09 list-item">
+                <li class="sf-calc2-li09 list-item"  id="wh-button-3">
                   <button
                     id="warehouse-button-3"
                     class="select-warehouse-button button sf-calc2-button11"
@@ -2672,7 +2749,7 @@
                     Warehouse 3
                   </button>
                 </li>
-                <li class="sf-calc2-li10 list-item">
+                <li class="sf-calc2-li10 list-item"  id="wh-button-4">
                   <button
                     id="warehouse-button-4"
                     class="select-warehouse-button button sf-calc2-button12"
@@ -2680,7 +2757,7 @@
                     Warehouse 4
                   </button>
                 </li>
-                <li class="sf-calc2-li11 list-item">
+                <li class="sf-calc2-li11 list-item"  id="wh-button-5">
                   <button
                     id="warehouse-button-5"
                     class="select-warehouse-button button sf-calc2-button13"
@@ -2707,13 +2784,13 @@
               <span class="tip-text sf-calc2-text108">
                 <span class="sf-calc2-text109">Tip:</span>
                 <span>
-                   geen idee hoe u dit moet invullen? Vink &apos;nee&apos; bij
-                  de vorige stap aan om meer uitleg te krijgen!
+                   geen idee hoe u dit moet invullen? Vink &apos;nee&apos; bij
+                  de vorige stap aan om meer uitleg te krijgen! U kunt hier overigens ook de naam van uw warehouse aanpassen door erop te klikken.
                 </span>
               </span>
               <img
                 alt="image"
-                src="/playground_assets/hd%20green%20line%20arrow-200h.png"
+                src="images/arrow.png"
                 class="sf-calc2-image05"
               />
             </div>
@@ -2758,7 +2835,7 @@
 
                                             warehouseSizes = Object.keys(warehouse);
 
-                                            let currentWH2 = 0;
+                                            let currentWH1 = 0;
                                             let backWH1 = document.getElementById(
                                                 "warehouse-size-button-left-1"
                                             );
@@ -2768,14 +2845,14 @@
                                             ).innerHTML = Object.keys(warehouse)[0];
 
                                             function move1(dir2) {
-                                                currentWH2 += dir2;
-                                                if (currentWH2 < 0)
-                                                    currentWH2 = warehouseSizes.length - 1;
-                                                if (currentWH2 === warehouseSizes.length)
-                                                    currentWH2 = 0;
+                                                currentWH1 += dir2;
+                                                if (currentWH1 < 0)
+                                                    currentWH1 = warehouseSizes.length - 1;
+                                                if (currentWH1 === warehouseSizes.length)
+                                                    currentWH1 = 0;
                                                 document.getElementById(
                                                     "warehouse-type-1"
-                                                ).innerHTML = Object.keys(warehouse)[currentWH2];
+                                                ).innerHTML = Object.keys(warehouse)[currentWH1];
                                             }
                                         </script>
                     &lt;
@@ -2819,16 +2896,7 @@
                   class="warehouse-title-editable sf-calc2-heading07"
                 >
                   Datawarehouse 1
-                </h1>
-                <svg
-                  id="edit-warehouse-1"
-                  viewBox="0 0 865.7188571428571 1024"
-                  class="sf-calc2-icon06 edit-warehouse"
-                >
-                  <path
-                    d="M207.429 877.714l52-52-134.286-134.286-52 52v61.143h73.143v73.143h61.143zM506.286 347.429c0-7.429-5.143-12.571-12.571-12.571-3.429 0-6.857 1.143-9.714 4l-309.714 309.714c-2.857 2.857-4 6.286-4 9.714 0 7.429 5.143 12.571 12.571 12.571 3.429 0 6.857-1.143 9.714-4l309.714-309.714c2.857-2.857 4-6.286 4-9.714zM475.429 237.714l237.714 237.714-475.429 475.429h-237.714v-237.714zM865.714 292.571c0 19.429-8 38.286-21.143 51.429l-94.857 94.857-237.714-237.714 94.857-94.286c13.143-13.714 32-21.714 51.429-21.714s38.286 8 52 21.714l134.286 133.714c13.143 13.714 21.143 32.571 21.143 52z"
-                  ></path></svg
-                ><svg
+                </h1><svg
                   id="delete-warehouse-1"
                   viewBox="0 0 1024 1024"
                   class="sf-calc2-icon08 delete-warehouse"
@@ -2894,14 +2962,10 @@
                   <span class="sf-calc2-text134">gebruikt wordt</span>
                   <br />
                 </span>
-                <input
-                  type="range"
-                  id="percentage-bezetting-1"
-                  max="100"
-                  min="1"
-                  step="5"
-                  class="sf-calc2-input09 input"
-                />
+<div class="slider-container">
+  <input type="range" id="percentage-bezetting-1" max="100" min="0" step="4" value="50" class="sf-calc2-input09 input slider-percentage" />
+  <div class="slider-value-wh">50%</div>
+</div>
               </div>
             </div>
           </div>
@@ -2909,6 +2973,16 @@
             id="wrapper-warehouse-info-filler-2"
             class="warehouse-wrapper sf-calc2-wrapper-warehouse-info-filler1"
           >
+            <div class="sf-calc2-container20">
+              <span class="tip-text sf-calc2-text108">
+                <span class="sf-calc2-text109">Tip:</span>
+                <span>
+                   geen idee hoe u dit moet invullen? Vink &apos;nee&apos; bij
+                  de vorige stap aan om meer uitleg te krijgen! U kunt hier overigens ook de naam van uw warehouse aanpassen door erop te klikken.
+                </span>
+              </span>
+              <img alt="image" src="images/arrow.png" class="sf-calc2-image05">
+            </div>
             <div class="sf-calc2-warehouse-size-div1">
               <div
                 id="wrapper-warehouse-size-logo-question-mark"
@@ -2918,6 +2992,9 @@
                   <span class="sf-calc2-text136">Warehouse size</span>
                   <br />
                 </h1>
+                <svg viewBox="0 0 1024 1024" class="sf-calc2-icon04">
+                  <path d="M634 558q92-64 92-174 0-88-63-151t-151-63-151 63-63 151q0 46 27 96t65 78l36 26v98h172v-98zM512 86q124 0 211 87t87 211q0 156-128 244v98q0 18-12 30t-30 12h-256q-18 0-30-12t-12-30v-98q-128-88-128-244 0-124 87-211t211-87zM384 896v-42h256v42q0 18-12 30t-30 12h-172q-18 0-30-12t-12-30z"></path>
+                </svg>
               </div>
               <div
                 id="wrapper-warehouse-size-selection"
@@ -3008,15 +3085,7 @@
                 >
                   Datawarehouse 2
                 </h1>
-                <svg
-                  id="edit-warehouse-2"
-                  viewBox="0 0 865.7188571428571 1024"
-                  class="sf-calc2-icon10 edit-warehouse"
-                >
-                  <path
-                    d="M207.429 877.714l52-52-134.286-134.286-52 52v61.143h73.143v73.143h61.143zM506.286 347.429c0-7.429-5.143-12.571-12.571-12.571-3.429 0-6.857 1.143-9.714 4l-309.714 309.714c-2.857 2.857-4 6.286-4 9.714 0 7.429 5.143 12.571 12.571 12.571 3.429 0 6.857-1.143 9.714-4l309.714-309.714c2.857-2.857 4-6.286 4-9.714zM475.429 237.714l237.714 237.714-475.429 475.429h-237.714v-237.714zM865.714 292.571c0 19.429-8 38.286-21.143 51.429l-94.857 94.857-237.714-237.714 94.857-94.286c13.143-13.714 32-21.714 51.429-21.714s38.286 8 52 21.714l134.286 133.714c13.143 13.714 21.143 32.571 21.143 52z"
-                  ></path></svg
-                ><svg
+               <svg
                   id="delete-warehouse-2"
                   viewBox="0 0 1024 1024"
                   class="sf-calc2-icon12 delete-warehouse"
@@ -3082,14 +3151,12 @@
                   <span class="sf-calc2-text159">gebruikt wordt</span>
                   <br />
                 </span>
-                <input
-                  type="range"
-                  id="percentage-bezetting-2"
-                  max="100"
-                  min="1"
-                  step="5"
-                  class="sf-calc2-input12 input"
-                />
+
+<div class="slider-container">
+  <input type="range" id="percentage-bezetting-2" max="100" min="0" step="4" value="50" class="sf-calc2-input09 input slider-percentage" />
+  <div class="slider-value-wh">50%</div>
+</div>
+
               </div>
             </div>
           </div>
@@ -3097,6 +3164,16 @@
             id="wrapper-warehouse-info-filler-3"
             class="warehouse-wrapper sf-calc2-wrapper-warehouse-info-filler2"
           >
+            <div class="sf-calc2-container20">
+              <span class="tip-text sf-calc2-text108">
+                <span class="sf-calc2-text109">Tip:</span>
+                <span>
+                   geen idee hoe u dit moet invullen? Vink &apos;nee&apos; bij
+                  de vorige stap aan om meer uitleg te krijgen! U kunt hier overigens ook de naam van uw warehouse aanpassen door erop te klikken.
+                </span>
+              </span>
+              <img alt="image" src="images/arrow.png" class="sf-calc2-image05">
+            </div>
             <div class="sf-calc2-warehouse-size-div2">
               <div
                 id="wrapper-warehouse-size-logo-question-mark"
@@ -3106,6 +3183,11 @@
                   <span class="sf-calc2-text161">Warehouse size</span>
                   <br />
                 </h1>
+                  <svg viewBox="0 0 1024 1024" class="sf-calc2-icon04">
+                  <path
+                    d="M634 558q92-64 92-174 0-88-63-151t-151-63-151 63-63 151q0 46 27 96t65 78l36 26v98h172v-98zM512 86q124 0 211 87t87 211q0 156-128 244v98q0 18-12 30t-30 12h-256q-18 0-30-12t-12-30v-98q-128-88-128-244 0-124 87-211t211-87zM384 896v-42h256v42q0 18-12 30t-30 12h-172q-18 0-30-12t-12-30z"
+                  ></path>
+                </svg>
               </div>
               <div
                 id="wrapper-warehouse-size-selection"
@@ -3194,16 +3276,7 @@
                   class="warehouse-title-editable sf-calc2-heading11"
                 >
                   Datawarehouse 3
-                </h1>
-                <svg
-                  id="edit-warehouse-3"
-                  viewBox="0 0 865.7188571428571 1024"
-                  class="sf-calc2-icon14 edit-warehouse"
-                >
-                  <path
-                    d="M207.429 877.714l52-52-134.286-134.286-52 52v61.143h73.143v73.143h61.143zM506.286 347.429c0-7.429-5.143-12.571-12.571-12.571-3.429 0-6.857 1.143-9.714 4l-309.714 309.714c-2.857 2.857-4 6.286-4 9.714 0 7.429 5.143 12.571 12.571 12.571 3.429 0 6.857-1.143 9.714-4l309.714-309.714c2.857-2.857 4-6.286 4-9.714zM475.429 237.714l237.714 237.714-475.429 475.429h-237.714v-237.714zM865.714 292.571c0 19.429-8 38.286-21.143 51.429l-94.857 94.857-237.714-237.714 94.857-94.286c13.143-13.714 32-21.714 51.429-21.714s38.286 8 52 21.714l134.286 133.714c13.143 13.714 21.143 32.571 21.143 52z"
-                  ></path></svg
-                ><svg
+                </h1><svg
                   id="delete-warehouse-3"
                   viewBox="0 0 1024 1024"
                   class="sf-calc2-icon16 delete-warehouse"
@@ -3269,21 +3342,29 @@
                   <span class="sf-calc2-text184">gebruikt wordt</span>
                   <br />
                 </span>
-                <input
-                  type="range"
-                  id="percentage-bezetting-3"
-                  max="100"
-                  min="1"
-                  step="5"
-                  class="sf-calc2-input15 input"
-                />
+              <div class="slider-container">
+  <input type="range" id="percentage-bezetting-3" max="100" min="0" step="4" value="50%" class="sf-calc2-input09 input slider-percentage" />
+  <div class="slider-value-wh">50%</div>
+</div>
+
               </div>
+
             </div>
           </div>
           <div
             id="wrapper-warehouse-info-filler-4"
             class="warehouse-wrapper sf-calc2-wrapper-warehouse-info-filler3"
           >
+            <div class="sf-calc2-container20">
+              <span class="tip-text sf-calc2-text108">
+                <span class="sf-calc2-text109">Tip:</span>
+                <span>
+                geen idee hoe u dit moet invullen? Vink &apos;nee&apos; bij
+                  de vorige stap aan om meer uitleg te krijgen! U kunt hier overigens ook de naam van uw warehouse aanpassen door erop te klikken.
+                </span>
+              </span>
+              <img alt="image" src="images/arrow.png" class="sf-calc2-image05">
+            </div>
             <div class="sf-calc2-warehouse-size-div3">
               <div
                 id="wrapper-warehouse-size-logo-question-mark"
@@ -3293,6 +3374,11 @@
                   <span class="sf-calc2-text186">Warehouse size</span>
                   <br />
                 </h1>
+                  <svg viewBox="0 0 1024 1024" class="sf-calc2-icon04">
+                  <path
+                    d="M634 558q92-64 92-174 0-88-63-151t-151-63-151 63-63 151q0 46 27 96t65 78l36 26v98h172v-98zM512 86q124 0 211 87t87 211q0 156-128 244v98q0 18-12 30t-30 12h-256q-18 0-30-12t-12-30v-98q-128-88-128-244 0-124 87-211t211-87zM384 896v-42h256v42q0 18-12 30t-30 12h-172q-18 0-30-12t-12-30z"
+                  ></path>
+                </svg>
               </div>
               <div
                 id="wrapper-warehouse-size-selection"
@@ -3382,15 +3468,7 @@
                 >
                   Datawarehouse 4
                 </h1>
-                <svg
-                  id="edit-warehouse-4"
-                  viewBox="0 0 865.7188571428571 1024"
-                  class="sf-calc2-icon18 edit-warehouse"
-                >
-                  <path
-                    d="M207.429 877.714l52-52-134.286-134.286-52 52v61.143h73.143v73.143h61.143zM506.286 347.429c0-7.429-5.143-12.571-12.571-12.571-3.429 0-6.857 1.143-9.714 4l-309.714 309.714c-2.857 2.857-4 6.286-4 9.714 0 7.429 5.143 12.571 12.571 12.571 3.429 0 6.857-1.143 9.714-4l309.714-309.714c2.857-2.857 4-6.286 4-9.714zM475.429 237.714l237.714 237.714-475.429 475.429h-237.714v-237.714zM865.714 292.571c0 19.429-8 38.286-21.143 51.429l-94.857 94.857-237.714-237.714 94.857-94.286c13.143-13.714 32-21.714 51.429-21.714s38.286 8 52 21.714l134.286 133.714c13.143 13.714 21.143 32.571 21.143 52z"
-                  ></path></svg
-                ><svg
+             <svg
                   id="delete-warehouse-4"
                   viewBox="0 0 1024 1024"
                   class="sf-calc2-icon20 delete-warehouse"
@@ -3456,14 +3534,10 @@
                   <span class="sf-calc2-text209">gebruikt wordt</span>
                   <br />
                 </span>
-                <input
-                  type="range"
-                  id="percentage-bezetting-4"
-                  max="100"
-                  min="1"
-                  step="5"
-                  class="sf-calc2-input18 input"
-                />
+<div class="slider-container">
+  <input type="range" id="percentage-bezetting-4" max="100" min="0" step="4" value="50" class="sf-calc2-input09 input slider-percentage" />
+  <div class="slider-value-wh">50%</div>
+</div>
               </div>
             </div>
           </div>
@@ -3471,6 +3545,16 @@
             id="wrapper-warehouse-info-filler-5"
             class="warehouse-wrapper sf-calc2-wrapper-warehouse-info-filler4"
           >
+            <div class="sf-calc2-container20">
+              <span class="tip-text sf-calc2-text108">
+                <span class="sf-calc2-text109">Tip:</span>
+                <span>
+                   geen idee hoe u dit moet invullen? Vink &apos;nee&apos; bij
+                  de vorige stap aan om meer uitleg te krijgen! U kunt hier overigens ook de naam van uw warehouse aanpassen door erop te klikken.
+                </span>
+              </span>
+              <img alt="image" src="images/arrow.png" class="sf-calc2-image05">
+            </div>
             <div class="sf-calc2-warehouse-size-div4">
               <div
                 id="wrapper-warehouse-size-logo-question-mark"
@@ -3480,6 +3564,11 @@
                   <span class="sf-calc2-text211">Warehouse size</span>
                   <br />
                 </h1>
+                  <svg viewBox="0 0 1024 1024" class="sf-calc2-icon04">
+                  <path
+                    d="M634 558q92-64 92-174 0-88-63-151t-151-63-151 63-63 151q0 46 27 96t65 78l36 26v98h172v-98zM512 86q124 0 211 87t87 211q0 156-128 244v98q0 18-12 30t-30 12h-256q-18 0-30-12t-12-30v-98q-128-88-128-244 0-124 87-211t211-87zM384 896v-42h256v42q0 18-12 30t-30 12h-172q-18 0-30-12t-12-30z"
+                  ></path>
+                </svg>
               </div>
               <div
                 id="wrapper-warehouse-size-selection"
@@ -3569,15 +3658,7 @@
                 >
                   Datawarehouse 5
                 </h1>
-                <svg
-                  id="edit-warehouse-5"
-                  viewBox="0 0 865.7188571428571 1024"
-                  class="sf-calc2-icon22 edit-warehouse"
-                >
-                  <path
-                    d="M207.429 877.714l52-52-134.286-134.286-52 52v61.143h73.143v73.143h61.143zM506.286 347.429c0-7.429-5.143-12.571-12.571-12.571-3.429 0-6.857 1.143-9.714 4l-309.714 309.714c-2.857 2.857-4 6.286-4 9.714 0 7.429 5.143 12.571 12.571 12.571 3.429 0 6.857-1.143 9.714-4l309.714-309.714c2.857-2.857 4-6.286 4-9.714zM475.429 237.714l237.714 237.714-475.429 475.429h-237.714v-237.714zM865.714 292.571c0 19.429-8 38.286-21.143 51.429l-94.857 94.857-237.714-237.714 94.857-94.286c13.143-13.714 32-21.714 51.429-21.714s38.286 8 52 21.714l134.286 133.714c13.143 13.714 21.143 32.571 21.143 52z"
-                  ></path></svg
-                ><svg
+              <svg
                   id="delete-warehouse-5"
                   viewBox="0 0 1024 1024"
                   class="sf-calc2-icon24 delete-warehouse"
@@ -3643,14 +3724,11 @@
                   <span class="sf-calc2-text234">gebruikt wordt</span>
                   <br />
                 </span>
-                <input
-                  type="range"
-                  id="percentage-bezetting-5"
-                  max="100"
-                  min="1"
-                  step="5"
-                  class="sf-calc2-input21 input"
-                />
+<div class="slider-container">
+  <input type="range" id="percentage-bezetting-5" max="100" min="0" value="50%" step="4" class="sf-calc2-input09 input slider-percentage" />
+  <div class="slider-value-wh">50%</div>
+</div>
+
               </div>
             </div>
           </div>
@@ -3765,15 +3843,7 @@
         </div>
         <div class="sf-calc2-wrapper-selecteer-editie-title1">
           <div tooltip="text" class="tooltips sf-calc2-container21">
-            <svg
-              id="question-mark-on-demand-storage"
-              viewBox="0 0 877.7142857142857 1024"
-              class="sf-calc2-icon31"
-            >
-              <path
-                d="M502.857 685.714v91.429c0 10.286-8 18.286-18.286 18.286h-91.429c-10.286 0-18.286-8-18.286-18.286v-91.429c0-10.286 8-18.286 18.286-18.286h91.429c10.286 0 18.286 8 18.286 18.286zM649.143 402.286c0 81.143-56.571 113.143-98.286 136.571-29.714 17.143-48 28-48 46.286v18.286c0 10.286-8 18.286-18.286 18.286h-91.429c-10.286 0-18.286-8-18.286-18.286v-38.857c0-70.286 50.286-92.571 90.857-110.857 34.286-16 55.429-26.857 55.429-52.571 0-33.143-41.714-57.714-79.429-57.714-20 0-41.143 6.286-54.286 15.429-12.571 8.571-24.571 21.143-45.714 47.429-3.429 4.571-8.571 6.857-14.286 6.857-4 0-8-1.143-10.857-3.429l-61.714-46.857c-7.429-5.714-9.143-16.571-4-24.571 46.857-73.714 112.571-109.714 199.429-109.714v0c93.714 0 198.857 74.286 198.857 173.714zM438.857 146.286c-201.714 0-365.714 164-365.714 365.714s164 365.714 365.714 365.714 365.714-164 365.714-365.714-164-365.714-365.714-365.714zM877.714 512c0 242.286-196.571 438.857-438.857 438.857s-438.857-196.571-438.857-438.857 196.571-438.857 438.857-438.857v0c242.286 0 438.857 196.571 438.857 438.857z"
-              ></path>
-            </svg>
+
           </div>
           <span class="sf-calc2-cloud-region2">
             <span class="sf-calc2-text254">
@@ -4052,7 +4122,7 @@
             <div class="sf-calc2-container37">
               <h1 class="sf-calc2-text352">CAPACITY STORAGE</h1>
               <span class="sf-calc2-text353">
-                betaal vooaf voor wat je gebruikt
+                betaal vooraf voor wat je gebruikt
               </span>
             </div>
             <img
@@ -4129,7 +4199,7 @@
                 ></path>
               </svg>
               <h2 id="total-credits-edition" class="sf-calc2-text363">
-                <span>0 </span>
+                <span>0</span>
                 <span>credits p/m</span>
               </h2>
             </div>
@@ -4206,11 +4276,11 @@
                 class="sf-calc2-toelichting-tekst-div"
               >
                 <span class="sf-calc2-text380">
-                  <span>Samenvatting van de berekening die is gemaakt.</span>
+                  <span>Klik voor meer informatie over hoe de berekening tot stand is gekomen op de 'Exporteer naar PDF' knop hieronder.</span>
                   <br />
                   <br />
                   <span>
-                    Let op: deze berekening is slechts een schatting en kan
+                    <span style="font-weight: bold">Let op: </span>deze berekening is slechts een schatting en kan
                     afwijken van de werkelijke kosten. Het is niet bedoeld als
                     bindend aanbod of garantie van de uiteindelijke kosten.
                   </span>
@@ -4237,13 +4307,10 @@
 
                     var currentActiveWarehouseButtons = document.querySelectorAll('li:not([style*="display: none;"])[id^="wh-button-"]');
 
-                    console.log(currentActiveWarehouseButtons)
-
                     var nrOfWarehouses = [];
 
                     currentActiveWarehouseButtons.forEach(function (element) {
                         nr = Number(element.id.slice(-1));
-                        console.log(nr);
                         nrOfWarehouses.push(nr);
 
                     });
@@ -4318,19 +4385,8 @@
                         var totalHoursWarehouse = Math.round(SelectedWarehouseDays * SelectedWarehouseHours * (SelectedWarehouseBezet / 100))
                         var totalCreditsWarehouse = Math.round(SelectedWarehouseNumber * totalHoursWarehouse * (SelectedWarehouseBezet / 100))
 
-                        const scenarioButtons = document.querySelectorAll('[id^="scenario-button-"]');
-                        const scenarioButtonsArray = Array.from(scenarioButtons);
-
-                        const activeButton = scenarioButtonsArray.find(button => {
-                            return button.style.backgroundColor === '#a52025';
-                        });
-
-                        const activeButtonNr = activeButton.id.slice(-1);
-
-                        console.log(activeButtonNr)
-
-                        var warehouseDescription = "placeholder"
-                        <!-- var warehouseDescription = document.getElementById("toelichting-text-wh-" + "activeButtonNr" + "-" + nrOfWarehouses[i]).innerText.trim() -->
+                        // var warehouseDescription = "placeholder"
+                        var warehouseDescription = document.getElementById("info-text-warehouse-" + nrOfWarehouses[i]).innerText.trim()
 
                         var totalCostWarehouse = Math.round((SelectedWarehouseDays * SelectedWarehouseHours * SelectedWarehouseNumber * (SelectedWarehouseBezet / 100)) * document.getElementById(selectedEditionForCalc).value);
                         emptyArray.push([SelectedWarehouseTitle, warehouseDescription, SelectedWarehouseType, SelectedWarehouseDays, SelectedWarehouseHours, SelectedWarehouseBezet, totalHoursWarehouse, totalCreditsWarehouse, totalCostWarehouse]);
@@ -4339,9 +4395,14 @@
 
                     var totalStorageCost = document.getElementById(selectedStorageForCalc).innerText;
                     var totalCompute = document.getElementById(selectedEditionForCalcTotal).innerText
-
-
-                    console.log(emptyArray);
+                    var currency = document.getElementById("select-currency").value
+                    if (currency == "EUR") {
+                      currency = "€"
+                    } else if (currency == "USD") {
+                      currency = "$"
+                    } else if (currency == "GBP") {
+                      currency = "£"
+                    }
 
                     const calcExamplesDiv = document.getElementById("inside-wrapper-calculation-examples-div-1");
 
@@ -4416,7 +4477,7 @@
                                         {title: "Occupation /%"},
                                         {title: "Total hours /month"},
                                         {title: "Total credits /month"},
-                                        {title: "Total ($) /month"}
+                                        {title: "Total (" + currency + ") " +  "/month"}
                                     ],
                                     table: Array.from(emptyArray, (item, index) => ([
                                         index + 1,
@@ -4433,7 +4494,7 @@
 
                                     additionalRows: [{
                                         col1: 'Total compute:',
-                                        col2: totalCompute + " $",
+                                        col2: totalCompute + " " + currency,
                                         col3: 'ALL',
                                         style: {
                                             fontSize: 14 //optional, default 12
@@ -4441,7 +4502,7 @@
                                     },
                                         {
                                             col1: 'Total storage (' + selectedStorage + ', ' + document.getElementById("input-storage-tb-per-month").value + " TB/s month" + '):',
-                                            col2: String(totalStorageCost) + " $",
+                                            col2: String(totalStorageCost) + " " + currency,
                                             col3: 'ALL',
                                             style: {
                                                 fontSize: 10 //optional, default 12
@@ -4449,7 +4510,7 @@
                                         },
                                         {
                                             col1: 'SubTotal:',
-                                            col2: String(Number(totalCompute) + Number(totalStorageCost)) + " $",
+                                            col2: String(Number(totalCompute) + Number(totalStorageCost)) + " " + currency,
                                             col3: 'ALL',
                                             style: {
                                                 fontSize: 10 //optional, default 12
@@ -4459,7 +4520,8 @@
 
 
                                     invDescLabel: "Invoice Note",
-                                    invDesc: "There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary.",
+                                    invDesc: "Let op: deze berekening is slechts een schatting en kan afwijken van de werkelijke kosten. Het is niet bedoeld als bindend aanbod of garantie van de uiteindelijke kosten." +
+                                            "\n\nIn het geval van Inergy komt er bovenop dit bedrag nog een toeslag van circa. 50% van de totale kosten voor de test, acceptatie en productie omgeving.",
                                 },
                                 footer: {
                                     text: "The invoice is created on a computer and is valid without the signature and stamp.",
@@ -4529,7 +4591,7 @@
                                         {title: "Occupation /%"},
                                         {title: "Total hours /month"},
                                         {title: "Total credits /month"},
-                                        {title: "Total ($) /month"}
+                                        {title: "Total (" + currency + ") " +  "/month"}
                                     ],
                                     table: Array.from(emptyArray, (item, index) => ([
                                         index + 1,
@@ -4545,7 +4607,7 @@
 
                                     additionalRows: [{
                                         col1: 'Total compute:',
-                                        col2: totalCompute + " $",
+                                        col2: totalCompute + " " + currency,
                                         col3: 'ALL',
                                         style: {
                                             fontSize: 14 //optional, default 12
@@ -4553,7 +4615,7 @@
                                     },
                                         {
                                             col1: 'Total storage (' + selectedStorage + ', ' + document.getElementById("input-storage-tb-per-month").value + " TB/s month" + '):',
-                                            col2: String(totalStorageCost) + " $",
+                                            col2: String(totalStorageCost) + " " + currency,
                                             col3: 'ALL',
                                             style: {
                                                 fontSize: 10 //optional, default 12
@@ -4561,7 +4623,7 @@
                                         },
                                         {
                                             col1: 'SubTotal:',
-                                            col2: String(Number(totalCompute) + Number(totalStorageCost)) + " $",
+                                            col2: String(Number(totalCompute) + Number(totalStorageCost)) + " " + currency,
                                             col3: 'ALL',
                                             style: {
                                                 fontSize: 10 //optional, default 12
