@@ -79,22 +79,23 @@ fetch('https://v6.exchangerate-api.com/v6/0d80c9460c958eeba6b2f2dc/latest/usd')
    });
 
                // Get the slider input element
-  var slider = $("#percentage-bezetting-1");
+// Get all range sliders
+const sliders = document.querySelectorAll('.slider');
 
-  // Get the slider value element
-  var sliderValue = $(".slider-value");
+// Loop through each slider
+sliders.forEach(slider => {
+  // Get the corresponding slider value element
+  const value = slider.nextElementSibling;
 
-  // Update the slider value element when the input value changes
-  slider.on("input", function() {
-    sliderValue.html(this.value + "%");
-  });
+  // Update the text with the initial value
+  // value.innerHTML = slider.value;
 
-  // Update the position of the slider value element
-  slider.on("mousemove", function() {
-    var value = this.value + "%";
-    var position = $(this).position().left + $(this).width() * (this.value / 100);
-    sliderValue.html(value).css("left", position);
-  });
+  // Update the text when the slider value changes
+  slider.oninput = function() {
+    value.innerHTML = this.value;
+  }
+});
+
 
 
                 var allWarehouseButtons = document.querySelectorAll(
@@ -2149,10 +2150,12 @@ fetch('https://v6.exchangerate-api.com/v6/0d80c9460c958eeba6b2f2dc/latest/usd')
                       type="range"
                       id="range-gebruik-scenario-warehouse-example-1"
                       placeholder="placeholder"
-                      class="sliders input"
+                      class="sliders input slider"
                         min="0"
                         max="24"
                     />
+                    <span class="slider-value"></span>
+
                   </div>
                   <div
                     id="wrapper-select-bezettingspercentage-scenario-warehouse-example-1"
@@ -2169,8 +2172,9 @@ fetch('https://v6.exchangerate-api.com/v6/0d80c9460c958eeba6b2f2dc/latest/usd')
                       type="range"
                       id="select-bezettingspercentage-scenario-warehouse-1"
                       placeholder="placeholder"
-                      class="sliders input sf-calc2-input01"
+                      class="sliders input sf-calc2-input01 slider"
                     />
+                    <span class="slider-value"></span>
                   </div>
                   <div
                     id="wrapper-select-warehouse-size-scenario-warehouse-example-1"
@@ -2316,10 +2320,11 @@ fetch('https://v6.exchangerate-api.com/v6/0d80c9460c958eeba6b2f2dc/latest/usd')
                       type="range"
                       id="range-gebruik-scenario-warehouse-example-2"
                       placeholder="placeholder"
-                      class="sliders input"
+                      class="sliders input slider"
                                       min="0"
                         max="24"
                     />
+                    <span class="slider-value"></span>
                   </div>
                   <div
                     id="wrapper-select-bezettingspercentage-scenario-warehouse-example-2"
@@ -2336,8 +2341,9 @@ fetch('https://v6.exchangerate-api.com/v6/0d80c9460c958eeba6b2f2dc/latest/usd')
                       type="range"
                       id="select-bezettingspercentage-scenario-warehouse-2"
                       placeholder="placeholder"
-                      class="sliders input sf-calc2-input03"
+                      class="sliders input sf-calc2-input03 slider"
                     />
+                    <span class="slider-value"></span>
                   </div>
                   <div
                     id="wrapper-select-warehouse-size-scenario-warehouse-example-2"
@@ -2468,7 +2474,7 @@ fetch('https://v6.exchangerate-api.com/v6/0d80c9460c958eeba6b2f2dc/latest/usd')
                       type="range"
                       id="range-gebruik-scenario-warehouse-example-3"
                       placeholder="placeholder"
-                      class="sliders input"
+                      class="sliders input slider"
                                       min="0"
                         max="24"
                     />
@@ -2488,8 +2494,9 @@ fetch('https://v6.exchangerate-api.com/v6/0d80c9460c958eeba6b2f2dc/latest/usd')
                       type="range"
                       id="select-bezettingspercentage-scenario-warehouse-3"
                       placeholder="placeholder"
-                      class="sliders input sf-calc2-input05"
+                      class="sliders input sf-calc2-input05 slider"
                     />
+                    <span class="slider-value"></span>
                   </div>
                   <div
                     id="wrapper-select-warehouse-size-scenario-warehouse-example-3"
@@ -2599,12 +2606,14 @@ fetch('https://v6.exchangerate-api.com/v6/0d80c9460c958eeba6b2f2dc/latest/usd')
                       type="range"
                       id="range-tb-storage-example"
                       placeholder="placeholder"
-                      class="sliders input"
+                      class="sliders input slider"
                       min="1"
                       step="1"
                         max="200"
                     />
                   </div>
+                  <span class="slider-value"></span>
+
                   <div
                     id="wrapper-select-storage-type-scenario-storage-example"
                     class="sf-calc2-wrapper-select-storage-type-scenario-storage-example"
@@ -2926,7 +2935,7 @@ fetch('https://v6.exchangerate-api.com/v6/0d80c9460c958eeba6b2f2dc/latest/usd')
                   <br />
                 </span>
 <div class="slider-container">
-  <input type="range" id="percentage-bezetting-1" max="100" min="0" step="4" class="sf-calc2-input09 input" />
+  <input type="range" id="percentage-bezetting-1" max="100" min="0" step="4" class="sf-calc2-input09 input slider" />
   <div class="slider-value"></div>
 </div>
               </div>
@@ -3120,8 +3129,10 @@ fetch('https://v6.exchangerate-api.com/v6/0d80c9460c958eeba6b2f2dc/latest/usd')
                   max="100"
                   min="0"
                   step="4"
-                  class="sf-calc2-input12 input"
+                  class="sf-calc2-input12 input slider"
                 />
+                <span class="slider-value"></span>
+
               </div>
             </div>
           </div>
@@ -3313,9 +3324,12 @@ fetch('https://v6.exchangerate-api.com/v6/0d80c9460c958eeba6b2f2dc/latest/usd')
                   max="100"
                   min="0"
                   step="4"
-                  class="sf-calc2-input15 input"
+                  class="sf-calc2-input15 input slider"
                 />
+                <span class="slider-value"></span>
+
               </div>
+
             </div>
           </div>
           <div
@@ -3507,8 +3521,9 @@ fetch('https://v6.exchangerate-api.com/v6/0d80c9460c958eeba6b2f2dc/latest/usd')
                   max="100"
                   min="0"
                   step="4"
-                  class="sf-calc2-input18 input"
+                  class="sf-calc2-input18 input slider"
                 />
+                <span class="slider-value"></span>
               </div>
             </div>
           </div>
@@ -3701,8 +3716,9 @@ fetch('https://v6.exchangerate-api.com/v6/0d80c9460c958eeba6b2f2dc/latest/usd')
                   max="100"
                   min="0"
                   step="4"
-                  class="sf-calc2-input21 input"
+                  class="sf-calc2-input21 input slider"
                 />
+<span class="slider-value"></span>
 
 
               </div>
