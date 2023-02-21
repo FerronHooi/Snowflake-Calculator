@@ -99,8 +99,8 @@ input[type="range"]  {
   color: red;
 }
 
-#make-calculation-button:hover,  #show-examples-button:hover {
-  background-color: rgb(54, 0, 0);
+#make-calculation-button:hover,  #hide-examples-button:hover, #show-examples-button:hover {
+  background-color: rgb(165, 32, 37);
   color:white;
   /*border: 1px solid black;*/
 }
@@ -903,7 +903,7 @@ h1, h2, h3, p, li, a, button, input, select, textarea, .editable, span {
   text-decoration: underline;
 }
 .sf-calc2-button01:hover {
-  background-color: var(--dl-color-gray-700);
+  background-color: darkgray;
 }
 .sf-calc2-wrapper-calculation-examples-container1 {
   flex: 0 0 auto;
