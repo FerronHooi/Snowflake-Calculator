@@ -2043,7 +2043,7 @@
                           d="M634 558q92-64 92-174 0-88-63-151t-151-63-151 63-63 151q0 46 27 96t65 78l36 26v98h172v-98zM512 86q124 0 211 87t87 211q0 156-128 244v98q0 18-12 30t-30 12h-256q-18 0-30-12t-12-30v-98q-128-88-128-244 0-124 87-211t211-87zM384 896v-42h256v42q0 18-12 30t-30 12h-172q-18 0-30-12t-12-30z"
                         ></path>
                       </svg>
-                      <span class="info-text-warehouses">
+                      <span class="info-text-warehouses" id="info-text-warehouse-1">
                         <span contenteditable="true">
                           De klant wil ervoor zorgen dat zijn medewerkers
                         </span>
@@ -2181,7 +2181,7 @@
                     class="sf-calc2-wrapper-div-scenario-warehouse-example-toelichting-2"
                   >
                     <div class="sf-calc2-container12">
-                      <span class="info-text-warehouses">
+                      <span class="info-text-warehouses" id="info-text-warehouse-2">
                         <span contenteditable="true">De klant wil dat het warehouse</span>
                         <span contenteditable="false" id="days-per-week-text-wh-2" class="sf-calc2-text058">7</span>
                         <span contenteditable="true">
@@ -2362,7 +2362,7 @@
                     class="sf-calc2-wrapper-div-scenario-warehouse-example-toelichting-13"
                   >
                     <div class="sf-calc2-container15">
-                      <span class="info-text-warehouses">
+                      <span class="info-text-warehouses" id="info-text-warehouse-3">
                         <span contenteditable="true">
                           De klant wil ervoor zorgen dat zijn medewerkers
                         </span>
@@ -4306,8 +4306,8 @@
                         var totalHoursWarehouse = Math.round(SelectedWarehouseDays * SelectedWarehouseHours * (SelectedWarehouseBezet / 100))
                         var totalCreditsWarehouse = Math.round(SelectedWarehouseNumber * totalHoursWarehouse * (SelectedWarehouseBezet / 100))
 
-                        var warehouseDescription = "placeholder"
-                        <!-- var warehouseDescription = document.getElementById("toelichting-text-wh-" + "activeButtonNr" + "-" + nrOfWarehouses[i]).innerText.trim() -->
+                        // var warehouseDescription = "placeholder"
+                        var warehouseDescription = document.getElementById("info-text-warehouse-" + nrOfWarehouses[i]).innerText.trim()
 
                         var totalCostWarehouse = Math.round((SelectedWarehouseDays * SelectedWarehouseHours * SelectedWarehouseNumber * (SelectedWarehouseBezet / 100)) * document.getElementById(selectedEditionForCalc).value);
                         emptyArray.push([SelectedWarehouseTitle, warehouseDescription, SelectedWarehouseType, SelectedWarehouseDays, SelectedWarehouseHours, SelectedWarehouseBezet, totalHoursWarehouse, totalCreditsWarehouse, totalCostWarehouse]);
