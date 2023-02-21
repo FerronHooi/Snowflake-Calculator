@@ -859,13 +859,14 @@ slidershours.forEach(sliderhours => {
                               }
                       );
 
-                      let activeScenarios = document.querySelectorAll("div[id^='wrapper-scenario-examples-div-']");
+                      let activeScenarios = document.querySelectorAll("div[id^='inside-wrapper-calculation-examples-div-']:not([style*='display: none'])");
+                      console.log(activeScenarios);
                       let activeScenarioNumbers = [];
                       activeScenarios.forEach((scenario) => {
                         activeScenarioNumbers.push(scenario.id.slice(-1));
                       });
 
-                      for (let scenarioNumber = 1; scenarioNumber < activeScenarioNumbers.length+1; scenarioNumber++) {
+                      for (let scenarioNumber = 1; scenarioNumber < activeScenarioNumbers.length; scenarioNumber++) {
 
 
                         document.getElementById(
@@ -4476,7 +4477,7 @@ slidershours.forEach(sliderhours => {
                                         {title: "Occupation /%"},
                                         {title: "Total hours /month"},
                                         {title: "Total credits /month"},
-                                        {title: "Total ($) /month"}
+                                        {title: "Total (" + currency + ") " +  "/month"}
                                     ],
                                     table: Array.from(emptyArray, (item, index) => ([
                                         index + 1,
@@ -4590,7 +4591,7 @@ slidershours.forEach(sliderhours => {
                                         {title: "Occupation /%"},
                                         {title: "Total hours /month"},
                                         {title: "Total credits /month"},
-                                        {title: "Total ($) /month"}
+                                        {title: "Total (" + currency + ") " +  "/month"}
                                     ],
                                     table: Array.from(emptyArray, (item, index) => ([
                                         index + 1,
@@ -4606,7 +4607,7 @@ slidershours.forEach(sliderhours => {
 
                                     additionalRows: [{
                                         col1: 'Total compute:',
-                                        col2: totalCompute + " $",
+                                        col2: totalCompute + " " + currency,
                                         col3: 'ALL',
                                         style: {
                                             fontSize: 14 //optional, default 12
@@ -4614,7 +4615,7 @@ slidershours.forEach(sliderhours => {
                                     },
                                         {
                                             col1: 'Total storage (' + selectedStorage + ', ' + document.getElementById("input-storage-tb-per-month").value + " TB/s month" + '):',
-                                            col2: String(totalStorageCost) + " $",
+                                            col2: String(totalStorageCost) + " " + currency,
                                             col3: 'ALL',
                                             style: {
                                                 fontSize: 10 //optional, default 12
@@ -4622,7 +4623,7 @@ slidershours.forEach(sliderhours => {
                                         },
                                         {
                                             col1: 'SubTotal:',
-                                            col2: String(Number(totalCompute) + Number(totalStorageCost)) + " $",
+                                            col2: String(Number(totalCompute) + Number(totalStorageCost)) + " " + currency,
                                             col3: 'ALL',
                                             style: {
                                                 fontSize: 10 //optional, default 12
