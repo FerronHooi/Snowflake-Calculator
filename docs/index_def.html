@@ -1450,6 +1450,8 @@ fetch('https://v6.exchangerate-api.com/v6/0d80c9460c958eeba6b2f2dc/latest/usd')
                         var allRegionText = document.querySelectorAll(
                             "[id^=regio-text-scenario-]"
                         );
+                                                makeCalculations();
+
 
                         allRegionText.forEach((text) => {
                             document.getElementById(text.id).innerHTML =
