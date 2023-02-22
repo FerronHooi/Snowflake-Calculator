@@ -4067,6 +4067,7 @@ border-bottom: 0.5px solid #c9d3dd;
   }
   .sf-calc2-container03 {
     min-height: 200px;
+    overflow: hidden;
   }
   .sf-calc2-ul {
     padding-left: 3rem;
