@@ -722,6 +722,8 @@ slidershours.forEach(sliderhours => {
                 // on click on the show-me-a-example-button
 
 
+
+
                  $("#show-me-a-example-button").on("click", function (e) {
                                       $("#show-me-a-example-button").hide();
                    $("#inside-wrapper-calculation-examples-div-1, #buttons-examples-1").show();
@@ -1845,8 +1847,33 @@ slidershours.forEach(sliderhours => {
 
                         $("#totale-kosten-div, #contact-button-div, #line-divider-5, #totale-kosten-title-div").show();
 
-                        var selectedEdition =
-                            document.getElementById("select-edition").value;
+                         var selectedEditionIds = ["standard-edition-container", "enterprise-edition-container", "business-critical-edition-container"]
+                    var selectedEdition = [];
+                    var selectedEditionForCalc = [];
+                    var selectedEditionForCalcTotal = [];
+
+                                            selectedEditionIds.forEach(function (element) {
+                            if (document.getElementById(element).style.backgroundColor == "rgb(245, 245, 245)") {
+                                switch (element) {
+                                    case "standard-edition-container":
+                                        selectedEdition = "Standard";
+                                        selectedEditionForCalc = "inputfieldstandard";
+                                        selectedEditionForCalcTotal = "standardeditionamount";
+                                        break;
+                                    case "enterprise-edition-container":
+                                        selectedEdition = "Enterprise";
+                                        selectedEditionForCalc = "inputfieldenterprise";
+                                        selectedEditionForCalcTotal = "enterpriseeditionamount";
+                                        break;
+                                    case "business-critical-edition-container":
+                                        selectedEdition = "Business Critical";
+                                        selectedEditionForCalc = "inputfieldbusinesscritical";
+                                        selectedEditionForCalcTotal = "businesscriticaleditionamount";
+                                        break;
+                                }
+                            }
+                        }
+                    );
                         var selectedEditionUpper = selectedEdition.toUpperCase();
 
                         document.getElementById("selected-edition").innerHTML =
@@ -1890,10 +1917,35 @@ slidershours.forEach(sliderhours => {
 
                         $("#totale-kosten-div, #contact-button-div, #line-divider-5, #totale-kosten-title-div").show();
 
+                                    var selectedEditionIds = ["standard-edition-container", "enterprise-edition-container", "business-critical-edition-container"]
+                    var selectedEdition = [];
+                    var selectedEditionForCalc = [];
+                    var selectedEditionForCalcTotal = [];
 
+                                            selectedEditionIds.forEach(function (element) {
+                            if (document.getElementById(element).style.backgroundColor == "rgb(245, 245, 245)") {
+                                switch (element) {
+                                    case "standard-edition-container":
+                                        selectedEdition = "Standard";
+                                        selectedEditionForCalc = "inputfieldstandard";
+                                        selectedEditionForCalcTotal = "standardeditionamount";
+                                        break;
+                                    case "enterprise-edition-container":
+                                        selectedEdition = "Enterprise";
+                                        selectedEditionForCalc = "inputfieldenterprise";
+                                        selectedEditionForCalcTotal = "enterpriseeditionamount";
+                                        break;
+                                    case "business-critical-edition-container":
+                                        selectedEdition = "Business Critical";
+                                        selectedEditionForCalc = "inputfieldbusinesscritical";
+                                        selectedEditionForCalcTotal = "businesscriticaleditionamount";
+                                        break;
+                                }
+                            }
+                        }
+                    );
 
-                        var selectedEdition =
-                            document.getElementById("select-edition").value;
+                      console.log(selectedEdition);
                         var selectedEditionUpper = selectedEdition.toUpperCase();
 
                         document.getElementById("selected-edition").innerHTML =
