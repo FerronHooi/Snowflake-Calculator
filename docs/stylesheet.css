@@ -5999,7 +5999,7 @@ border: 0.5px solid #c9d3dd;
     border-radius: 15px;
     background-color: #a52025;
   }
-@media(max-width: 1200px) {
+@media(max-width: 1400px) {
   .sf-calc2-snowflake-explanation-div {
     width: 800px;
   }
