@@ -4066,7 +4066,7 @@ border-bottom: 0.5px solid #c9d3dd;
     font-weight: 700;
   }
   .sf-calc2-container03 {
-    height: 175px;
+    min-height: 200px;
   }
   .sf-calc2-ul {
     padding-left: 3rem;
@@ -4103,7 +4103,7 @@ border-bottom: 0.5px solid #c9d3dd;
     font-weight: 700;
   }
   .sf-calc2-container05 {
-    height: 175px;
+    min-height: 200px;
   }
   .sf-calc2-ul1 {
     padding-left: 3rem;
