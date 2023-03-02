@@ -730,26 +730,33 @@ var businessCriticalPrice = (document.getElementById("inputfieldbusinesscritical
                  $("#show-me-a-example-button").on("click", function (e) {
                                       $("#show-me-a-example-button").hide();
                    $("#inside-wrapper-calculation-examples-div-1, #buttons-examples-1").show();
+                   document.getElementById('buttons-examples-1').scrollIntoView({ behavior: 'smooth' });
                  });
 
                                   $("#show-me-example-2").on("click", function (e) {
                    $("#inside-wrapper-calculation-examples-div-2, #buttons-example-2").show();
                    $("#buttons-examples-1").hide();
+                                      document.getElementById('buttons-example-2').scrollIntoView({ behavior: 'smooth' });
                  });
 
                                   $("#show-me-example-3").on("click", function (e) {
                    $("#inside-wrapper-calculation-examples-div-3, #buttons-example-final").show();
                    $("#buttons-example-2").hide();
+                                      document.getElementById('buttons-example-final').scrollIntoView({ behavior: 'smooth' });
+
                  });
 
               $("#show-me-opslagvereisten-1, #show-me-opslagvereisten-2, #show-me-opslagvereisten-3").on("click", function (e) {
                    $("#inside-wrapper-calculation-examples-div-storage, #make-calculation-button-div").show();
                                    $("#buttons-examples-1, #buttons-example-2, #buttons-examples-final, #show-me-opslagvereisten-3").hide();
+                                      document.getElementById('make-calculation-button-div').scrollIntoView({ behavior: 'smooth' });
 
                  });
 
                                                                                                                                         $("#make-calculation-button").on("click", function (e) {
                    $("#line-divider-3, #wrapper-schatting-opslag-div, #line-divider-4, #schatting-per-editie-div").show();
+                                                         document.getElementById('wrapper-schatting-opslag-div').scrollIntoView({ behavior: 'smooth' });
+
                  });
 
 
@@ -1540,6 +1547,7 @@ var businessCriticalPrice = (document.getElementById("inputfieldbusinesscritical
                                  $(
                  "#line-divider-3, #wrapper-schatting-opslag-div, #line-divider-4, #schatting-per-editie-div"
                 ).show();
+                                                                                                                                          document.getElementById('wrapper-schatting-opslag-div').scrollIntoView({ behavior: 'smooth' });
                       } else {
                         // Show the div if the "nee" radio button is selected
                         calcExamplesDiv.style.display = "block";
@@ -1550,6 +1558,7 @@ var businessCriticalPrice = (document.getElementById("inputfieldbusinesscritical
                       if (this.checked) {
                         // Show the div if the "nee" radio button is selected
                         calcExamplesDiv.style.display = "block";
+                                                                                                                                                                  document.getElementById('wrapper-calculation-examples-title-div').scrollIntoView({ behavior: 'smooth' });
                       } else {
                         // Hide the div if the "ja" radio button is selected
                         calcExamplesDiv.style.display = "none";
@@ -1699,6 +1708,7 @@ var businessCriticalPrice = (document.getElementById("inputfieldbusinesscritical
                             "(" + selectedEditionUpper + " EDITIE)";
 
                         $("#storage-costs-div").show();
+                                                                                 document.getElementById('storage-costs-div').scrollIntoView({ behavior: 'smooth' });
                     }
                 );
 
@@ -1755,6 +1765,8 @@ var businessCriticalPrice = (document.getElementById("inputfieldbusinesscritical
                             "(" + selectedEditionUpper + " EDITIE)";
 
                         $("#storage-costs-div").show();
+                                                                                                         document.getElementById('storage-costs-div').scrollIntoView({ behavior: 'smooth' });
+
                     }
                 );
 
@@ -1817,6 +1829,8 @@ var businessCriticalPrice = (document.getElementById("inputfieldbusinesscritical
                             "(" + selectedEditionUpper + " EDITIE)";
 
                         $("#storage-costs-div").show();
+                                                                                                         document.getElementById('storage-costs-div').scrollIntoView({ behavior: 'smooth' });
+
                     }
                 );
 
@@ -1852,6 +1866,8 @@ var businessCriticalPrice = (document.getElementById("inputfieldbusinesscritical
                         $("#capacity-storage-div").css("box-shadow", "0 0 0 0px #e0e0e0");
 
                         $("#totale-kosten-div, #contact-button-div, #line-divider-5, #totale-kosten-title-div").show();
+                                                                                                         document.getElementById('totale-kosten-div').scrollIntoView({ behavior: 'smooth' });
+
 
                          var selectedEditionIds = ["standard-edition-container", "enterprise-edition-container", "business-critical-edition-container"]
                     var selectedEdition = [];
@@ -1922,6 +1938,8 @@ var businessCriticalPrice = (document.getElementById("inputfieldbusinesscritical
                         );
 
                         $("#totale-kosten-div, #contact-button-div, #line-divider-5, #totale-kosten-title-div").show();
+                                                                                                                                 document.getElementById('totale-kosten-div').scrollIntoView({ behavior: 'smooth' });
+
 
                                     var selectedEditionIds = ["standard-edition-container", "enterprise-edition-container", "business-critical-edition-container"]
                     var selectedEdition = [];
