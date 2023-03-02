@@ -106,7 +106,7 @@ sliderspercentages.forEach(sliderpercentage => {
   // Get the corresponding slider value element
   const value = sliderpercentage.nextElementSibling;
 
-  // value.innerHTML = slider.value;
+  // value.innerHTML = sliderpercentage.value;
 
   // Update the text when the slider value changes
   sliderpercentage.oninput = function() {
@@ -122,7 +122,7 @@ slidershours.forEach(sliderhours => {
   // Get the corresponding slider value element
   const value = sliderhours.nextElementSibling;
 
-  // value.innerHTML = slider.value;
+  // value.innerHTML = sliderhours.value;
 
   // Update the text when the slider value changes
   sliderhours.oninput = function() {
@@ -899,6 +899,9 @@ slidershours.forEach(sliderhours => {
                         document.getElementById('warehouse-button-' + scenarioNumber).innerHTML = document.getElementById('heading-scenario-warehouse-' + scenarioNumber).innerHTML;
 
                         document.getElementById('warehouse-title-' + scenarioNumber).innerHTML = document.getElementById('heading-scenario-warehouse-' + scenarioNumber).innerHTML;
+
+                        document.getElementById('slider-value-wh-' + scenarioNumber).innerHTML = document.getElementById('slider-value-' + scenarioNumber).innerHTML;
+
 
                         $("#wh-button-" + scenarioNumber).css("display", "block");
 
@@ -2058,10 +2061,14 @@ input[type="range"]  {
   color: red;
 }
 
-#make-calculation-button:hover,  #hide-examples-button:hover, #show-examples-button:hover {
+#hide-examples-button:hover, #show-examples-button:hover {
   background-color: rgb(165, 32, 37);
   color:white;
-  /*border: 1px solid black;*/
+}
+
+#make-calculation-button:hover {
+  background-color: grey;
+  color:white;
 }
 
 h1, h2, h3, p, li, a, button, input, select, textarea, .editable, span {
@@ -8219,7 +8226,7 @@ border: 0.5px solid #c9d3dd;
             id="show-me-a-example-button"
             class="sf-calc2-button01 button"
           >
-            Laat mij een voorbeeld zien van hoe een klant tot een calculatie is
+            Laat mij een voorbeeld zien van hoe dit bedrijf tot een calculatie is
             gekomen
           </button>
         </div>
@@ -8231,7 +8238,7 @@ border: 0.5px solid #c9d3dd;
             <div class="sf-calc2-container06">
               <span class="sf-calc2-text025">
                 <span contenteditable="true">
-                  Een klant wil overgaan tot het aanschaffen van de Snowflake
+                  Een bedrijf wil overgaan tot het aanschaffen van de Snowflake
                   service op het
                 </span>
                 <span class="sf-calc2-text027" contenteditable="false" id="cloudplatform-text">Amazon Web Services</span>
@@ -8364,7 +8371,7 @@ border: 0.5px solid #c9d3dd;
                       class="sliders input sf-calc2-input01 slider-percentage"
                       value="10"
                     />
-                    <span class="slider-value">10%</span>
+                    <span class="slider-value" id="slider-value-1">10%</span>
                   </div>
                   <div
                     id="wrapper-select-warehouse-size-scenario-warehouse-example-1"
@@ -8526,7 +8533,7 @@ border: 0.5px solid #c9d3dd;
                       class="sliders input sf-calc2-input03 slider-percentage"
                       value="100"
                     />
-                    <span class="slider-value">100%</span>
+                    <span class="slider-value" id="slider-value-2">100%</span>
                   </div>
                   <div
                     id="wrapper-select-warehouse-size-scenario-warehouse-example-2"
@@ -8676,7 +8683,7 @@ border: 0.5px solid #c9d3dd;
                       class="sliders input sf-calc2-input05 slider-percentage"
                       value="10"
                     />
-                    <span class="slider-value">10%</span>
+                    <span class="slider-value" id="slider-value-3">10%</span>
                   </div>
                   <div
                     id="wrapper-select-warehouse-size-scenario-warehouse-example-3"
@@ -8820,7 +8827,7 @@ border: 0.5px solid #c9d3dd;
               id="make-calculation-button"
               class="button sf-calc2-button07"
             >
-              Klik hier om de geschatte kosten te berekenen voor deze klant
+              Klik hier om de geschatte kosten te berekenen voor dit bedrijf
             </button>
           </div>
         </div>
@@ -9114,7 +9121,7 @@ border: 0.5px solid #c9d3dd;
                 </span>
 <div class="slider-container">
   <input type="range" id="percentage-bezetting-1" max="100" min="0" step="4" value="50" class="sf-calc2-input09 input slider-percentage" />
-  <div class="slider-value-wh">50%</div>
+  <div class="slider-value-wh" id="slider-value-wh-1">50%</div>
 </div>
               </div>
             </div>
@@ -9304,7 +9311,7 @@ border: 0.5px solid #c9d3dd;
 
 <div class="slider-container">
   <input type="range" id="percentage-bezetting-2" max="100" min="0" step="4" value="50" class="sf-calc2-input09 input slider-percentage" />
-  <div class="slider-value-wh">50%</div>
+  <div class="slider-value-wh" id="slider-value-wh-2">50%</div>
 </div>
 
               </div>
@@ -9494,7 +9501,7 @@ border: 0.5px solid #c9d3dd;
                 </span>
               <div class="slider-container">
   <input type="range" id="percentage-bezetting-3" max="100" min="0" step="4" value="50%" class="sf-calc2-input09 input slider-percentage" />
-  <div class="slider-value-wh">50%</div>
+  <div class="slider-value-wh" id="slider-value-wh-3">50%</div>
 </div>
 
               </div>
