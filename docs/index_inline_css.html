@@ -73,7 +73,7 @@
 fetch('https://v6.exchangerate-api.com/v6/0d80c9460c958eeba6b2f2dc/latest/usd')
   .then(res => res.json())
   .then(data => {
-    usd_to_eur = data["conversion_rates"]["EUR"];
+    usd_to_eur = Number(data["conversion_rates"]["EUR"].toFixed(2));
    })
   .then(() => {
     console.log(usd_to_eur);
@@ -307,20 +307,22 @@ slidershours.forEach(sliderhours => {
 
                                       if (currentCurrency == "eur") {
                                                             var standardPrice = (document.getElementById("inputfieldstandard").value =
-                        platforms[currentPlatform][currentRegion]["tier"]["standard"][
-                            "usd"
-                            ] * usd_to_eur);
-                    var enterprisePrice = (document.getElementById("inputfieldenterprise").value =
-                        platforms[currentPlatform][currentRegion]["tier"]["enterprise"][
-                            "usd"
-                            ] * usd_to_eur);
+  (platforms[currentPlatform][currentRegion]["tier"]["standard"]["usd"] * usd_to_eur).toFixed(2)
+);
+var enterprisePrice = (document.getElementById("inputfieldenterprise").value =
+  (platforms[currentPlatform][currentRegion]["tier"]["enterprise"]["usd"] * usd_to_eur).toFixed(2)
+);
+
+var businessCriticalPrice = (document.getElementById("inputfieldbusinesscritical").value =
+  (platforms[currentPlatform][currentRegion]["tier"]["business-critical"]["usd"] * usd_to_eur).toFixed(2)
+);
 
                     var businessCritcalPrice = (document.getElementById(
                         "inputfieldbusinesscritical"
                     ).value =
                         platforms[currentPlatform][currentRegion]["tier"]["business-critical"][
                             "usd"
-                            ] * usd_to_eur);
+                            ] * usd_to_eur).toFixed(2);
                                       }
                                       else if (currentCurrency == "usd") {
                                                             var standardPrice = (document.getElementById("inputfieldstandard").value =
