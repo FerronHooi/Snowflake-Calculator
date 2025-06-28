@@ -13,6 +13,7 @@ import hashlib
 import hmac
 import base64
 import urllib3
+from . import config
 
 
 
@@ -31,7 +32,7 @@ regionList = []
 # scrape the https://www.snowflake.com/pricing/ page for the storage costs
 
 try:
-    url = requests.get('https://www.snowflake.com/pricing/', headers={'User-Agent': 'Mozilla/5.0'})
+    url = requests.get(config.SNOWFLAKE_PRICING_URL, headers={'User-Agent': config.USER_AGENT})
 
     # if str(url) == "<Response [404]>":
     #     print("404 error")
@@ -148,7 +149,7 @@ except Exception as e:
 
 # PRICES
 try:
-    url = requests.get('https://www.snowflake.com/pricing/', headers={'User-Agent': 'Mozilla/5.0'})
+    url = requests.get(config.SNOWFLAKE_PRICING_URL, headers={'User-Agent': config.USER_AGENT})
     soup = BeautifulSoup(url.text, 'html.parser')
 
     #empty dict
@@ -275,39 +276,39 @@ def post_data(customer_id, shared_key, body, log_type):
     else:
         logging.error("Unable to Write: " + format(response.status_code))
 
-azure_log_customer_id = '471ef5ef-b0e4-42f2-80ae-aaba17c0405b'
-azure_log_shared_key =  'QDc9toRWv2HrjLNhYcrACGs6yw8IGFCo0cKr6lwjRneC0c4B8CnaciszbMeKfyixsUQplAKi1/E42CCtZ8zRIA=='
-
-table_name = 'snowflake_scraper_monitor'
+# Get configuration from environment variables
+azure_log_customer_id = config.LOG_ANALYTICS_WORKSPACE_ID
+azure_log_shared_key = config.LOG_ANALYTICS_SHARED_KEY
+table_name = config.TABLE_NAME
 
 # THIS PART IS ERROR HANDLING. 144 IS THE ORIGNAL NUMBER OF ITEMS IN LISTOFPRICESSTORAGE, 102 FOR LISTOFPRICES. 206 IN TOTAL
 # IF THE NUMBER OF ITEMS IS LOWER OR HIGHER THAN 206, DATA IS NOT UPDATED.
 # PLEASE CHECK THE OUTCOME OF THE SCRAPE AND UPDATE THE NUMBER OF TOTAL ITEMS IN THE LIST, IF IT STILL WORKING ACCORDINGLY
 
-if len(listOfPricesStorage) >= 144:
+if len(listOfPricesStorage) >= config.MIN_STORAGE_ITEMS:
     print('Storage costs successfully scraped')
 else:
-    print(f'Storage costs might NOT successfully scraped, there might be some changes. The original counts was 144, now it is: {len(listOfPricesStorage)}')
+    print(f'Storage costs might NOT successfully scraped, there might be some changes. The original counts was {config.MIN_STORAGE_ITEMS}, now it is: {len(listOfPricesStorage)}')
 
-if len(listOfPrices) >= 102:
+if len(listOfPrices) >= config.MIN_PRICE_ITEMS:
     print('Prices successfully scraped')
 else:
-    print(f'Prices might NOT successfully scraped, there might be some changes. The original counts was 102, now it is: {len(listOfPrices)}')
+    print(f'Prices might NOT successfully scraped, there might be some changes. The original counts was {config.MIN_PRICE_ITEMS}, now it is: {len(listOfPrices)}')
 
 # DATA IS ONLY UPDATED IN THE BLOB STORAGE WHEN THE NUMBER OF ITEMS IN THE LIST IS 206
-if len(lst) >= 246:
+if len(lst) >= config.MIN_TOTAL_ITEMS:
     lengthList = len(lst)
     status = (f'Data succesfully scraped, there are {lengthList} items in the list')
     try:
-        connect_str = "DefaultEndpointsProtocol=https;AccountName=snowflakecalculatordata;AccountKey=2QlRyOr9e9UQagpZGxzKam3lp4vpU+pokDKDdqt63EgbGP5dCrWQhVKaqGCZJRHd8whE4nBl1meV+ASt5nncdA==;EndpointSuffix=core.windows.net"
+        connect_str = config.AZURE_STORAGE_CONNECTION_STRING
         print("Azure Blob Storage v" + __version__ + " - Python quickstart sample")
 
         # Create the BlobServiceClient object which will be used to create a container client
         blob_service_client = BlobServiceClient.from_connection_string(connect_str)
 
-        # Create a unique name for the container
-        container_name = "snowflakedata"
-        blob_name = "SnowflakeCloudData.json"
+        # Get container and blob names from config
+        container_name = config.CONTAINER_NAME
+        blob_name = config.BLOB_NAME
 
         # Create a blob client using the local file name as the name for the blob
         blob_client = blob_service_client.get_blob_client(
@@ -339,7 +340,7 @@ if len(lst) >= 246:
         logging.error("Unable to send data to Azure Log")
         logging.error(error)
 else:
-    status = (f'Data might NOT successfully scraped, there might be some changes. The original count was 246, now it is: {len(lst)}')
+    status = (f'Data might NOT successfully scraped, there might be some changes. The original count was {config.MIN_TOTAL_ITEMS}, now it is: {len(lst)}')
     data = {
         "status": "error",
         "full_status": status,

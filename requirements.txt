@@ -1,0 +1,12 @@
+# Azure Functions
+azure-functions==1.17.0
+
+# Web scraping
+beautifulsoup4==4.12.2
+requests==2.31.0
+
+# Azure Storage
+azure-storage-blob==12.19.0
+
+# Other dependencies
+urllib3==2.1.0
